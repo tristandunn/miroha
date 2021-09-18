@@ -1,0 +1,1 @@
+afterEach(global.createDOM);

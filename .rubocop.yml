@@ -1,0 +1,71 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  CacheRootDirectory: "tmp/rubocop_cache"
+  Exclude:
+    - "bin/bundle"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+  NewCops: enable
+
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/*.rb
+    - config/routes.rb
+    - spec/**/*.rb
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: true
+  PreferredName: error
+
+Rails:
+  Enabled: true
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/ImplicitSubject:
+  EnforcedStyle: single_line_only
+
+Style/Documentation:
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: true
+  Exclude:
+    - "db/**/*"
+    - "spec/**/*"
+  RequireForNonPublicMethods: true
+
+Style/ExpandPathArguments:
+  Enabled: true
+  Exclude:
+    - bin/*
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%i": "()"
+    "%w": "()"
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes

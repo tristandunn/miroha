@@ -1,0 +1,9 @@
+!.ruby-version
+!Procfile.dev
+
+coverage/
+log/
+node_modules/
+public/packs-test/
+public/packs/
+tmp/

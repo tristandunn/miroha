@@ -1,0 +1,7 @@
+# See https://git-scm.com/docs/gitattributes for more about git
+# attribute files.
+
+Gemfile.lock linguist-generated=true
+db/schema.rb linguist-generated=true
+vendor/* linguist-vendored=true
+yarn.lock linguist-generated=true
