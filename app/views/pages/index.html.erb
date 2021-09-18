@@ -2,4 +2,10 @@
   <header>
     <h1 class="text-4xl font-bold tracking-tight"><%= t("title") %></h1>
   </header>
+
+  <% if signed_out? %>
+    <section>
+      <%= link_to t(".new_account"), new_account_path, class: "block w-1/4 py-4 mx-auto mt-6 text-sm font-semibold text-white bg-green-600 rounded-lg hover:bg-green-500 md:mt-12 md:text-xl" %>
+    </section>
+  <% end %>
 </main>

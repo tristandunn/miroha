@@ -1,0 +1,50 @@
+# frozen_string_literal: true
+
+class Account < ApplicationRecord
+  EMAIL_MATCHER           = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
+  MAXIMUM_EMAIL_LENGTH    = 255
+  MINIMUM_PASSWORD_LENGTH = 8
+
+  attr_reader :password
+
+  validates :email, presence:   true,
+                    length:     { maximum: MAXIMUM_EMAIL_LENGTH },
+                    format:     { with: EMAIL_MATCHER },
+                    uniqueness: { case_sensitive: false }
+
+  validates :password, presence: true,
+                       length:   { minimum: MINIMUM_PASSWORD_LENGTH },
+                       if:       :password_required?
+
+  before_validation :format_attributes
+
+  # Assign the provided password and create a digest when present.
+  #
+  # @return [void]
+  def password=(password)
+    @password = password
+
+    self.password_digest = if password.present?
+                             BCrypt::Password.create(password)
+                           end
+  end
+
+  protected
+
+  # Format attributes to be consistent.
+  #
+  # * Lowercase and strip the e-mail address.
+  #
+  # @return [void]
+  def format_attributes
+    self.email = email.to_s.strip.downcase
+  end
+
+  # If the password digest is missing or a new password is present then the
+  # password requires validation.
+  #
+  # @return [Boolean]
+  def password_required?
+    password_digest.blank? || password.present?
+  end
+end

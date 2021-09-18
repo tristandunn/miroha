@@ -9,7 +9,31 @@ describe "pages/index.html.erb", type: :view do
     rendered
   end
 
+  before do
+    without_partial_double_verification do
+      allow(view).to receive(:signed_out?).and_return(true)
+    end
+  end
+
   it "renders the header" do
     expect(html).to have_css("h1", text: t("title"))
+  end
+
+  it "links to the new account path" do
+    expect(html).to have_css(%(a[href="#{new_account_path}"]),
+                             text: t("pages.index.new_account"))
+  end
+
+  context "when signed in" do
+    before do
+      without_partial_double_verification do
+        allow(view).to receive(:signed_out?).and_return(false)
+      end
+    end
+
+    it "does not link to the new account path" do
+      expect(html).not_to have_css(%(a[href="#{new_account_path}"]),
+                                   text: t("pages.index.new_account"))
+    end
   end
 end

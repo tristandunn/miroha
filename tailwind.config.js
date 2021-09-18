@@ -8,6 +8,8 @@ module.exports = {
     "standardFontWeights": true
   },
 
+  "plugins": [require("@tailwindcss/custom-forms")],
+
   "purge": {
     "content": [
       "./app/assets/javascripts/**/*.js",
