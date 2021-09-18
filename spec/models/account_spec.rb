@@ -1,0 +1,64 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+describe Account, type: :model do
+  subject(:account) { create(:account) }
+
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+  it { is_expected.to allow_value("MrBoB@example.com").for(:email) }
+  it { is_expected.not_to allow_value("@.com").for(:email) }
+
+  it { is_expected.to validate_presence_of(:password).on(:update) }
+
+  it do
+    expect(account).to validate_length_of(:email)
+      .is_at_most(described_class::MAXIMUM_EMAIL_LENGTH)
+  end
+
+  it do
+    expect(account).to validate_length_of(:password)
+      .is_at_least(described_class::MINIMUM_PASSWORD_LENGTH)
+  end
+
+  describe "#format_attributes" do
+    subject(:account) { create(:account, email: "  AN@EXAMPLE.COM  ") }
+
+    it "downcases and strips e-mail" do
+      expect(account.email).to eq("an@example.com")
+    end
+  end
+
+  describe "#password=" do
+    subject(:account) { build(:account) }
+
+    let(:plain_text_password) { generate(:password) }
+
+    before do
+      allow(BCrypt::Password).to receive(:create)
+      allow(BCrypt::Password).to receive(:create)
+        .with(plain_text_password).and_return("hash")
+    end
+
+    it "assigns unencrypted password to password" do
+      account.password = plain_text_password
+
+      expect(account.password).to eq(plain_text_password)
+    end
+
+    it "assigns hashed password to password digest" do
+      account.password = plain_text_password
+
+      expect(account.password_digest).to eq(
+        BCrypt::Password.create(plain_text_password)
+      )
+    end
+
+    it "removes password digest when assigned nil" do
+      account.password = nil
+
+      expect(account.password_digest).to be_nil
+    end
+  end
+end

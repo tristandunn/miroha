@@ -1,2 +1,29 @@
 en:
-   title: "Miroha"
+  title: "Miroha"
+
+  accounts:
+    new:
+      header: "Create an Account"
+      placeholder: "you@example.com"
+      submit: "Create Your Account"
+
+  activemodel:
+    attributes:
+      account_form:
+        email: "E-mail Address"
+        password: "Password"
+
+  activerecord:
+    attributes:
+      account:
+        email: "E-mail Address"
+        password: "Password"
+
+  characters:
+    index:
+      empty: "You don't have any characters."
+      header: "Select a Character"
+
+  pages:
+    index:
+      new_account: "Create an Account"
