@@ -73,9 +73,6 @@ GEM
     bullet (6.1.5)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
-    bundler-audit (0.9.0.1)
-      bundler (>= 1.2.0, < 3)
-      thor (~> 1.0)
     cacheflow (0.1.1)
       activesupport
     capybara (3.35.3)
@@ -295,7 +292,6 @@ DEPENDENCIES
   bootsnap (= 1.9.0)
   brakeman (= 5.1.1)
   bullet (= 6.1.5)
-  bundler-audit (= 0.9.0.1)
   cacheflow (= 0.1.1)
   capybara (= 3.35.3)
   climate_control (= 1.0.1)
