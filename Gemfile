@@ -25,8 +25,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "brakeman",            "5.1.1",   require: false
-  gem "bundler-audit",       "0.9.0.1", require: false
+  gem "brakeman",            "5.1.1", require: false
   gem "listen",              "3.7.0"
   gem "rubocop",             "1.21.0", require: false
   gem "rubocop-performance", "1.11.5", require: false
