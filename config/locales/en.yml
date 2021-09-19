@@ -34,6 +34,7 @@ en:
     index:
       empty: "You don't have any characters."
       header: "Select a Character"
+      sign_out: "Sign Out"
 
   pages:
     index:

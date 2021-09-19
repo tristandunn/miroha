@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  before_action :redirect_authenticated_account, if: :signed_in?
+  before_action :redirect_authenticated_account,
+                except: :destroy,
+                if:     :signed_in?
 
   # Display the session form.
   def new
@@ -21,6 +23,13 @@ class SessionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  # Sign out the current account and redirect to the root.
+  def destroy
+    self.current_account = nil
+
+    redirect_to root_url
   end
 
   protected

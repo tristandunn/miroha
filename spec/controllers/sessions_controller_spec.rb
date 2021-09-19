@@ -81,4 +81,18 @@ describe SessionsController, type: :controller do
       it { is_expected.to redirect_to(characters_url) }
     end
   end
+
+  describe "#destroy" do
+    before do
+      sign_in
+
+      delete :destroy
+    end
+
+    it { is_expected.to redirect_to(root_url) }
+
+    it "removes the account ID from the session" do
+      expect(session[:account_id]).to be_nil
+    end
+  end
 end

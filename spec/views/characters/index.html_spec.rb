@@ -16,4 +16,10 @@ describe "characters/index.html.erb", type: :view do
   it "renders the empty message" do
     expect(html).to have_css("p", text: t("characters.index.empty"))
   end
+
+  it "renders a sign out button" do
+    expect(html).to have_css(
+      %(form[action="#{sessions_path}"][method="post"] button[type="submit"])
+    )
+  end
 end
