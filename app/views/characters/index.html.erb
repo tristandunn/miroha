@@ -5,5 +5,9 @@
     </div>
 
     <p class="text-center"><%= t(".empty") %></p>
+
+    <%= form_tag sessions_path, class: "mt-8", method: :delete do %>
+      <button type="submit" class="block mx-auto text-sm text-gray-600 cursor-pointer hover:underline"><%= t(".sign_out") %></button>
+    <% end %>
   </div>
 </main>
