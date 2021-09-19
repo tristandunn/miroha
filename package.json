@@ -2,6 +2,7 @@
   "name": "miroha",
   "private": true,
   "scripts": {
+    "fix:html": "rustywind --write app/views",
     "lint": "eslint app config spec/javascripts *.js",
     "lint:css": "stylelint app/assets/stylesheets/**/*.scss",
     "test": "NODE_ENV=test NODE_PATH=app/assets/javascripts mocha --config spec/javascripts/mocharc.js spec/javascripts",
@@ -34,6 +35,7 @@
     "mocha": "9.1.1",
     "mocha-yaml-loader": "1.0.3",
     "nyc": "15.1.0",
+    "rustywind": "0.12.2",
     "sinon": "11.1.2",
     "sinon-chai": "3.7.0",
     "stylelint": "13.13.1",
