@@ -24,6 +24,11 @@ describe "pages/index.html.erb", type: :view do
                              text: t("pages.index.new_account"))
   end
 
+  it "links to the new session path" do
+    expect(html).to have_css(%(a[href="#{new_sessions_path}"]),
+                             text: t("pages.index.sign_in"))
+  end
+
   context "when signed in" do
     before do
       without_partial_double_verification do
@@ -34,6 +39,11 @@ describe "pages/index.html.erb", type: :view do
     it "does not link to the new account path" do
       expect(html).not_to have_css(%(a[href="#{new_account_path}"]),
                                    text: t("pages.index.new_account"))
+    end
+
+    it "does not link to the new session path" do
+      expect(html).not_to have_css(%(a[href="#{new_sessions_path}"]),
+                                   text: t("pages.index.sign_in"))
     end
   end
 end

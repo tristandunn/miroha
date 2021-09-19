@@ -12,6 +12,17 @@ en:
       account_form:
         email: "E-mail Address"
         password: "Password"
+      session_form:
+        email: "E-mail Address"
+        password: "Password"
+    errors:
+      models:
+        session_form:
+          attributes:
+            email:
+              unknown: "is unknown"
+            password:
+              incorrect: "is incorrect"
 
   activerecord:
     attributes:
@@ -26,4 +37,12 @@ en:
 
   pages:
     index:
+      existing_account: "Already have an account?"
       new_account: "Create an Account"
+      sign_in: "Sign In"
+
+  sessions:
+    new:
+      header: "Welcome back!"
+      placeholder: "you@example.com"
+      submit: "Sign In"
