@@ -8,4 +8,8 @@ describe ApplicationController, type: :controller do
   it "includes the authentication helpers" do
     expect(described_class).to include(Authentication)
   end
+
+  it "includes the basic authentication helpers" do
+    expect(described_class).to include(BasicAuthentication)
+  end
 end

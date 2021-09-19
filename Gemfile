@@ -37,6 +37,7 @@ end
 
 group :test do
   gem "capybara",                 "3.35.3"
+  gem "climate_control",          "1.0.1"
   gem "database_cleaner",         "2.0.1"
   gem "factory_bot_rails",        "6.2.0"
   gem "faker",                    "2.19.0"
