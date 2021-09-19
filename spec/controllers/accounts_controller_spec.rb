@@ -47,7 +47,7 @@ describe AccountsController, type: :controller do
       end
 
       it { is_expected.to set_session[:account_id].to(account.id) }
-      it { is_expected.to redirect_to(characters_url) }
+      it { is_expected.to redirect_to(new_character_url) }
 
       it "creates an account" do
         expect(account).to be_an(Account).and(be_persisted)

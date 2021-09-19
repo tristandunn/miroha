@@ -4,10 +4,25 @@
       <h1 class="text-3xl font-bold text-gray-700"><%= t(".header") %></h1>
     </div>
 
-    <p class="text-center"><%= t(".empty") %></p>
+    <% if @characters.any? %>
+      <ul id="characters" class="m-auto w-3/4">
+        <% @characters.each do |character| %>
+          <li class="block p-4 font-semibold text-left bg-gray-100 rounded-lg border border-gray-200 cursor-pointer hover:bg-green-100 hover:border-green-400">
+            <%= character.name %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-center">
+        <%= t(".empty") %>
+        <%= link_to t(".new_character"), new_character_path, class: "underline" %>
+      </p>
+    <% end %>
 
     <%= form_tag sessions_path, class: "mt-8", method: :delete do %>
-      <button type="submit" class="block mx-auto text-sm text-gray-600 cursor-pointer hover:underline"><%= t(".sign_out") %></button>
+      <button type="submit" class="block mx-auto text-sm text-gray-600 cursor-pointer hover:underline">
+        <%= t(".sign_out") %>
+      </button>
     <% end %>
   </div>
 </main>

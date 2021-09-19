@@ -15,7 +15,7 @@ class AccountsController < ApplicationController
     if @form.save
       self.current_account = @form.account
 
-      redirect_to characters_url
+      redirect_to new_character_url
     else
       render :new
     end

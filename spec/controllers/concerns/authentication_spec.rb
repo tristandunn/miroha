@@ -27,17 +27,17 @@ describe Authentication do
   end
 
   describe "#access_denied" do
-    let(:root_url) { double }
+    let(:new_sessions_url) { double }
 
     before do
       allow(instance).to receive(:redirect_to)
-      allow(instance).to receive(:root_url).and_return(root_url)
+      allow(instance).to receive(:new_sessions_url).and_return(new_sessions_url)
     end
 
-    it "redirects to root_url" do
+    it "redirects to new_sessions_url" do
       instance.send(:access_denied)
 
-      expect(instance).to have_received(:redirect_to).with(root_url)
+      expect(instance).to have_received(:redirect_to).with(new_sessions_url)
     end
   end
 

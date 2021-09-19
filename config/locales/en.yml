@@ -12,6 +12,8 @@ en:
       account_form:
         email: "E-mail Address"
         password: "Password"
+      character_form:
+        name: "Name"
       session_form:
         email: "E-mail Address"
         password: "Password"
@@ -34,7 +36,12 @@ en:
     index:
       empty: "You don't have any characters."
       header: "Select a Character"
+      new_character: "Create a character!"
       sign_out: "Sign Out"
+    new:
+      header: "Create a Character"
+      placeholder: "Yinohoo"
+      submit: "Create Your Character"
 
   pages:
     index:
