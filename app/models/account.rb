@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
+  CHARACTER_LIMIT         = 1
   EMAIL_MATCHER           = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
   MAXIMUM_EMAIL_LENGTH    = 255
   MINIMUM_PASSWORD_LENGTH = 8
 
   attr_reader :password
+
+  has_many :characters, dependent: :destroy
 
   validates :email, presence:   true,
                     length:     { maximum: MAXIMUM_EMAIL_LENGTH },
@@ -17,6 +20,13 @@ class Account < ApplicationRecord
                        if:       :password_required?
 
   before_validation :format_attributes
+
+  # Determine if an account can create a character.
+  #
+  # @return [Boolean]
+  def can_create_character?
+    characters.size < CHARACTER_LIMIT
+  end
 
   # Assign the provided password and create a digest when present.
   #

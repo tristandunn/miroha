@@ -13,7 +13,7 @@ module Authentication
   #
   # @return [void]
   def access_denied
-    redirect_to root_url
+    redirect_to new_sessions_url
   end
 
   # Attempt to find an account from the account ID in the session.

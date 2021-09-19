@@ -14,7 +14,7 @@ describe "Creating a new account", type: :feature do
       password: generate(:password)
     )
 
-    expect(page).to have_text(t("characters.index.empty"))
+    expect(page).to have_css("#new_character_form")
   end
 
   it "with an invalid e-mail" do

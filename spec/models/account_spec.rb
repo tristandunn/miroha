@@ -5,6 +5,8 @@ require "rails_helper"
 describe Account, type: :model do
   subject(:account) { create(:account) }
 
+  it { is_expected.to have_many(:characters).dependent(:destroy) }
+
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to allow_value("MrBoB@example.com").for(:email) }
@@ -20,6 +22,24 @@ describe Account, type: :model do
   it do
     expect(account).to validate_length_of(:password)
       .is_at_least(described_class::MINIMUM_PASSWORD_LENGTH)
+  end
+
+  describe "#can_create_character?" do
+    subject { account.can_create_character? }
+
+    let(:account) { create(:account) }
+
+    context "with no characters" do
+      it { is_expected.to eq(true) }
+    end
+
+    context "with characters at the limit" do
+      before do
+        create_list(:character, described_class::CHARACTER_LIMIT, account: account)
+      end
+
+      it { is_expected.to eq(false) }
+    end
   end
 
   describe "#format_attributes" do
