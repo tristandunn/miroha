@@ -19,6 +19,10 @@ module.exports = {
   },
 
   "theme": {
+    "extend": {
+      "boxShadow": require("./app/assets/javascripts/tailwind/box_shadow")
+    },
+
     "fontFamily": {
       "sans": ["Inter", ...fontFamily.sans]
     }
