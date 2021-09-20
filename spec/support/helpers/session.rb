@@ -8,8 +8,13 @@ module RSpec
           sign_in_as create(:account)
         end
 
-        def sign_in_as(account)
-          session[:account_id] = account.id
+        def sign_in_as(record)
+          if record.is_a?(Character)
+            session[:account_id]   = record.account_id
+            session[:character_id] = record.id
+          else
+            session[:account_id] = record.id
+          end
         end
       end
 

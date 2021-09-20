@@ -43,6 +43,16 @@ en:
       placeholder: "Yinohoo"
       submit: "Create Your Character"
 
+  game:
+    sidebar:
+      character:
+        experience: "You need %{remaining} more experience to level up."
+        level: "Level %{level}"
+      navigation:
+        menu:
+          equipment: "Equipment"
+          exit: "Exit the game."
+
   pages:
     index:
       existing_account: "Already have an account?"

@@ -92,7 +92,8 @@ describe CharactersController, type: :controller do
         }
       end
 
-      it { is_expected.to redirect_to(characters_url) }
+      it { is_expected.to set_session[:character_id].to(character.id) }
+      it { is_expected.to redirect_to(root_url) }
 
       it "creates a character" do
         expect(character).to be_an(Character).and(be_persisted)
@@ -119,7 +120,7 @@ describe CharactersController, type: :controller do
       end
     end
 
-    context "when signed out", type: :controller do
+    context "when signed out" do
       before do
         post :create
       end
@@ -139,6 +140,43 @@ describe CharactersController, type: :controller do
       end
 
       it { is_expected.to redirect_to(characters_url) }
+    end
+  end
+
+  describe "#select" do
+    context "when selected successfully" do
+      let(:account)   { character.account }
+      let(:character) { create(:character) }
+
+      before do
+        sign_in_as account
+
+        post :select, params: { id: character.id }
+      end
+
+      it { is_expected.to set_session[:character_id].to(character.id) }
+      it { is_expected.to redirect_to(root_url) }
+    end
+
+    context "when not selected successfully" do
+      let(:account) { create(:account) }
+
+      before do
+        sign_in_as account
+
+        post :select, params: { id: 1 }
+      end
+
+      it { is_expected.not_to set_session[:character_id] }
+      it { is_expected.to redirect_to(characters_url) }
+    end
+
+    context "when signed out" do
+      before do
+        post :select, params: { id: 1 }
+      end
+
+      it { is_expected.to redirect_to(new_sessions_url) }
     end
   end
 end

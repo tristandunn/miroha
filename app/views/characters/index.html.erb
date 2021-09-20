@@ -7,8 +7,8 @@
     <% if @characters.any? %>
       <ul id="characters" class="m-auto w-3/4">
         <% @characters.each do |character| %>
-          <li class="block p-4 font-semibold text-left bg-gray-100 rounded-lg border border-gray-200 cursor-pointer hover:bg-green-100 hover:border-green-400">
-            <%= character.name %>
+          <li>
+            <%= button_to character.name, select_character_path(character), class: "block p-4 w-full font-semibold text-left bg-gray-100 rounded-lg border border-gray-200 cursor-pointer hover:bg-green-100 hover:border-green-400" %>
           </li>
         <% end %>
       </ul>

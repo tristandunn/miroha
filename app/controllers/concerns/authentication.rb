@@ -5,6 +5,7 @@ module Authentication
 
   included do
     helper_method :current_account,
+                  :current_character,
                   :signed_in?,
                   :signed_out?
   end
@@ -22,6 +23,15 @@ module Authentication
   def account_from_session
     if session[:account_id].present?
       Account.find_by(id: session[:account_id])
+    end
+  end
+
+  # Attempt to find a character from the character ID in the session.
+  #
+  # @return [Character, nil]
+  def character_from_session
+    if session[:character_id].present?
+      Character.find_by(id: session[:character_id])
     end
   end
 
@@ -50,6 +60,33 @@ module Authentication
   def current_account=(account)
     @current_account     = account
     session[:account_id] = account&.id
+  end
+
+  # Return the current character, if any.
+  #
+  # @return [Character, nil]
+  def current_character
+    if defined?(@current_character)
+      @current_character
+    else
+      @current_character = character_from_session
+    end
+  end
+
+  # Assign the current character.
+  #
+  # @param character [Character, nil]
+  # @return [void]
+  def current_character=(character)
+    @current_character     = character
+    session[:character_id] = character&.id
+  end
+
+  # Determine if a current character is selected.
+  #
+  # @return [Boolean]
+  def current_character?
+    current_character.present?
   end
 
   # Determine if an account is signed in.

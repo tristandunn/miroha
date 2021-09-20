@@ -19,9 +19,24 @@ class CharactersController < ApplicationController
     @form = CharacterForm.new(character_parameters)
 
     if @form.save
-      redirect_to characters_url
+      self.current_character = @form.character
+
+      redirect_to root_url
     else
       render :new
+    end
+  end
+
+  # Select a character.
+  def select
+    character = current_account.characters.find_by(id: params[:id])
+
+    if character.present?
+      self.current_character = character
+
+      redirect_to root_url
+    else
+      redirect_to characters_url
     end
   end
 

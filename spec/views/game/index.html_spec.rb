@@ -1,0 +1,31 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+describe "game/index.html.erb", type: :view do
+  subject(:html) do
+    render template: "game/index"
+
+    rendered
+  end
+
+  before do
+    stub_template(
+      "game/_chat.html.erb"         => "<p>Chat</p>",
+      "game/_sidebar.html.erb"      => "<p>Sidebar</p>",
+      "game/_surroundings.html.erb" => "<p>Surroundings</p>"
+    )
+  end
+
+  it "renders the sidebar" do
+    expect(html).to have_css("#container p", text: "Sidebar")
+  end
+
+  it "renders the chat" do
+    expect(html).to have_css("#container p", text: "Chat")
+  end
+
+  it "renders the surroundings" do
+    expect(html).to have_css("#container p", text: "Surroundings")
+  end
+end
