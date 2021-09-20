@@ -2,6 +2,26 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+#container {
+  grid-template-columns: 20rem minmax(28rem, auto) minmax(20rem, 16vw);
+}
+
+#sidebar {
+  grid-template-rows: 0.25rem max-content auto;
+}
+
+#navigation {
+  grid-template-columns: 64px auto;
+}
+
+#chat {
+  grid-template-rows: auto max-content;
+
+  table {
+    @apply w-full;
+  }
+}
+
 .highlight-errors {
   .field_with_errors {
     input {

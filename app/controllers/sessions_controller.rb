@@ -27,7 +27,8 @@ class SessionsController < ApplicationController
 
   # Sign out the current account and redirect to the root.
   def destroy
-    self.current_account = nil
+    self.current_account   = nil
+    self.current_character = nil
 
     redirect_to root_url
   end

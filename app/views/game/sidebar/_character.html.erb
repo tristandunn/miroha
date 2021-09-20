@@ -1,0 +1,24 @@
+<div class="relative h-1 bg-yellow-900" title="<%= t(".experience", remaining: 7) %>">
+  <div class="absolute inset-0 h-full bg-yellow-600" style="width: 33%;"></div>
+</div>
+
+<div class="p-4 bg-gray-900">
+  <div>
+    <h1 class="float-left text-xl font-medium leading-none text-gray-300">
+      <%= current_character.name %>
+    </h1>
+    <h2 class="float-right mt-1 text-sm leading-none text-gray-500">
+      <%= t(".level", level: 1) %>
+    </h2>
+  </div>
+
+  <div class="clear-both py-2">
+    <div class="float-left relative h-2 bg-red-900 rounded" title="8 / 10" style="width: 45%">
+      <div class="absolute inset-0 h-full bg-red-700 rounded" style="width: 80%;"></div>
+    </div>
+
+    <div class="float-right relative h-2 bg-blue-900 rounded" title="6 / 10" style="width: 45%">
+      <div class="absolute inset-0 h-full bg-blue-700 rounded" style="width: 60%;"></div>
+    </div>
+  </div>
+</div>

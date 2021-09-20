@@ -83,8 +83,10 @@ describe SessionsController, type: :controller do
   end
 
   describe "#destroy" do
+    let(:character) { create(:character) }
+
     before do
-      sign_in
+      sign_in_as character
 
       delete :destroy
     end
@@ -93,6 +95,10 @@ describe SessionsController, type: :controller do
 
     it "removes the account ID from the session" do
       expect(session[:account_id]).to be_nil
+    end
+
+    it "removes the character ID from the session" do
+      expect(session[:character_id]).to be_nil
     end
   end
 end

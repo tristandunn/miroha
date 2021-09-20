@@ -12,7 +12,7 @@ describe "Creating a new character", type: :feature do
 
     fill_in_character_and_submit(name: name)
 
-    expect(page).to have_text(t("characters.index.header")).and(have_text(name))
+    expect(page).to have_css("#sidebar h1", text: name)
   end
 
   it "with an invalid name" do

@@ -17,6 +17,10 @@ describe Authentication do
       expect(helper_methods).to include(:current_account)
     end
 
+    it "includes current_character method" do
+      expect(helper_methods).to include(:current_character)
+    end
+
     it "includes signed_in? method" do
       expect(helper_methods).to include(:signed_in?)
     end
@@ -120,6 +124,55 @@ describe Authentication do
     end
   end
 
+  describe "#character_from_session" do
+    context "with a character ID in the session" do
+      let(:character) { build_stubbed(:character) }
+      let(:session)   { { character_id: character.id } }
+
+      before do
+        allow(instance).to receive(:current_character=)
+        allow(instance).to receive(:session).and_return(session)
+        allow(Character).to receive(:find_by).and_return(character)
+      end
+
+      it "attempts to find the character" do
+        instance.character_from_session
+
+        expect(Character).to have_received(:find_by).with(id: session[:character_id])
+      end
+
+      it "returns the character" do
+        expect(instance.character_from_session).to eq(character)
+      end
+    end
+
+    context "with no character ID in the session" do
+      let(:session) { {} }
+
+      before do
+        allow(instance).to receive(:current_character=)
+        allow(instance).to receive(:session).and_return(session)
+        allow(Character).to receive(:find_by)
+      end
+
+      it "does not attempt to find the character" do
+        instance.character_from_session
+
+        expect(Character).not_to have_received(:find_by)
+      end
+
+      it "does not assign current_character" do
+        instance.character_from_session
+
+        expect(instance).not_to have_received(:current_character=)
+      end
+
+      it "returns nil" do
+        expect(instance.character_from_session).to be_nil
+      end
+    end
+  end
+
   describe "#current_account" do
     context "with an account loaded" do
       let(:account) { build_stubbed(:account) }
@@ -219,12 +272,145 @@ describe Authentication do
         instance.current_account = nil
       end
 
-      it "assigns nil to session" do
+      it "assigns nil to the session" do
         expect(instance.session[:account_id]).to be_nil
       end
 
       it "assigns nil to instance variable" do
         expect(instance.instance_variable_get("@current_account")).to be_nil
+      end
+    end
+  end
+
+  describe "#current_character" do
+    context "with a character loaded" do
+      let(:character) { build_stubbed(:character) }
+
+      before do
+        allow(instance).to receive(:character_from_session)
+
+        instance.instance_variable_set("@current_character", character)
+      end
+
+      it "does not attempt to load a character from the session" do
+        instance.current_character
+
+        expect(instance).not_to have_received(:character_from_session)
+      end
+
+      it "returns the character" do
+        expect(instance.current_character).to eq(character)
+      end
+    end
+
+    context "with a character in the session" do
+      let(:character) { build_stubbed(:character) }
+
+      before do
+        allow(instance).to receive(:character_from_session).and_return(character)
+      end
+
+      it "loads the character from the session once" do
+        instance.current_character
+        instance.current_character
+
+        expect(instance).to have_received(:character_from_session).once
+      end
+
+      it "assigns the character to the instance variable" do
+        instance.current_character
+
+        expect(instance.instance_variable_get("@current_character")).to eq(character)
+      end
+
+      it "returns the character" do
+        expect(instance.current_character).to eq(character)
+      end
+    end
+
+    context "with no character in the session" do
+      before do
+        allow(instance).to receive(:character_from_session).and_return(nil)
+      end
+
+      it "attempts to load a character from the session once" do
+        instance.current_character
+        instance.current_character
+
+        expect(instance).to have_received(:character_from_session).once
+      end
+
+      it "assigns nil to the instance variable" do
+        instance.current_character
+
+        expect(instance.instance_variable_get("@current_character")).to be_nil
+      end
+
+      it "returns unknown character" do
+        expect(instance.current_character).to be_nil
+      end
+    end
+  end
+
+  describe "#current_character=" do
+    context "when assigned a character" do
+      let(:character) { build_stubbed(:character) }
+      let(:session)   { {} }
+
+      before do
+        allow(instance).to receive(:session).and_return(session)
+
+        instance.current_character = character
+      end
+
+      it "assigns the character ID to the session" do
+        expect(instance.session[:character_id]).to eq(character.id)
+      end
+
+      it "assigns the character to the instance variable" do
+        expect(instance.instance_variable_get("@current_character")).to eq(character)
+      end
+    end
+
+    context "when assigned nil" do
+      let(:session) { {} }
+
+      before do
+        allow(instance).to receive(:session).and_return(session)
+
+        instance.current_character = nil
+      end
+
+      it "assigns nil to the session" do
+        expect(instance.session[:account_id]).to be_nil
+      end
+
+      it "assigns nil to instance variable" do
+        expect(instance.instance_variable_get("@current_character")).to be_nil
+      end
+    end
+  end
+
+  describe "#current_character?" do
+    context "with a character is present" do
+      let(:character) { build_stubbed(:character) }
+
+      before do
+        allow(instance).to receive(:current_character).and_return(character)
+      end
+
+      it "returns true" do
+        expect(instance).to be_current_character
+      end
+    end
+
+    context "with no character is present" do
+      before do
+        allow(instance).to receive(:current_character).and_return(nil)
+      end
+
+      it "returns false" do
+        expect(instance).not_to be_current_character
       end
     end
   end
