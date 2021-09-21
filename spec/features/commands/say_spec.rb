@@ -3,38 +3,39 @@
 require "rails_helper"
 
 describe "Sending the say command", type: :feature, js: true do
-  let(:bob)     { create(:character, room: room) }
-  let(:message) { "Hello, world!" }
-  let(:room)    { create(:room) }
-  let(:sue)     { create(:character, room: room) }
-  let(:tom)     { create(:character) }
+  let(:character) { create(:character) }
+  let(:message)   { Faker::Lorem.sentence }
 
   before do
-    sign_in_as_character bob
+    sign_in_as_character character
   end
 
   it "displays the message to the sender" do
     send_command(:say, message)
 
-    expect(page).to have_message(message, from: bob)
+    expect(page).to have_message(message, from: character)
   end
 
   it "broadcasts the message to the room" do
-    using_session(sue) do
-      sign_in_as_character sue
+    using_session(:nearby_character) do
+      sign_in_as_character create(:character, room: character.room)
     end
 
     send_command(:say, message)
 
-    using_session(sue) do
-      expect(page).to have_message(message, from: bob)
+    using_session(:nearby_character) do
+      expect(page).to have_message(message, from: character)
     end
   end
 
   it "does not broadcast the message to other rooms" do
+    using_session(:distant_character) do
+      sign_in_as_character
+    end
+
     send_command(:say, message)
 
-    using_session(tom) do
+    using_session(:distant_character) do
       expect(page).not_to have_css("#messages .message-say")
     end
   end
