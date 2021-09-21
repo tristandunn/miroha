@@ -415,6 +415,39 @@ describe Authentication do
     end
   end
 
+  describe "#require_character" do
+    context "with a character present" do
+      let(:character) { build_stubbed(:character) }
+
+      before do
+        allow(instance).to receive(:redirect_to)
+        allow(instance).to receive(:current_character).and_return(character)
+      end
+
+      it "does not call redirect_to" do
+        instance.require_character
+
+        expect(instance).not_to have_received(:redirect_to)
+      end
+    end
+
+    context "with no character present" do
+      let(:new_character_url) { double }
+
+      before do
+        allow(instance).to receive(:redirect_to)
+        allow(instance).to receive(:current_character).and_return(nil)
+        allow(instance).to receive(:new_character_url).and_return(new_character_url)
+      end
+
+      it "redirects to new_character_url" do
+        instance.require_character
+
+        expect(instance).to have_received(:redirect_to).with(new_character_url)
+      end
+    end
+  end
+
   describe "#signed_in?" do
     context "with an account present" do
       let(:account) { build_stubbed(:account) }

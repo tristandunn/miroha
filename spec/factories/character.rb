@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :character do
     account
+    room
     name
   end
 end

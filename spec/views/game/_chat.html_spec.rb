@@ -16,6 +16,10 @@ describe "game/_chat.html.erb", type: :view do
     )
   end
 
+  it "attaches the chat controller" do
+    expect(html).to have_css("#chat[data-controller=chat]")
+  end
+
   it "renders the messages" do
     expect(html).to have_css("#chat p", text: "Messages")
   end

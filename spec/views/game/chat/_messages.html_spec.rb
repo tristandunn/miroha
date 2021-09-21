@@ -10,6 +10,18 @@ describe "game/chat/_messages.html.erb", type: :view do
   end
 
   it "renders the messages table" do
-    expect(html).to have_css("table tbody#messages")
+    expect(html).to have_css(
+      '[data-action="message-connected->chat#messageConnected"]' \
+      '[data-chat-target="messages"] ' \
+      "table tbody#messages"
+    )
+  end
+
+  it "renders the unread messages indicator" do
+    expect(html).to have_css(
+      '[data-chat-target="newMessages"] ' \
+      'a[data-action="click->chat#scrollToBottom"]',
+      text: t("game.chat.messages.unread")
+    )
   end
 end

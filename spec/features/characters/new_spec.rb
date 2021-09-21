@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe "Creating a new character", type: :feature do
   before do
+    create(:room)
     create_account
   end
 

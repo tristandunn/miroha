@@ -28,8 +28,16 @@ class CharacterForm
   # @return [Hash]
   def attributes
     {
-      name: name
+      name: name,
+      room: default_room
     }
+  end
+
+  # Return the default room.
+  #
+  # @return [Room]
+  def default_room
+    Room.first
   end
 
   # Validate the character, merging character errors into the form errors.

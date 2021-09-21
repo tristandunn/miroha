@@ -1,8 +1,14 @@
 <div class="relative">
-  <div class="overflow-y-auto absolute inset-0">
+  <div class="overflow-y-auto absolute inset-0" data-action="message-connected->chat#messageConnected" data-chat-target="messages">
     <table>
       <tbody id="messages">
       </tbody>
     </table>
+  </div>
+
+  <div class="flex hidden absolute inset-x-0 bottom-0" data-chat-target="newMessages">
+    <a class="py-1 px-4 m-auto text-xs font-semibold text-green-800 bg-green-200 rounded-full cursor-pointer" data-action="click->chat#scrollToBottom">
+      <%= t(".unread") %>
+    </a>
   </div>
 </div>

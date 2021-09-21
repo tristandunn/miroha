@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :sessions, only: %i(new create destroy)
+  resources :commands, only: %i(create)
+  resource  :sessions, only: %i(new create destroy)
 
   root to: "pages#index"
 end
