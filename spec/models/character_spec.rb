@@ -6,6 +6,7 @@ describe Character, type: :model do
   subject(:character) { create(:character) }
 
   it { is_expected.to belong_to(:account) }
+  it { is_expected.to belong_to(:room) }
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive }

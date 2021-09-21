@@ -1,10 +1,12 @@
-<main class="h-screen">
+<main class="h-screen" data-controller="game">
   <div id="container" class="grid h-full">
     <%= render "game/sidebar" %>
     <%= render "game/chat" %>
     <%= render "game/surroundings" %>
   </div>
 </main>
+
+<%= render "game/streams" %>
 
 <% content_for(:head) do %>
   <script type="text/javascript">

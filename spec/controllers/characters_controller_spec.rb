@@ -83,6 +83,8 @@ describe CharactersController, type: :controller do
       let(:form)      { assigns(:form) }
 
       before do
+        create(:room)
+
         sign_in_as account
 
         post :create, params: {

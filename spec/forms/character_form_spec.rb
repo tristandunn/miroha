@@ -8,11 +8,19 @@ describe CharacterForm, type: :form do
   end
 
   let(:account) { create(:account) }
+  let(:room)    { Room.first }
+
+  before do
+    create_pair(:room)
+  end
 
   describe "#character" do
     it "builds a new character with the form attributes" do
       expect(form.character).to be_a(Character).and(be_new_record).and(
-        have_attributes(name: form.name)
+        have_attributes(
+          name: form.name,
+          room: room
+        )
       )
     end
   end

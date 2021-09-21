@@ -43,7 +43,14 @@ en:
       placeholder: "Yinohoo"
       submit: "Create Your Character"
 
+  commands:
+    unknown:
+      message: "Unknown command: %{command}"
+
   game:
+    chat:
+      messages:
+        unread: "Unread Messages"
     sidebar:
       character:
         experience: "You need %{remaining} more experience to level up."

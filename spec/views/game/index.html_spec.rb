@@ -13,8 +13,13 @@ describe "game/index.html.erb", type: :view do
     stub_template(
       "game/_chat.html.erb"         => "<p>Chat</p>",
       "game/_sidebar.html.erb"      => "<p>Sidebar</p>",
-      "game/_surroundings.html.erb" => "<p>Surroundings</p>"
+      "game/_surroundings.html.erb" => "<p>Surroundings</p>",
+      "game/_streams.html.erb"      => "<p>Stream</p>"
     )
+  end
+
+  it "renders the game" do
+    expect(html).to have_css(%(main[data-controller="game"]))
   end
 
   it "renders the sidebar" do
@@ -27,5 +32,9 @@ describe "game/index.html.erb", type: :view do
 
   it "renders the surroundings" do
     expect(html).to have_css("#container p", text: "Surroundings")
+  end
+
+  it "renders the streams" do
+    expect(html).to have_css("p", text: "Stream")
   end
 end

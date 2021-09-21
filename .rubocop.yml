@@ -35,6 +35,9 @@ RSpec/ExampleLength:
 RSpec/ImplicitSubject:
   EnforcedStyle: single_line_only
 
+RSpec/NestedGroups:
+  Max: 4
+
 Style/Documentation:
   Enabled: false
 

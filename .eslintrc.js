@@ -2,14 +2,9 @@ module.exports = {
   "env": {
     "browser": true,
     "es2021": true,
-    "mocha": true,
     "node": true
   },
   "extends": ["eslint:all"],
-  "globals": {
-    "expect": true,
-    "sinon": true
-  },
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
@@ -20,7 +15,10 @@ module.exports = {
     "function-call-argument-newline": ["error", "consistent"],
     "function-paren-newline": ["error", "consistent"],
     "indent": ["error", 2], /* eslint no-magic-numbers: 0 */
+    "lines-around-comment": ["error", { "allowClassStart": true }],
+    "no-magic-numbers": ["error", { "ignore": [0] }],
     "object-curly-spacing": ["error", "always"],
-    "padded-blocks": ["error", "never"]
+    "padded-blocks": "off",
+    "space-before-function-paren": "off"
   }
 };

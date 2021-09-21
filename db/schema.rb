@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_19_145300) do
+ActiveRecord::Schema.define(version: 2021_09_21_004918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,20 @@ ActiveRecord::Schema.define(version: 2021_09_19_145300) do
     t.string "name", limit: 12, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "room_id", null: false
     t.index ["account_id"], name: "index_characters_on_account_id"
     t.index ["name"], name: "index_characters_on_name", unique: true
+    t.index ["room_id"], name: "index_characters_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "x", null: false
+    t.bigint "y", null: false
+    t.bigint "z", null: false
+    t.string "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["x", "y", "z"], name: "index_rooms_on_x_and_y_and_z", unique: true
   end
 
   add_foreign_key "characters", "accounts"
