@@ -14,4 +14,14 @@ describe "game/sidebar/navigation/_menu.html.erb", type: :view do
       %(a[title="#{t("game.sidebar.navigation.menu.equipment")}"])
     )
   end
+
+  it "renders a form to exit the game" do
+    expect(html).to have_css(
+      %(form[action="#{exit_characters_path}"][method="post"])
+    )
+  end
+
+  it "renders a submit button" do
+    expect(html).to have_css(%(button#exit_game[type="submit"]))
+  end
 end
