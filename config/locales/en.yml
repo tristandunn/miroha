@@ -33,6 +33,8 @@ en:
         password: "Password"
 
   characters:
+    enter:
+      message: "%{name} entered the game."
     index:
       empty: "You don't have any characters."
       header: "Select a Character"

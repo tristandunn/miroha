@@ -151,6 +151,8 @@ describe CharactersController, type: :controller do
       let(:character) { create(:character) }
 
       before do
+        allow(Turbo::StreamsChannel).to receive(:broadcast_render_later_to)
+
         sign_in_as account
 
         post :select, params: { id: character.id }
@@ -158,6 +160,17 @@ describe CharactersController, type: :controller do
 
       it { is_expected.to set_session[:character_id].to(character.id) }
       it { is_expected.to redirect_to(root_url) }
+
+      it "broadcasts an enter message to the room" do
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_render_later_to)
+          .with(
+            character.room,
+            partial: "characters/enter",
+            locals:  {
+              character: character
+            }
+          )
+      end
     end
 
     context "when not selected successfully" do
