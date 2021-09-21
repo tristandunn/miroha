@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Destroying a session", type: :feature, js: true do
+describe "Destroying a session", type: :feature do
   before do
     sign_in
   end

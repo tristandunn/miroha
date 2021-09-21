@@ -7,4 +7,5 @@ describe CharactersController, type: :routing do
   it { is_expected.to route(:get, "/characters/new").to(action: :new) }
   it { is_expected.to route(:post, "/characters").to(action: :create) }
   it { is_expected.to route(:post, "/characters/1/select").to(action: :select, id: 1) }
+  it { is_expected.to route(:post, "/characters/exit").to(action: :exit) }
 end

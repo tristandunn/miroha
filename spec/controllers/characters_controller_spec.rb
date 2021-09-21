@@ -179,4 +179,27 @@ describe CharactersController, type: :controller do
       it { is_expected.to redirect_to(new_sessions_url) }
     end
   end
+
+  describe "#exit" do
+    context "when exiting successfully" do
+      let(:character) { create(:character) }
+
+      before do
+        sign_in_as character
+
+        post :exit
+      end
+
+      it { is_expected.to set_session[:character_id].to(nil) }
+      it { is_expected.to redirect_to(characters_url) }
+    end
+
+    context "when signed out" do
+      before do
+        post :exit
+      end
+
+      it { is_expected.to redirect_to(new_sessions_url) }
+    end
+  end
 end

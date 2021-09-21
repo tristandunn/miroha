@@ -40,6 +40,13 @@ class CharactersController < ApplicationController
     end
   end
 
+  # Removes a character from the game.
+  def exit
+    self.current_character = nil
+
+    redirect_to characters_url
+  end
+
   protected
 
   # Return the permitted parameters from the required character form parameter.

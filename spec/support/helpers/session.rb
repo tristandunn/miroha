@@ -33,6 +33,11 @@ module RSpec
           click_button t("sessions.new.submit")
         end
 
+        def sign_in_as_character(character)
+          sign_in_as character.account
+          click_button character.name
+        end
+
         def sign_out
           click_button t("characters.index.sign_out")
         end
