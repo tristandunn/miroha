@@ -13,7 +13,7 @@ describe "commands/_unknown.html.erb", type: :view do
 
   it "renders the unknown command message" do
     expect(html).to have_command_row(
-      "td:nth-child(2)",
+      "td[colspan=2]",
       text: t("commands.unknown.message", command: command)
     )
   end

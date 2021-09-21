@@ -34,6 +34,8 @@ class CharactersController < ApplicationController
     if character.present?
       self.current_character = character
 
+      broadcast_game_entrance_to_room(character)
+
       redirect_to root_url
     else
       redirect_to characters_url
@@ -66,5 +68,17 @@ class CharactersController < ApplicationController
     unless current_account.can_create_character?
       redirect_to characters_url
     end
+  end
+
+  # Broadcast character entering the game message to the room.
+  #
+  # @param [Character] character The character entering the game.
+  # @return [void]
+  def broadcast_game_entrance_to_room(character)
+    Turbo::StreamsChannel.broadcast_render_later_to(
+      character.room,
+      partial: "characters/enter",
+      locals:  { character: character }
+    )
   end
 end
