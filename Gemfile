@@ -10,6 +10,7 @@ gem "hiredis",      "0.6.3"
 gem "oj",           "3.13.7"
 gem "pg",           "1.2.3"
 gem "puma",         "5.4.0"
+gem "rack-attack",  "6.5.0"
 gem "rack-timeout", "0.6.0"
 gem "rails",        "6.1.4.1"
 gem "redis",        "4.4.0", require: %w(redis redis/connection/hiredis)
