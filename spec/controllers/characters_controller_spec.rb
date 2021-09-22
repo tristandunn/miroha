@@ -177,6 +177,8 @@ describe CharactersController, type: :controller do
       let(:account) { create(:account) }
 
       before do
+        allow(Turbo::StreamsChannel).to receive(:broadcast_render_later_to)
+
         sign_in_as account
 
         post :select, params: { id: 1 }
@@ -184,6 +186,10 @@ describe CharactersController, type: :controller do
 
       it { is_expected.not_to set_session[:character_id] }
       it { is_expected.to redirect_to(characters_url) }
+
+      it "does not broadcast an enter message to the room" do
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_render_later_to)
+      end
     end
 
     context "when signed out" do
@@ -200,6 +206,8 @@ describe CharactersController, type: :controller do
       let(:character) { create(:character) }
 
       before do
+        allow(Turbo::StreamsChannel).to receive(:broadcast_render_later_to)
+
         sign_in_as character
 
         post :exit
@@ -207,6 +215,17 @@ describe CharactersController, type: :controller do
 
       it { is_expected.to set_session[:character_id].to(nil) }
       it { is_expected.to redirect_to(characters_url) }
+
+      it "broadcasts an exit message to the room" do
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_render_later_to)
+          .with(
+            character.room,
+            partial: "characters/exit",
+            locals:  {
+              character: character
+            }
+          )
+      end
     end
 
     context "when signed out" do

@@ -35,6 +35,8 @@ en:
   characters:
     enter:
       message: "%{name} entered the game."
+    exit:
+      message: "%{name} has left the game."
     index:
       empty: "You don't have any characters."
       header: "Select a Character"

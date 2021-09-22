@@ -44,12 +44,38 @@ class CharactersController < ApplicationController
 
   # Removes a character from the game.
   def exit
+    broadcast_game_exit_to_room(current_character)
+
     self.current_character = nil
 
     redirect_to characters_url
   end
 
   protected
+
+  # Broadcast character entering the game message to the room.
+  #
+  # @param [Character] character The character entering the game.
+  # @return [void]
+  def broadcast_game_entrance_to_room(character)
+    Turbo::StreamsChannel.broadcast_render_later_to(
+      character.room,
+      partial: "characters/enter",
+      locals:  { character: character }
+    )
+  end
+
+  # Broadcast character exiting the game message to the room.
+  #
+  # @param [Character] character The character exiting the game.
+  # @return [void]
+  def broadcast_game_exit_to_room(character)
+    Turbo::StreamsChannel.broadcast_render_later_to(
+      character.room,
+      partial: "characters/exit",
+      locals:  { character: character }
+    )
+  end
 
   # Return the permitted parameters from the required character form parameter.
   #
@@ -68,17 +94,5 @@ class CharactersController < ApplicationController
     unless current_account.can_create_character?
       redirect_to characters_url
     end
-  end
-
-  # Broadcast character entering the game message to the room.
-  #
-  # @param [Character] character The character entering the game.
-  # @return [void]
-  def broadcast_game_entrance_to_room(character)
-    Turbo::StreamsChannel.broadcast_render_later_to(
-      character.room,
-      partial: "characters/enter",
-      locals:  { character: character }
-    )
   end
 end
