@@ -1,5 +1,5 @@
-<div class="relative h-1 bg-yellow-900" title="<%= t(".experience", remaining: 7) %>">
-  <div class="absolute inset-0 h-full bg-yellow-600" style="width: 33%;"></div>
+<div class="relative h-1 bg-yellow-900" title="<%= t(".experience", remaining: number_with_delimiter(current_character.experience.remaining)) %>">
+  <div class="absolute inset-0 h-full bg-yellow-600" style="width: <%= current_character.experience.remaining_percentage %>%;"></div>
 </div>
 
 <div class="p-4 bg-gray-900">
