@@ -59,7 +59,7 @@ module Commands
     #
     # @return [String]
     def input_without_command
-      @input_without_command ||= input.sub(%r{^/#{name}\s+}, "")
+      @input_without_command ||= input.sub(%r{^/#{name}(\s+|\z)}, "")
     end
 
     # Return the locals for the partial template.

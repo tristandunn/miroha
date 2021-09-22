@@ -24,10 +24,21 @@ describe Commands::SayCommand, type: :service do
         )
     end
 
-    context "with blank input" do
+    context "with blank argument" do
       it "does not broadcast" do
         allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
         instance = described_class.new("/say ", character: character)
+
+        instance.call
+
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+      end
+    end
+
+    context "with no argument" do
+      it "does not broadcast" do
+        allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
+        instance = described_class.new("/say", character: character)
 
         instance.call
 
