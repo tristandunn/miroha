@@ -37,11 +37,13 @@
     }
 
     &.message-enter-game,
+    &.message-exit-game,
     &.message-unknown {
       @apply font-normal text-left;
     }
 
-    &.message-enter-game {
+    &.message-enter-game,
+    &.message-exit-game {
       @apply bg-gray-200;
     }
 
