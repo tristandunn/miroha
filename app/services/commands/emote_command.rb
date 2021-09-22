@@ -3,7 +3,7 @@
 module Commands
   class EmoteCommand < Base
     DEFAULT_PUNCTUATION    = "."
-    PUNCTUATION_CHARACTERS = %w(. ? ! " ... …).freeze
+    PUNCTUATION_CHARACTERS = %w(. ? ! " …).freeze
     PUNCTUATION_MATCHER    = /[#{PUNCTUATION_CHARACTERS.join}]\z/
 
     # Broadcast an emote command to chat.
