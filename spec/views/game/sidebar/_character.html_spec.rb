@@ -27,7 +27,7 @@ describe "game/sidebar/_character.html.erb", type: :view do
   it "renders the level" do
     expect(html).to have_css(
       "h2",
-      text: t("game.sidebar.character.level", level: 1)
+      text: t("game.sidebar.character.level", level: character.level)
     )
   end
 
