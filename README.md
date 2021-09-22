@@ -5,9 +5,9 @@ A web-based, role-playing game.
 ## Roadmap
 
 See the [development project](https://github.com/tristandunn/miroha/projects/1)
-for active development and [open
-issues](https://github.com/tristandunn/miroha/issues) for proposed features and
-bug reports.
+for active development and the [backlog
+project](https://github.com/tristandunn/miroha/projects/2) for proposed features
+and bug reports.
 
 ## Contributing
 
