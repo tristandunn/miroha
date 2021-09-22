@@ -36,10 +36,15 @@
       @apply w-1/12 font-bold text-right;
     }
 
+    &.message-emote,
     &.message-enter-game,
     &.message-exit-game,
     &.message-unknown {
       @apply font-normal text-left;
+    }
+
+    &.message-emote {
+      @apply italic leading-5;
     }
 
     &.message-enter-game,
