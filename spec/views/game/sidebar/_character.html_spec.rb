@@ -19,9 +19,13 @@ describe "game/sidebar/_character.html.erb", type: :view do
   end
 
   it "renders the experience" do
-    title = t("game.sidebar.character.experience", remaining: 7)
+    width = "#{character.experience.remaining_percentage}%"
+    title = t(
+      "game.sidebar.character.experience",
+      remaining: number_with_delimiter(character.experience.remaining)
+    )
 
-    expect(html).to have_css(%(div[title="#{title}"] div[style="width: 33%;"]))
+    expect(html).to have_css(%(div[title="#{title}"] div[style="width: #{width};"]))
   end
 
   it "renders the level" do
