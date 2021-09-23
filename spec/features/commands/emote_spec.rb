@@ -40,6 +40,14 @@ describe "Sending the emote command", type: :feature, js: true do
     end
   end
 
+  context "when using the /me alias" do
+    it "displays the message to the sender" do
+      send_command(:me, message)
+
+      expect(page).to have_emote(message, from: character)
+    end
+  end
+
   protected
 
   def have_emote(text, from:)

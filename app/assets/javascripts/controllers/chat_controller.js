@@ -1,7 +1,29 @@
 import { Controller } from "stimulus";
 
+const ALIAS_CLASS = "aliased";
+
 export default class ChatController extends Controller {
+  static aliases = {
+    "/me": "/emote"
+  };
+
   static targets = ["input", "message", "messages", "newMessages"];
+
+  /**
+   * Expand command aliases in the command input element.
+   *
+   * @return {void}
+   */
+  aliasCommand() {
+    const input = this.inputTarget,
+      [command] = input.value.trim().split(" "),
+      alias = ChatController.aliases[command];
+
+    if (alias) {
+      input.classList.add(ALIAS_CLASS);
+      input.value = input.value.replace(command, alias);
+    }
+  }
 
   /**
    * Focus the command input element.
@@ -36,6 +58,7 @@ export default class ChatController extends Controller {
    */
   resetForm() {
     this.element.reset();
+    this.inputTarget.classList.remove(ALIAS_CLASS);
   }
 
   /**

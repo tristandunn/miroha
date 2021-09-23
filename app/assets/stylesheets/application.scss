@@ -20,6 +20,10 @@
   table {
     @apply w-full;
   }
+
+  .aliased {
+    @apply text-transparent;
+  }
 }
 
 #messages {

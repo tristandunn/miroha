@@ -19,6 +19,7 @@ module.exports = {
     "no-magic-numbers": ["error", { "ignore": [0] }],
     "object-curly-spacing": ["error", "always"],
     "padded-blocks": "off",
+    "sort-vars": "off",
     "space-before-function-paren": "off"
   }
 };
