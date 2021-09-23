@@ -8,6 +8,44 @@ describe("ChatController", () => {
     instance = new ChatController({ "scope": { element } });
   });
 
+  context("#aliasCommand", () => {
+    let input;
+
+    beforeEach(() => {
+      input = document.createElement("input");
+
+      instance.inputTarget = input;
+    });
+
+    it("adds the aliased class to the input", () => {
+      input.value = "/me writes tests";
+
+      instance.aliasCommand();
+
+      expect(input.classList.contains("aliased")).to.eq(true);
+    });
+
+    it("expands aliases in the input on the element", () => {
+      Object.
+        entries(ChatController.aliases).
+        forEach(([alias, command]) => {
+          input.value = `${alias} example`;
+
+          instance.aliasCommand();
+
+          expect(input.value).to.eq(`${command} example`);
+        });
+    });
+
+    it("ignores input that is not an alias", () => {
+      input.value = "/test example";
+
+      instance.aliasCommand();
+
+      expect(input.value).to.eq("/test example");
+    });
+  });
+
   context("#focusCommand", () => {
     it("focuses the input on the element", () => {
       const input = document.createElement("input"),
@@ -106,6 +144,7 @@ describe("ChatController", () => {
 
     beforeEach(() => {
       input = document.createElement("input");
+      input.classList.add("aliased");
 
       instance.inputTarget = input;
     });
@@ -116,6 +155,12 @@ describe("ChatController", () => {
       instance.resetForm();
 
       expect(reset).to.have.been.calledWith();
+    });
+
+    it("removed the aliased class from the input", () => {
+      instance.resetForm();
+
+      expect(input.classList.contains("aliased")).to.eq(false);
     });
   });
 
