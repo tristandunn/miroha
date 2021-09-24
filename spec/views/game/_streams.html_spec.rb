@@ -4,7 +4,8 @@ require "rails_helper"
 
 describe "game/_streams.html.erb", type: :view do
   subject(:html) do
-    render partial: "game/streams", locals: { current_character: character }
+    render partial: "game/streams",
+           locals:  { character: character }
 
     rendered
   end

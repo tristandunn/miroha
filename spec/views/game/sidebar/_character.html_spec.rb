@@ -6,7 +6,7 @@ describe "game/sidebar/_character.html.erb", type: :view do
   subject(:html) do
     render(
       partial: "game/sidebar/character",
-      locals:  { current_character: character }
+      locals:  { character: character }
     )
 
     rendered
