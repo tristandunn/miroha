@@ -2,7 +2,7 @@
   <div id="container" class="grid h-full">
     <%= render "game/sidebar", character: @character %>
     <%= render "game/chat" %>
-    <%= render "game/surroundings" %>
+    <%= render "game/surroundings", room: @character.room %>
   </div>
 </main>
 

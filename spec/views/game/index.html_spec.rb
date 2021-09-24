@@ -9,7 +9,11 @@ describe "game/index.html.erb", type: :view do
     rendered
   end
 
+  let(:character) { build_stubbed(:character) }
+
   before do
+    assign :character, character
+
     stub_template(
       "game/_chat.html.erb"         => "<p>Chat</p>",
       "game/_sidebar.html.erb"      => "<p>Sidebar</p>",
