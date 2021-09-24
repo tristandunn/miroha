@@ -4,10 +4,13 @@ require "rails_helper"
 
 describe "game/_sidebar.html.erb", type: :view do
   subject(:html) do
-    render
+    render partial: "game/sidebar",
+           locals:  { character: character }
 
     rendered
   end
+
+  let(:character) { build_stubbed(:character) }
 
   before do
     stub_template(

@@ -1,14 +1,14 @@
-<div class="relative h-1 bg-yellow-900" title="<%= t(".experience", remaining: number_with_delimiter(current_character.experience.remaining)) %>">
-  <div class="absolute inset-0 h-full bg-yellow-600" style="width: <%= current_character.experience.remaining_percentage %>%;"></div>
+<div class="relative h-1 bg-yellow-900" title="<%= t(".experience", remaining: number_with_delimiter(character.experience.remaining)) %>">
+  <div class="absolute inset-0 h-full bg-yellow-600" style="width: <%= character.experience.remaining_percentage %>%;"></div>
 </div>
 
 <div class="p-4 bg-gray-900">
   <div>
     <h1 class="float-left text-xl font-medium leading-none text-gray-300">
-      <%= current_character.name %>
+      <%= character.name %>
     </h1>
     <h2 class="float-right mt-1 text-sm leading-none text-gray-500">
-      <%= t(".level", level: current_character.level) %>
+      <%= t(".level", level: character.level) %>
     </h2>
   </div>
 
