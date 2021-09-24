@@ -70,6 +70,20 @@
   }
 }
 
+#surroundings {
+  ol {
+    @apply list-none;
+  }
+
+  li {
+    @apply overflow-hidden py-2 px-4 font-semibold leading-8 text-gray-200 bg-gray-700 border-b border-gray-900;
+  }
+
+  img {
+    @apply float-left mr-2 w-8 h-8 bg-white rounded opacity-25;
+  }
+}
+
 .highlight-errors {
   .field_with_errors {
     input {

@@ -15,6 +15,14 @@ describe "Selecting a character", type: :feature, js: true do
     expect(page).to have_css("#sidebar h1", text: character.name)
   end
 
+  it "displays the surroundings", js: false do
+    nearby_character = create(:character, room: character.room)
+
+    click_button character.name
+
+    expect(page).to have_surrounding_character(nearby_character)
+  end
+
   it "broadcasts an enter message to the room" do
     using_session(:nearby_character) do
       sign_in_as_character create(:character, room: character.room)
@@ -40,5 +48,11 @@ describe "Selecting a character", type: :feature, js: true do
     using_session(:distant_character) do
       expect(page).not_to have_css("#messages .message-enter-game")
     end
+  end
+
+  protected
+
+  def have_surrounding_character(character)
+    have_css("#surrounding-characters li", text: character.name)
   end
 end

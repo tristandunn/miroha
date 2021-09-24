@@ -26,6 +26,9 @@ Naming/RescuedExceptionsVariableName:
   Enabled: true
   PreferredName: error
 
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
 Rails:
   Enabled: true
 
