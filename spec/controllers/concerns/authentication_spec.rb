@@ -415,7 +415,7 @@ describe Authentication do
     end
   end
 
-  describe "#require_character" do
+  describe "#require_active_character" do
     context "with a character present" do
       let(:character) { build_stubbed(:character) }
 
@@ -425,9 +425,26 @@ describe Authentication do
       end
 
       it "does not call redirect_to" do
-        instance.require_character
+        instance.require_active_character
 
         expect(instance).not_to have_received(:redirect_to)
+      end
+    end
+
+    context "with an inactive character present" do
+      let(:character)      { build_stubbed(:character, :inactive) }
+      let(:characters_url) { double }
+
+      before do
+        allow(instance).to receive(:redirect_to)
+        allow(instance).to receive(:current_character).and_return(character)
+        allow(instance).to receive(:characters_url).and_return(characters_url)
+      end
+
+      it "redirects to characters_url" do
+        instance.require_active_character
+
+        expect(instance).to have_received(:redirect_to).with(characters_url)
       end
     end
 
@@ -441,7 +458,7 @@ describe Authentication do
       end
 
       it "redirects to new_character_url" do
-        instance.require_character
+        instance.require_active_character
 
         expect(instance).to have_received(:redirect_to).with(new_character_url)
       end

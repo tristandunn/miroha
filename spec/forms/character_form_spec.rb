@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe CharacterForm, type: :form do
   subject(:form) do
-    described_class.new(attributes_for(:character).merge(account: account))
+    described_class.new(account: account, name: generate(:name))
   end
 
   let(:account) { create(:account) }

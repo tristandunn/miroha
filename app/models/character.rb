@@ -28,4 +28,11 @@ class Character < ApplicationRecord
   def experience
     Experience.new(experience: self[:experience], level: self[:level])
   end
+
+  # Return if the character is inactive.
+  #
+  # @return [Boolean]
+  def inactive?
+    active_at < ACTIVE_DURATION.ago
+  end
 end

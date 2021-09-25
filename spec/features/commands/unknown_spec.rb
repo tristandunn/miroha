@@ -28,6 +28,14 @@ describe "Sending an unknown command", type: :feature, js: true do
     end
   end
 
+  it "redirects inactive characters" do
+    character.update(active_at: Character::ACTIVE_DURATION.ago - 1.second)
+
+    send_text(command)
+
+    expect(page).to have_text(t("characters.index.header"))
+  end
+
   protected
 
   def have_unknown_command_message(command)

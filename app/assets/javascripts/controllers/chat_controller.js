@@ -35,6 +35,20 @@ export default class ChatController extends Controller {
   }
 
   /**
+   * Handle redirect responses.
+   *
+   * @param {Event} event The submit event.
+   * @return {void}
+   */
+  handleRedirect(event) { // eslint-disable-line class-methods-use-this
+    const { redirected, url } = event.detail.fetchResponse.response;
+
+    if (redirected) {
+      window.location = url;
+    }
+  }
+
+  /**
    * Scroll to the bottom when a message is connected.
    *
    * @param {Event} event The dispatched event.

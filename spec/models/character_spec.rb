@@ -56,4 +56,20 @@ describe Character, type: :model do
 
     it { is_expected.to eq(instance) }
   end
+
+  describe "#inactive?", :freeze_time do
+    subject(:inactive?) { character.inactive? }
+
+    context "when not active within the duration" do
+      let(:character) { create(:character, :inactive) }
+
+      it { is_expected.to eq(true) }
+    end
+
+    context "when active within the duration" do
+      let(:character) { create(:character) }
+
+      it { is_expected.to eq(false) }
+    end
+  end
 end
