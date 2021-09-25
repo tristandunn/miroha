@@ -21,6 +21,18 @@ describe GameController, type: :controller do
       end
     end
 
+    context "with an inactive character" do
+      let(:character) { create(:character, :inactive) }
+
+      before do
+        sign_in_as character
+
+        get :index
+      end
+
+      it { is_expected.to redirect_to(characters_url) }
+    end
+
     context "with an invalid character ID" do
       before do
         get :index

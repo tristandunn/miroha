@@ -16,6 +16,7 @@ describe "game/chat/_command.html.erb", type: :view do
   it "renders the command form" do
     actions = "submit->chat#aliasCommand " \
               "submit->chat#validateCommand " \
+              "turbo:submit-end->chat#handleRedirect " \
               "turbo:submit-end->chat#resetForm"
 
     expect(html).to have_css(

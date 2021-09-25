@@ -89,11 +89,15 @@ module Authentication
     current_character.present?
   end
 
-  # Redirect to character creation if no character is present.
+  # Redirect if a character is missing or the character is not active.
   #
   # @return [void]
-  def require_character
-    redirect_to new_character_url if current_character.nil?
+  def require_active_character
+    if current_character.nil?
+      redirect_to new_character_url
+    elsif current_character.inactive?
+      redirect_to characters_url
+    end
   end
 
   # Determine if an account is signed in.

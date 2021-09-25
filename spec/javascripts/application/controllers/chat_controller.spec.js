@@ -59,6 +59,58 @@ describe("ChatController", () => {
     });
   });
 
+  context("#handleRedirect", () => {
+    const { location } = window;
+
+    beforeEach(() => {
+      delete window.location;
+
+      window.location = Object.defineProperties(
+        {},
+        {
+          ...Object.getOwnPropertyDescriptors(location),
+          "assign": {
+            "configurable": true,
+            "value": sinon.stub()
+          }
+        }
+      );
+    });
+
+    afterEach(() => {
+      window.location = location;
+    });
+
+    context("with a redirect response", () => {
+      const event = {
+        "detail": {
+          "fetchResponse": {
+            "response": {
+              "redirected": true,
+              "url": "https://example.com"
+            }
+          }
+        }
+      };
+
+      it("redirects", () => {
+        instance.handleRedirect(event);
+
+        expect(window.location.toString()).to.be.eq("https://example.com");
+      });
+    });
+
+    context("with no redirect response", () => {
+      const event = { "detail": { "fetchResponse": { "response": {} } } };
+
+      it("does not redirect", () => {
+        instance.handleRedirect(event);
+
+        expect(window.location.toString()).to.be.eq("about:blank");
+      });
+    });
+  });
+
   context("#messageConnected", () => {
     const event = { "detail": { "height": 3 } };
 
