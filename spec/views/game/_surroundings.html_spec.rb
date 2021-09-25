@@ -12,15 +12,16 @@ describe "game/_surroundings.html.erb", type: :view do
     rendered
   end
 
-  let(:character_1) { build_stubbed(:character, name: "Alex") }
-  let(:character_2) { build_stubbed(:character, name: "Jody") }
-  let(:room)        { build_stubbed(:room, characters: [character_2, character_1]) }
+  let(:character_1) { create(:character, name: "Alex") }
+  let(:character_2) { create(:character, name: "Jody") }
+  let(:character_3) { create(:character, :inactive, name: "Rory") }
+  let(:room)        { create(:room, characters: [character_1, character_2, character_3]) }
 
   it "renders the surroundings" do
     expect(html).to have_css("#surroundings")
   end
 
-  it "renders the surrounding characters ordered by name" do
+  it "renders the surrounding, active characters ordered by name" do
     expect(html).to have_css(
       "#surrounding-characters #surrounding_character_#{character_1.id}", text: character_1.name
     ).and(
@@ -34,5 +35,9 @@ describe "game/_surroundings.html.erb", type: :view do
         "#surrounding_character_#{character_2.id}"
       )
     )
+  end
+
+  it "does not render the surrounding, inactive characters" do
+    expect(html).not_to have_css("#surrounding_character_#{character_3.id}")
   end
 end

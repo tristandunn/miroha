@@ -148,7 +148,7 @@ describe CharactersController, type: :controller do
   describe "#select" do
     context "when selected successfully" do
       let(:account)   { character.account }
-      let(:character) { create(:character) }
+      let(:character) { create(:character, :inactive) }
 
       before do
         allow(Turbo::StreamsChannel).to receive(:broadcast_render_later_to)
@@ -160,6 +160,10 @@ describe CharactersController, type: :controller do
 
       it { is_expected.to set_session[:character_id].to(character.id) }
       it { is_expected.to redirect_to(root_url) }
+
+      it "marks the character is active", :freeze_time do
+        expect(character.reload.active_at).to eq(Time.current)
+      end
 
       it "broadcasts an enter message to the room" do
         expect(Turbo::StreamsChannel).to have_received(:broadcast_render_later_to)

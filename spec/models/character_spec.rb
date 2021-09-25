@@ -31,6 +31,18 @@ describe Character, type: :model do
       .is_at_most(described_class::MAXIMUM_NAME_LENGTH)
   end
 
+  describe ".active", type: :model do
+    subject(:active) { described_class.active }
+
+    it "returns characters active within the last 15 minutes" do
+      character_1 = create(:character, active_at: 1.minute.ago)
+      character_2 = create(:character, active_at: described_class::ACTIVE_DURATION.ago)
+      create(:character, active_at: described_class::ACTIVE_DURATION.ago - 1.second)
+
+      expect(active).to match_array([character_1, character_2])
+    end
+  end
+
   describe "#experience" do
     subject(:experience) { character.experience }
 

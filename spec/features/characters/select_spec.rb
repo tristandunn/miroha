@@ -15,7 +15,7 @@ describe "Selecting a character", type: :feature, js: true do
     expect(page).to have_css("#sidebar h1", text: character.name)
   end
 
-  it "displays the surroundings", js: false do
+  it "displays active characters in surroundings", js: false do
     nearby_character = create(:character, room: character.room)
 
     click_button character.name
@@ -36,6 +36,14 @@ describe "Selecting a character", type: :feature, js: true do
         text: t("characters.enter.message", name: character.name)
       )
     end
+  end
+
+  it "does not display inactive characters in surroundings", js: false do
+    inactive_character = create(:character, :inactive, room: character.room)
+
+    click_button character.name
+
+    expect(page).not_to have_surrounding_character(inactive_character)
   end
 
   it "does not broadcast the enter message to other rooms" do

@@ -5,7 +5,7 @@ require "rails_helper"
 describe CommandsController, type: :controller do
   describe "#create" do
     context "when created successfully" do
-      let(:character) { create(:character) }
+      let(:character) { create(:character, :inactive) }
       let(:input)     { "Hello, world!" }
 
       before do
@@ -34,6 +34,10 @@ describe CommandsController, type: :controller do
           expect(Command).to have_received(:call)
             .with(input, character: character)
         end
+
+        it "marks the character is active", :freeze_time do
+          expect(character.reload.active_at).to eq(Time.current)
+        end
       end
 
       context "without rendering" do
@@ -46,6 +50,10 @@ describe CommandsController, type: :controller do
         it "calls the command service" do
           expect(Command).to have_received(:call)
             .with(input, character: character)
+        end
+
+        it "marks the character is active", :freeze_time do
+          expect(character.reload.active_at).to eq(Time.current)
         end
       end
     end

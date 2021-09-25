@@ -3,6 +3,7 @@
 class CommandsController < ApplicationController
   before_action :authenticate
   before_action :require_character
+  after_action :mark_character_as_active
 
   rescue_from ActionController::ParameterMissing do
     head :no_content
@@ -26,5 +27,12 @@ class CommandsController < ApplicationController
   # @return [String]
   def input
     params.require(:input)
+  end
+
+  # Update the character as being active.
+  #
+  # @return [void]
+  def mark_character_as_active
+    current_character.update(active_at: Time.current)
   end
 end
