@@ -9,6 +9,6 @@ class GameController < ApplicationController
 
   # Render the game.
   def index
-    @character = Character.includes(room: :characters).find(session[:character_id])
+    @character = Character.includes(:room).find(session[:character_id])
   end
 end

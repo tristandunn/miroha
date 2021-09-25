@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_22_004922) do
+ActiveRecord::Schema.define(version: 2021_09_24_230942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,11 @@ ActiveRecord::Schema.define(version: 2021_09_22_004922) do
     t.bigint "room_id", null: false
     t.integer "level", default: 1, null: false
     t.integer "experience", default: 0, null: false
+    t.datetime "active_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["account_id"], name: "index_characters_on_account_id"
+    t.index ["active_at"], name: "index_characters_on_active_at"
     t.index ["name"], name: "index_characters_on_name", unique: true
-    t.index ["room_id"], name: "index_characters_on_room_id"
+    t.index ["room_id", "active_at"], name: "index_characters_on_room_id_and_active_at"
   end
 
   create_table "rooms", force: :cascade do |t|

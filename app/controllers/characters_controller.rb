@@ -32,9 +32,7 @@ class CharactersController < ApplicationController
     character = current_account.characters.find_by(id: params[:id])
 
     if character.present?
-      self.current_character = character
-
-      broadcast_game_entrance_to_room(character)
+      enter_game(character)
 
       redirect_to root_url
     else
@@ -94,5 +92,20 @@ class CharactersController < ApplicationController
     unless current_account.can_create_character?
       redirect_to characters_url
     end
+  end
+
+  # Enter a character into the game.
+  #
+  # Updates the character as being active, sets them as the current character,
+  # and broadcasts their entrance.
+  #
+  # @param [Character] character The character entering the game.
+  # @return [void]
+  def enter_game(character)
+    character.update(active_at: Time.current)
+
+    self.current_character = character
+
+    broadcast_game_entrance_to_room(character)
   end
 end
