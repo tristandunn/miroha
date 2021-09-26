@@ -4,10 +4,15 @@ require "rails_helper"
 
 describe "game/_chat.html.erb", type: :view do
   subject(:html) do
-    render
+    render(
+      partial: "game/chat",
+      locals:  { room: room }
+    )
 
     rendered
   end
+
+  let(:room) { build_stubbed(:room) }
 
   before do
     stub_template(

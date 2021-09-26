@@ -56,6 +56,14 @@
       @apply bg-gray-200;
     }
 
+    &.message-look {
+      @apply font-normal leading-5 text-left bg-gray-200;
+
+      p {
+        @apply max-w-2xl;
+      }
+    }
+
     &.message-say {
       @apply py-3 leading-5;
 

@@ -1,7 +1,7 @@
 <main class="h-screen" data-controller="game">
   <div id="container" class="grid h-full">
     <%= render "game/sidebar", character: @character %>
-    <%= render "game/chat" %>
+    <%= render "game/chat", room: @character.room %>
     <%= render "game/surroundings", room: @character.room %>
   </div>
 </main>

@@ -43,7 +43,7 @@ describe "Sending the say command", type: :feature, js: true do
   it "does not allow blank messages" do
     send_text("")
 
-    expect(page).not_to have_css("#messages tr")
+    expect(page).not_to have_css("#messages .message-say")
   end
 
   protected
