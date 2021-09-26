@@ -24,6 +24,13 @@ describe "characters/_exit.turbo_stream.erb", type: :view do
     )
   end
 
+  it "removes the character from the surrounding characters element" do
+    expect(html).to have_turbo_stream_element(
+      action: "remove",
+      target: "surrounding_character_#{character.id}"
+    )
+  end
+
   it "renders the exit HTML template" do
     expect(html).to include("EXIT_TEMPLATE")
   end

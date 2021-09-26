@@ -30,6 +30,18 @@ describe "Character exiting the game", type: :feature, js: true do
     end
   end
 
+  it "removes the character from the surroundings" do
+    using_session(:nearby_character) do
+      sign_in_as_character create(:character, room: character.room)
+    end
+
+    click_button "exit_game"
+
+    using_session(:nearby_character) do
+      expect(page).not_to have_surrounding_character(character)
+    end
+  end
+
   it "does not broadcast the exit message to other rooms" do
     using_session(:distant_character) do
       sign_in_as_character
