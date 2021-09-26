@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Selecting a character", type: :feature, js: true do
-  let(:character) { create(:character) }
+  let(:character) { create(:character, :inactive) }
 
   before do
     sign_in_as character.account
@@ -35,6 +35,18 @@ describe "Selecting a character", type: :feature, js: true do
         "#messages .message-enter-game",
         text: t("characters.enter.message", name: character.name)
       )
+    end
+  end
+
+  it "appends the character to the surroundings" do
+    using_session(:nearby_character) do
+      sign_in_as_character create(:character, room: character.room)
+    end
+
+    click_button character.name
+
+    using_session(:nearby_character) do
+      expect(page).to have_surrounding_character(character)
     end
   end
 

@@ -1,10 +1,7 @@
 <div id="surroundings" class="bg-gray-800">
   <ol id="surrounding-characters">
     <% room.characters.active.sort_by(&:name).each do |character| %>
-      <li id="surrounding_character_<%= character.id %>">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=">
-        <%= character.name %>
-      </li>
+      <%= render "game/surroundings/character", character: character %>
     <% end %>
   </ol>
 </div>

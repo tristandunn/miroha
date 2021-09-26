@@ -15,12 +15,20 @@ describe "characters/_enter.turbo_stream.erb", type: :view do
 
   before do
     stub_template("characters/_enter.html.erb" => "ENTER_TEMPLATE")
+    stub_template("game/surroundings/_character.html.erb" => "CHARACTER_TEMPLATE")
   end
 
   it "appends an enter message to the messages element" do
     expect(html).to have_turbo_stream_element(
       action: "append",
       target: "messages"
+    )
+  end
+
+  it "appends the character to the surrounding characters element" do
+    expect(html).to have_turbo_stream_element(
+      action: "append",
+      target: "surrounding-characters"
     )
   end
 
