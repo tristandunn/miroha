@@ -23,10 +23,10 @@ describe "game/_surroundings.html.erb", type: :view do
 
   it "renders the surrounding, active characters ordered by name" do
     expect(html).to have_css(
-      "#surrounding-characters #surrounding_character_#{character_1.id}", text: character_1.name
+      "#surrounding-characters #surrounding_character_#{character_1.id}"
     ).and(
       have_css(
-        "#surrounding-characters #surrounding_character_#{character_2.id}", text: character_2.name
+        "#surrounding-characters #surrounding_character_#{character_2.id}"
       )
     ).and(
       have_css(
