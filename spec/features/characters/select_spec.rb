@@ -15,6 +15,12 @@ describe "Selecting a character", type: :feature, js: true do
     expect(page).to have_css("#sidebar h1", text: character.name)
   end
 
+  it "displays room description in chat", js: false do
+    click_button character.name
+
+    expect(page).to have_text(character.room.description)
+  end
+
   it "displays active characters in surroundings", js: false do
     nearby_character = create(:character, room: character.room)
 
