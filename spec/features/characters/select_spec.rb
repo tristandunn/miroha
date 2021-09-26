@@ -69,10 +69,4 @@ describe "Selecting a character", type: :feature, js: true do
       expect(page).not_to have_css("#messages .message-enter-game")
     end
   end
-
-  protected
-
-  def have_surrounding_character(character)
-    have_css("#surrounding-characters li", text: character.name)
-  end
 end
