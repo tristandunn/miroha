@@ -7,7 +7,7 @@ gem "actioncable",  "6.1.4.1", require: "action_cable"
 gem "bcrypt",       "3.1.16"
 gem "bootsnap",     "1.9.1", require: false
 gem "hiredis",      "0.6.3"
-gem "oj",           "3.13.7"
+gem "oj",           "3.13.8"
 gem "pg",           "1.2.3"
 gem "puma",         "5.5.0"
 gem "rack-attack",  "6.5.0"
