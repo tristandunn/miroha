@@ -18,7 +18,7 @@ describe "Selecting a character", type: :feature, js: true do
   it "displays room description in chat", js: false do
     click_button character.name
 
-    expect(page).to have_text(character.room.description)
+    expect(page).to have_look_message(character.room)
   end
 
   it "displays active characters in surroundings", js: false do

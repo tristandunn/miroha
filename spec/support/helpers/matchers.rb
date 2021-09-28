@@ -4,6 +4,10 @@ module RSpec
   module Helpers
     module Matchers
       module Surroundings
+        def have_look_message(room, count: 1)
+          have_css("#messages .message-look", text: room.description, count: count)
+        end
+
         def have_surrounding_character(character)
           have_css("#surrounding-characters li", text: character.name)
         end
