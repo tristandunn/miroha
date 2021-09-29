@@ -48,6 +48,25 @@ en:
       submit: "Create Your Character"
 
   commands:
+    move:
+      enter:
+        down: "%{name} arrived from above."
+        east: "%{name} arrived from the west."
+        north: "%{name} arrived from the south."
+        south: "%{name} arrived from the north."
+        up: "%{name} arrived from below."
+        west: "%{name} arrived from the east."
+      exit:
+        down: "%{name} went below."
+        east: "%{name} went east."
+        north: "%{name} went north."
+        south: "%{name} went south."
+        up: "%{name} went above."
+        west: "%{name} went west."
+      failure:
+        message: "There doesn't appear to be anything %{direction}."
+      unknown:
+        message: "Unknown direction."
     unknown:
       message: "Unknown command: %{command}"
 

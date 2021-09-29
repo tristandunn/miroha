@@ -27,8 +27,8 @@
     "yaml-loader": "0.6.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "7.15.7",
     "@babel/register": "7.15.3",
-    "babel-eslint": "10.1.0",
     "babel-plugin-istanbul": "6.0.0",
     "chai": "4.3.4",
     "eslint": "7.32.0",

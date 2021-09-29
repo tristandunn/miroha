@@ -5,7 +5,7 @@ module.exports = {
     "node": true
   },
   "extends": ["eslint:all"],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "sourceType": "module"
   },
