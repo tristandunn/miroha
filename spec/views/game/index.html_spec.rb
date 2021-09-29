@@ -23,7 +23,9 @@ describe "game/index.html.erb", type: :view do
   end
 
   it "renders the game" do
-    expect(html).to have_css(%(main[data-controller="game"]))
+    expect(html).to have_css(
+      %(main[data-controller="game"][data-character-id="#{character.id}"])
+    )
   end
 
   it "renders the sidebar" do

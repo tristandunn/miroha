@@ -1,0 +1,4 @@
+<%= turbo_stream.remove(room_source) %>
+<%= turbo_stream.append("streams") do %>
+  <%= turbo_stream_from room_target %>
+<% end %>

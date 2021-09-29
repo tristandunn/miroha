@@ -1,0 +1,10 @@
+<%= turbo_stream.append("messages", partial: "commands/move/exit", locals: { character: character, direction: direction }) %>
+<%=
+  content_tag(
+    "turbo-stream",
+    nil,
+    action: "remove",
+    target: "surrounding_character_#{character.id}",
+    data: { character_id: character.id }
+  ).html_safe
+%>
