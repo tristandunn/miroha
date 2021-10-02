@@ -4,7 +4,13 @@ const ALIAS_CLASS = "aliased";
 
 export default class ChatController extends Controller {
   static aliases = {
-    "/me": "/emote"
+    "/me": "/emote",
+    "d": "/move down",
+    "e": "/move east",
+    "n": "/move north",
+    "s": "/move south",
+    "u": "/move up",
+    "w": "/move west"
   };
 
   static targets = ["input", "message", "messages", "newMessages"];

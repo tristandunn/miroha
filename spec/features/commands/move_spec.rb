@@ -179,6 +179,16 @@ describe "Sending the move command", type: :feature, js: true do
     end
   end
 
+  context "with an aliased direction" do
+    it "displays the new room description to the sender" do
+      north_room = create(:room, x: 0, y: 1, z: 0)
+
+      send_text(:n)
+
+      expect(page).to have_look_message(north_room)
+    end
+  end
+
   protected
 
   def have_enter_message(direction:, **arguments)
