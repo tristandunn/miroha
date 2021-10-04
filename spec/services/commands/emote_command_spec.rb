@@ -3,37 +3,41 @@
 require "rails_helper"
 
 describe Commands::EmoteCommand, type: :service do
-  let(:character)           { build_stubbed(:character) }
-  let(:default_punctuation) { described_class::DEFAULT_PUNCTUATION }
+  let(:character) { build_stubbed(:character) }
+  let(:command)   { "/emote #{message}" }
+  let(:instance)  { described_class.new(command, character: character) }
 
   describe "#call" do
+    subject(:call) { instance.call }
+
     before do
       allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
     end
 
-    it "broadcasts emote partial to the room" do
-      instance = described_class.new("/emote laughs", character: character)
+    context "with no punctuation" do
+      let(:message) { "laughs" }
 
-      instance.call
+      it "broadcasts emote partial to the room" do
+        call
 
-      expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-        .with(
-          character.room,
-          target:  "messages",
-          partial: "commands/emote",
-          locals:  {
-            message: "#{character.name} laughs#{default_punctuation}"
-          }
-        )
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
+          .with(
+            character.room,
+            target:  "messages",
+            partial: "commands/emote",
+            locals:  {
+              message: "#{character.name} #{message}#{described_class::DEFAULT_PUNCTUATION}"
+            }
+          )
+      end
     end
 
-    context "with included punctuation" do
-      it "does not append default punctuation" do
-        described_class::PUNCTUATION_CHARACTERS.each do |punctuation|
-          message  = "laughs#{punctuation}"
-          instance = described_class.new("/emote #{message}", character: character)
+    described_class::PUNCTUATION_CHARACTERS.each do |punctuation|
+      context "with #{punctuation} punctuation" do
+        let(:message) { "laughs#{punctuation}" }
 
-          instance.call
+        it "does not append default punctuation" do
+          call
 
           expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
             .with(
@@ -48,45 +52,45 @@ describe Commands::EmoteCommand, type: :service do
       end
     end
 
-    context "with blank argument" do
-      it "does not broadcast" do
-        instance = described_class.new("/emote ", character: character)
+    context "with blank message" do
+      let(:command) { "/emote " }
 
-        instance.call
+      it "does not broadcast" do
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
     end
 
-    context "with no argument" do
-      it "does not broadcast" do
-        instance = described_class.new("/emote", character: character)
+    context "with no message" do
+      let(:command) { "/emote" }
 
-        instance.call
+      it "does not broadcast" do
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
     end
   end
 
-  describe "#render?" do
-    it "returns false" do
-      instance = described_class.new("/emote laughs", character: character)
+  describe "#rendered?" do
+    subject(:rendered?) { instance.rendered? }
 
-      expect(instance).not_to be_rendered
-    end
+    let(:message) { "laughs" }
+
+    it { is_expected.to eq(false) }
   end
 
   describe "#render_options" do
+    subject(:render_options) { instance.render_options }
+
+    let(:message) { "laughs" }
+
     it "returns the partial with character and message locals" do
-      instance = described_class.new("/emote laughs", character: character)
-
-      result = instance.render_options
-
-      expect(result).to eq(
+      expect(render_options).to eq(
         partial: "commands/emote",
         locals:  {
-          message: "#{character.name} laughs#{default_punctuation}"
+          message: "#{character.name} #{message}#{described_class::DEFAULT_PUNCTUATION}"
         }
       )
     end

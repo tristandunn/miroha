@@ -4,32 +4,25 @@ require "rails_helper"
 
 describe Commands::Base, type: :service do
   let(:character) { build_stubbed(:character) }
+  let(:instance)  { described_class.new("", character: character) }
 
   describe "#call" do
-    it "returns nil" do
-      instance = described_class.new("", character: character)
+    subject(:call) { instance.call }
 
-      result = instance.call
-
-      expect(result).to eq(nil)
-    end
+    it { is_expected.to eq(nil) }
   end
 
-  describe "#render?" do
-    it "returns false" do
-      instance = described_class.new("", character: character)
+  describe "#rendered?" do
+    subject(:rendered?) { instance.rendered? }
 
-      expect(instance).not_to be_rendered
-    end
+    it { is_expected.to eq(false) }
   end
 
   describe "#render_options" do
+    subject(:render_options) { instance.render_options }
+
     it "returns the partial with no locals" do
-      instance = described_class.new("", character: character)
-
-      result = instance.render_options
-
-      expect(result).to eq(
+      expect(render_options).to eq(
         partial: "commands/base",
         locals:  {}
       )
