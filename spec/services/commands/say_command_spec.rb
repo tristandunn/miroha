@@ -4,68 +4,75 @@ require "rails_helper"
 
 describe Commands::SayCommand, type: :service do
   let(:character) { build_stubbed(:character) }
+  let(:command)   { "/say #{message}" }
+  let(:instance)  { described_class.new(command, character: character) }
 
   describe "#call" do
-    it "broadcasts say partial to the room" do
+    subject(:call) { instance.call }
+
+    before do
       allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
-      instance = described_class.new("/say Hello, world!", character: character)
-
-      instance.call
-
-      expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-        .with(
-          character.room,
-          target:  "messages",
-          partial: "commands/say",
-          locals:  {
-            character: character,
-            message:   "Hello, world!"
-          }
-        )
     end
 
-    context "with blank argument" do
-      it "does not broadcast" do
-        allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
-        instance = described_class.new("/say ", character: character)
+    context "with a message" do
+      let(:message) { "Hello, world!" }
 
-        instance.call
+      it "broadcasts say partial to the room" do
+        call
+
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
+          .with(
+            character.room,
+            target:  "messages",
+            partial: "commands/say",
+            locals:  {
+              character: character,
+              message:   message
+            }
+          )
+      end
+    end
+
+    context "with blank message" do
+      let(:message) { " " }
+
+      it "does not broadcast" do
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
     end
 
-    context "with no argument" do
-      it "does not broadcast" do
-        allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
-        instance = described_class.new("/say", character: character)
+    context "with no message" do
+      let(:command) { "/say" }
 
-        instance.call
+      it "does not broadcast" do
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
     end
   end
 
-  describe "#render?" do
-    it "returns false" do
-      instance = described_class.new("/say Hi", character: character)
+  describe "#rendered?" do
+    subject(:rendered?) { instance.rendered? }
 
-      expect(instance).not_to be_rendered
-    end
+    let(:message) { "Hello, world!" }
+
+    it { is_expected.to eq(false) }
   end
 
   describe "#render_options" do
+    subject(:render_options) { instance.render_options }
+
+    let(:message) { "Hello, world!" }
+
     it "returns the partial with character and message locals" do
-      instance = described_class.new("/say Hi", character: character)
-
-      result = instance.render_options
-
-      expect(result).to eq(
+      expect(render_options).to eq(
         partial: "commands/say",
         locals:  {
           character: character,
-          message:   "Hi"
+          message:   message
         }
       )
     end
