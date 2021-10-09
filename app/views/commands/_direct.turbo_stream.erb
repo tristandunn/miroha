@@ -1,0 +1,5 @@
+<% if target.nil? %>
+  <%= render "commands/direct/unknown", target_name: target_name %>
+<% elsif target == character %>
+  <%= render "commands/direct/self" %>
+<% end %>
