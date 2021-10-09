@@ -48,6 +48,11 @@ en:
       submit: "Create Your Character"
 
   commands:
+    direct:
+      self:
+        message: "You are talking to yourself."
+      unknown:
+        message: "You don't see anyone named \"%{target_name}\"."
     move:
       enter:
         down: "%{name} arrived from above."
