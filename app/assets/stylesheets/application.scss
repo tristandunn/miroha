@@ -93,7 +93,7 @@
 }
 
 .highlight-errors {
-  .field_with_errors {
+  .field_with_errors { // stylelint-disable-line selector-class-pattern
     input {
       @apply border-red-400;
 
