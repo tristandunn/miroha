@@ -3,9 +3,8 @@
 ruby   "3.0.2"
 source "https://rubygems.org"
 
-gem "actioncable",  "6.1.4.1", require: "action_cable"
 gem "bcrypt",       "3.1.16"
-gem "bootsnap",     "1.9.1", require: false
+gem "bootsnap",     "1.9.3", require: false
 gem "hiredis",      "0.6.3"
 gem "oj",           "3.13.9"
 gem "pg",           "1.2.3"
@@ -15,7 +14,7 @@ gem "rack-timeout", "0.6.0"
 gem "rails",        "6.1.4.1"
 gem "redis",        "4.5.1", require: %w(redis redis/connection/hiredis)
 gem "sassc-rails",  "2.1.2"
-gem "turbo-rails",  "0.8.3"
+gem "turbo-rails",  "0.9.0"
 gem "webpacker",    "5.4.3"
 
 group :development, :test do
