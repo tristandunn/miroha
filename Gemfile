@@ -3,19 +3,20 @@
 ruby   "3.1.0"
 source "https://rubygems.org"
 
-gem "bcrypt",       "3.1.16"
-gem "bootsnap",     "1.9.4", require: false
-gem "hiredis",      "0.6.3"
-gem "oj",           "3.13.11"
-gem "pg",           "1.2.3"
-gem "puma",         "5.5.2"
-gem "rack-attack",  "6.5.0"
-gem "rack-timeout", "0.6.0"
-gem "rails",        "7.0.1"
-gem "redis",        "4.5.1", require: %w(redis redis/connection/hiredis)
-gem "sassc-rails",  "2.1.2"
-gem "turbo-rails",  "1.0.0"
-gem "webpacker",    "5.4.3"
+gem "bcrypt",            "3.1.16"
+gem "bootsnap",          "1.9.4", require: false
+gem "hiredis",           "0.6.3"
+gem "oj",                "3.13.11"
+gem "pg",                "1.2.3"
+gem "puma",              "5.5.2"
+gem "rack-attack",       "6.5.0"
+gem "rack-timeout",      "0.6.0"
+gem "rails",             "7.0.1"
+gem "redis",             "4.5.1", require: %w(redis redis/connection/hiredis)
+gem "sassc-rails",       "2.1.2"
+gem "strong_migrations", "0.7.9"
+gem "turbo-rails",       "1.0.0"
+gem "webpacker",         "5.4.3"
 
 group :development, :test do
   gem "bullet",       "7.0.1"
