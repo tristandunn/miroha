@@ -1,0 +1,102 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+#container {
+  grid-template-columns: 20rem minmax(28rem, auto) minmax(20rem, 16vw);
+}
+
+#sidebar {
+  grid-template-rows: 0.25rem max-content auto;
+}
+
+#navigation {
+  grid-template-columns: 64px auto;
+}
+
+#chat {
+  grid-template-rows: auto max-content;
+}
+
+#chat table {
+  @apply w-full;
+}
+
+#chat .aliased {
+  @apply text-transparent;
+}
+
+#messages {
+  @apply text-sm;
+}
+
+#messages td {
+  @apply bg-white px-4 py-2 border-b border-gray-300 leading-none;
+}
+
+#messages td + td {
+  @apply pl-0;
+}
+
+#messages td:first-child {
+  @apply w-1/12 font-bold text-right;
+}
+
+#messages td.message-emote,
+#messages td.message-enter-game,
+#messages td.message-exit-game,
+#messages td.message-unknown {
+  @apply font-normal text-left;
+}
+
+#messages td.message-emote {
+  @apply italic leading-5;
+}
+
+#messages td.message-enter-game,
+#messages td.message-exit-game {
+  @apply bg-gray-200;
+}
+
+#messages td.message-look {
+  @apply font-normal leading-5 text-left bg-gray-200;
+}
+
+#messages td.message-look p {
+  @apply max-w-2xl;
+}
+
+#messages td.message-direct,
+#messages td.message-say {
+  @apply py-3 leading-5;
+}
+
+#messages td.nth-child(1) {
+  vertical-align: top;
+}
+
+#messages td.message-unknown {
+  @apply bg-red-100 border-red-200;
+}
+
+#surroundings ol {
+  @apply list-none;
+}
+
+#surroundings li {
+  @apply overflow-hidden py-2 px-4 font-semibold leading-8 text-gray-200 bg-gray-700 border-b border-gray-900;
+}
+
+#surroundings img {
+  @apply float-left mr-2 w-8 h-8 bg-white rounded opacity-25;
+}
+
+/* stylelint-disable selector-class-pattern */
+.highlight-errors .field_with_errors input {
+  @apply border-red-400;
+}
+
+.highlight-errors .field_with_errors input:focus {
+  @apply shadow-red-200;
+}
+/* stylelint-enable selector-class-pattern */

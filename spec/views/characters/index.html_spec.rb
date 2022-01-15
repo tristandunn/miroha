@@ -33,8 +33,8 @@ describe "characters/index.html.erb", type: :view do
     it "renders a button for each character" do
       characters.each do |character|
         expect(html).to have_css(
-          %(form[method="post"][action="#{select_character_path(character)}"] ) <<
-          %(input[value="#{character.name}"])
+          %(form[method="post"][action="#{select_character_path(character)}"] button),
+          text: character.name
         )
       end
     end

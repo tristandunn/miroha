@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "command" do %>
   <%= form_tag commands_path, class: "p-4 bg-gray-200", data: { controller: "chat", action: "submit->chat#aliasCommand submit->chat#validateCommand turbo:submit-end->chat#handleRedirect turbo:submit-end->chat#resetForm" } do %>
-    <%= text_field_tag :input, nil, autofocus: true, class: "p-2 w-full text-sm leading-none rounded border border-gray-500 border-solid outline-none focus:border-gray-600", data: { action: "blur->chat#focusCommand", "chat-target": "input" }, spellcheck: false %>
+    <%= text_field_tag :input, nil, autofocus: true, class: "p-2 w-full text-sm leading-none rounded border border-gray-400 border-solid focus:ring-0 focus:border-gray-600", data: { action: "blur->chat#focusCommand", "chat-target": "input" }, spellcheck: false %>
   <% end %>
 <% end %>
