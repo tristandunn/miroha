@@ -18,7 +18,7 @@ Bundler.require(*Rails.groups)
 module Miroha
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
 
     # Add the library directory to the autoload paths.
     config.autoload_paths << Rails.root.join("lib")

@@ -1,9 +1,11 @@
-!.ruby-version
-!Procfile.dev
-
+app/assets/builds/*
 coverage/
 log/
 node_modules/
 public/packs-test/
 public/packs/
 tmp/
+
+!.ruby-version
+!Procfile.dev
+!app/assets/builds/.keep
