@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "game/chat/_command.html.erb", type: :view do
   subject(:html) do
-    render
+    render partial: "game/chat/command"
 
     rendered
   end

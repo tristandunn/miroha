@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "characters/index.html.erb", type: :view do
   subject(:html) do
-    render
+    render template: "characters/index"
 
     rendered
   end

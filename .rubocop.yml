@@ -59,6 +59,9 @@ Style/ExpandPathArguments:
 Style/GuardClause:
   Enabled: false
 
+Style/HashSyntax:
+  Enabled: false
+
 Style/IfUnlessModifier:
   Enabled: false
 

@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "game/sidebar/navigation/_menu.html.erb", type: :view do
   subject(:html) do
-    render
+    render partial: "game/sidebar/navigation/menu"
 
     rendered
   end

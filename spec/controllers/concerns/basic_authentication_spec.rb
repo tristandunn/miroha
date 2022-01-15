@@ -16,7 +16,7 @@ describe BasicAuthentication do
         action_callback.filter == :basic_authentication
       end
 
-      expect(callback.instance_variable_get("@if")).to eq(
+      expect(callback.instance_variable_get(:@if)).to eq(
         [:basic_authentication?]
       )
     end

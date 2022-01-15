@@ -6,7 +6,7 @@ describe "commands/move/_success.turbo_stream.erb", type: :view do
   subject(:html) do
     render(
       partial: "commands/move/success",
-      formats: [:turbo_stream],
+      formats: :turbo_stream,
       locals:  {
         room_source: room_source,
         room_target: room_target
