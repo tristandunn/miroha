@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-require "active_support/core_ext/integer/time"
-
 Rails.application.configure do
   # Disable caching for classes.
   config.cache_classes = false
-
-  # Enable template loading cache.
-  config.action_view.cache_template_loading = true
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
