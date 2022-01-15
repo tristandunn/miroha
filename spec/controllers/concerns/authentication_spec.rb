@@ -180,7 +180,7 @@ describe Authentication do
       before do
         allow(instance).to receive(:account_from_session)
 
-        instance.instance_variable_set("@current_account", account)
+        instance.instance_variable_set(:@current_account, account)
       end
 
       it "does not attempt to load an account from the session" do
@@ -211,7 +211,7 @@ describe Authentication do
       it "assigns the account to the instance variable" do
         instance.current_account
 
-        expect(instance.instance_variable_get("@current_account")).to eq(account)
+        expect(instance.instance_variable_get(:@current_account)).to eq(account)
       end
 
       it "returns the account" do
@@ -234,7 +234,7 @@ describe Authentication do
       it "assigns nil to the instance variable" do
         instance.current_account
 
-        expect(instance.instance_variable_get("@current_account")).to be_nil
+        expect(instance.instance_variable_get(:@current_account)).to be_nil
       end
 
       it "returns unknown account" do
@@ -261,7 +261,7 @@ describe Authentication do
       end
 
       it "assigns the account to the instance variable" do
-        expect(instance.instance_variable_get("@current_account")).to eq(account)
+        expect(instance.instance_variable_get(:@current_account)).to eq(account)
       end
     end
 
@@ -277,7 +277,7 @@ describe Authentication do
       end
 
       it "assigns nil to instance variable" do
-        expect(instance.instance_variable_get("@current_account")).to be_nil
+        expect(instance.instance_variable_get(:@current_account)).to be_nil
       end
     end
   end
@@ -289,7 +289,7 @@ describe Authentication do
       before do
         allow(instance).to receive(:character_from_session)
 
-        instance.instance_variable_set("@current_character", character)
+        instance.instance_variable_set(:@current_character, character)
       end
 
       it "does not attempt to load a character from the session" do
@@ -320,7 +320,7 @@ describe Authentication do
       it "assigns the character to the instance variable" do
         instance.current_character
 
-        expect(instance.instance_variable_get("@current_character")).to eq(character)
+        expect(instance.instance_variable_get(:@current_character)).to eq(character)
       end
 
       it "returns the character" do
@@ -343,7 +343,7 @@ describe Authentication do
       it "assigns nil to the instance variable" do
         instance.current_character
 
-        expect(instance.instance_variable_get("@current_character")).to be_nil
+        expect(instance.instance_variable_get(:@current_character)).to be_nil
       end
 
       it "returns unknown character" do
@@ -368,7 +368,7 @@ describe Authentication do
       end
 
       it "assigns the character to the instance variable" do
-        expect(instance.instance_variable_get("@current_character")).to eq(character)
+        expect(instance.instance_variable_get(:@current_character)).to eq(character)
       end
     end
 
@@ -386,7 +386,7 @@ describe Authentication do
       end
 
       it "assigns nil to instance variable" do
-        expect(instance.instance_variable_get("@current_character")).to be_nil
+        expect(instance.instance_variable_get(:@current_character)).to be_nil
       end
     end
   end

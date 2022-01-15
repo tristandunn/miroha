@@ -17,7 +17,7 @@ describe "commands/_move.turbo_stream.erb", type: :view do
     subject(:html) do
       render(
         partial: "commands/move",
-        formats: [:turbo_stream],
+        formats: :turbo_stream,
         locals:  {
           room_source: room,
           room_target: room
@@ -52,7 +52,7 @@ describe "commands/_move.turbo_stream.erb", type: :view do
     subject(:html) do
       render(
         partial: "commands/move",
-        formats: [:turbo_stream],
+        formats: :turbo_stream,
         locals:  {
           direction:   :north,
           room_target: nil
@@ -87,7 +87,7 @@ describe "commands/_move.turbo_stream.erb", type: :view do
     subject(:html) do
       render(
         partial: "commands/move",
-        formats: [:turbo_stream],
+        formats: :turbo_stream,
         locals:  {
           direction:   nil,
           room_target: nil

@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "accounts/new.html.erb", type: :view do
   subject(:html) do
-    render
+    render template: "accounts/new"
 
     rendered
   end

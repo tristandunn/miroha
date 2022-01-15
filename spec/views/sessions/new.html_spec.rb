@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "sessions/new.html.erb", type: :view do
   subject(:html) do
-    render
+    render template: "sessions/new"
 
     rendered
   end
