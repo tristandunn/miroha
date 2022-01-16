@@ -2,8 +2,10 @@
 
 class AddExperienceToCharacters < ActiveRecord::Migration[6.1]
   def change
-    change_table :characters do |t|
-      t.integer :experience, null: false, default: 0
+    safety_assured do
+      change_table :characters do |t|
+        t.integer :experience, null: false, default: 0
+      end
     end
   end
 end

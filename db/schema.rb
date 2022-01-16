@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_09_24_230942) do
     t.bigint "room_id", null: false
     t.integer "level", default: 1, null: false
     t.integer "experience", default: 0, null: false
-    t.datetime "active_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "active_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["account_id"], name: "index_characters_on_account_id"
     t.index ["active_at"], name: "index_characters_on_active_at"
     t.index ["name"], name: "index_characters_on_name", unique: true
