@@ -43,6 +43,29 @@ describe Character, type: :model do
     end
   end
 
+  describe ".inactive", type: :model do
+    subject(:inactive) { described_class.inactive }
+
+    it "returns characters inactive outside the last 15 minutes" do
+      create(:character, active_at: 1.minute.ago)
+      create(:character, active_at: described_class::ACTIVE_DURATION.ago)
+      character = create(:character, active_at: described_class::ACTIVE_DURATION.ago - 1.second)
+
+      expect(inactive).to match_array([character])
+    end
+  end
+
+  describe ".playing", type: :model do
+    subject(:playing) { described_class.playing }
+
+    it "returns playing characters" do
+      create(:character, playing: false)
+      character = create(:character, playing: true)
+
+      expect(playing).to match_array([character])
+    end
+  end
+
   describe "#experience" do
     subject(:experience) { character.experience }
 

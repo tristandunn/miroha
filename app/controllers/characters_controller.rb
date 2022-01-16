@@ -42,9 +42,7 @@ class CharactersController < ApplicationController
 
   # Removes a character from the game.
   def exit
-    broadcast_game_exit_to_room(current_character)
-
-    self.current_character = nil
+    exit_game(current_character)
 
     redirect_to characters_url
   end
@@ -102,10 +100,25 @@ class CharactersController < ApplicationController
   # @param [Character] character The character entering the game.
   # @return [void]
   def enter_game(character)
-    character.update(active_at: Time.current)
+    character.update(active_at: Time.current, playing: true)
 
     self.current_character = character
 
     broadcast_game_entrance_to_room(character)
+  end
+
+  # Exit a character into the game.
+  #
+  # Updates the character as being inactive, clears the current character, and
+  # broadcasts their exit.
+  #
+  # @param [Character] character The character entering the game.
+  # @return [void]
+  def exit_game(character)
+    character.update(playing: false)
+
+    self.current_character = nil
+
+    broadcast_game_exit_to_room(character)
   end
 end

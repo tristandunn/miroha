@@ -165,6 +165,10 @@ describe CharactersController, type: :controller do
         expect(character.reload.active_at).to eq(Time.current)
       end
 
+      it "marks the character as playing" do
+        expect(character.reload.playing).to eq(true)
+      end
+
       it "broadcasts an enter message to the room" do
         expect(Turbo::StreamsChannel).to have_received(:broadcast_render_later_to)
           .with(
@@ -219,6 +223,10 @@ describe CharactersController, type: :controller do
 
       it { is_expected.to set_session[:character_id].to(nil) }
       it { is_expected.to redirect_to(characters_url) }
+
+      it "marks the character as not playing" do
+        expect(character.reload.playing).to eq(false)
+      end
 
       it "broadcasts an exit message to the room" do
         expect(Turbo::StreamsChannel).to have_received(:broadcast_render_later_to)

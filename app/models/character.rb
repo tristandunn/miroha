@@ -22,6 +22,20 @@ class Character < ApplicationRecord
     where("active_at >= NOW() - INTERVAL '#{ACTIVE_DURATION}'")
   end
 
+  # Return a scope limiting to characters inactive outside +ACTIVE_DURATION+.
+  #
+  # @return [ActiveRecord::Relation]
+  def self.inactive
+    where("active_at < NOW() - INTERVAL '#{ACTIVE_DURATION}'")
+  end
+
+  # Return a scope limiting to playing characters.
+  #
+  # @return [ActiveRecord::Relation]
+  def self.playing
+    where(playing: true)
+  end
+
   # Return an +Experience+ object for the character.
   #
   # @return [Experience]

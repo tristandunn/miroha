@@ -7,6 +7,7 @@ FactoryBot.define do
     name
 
     active_at { Time.current }
+    playing { true }
 
     trait :inactive do
       active_at { Character::ACTIVE_DURATION.ago - 1.minute }

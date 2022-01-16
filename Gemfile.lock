@@ -94,6 +94,7 @@ GEM
     climate_control (1.0.1)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    dalli (3.2.0)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
     database_cleaner-active_record (2.0.1)
@@ -284,6 +285,10 @@ GEM
     strong_migrations (0.7.9)
       activerecord (>= 5)
     strscan (3.0.1)
+    suo (0.4.0)
+      dalli
+      msgpack
+      redis
     tailwindcss-rails (2.0.4-arm64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.4-x86_64-darwin)
@@ -312,6 +317,11 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.3)
+    zhong (0.3.0)
+      activesupport
+      redis
+      suo
+      tzinfo
 
 PLATFORMS
   arm64-darwin-21
@@ -355,6 +365,7 @@ DEPENDENCIES
   tailwindcss-rails (= 2.0.4)
   turbo-rails (= 1.0.0)
   web-console (= 4.2.0)
+  zhong (= 0.3.0)
 
 RUBY VERSION
    ruby 3.1.0p0

@@ -1,2 +1,3 @@
+clock: bundle exec rails runner ./clock.rb
 release: bundle exec rake db:migrate
 web: bundle exec puma -C config/puma.rb

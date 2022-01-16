@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_24_230942) do
+ActiveRecord::Schema.define(version: 2022_01_16_203840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,9 @@ ActiveRecord::Schema.define(version: 2021_09_24_230942) do
     t.integer "level", default: 1, null: false
     t.integer "experience", default: 0, null: false
     t.datetime "active_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.boolean "playing", default: false, null: false
     t.index ["account_id"], name: "index_characters_on_account_id"
-    t.index ["active_at"], name: "index_characters_on_active_at"
+    t.index ["active_at", "playing"], name: "index_characters_on_active_at_and_playing"
     t.index ["name"], name: "index_characters_on_name", unique: true
     t.index ["room_id", "active_at"], name: "index_characters_on_room_id_and_active_at"
   end
