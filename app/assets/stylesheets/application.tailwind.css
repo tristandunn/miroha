@@ -71,6 +71,14 @@
   @apply py-3 leading-5;
 }
 
+#messages td.message-whisper {
+  @apply bg-slate-100 font-normal text-left;
+}
+
+#messages td.message-whisper span {
+  @apply font-bold;
+}
+
 #messages td.nth-child(1) {
   vertical-align: top;
 }

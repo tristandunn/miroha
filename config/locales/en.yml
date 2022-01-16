@@ -74,6 +74,15 @@ en:
         message: "Unknown direction."
     unknown:
       message: "Unknown command: %{command}"
+    whisper:
+      target:
+        message_html: "<span>%{name}</span> whispers \"%{message}\""
+      self:
+        message: "You are talking to yourself."
+      source:
+        message_html: "<span>You</span> whisper \"%{message}\" to %{target_name}."
+      unknown:
+        message: "You don't see anyone named \"%{target_name}\"."
 
   game:
     chat:
