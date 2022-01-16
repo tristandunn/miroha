@@ -36,6 +36,8 @@ module RSpec
         def sign_in_as_character(character = create(:character))
           sign_in_as character.account
           click_button character.name
+
+          expect(page).to have_css("#sidebar h1", text: character.name)
         end
 
         def sign_out

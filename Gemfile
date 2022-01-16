@@ -19,6 +19,7 @@ gem "sprockets-rails",   "3.4.2"
 gem "strong_migrations", "0.7.9"
 gem "tailwindcss-rails", "2.0.4"
 gem "turbo-rails",       "1.0.0"
+gem "zhong",             "0.3.0", require: false
 
 group :development, :test do
   gem "bullet",       "7.0.1"
