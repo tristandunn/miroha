@@ -35,6 +35,16 @@ describe Commands::DirectCommand, type: :service do
       end
     end
 
+    context "with target in a different room" do
+      let(:target) { create(:character) }
+
+      it "does not broadcast" do
+        call
+
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+      end
+    end
+
     context "with character as target" do
       let(:target) { character }
 
