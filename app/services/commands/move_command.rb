@@ -74,7 +74,8 @@ module Commands
 
     # Return the direction, if valid.
     #
-    # @return [Symbol|nil]
+    # @return [Symbol] If the direction name is valid.
+    # @return [nil] If the direction name is not valid.
     def direction
       name = input_without_command.to_sym
 
@@ -92,7 +93,8 @@ module Commands
 
     # Return the offsets for the provided direction.
     #
-    # @return [Hash|nil]
+    # @return [Hash] If there are offsets defined for the direction.
+    # @return [nil] If there are no offsets defined for the direction.
     def offsets
       @offsets ||= OFFSETS[direction]
     end
@@ -106,7 +108,8 @@ module Commands
 
     # Attempt to find the target room based on direction offsets.
     #
-    # @return [Room|nil]
+    # @return [Room] If there is a room at the target coordinates.
+    # @return [nil] If there is not a room at the target coordinates.
     def room_target
       if offsets.present?
         @room_target ||= Room.find_by(target_coordinates)

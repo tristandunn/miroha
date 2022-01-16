@@ -39,7 +39,8 @@ module Commands
 
     # Attempt to find the target by name.
     #
-    # @return [Character|nil]
+    # @return [Character] If a character is found.
+    # @return [nil] If a character is not found.
     def target
       return @target if defined?(@target)
 
