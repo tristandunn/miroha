@@ -17,8 +17,8 @@ gem "rails",             "7.0.1"
 gem "redis",             "4.5.1", require: %w(redis redis/connection/hiredis)
 gem "sprockets-rails",   "3.4.2"
 gem "strong_migrations", "0.7.9"
-gem "tailwindcss-rails", "2.0.4"
-gem "turbo-rails",       "1.0.0"
+gem "tailwindcss-rails", "2.0.5"
+gem "turbo-rails",       "1.0.1"
 gem "zhong",             "0.3.0", require: false
 
 group :development, :test do
@@ -32,7 +32,7 @@ group :development do
   gem "brakeman",            "5.2.0", require: false
   gem "listen",              "3.7.1"
   gem "rubocop",             "1.24.1", require: false
-  gem "rubocop-performance", "1.13.1", require: false
+  gem "rubocop-performance", "1.13.2", require: false
   gem "rubocop-rails",       "2.13.2", require: false
   gem "rubocop-rspec",       "2.7.0",  require: false
   gem "web-console",         "4.2.0"
