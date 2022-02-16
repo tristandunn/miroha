@@ -30,6 +30,6 @@ Rack::Attack.throttle("sessions/ip", limit: 1, period: 1) do |request|
 end
 
 # Customize the throttled response.
-Rack::Attack.throttled_response = lambda do |_request|
+Rack::Attack.throttled_responder = lambda do |_request|
   [503, {}, ["503 Service Unavailable\n"]]
 end
