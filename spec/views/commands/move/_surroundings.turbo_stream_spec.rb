@@ -21,10 +21,10 @@ describe "commands/move/_surroundings.turbo_stream.erb", type: :view do
     stub_template("game/_surroundings.html.erb" => "SURROUNDINGS_TEMPLATE")
   end
 
-  it "updates the surrounding characters element" do
+  it "updates the surroundings element" do
     expect(html).to have_turbo_stream_element(
-      action: "update",
-      target: "surrounding-characters"
+      action: "replace",
+      target: "surroundings"
     )
   end
 

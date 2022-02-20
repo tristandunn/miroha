@@ -1,4 +1,10 @@
 <div id="surroundings" class="bg-gray-800">
+  <ol id="surrounding-monsters">
+    <% room.monsters.sort_by(&:name).each do |monster| %>
+      <%= render "game/surroundings/monster", monster: monster %>
+    <% end %>
+  </ol>
+
   <ol id="surrounding-characters">
     <% room.characters.active.sort_by(&:name).each do |character| %>
       <%= render "game/surroundings/character", character: character %>
