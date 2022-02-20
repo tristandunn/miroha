@@ -2,6 +2,7 @@
 
 class Room < ApplicationRecord
   has_many :characters, dependent: :restrict_with_exception
+  has_many :monsters, dependent: :destroy
 
   validates :description, presence: true
   validates :x, numericality: { only_integer: true },

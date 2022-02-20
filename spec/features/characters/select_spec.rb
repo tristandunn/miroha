@@ -29,6 +29,14 @@ describe "Selecting a character", type: :feature, js: true do
     expect(page).to have_surrounding_character(nearby_character)
   end
 
+  it "displays monsters in surroundings", js: false do
+    monster = create(:monster, room: character.room)
+
+    click_button character.name
+
+    expect(page).to have_surrounding_monster(monster)
+  end
+
   it "broadcasts an enter message to the room" do
     using_session(:nearby_character) do
       sign_in_as_character create(:character, room: character.room)

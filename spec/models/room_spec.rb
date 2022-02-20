@@ -9,6 +9,8 @@ describe Room, type: :model do
     expect(room).to have_many(:characters).dependent(:restrict_with_exception)
   end
 
+  it { is_expected.to have_many(:monsters).dependent(:destroy) }
+
   it { is_expected.to validate_presence_of(:description) }
 
   it { is_expected.to validate_numericality_of(:x).only_integer }

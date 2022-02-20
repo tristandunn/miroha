@@ -27,6 +27,28 @@ describe "Sending the move command", type: :feature, js: true do
     expect(page).to have_surrounding_character(north_character)
   end
 
+  it "adds new surrounding monsters to the sender" do
+    north_room    = create(:room, x: 0, y: 1, z: 0)
+    north_monster = create(:monster, room: north_room)
+
+    send_command(:move, :north)
+
+    expect(page).to have_surrounding_monster(north_monster)
+  end
+
+  it "removes old surrounding monsters from the sender" do
+    north_room    = create(:room, x: 0, y: 1, z: 0)
+    north_monster = create(:monster, room: north_room)
+
+    send_command(:move, :north)
+
+    wait_for(have_surrounding_monster(north_monster)) do
+      send_command(:move, :south)
+    end
+
+    expect(page).not_to have_surrounding_monster(north_monster)
+  end
+
   it "broadcasts the exit message to the source room" do
     create(:room, x: 0, y: 1, z: 0)
 

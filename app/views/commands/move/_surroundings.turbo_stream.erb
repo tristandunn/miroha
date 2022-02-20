@@ -1,1 +1,1 @@
-<%= turbo_stream.update("surrounding-characters", partial: "game/surroundings", locals: { room: room }) %>
+<%= turbo_stream.replace("surroundings", partial: "game/surroundings", locals: { room: room }) %>
