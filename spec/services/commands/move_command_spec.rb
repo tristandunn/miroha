@@ -19,7 +19,7 @@ describe Commands::MoveCommand, type: :service do
       context "with a room #{offset_direction}" do
         let(:direction) { offset_direction }
 
-        it "moves the character to the target roo" do
+        it "moves the character to the target room" do
           room_target = create(:room, origin.merge(offset))
 
           call
