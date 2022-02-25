@@ -28,3 +28,7 @@ Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
     DESCRIPTION
   )
 end
+
+Monster.find_or_create_by(name: "Rat").tap do |rat|
+  Spawn.find_or_create_by(base: rat, entity: rat.dup, room: Room.find_by(x: 0, y: 0, z: 0))
+end
