@@ -47,21 +47,6 @@ RSpec.configure do |config|
   # Filter libraries in backtraces.
   config.backtrace_exclusion_patterns << %r{/gems/}
 
-  # Ensure the JavaScript is built.
-  config.before(:suite) do
-    original_stdout = $stdout.clone
-    original_stderr = $stderr.clone
-
-    $stderr.reopen(File::NULL)
-    $stdout.reopen(File::NULL)
-
-    Rails.application.load_tasks
-    Rake::Task["javascript:build"].invoke
-
-    $stdout.reopen(original_stdout)
-    $stderr.reopen(original_stderr)
-  end
-
   # Patch for rspec/rails issue #2485.
   config.before(:context, type: :view) do
     resolvers = RSpec::Rails::ViewExampleGroup::StubResolverCache
