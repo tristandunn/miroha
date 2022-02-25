@@ -2,7 +2,16 @@
 
 FactoryBot.define do
   factory :monster do
-    room
     name
+
+    transient do
+      room { nil }
+    end
+
+    after(:create) do |monster, evaluator|
+      if evaluator.room.present?
+        create(:spawn, :monster, base: monster.dup, entity: monster, room: evaluator.room)
+      end
+    end
   end
 end
