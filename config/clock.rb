@@ -8,6 +8,10 @@ if defined?(Zhong)
       Clock::ActivateSpawns.call
     end
 
+    every(1.minute, "Expire spawns.") do
+      Clock::ExpireSpawns.call
+    end
+
     every(1.minute, "Sign out inactive characters.") do
       Clock::SignOutInactiveCharacters.call
     end
