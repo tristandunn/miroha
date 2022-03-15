@@ -59,7 +59,7 @@ describe Commands::SayCommand, type: :service do
 
     let(:message) { "Hello, world!" }
 
-    it { is_expected.to eq(false) }
+    it { is_expected.to be(false) }
   end
 
   describe "#render_options" do

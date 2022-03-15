@@ -20,14 +20,14 @@ describe Commands::UnknownCommand, type: :service do
     end
 
     it "returns nil" do
-      expect(call).to eq(nil)
+      expect(call).to be_nil
     end
   end
 
   describe "#rendered?" do
     subject(:rendered?) { instance.rendered? }
 
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe "#render_options" do

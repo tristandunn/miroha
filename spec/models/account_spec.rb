@@ -30,7 +30,7 @@ describe Account, type: :model do
     let(:account) { create(:account) }
 
     context "with no characters" do
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "with characters at the limit" do
@@ -38,7 +38,7 @@ describe Account, type: :model do
         create_list(:character, described_class::CHARACTER_LIMIT, account: account)
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
   end
 
