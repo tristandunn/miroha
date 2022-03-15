@@ -9,13 +9,13 @@ describe Commands::Base, type: :service do
   describe "#call" do
     subject(:call) { instance.call }
 
-    it { is_expected.to eq(nil) }
+    it { is_expected.to be_nil }
   end
 
   describe "#rendered?" do
     subject(:rendered?) { instance.rendered? }
 
-    it { is_expected.to eq(false) }
+    it { is_expected.to be(false) }
   end
 
   describe "#render_options" do

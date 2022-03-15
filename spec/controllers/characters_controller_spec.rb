@@ -166,7 +166,7 @@ describe CharactersController, type: :controller do
       end
 
       it "marks the character as playing" do
-        expect(character.reload.playing).to eq(true)
+        expect(character.reload.playing).to be(true)
       end
 
       it "broadcasts an enter message to the room" do
@@ -225,7 +225,7 @@ describe CharactersController, type: :controller do
       it { is_expected.to redirect_to(characters_url) }
 
       it "marks the character as not playing" do
-        expect(character.reload.playing).to eq(false)
+        expect(character.reload.playing).to be(false)
       end
 
       it "broadcasts an exit message to the room" do

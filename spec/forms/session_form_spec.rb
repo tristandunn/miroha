@@ -80,7 +80,7 @@ describe SessionForm, type: :model do
     subject(:session) { described_class.new }
 
     it "returns false" do
-      expect(session.persisted?).to eq(false)
+      expect(session.persisted?).to be(false)
     end
   end
 

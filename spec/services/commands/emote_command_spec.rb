@@ -78,7 +78,7 @@ describe Commands::EmoteCommand, type: :service do
 
     let(:message) { "laughs" }
 
-    it { is_expected.to eq(false) }
+    it { is_expected.to be(false) }
   end
 
   describe "#render_options" do

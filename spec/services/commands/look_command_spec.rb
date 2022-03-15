@@ -13,7 +13,7 @@ describe Commands::LookCommand, type: :service do
       allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
     end
 
-    it { is_expected.to eq(nil) }
+    it { is_expected.to be_nil }
 
     it "does not broadcast" do
       call
@@ -25,7 +25,7 @@ describe Commands::LookCommand, type: :service do
   describe "#rendered?" do
     subject { instance.rendered? }
 
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe "#render_options" do

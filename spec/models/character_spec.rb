@@ -86,13 +86,13 @@ describe Character, type: :model do
     context "when not active within the duration" do
       let(:character) { create(:character, :inactive) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when active within the duration" do
       let(:character) { create(:character) }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
   end
 end

@@ -51,7 +51,7 @@ describe BasicAuthentication do
 
         result = instance.basic_authentication
 
-        expect(result).to eq(true)
+        expect(result).to be(true)
       end
     end
 
@@ -62,7 +62,7 @@ describe BasicAuthentication do
 
         result = instance.basic_authentication
 
-        expect(result).to eq(false)
+        expect(result).to be(false)
       end
     end
   end
@@ -85,28 +85,28 @@ describe BasicAuthentication do
       let(:username) { SecureRandom.hex }
       let(:password) { SecureRandom.hex }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "with a username but no password" do
       let(:username) { SecureRandom.hex }
       let(:password) { nil }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context "with a password but no username" do
       let(:username) { nil }
       let(:password) { SecureRandom.hex }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context "with no username or password" do
       let(:username) { nil }
       let(:password) { nil }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
   end
 end

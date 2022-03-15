@@ -90,25 +90,25 @@ describe Commands::WhisperCommand, type: :service do
     subject(:rendered?) { instance.rendered? }
 
     context "with a valid target" do
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "with character as target" do
       let(:target) { character }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "with invalid target" do
       let(:target_name) { "Nobody" }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "with blank message" do
       let(:message) { " " }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
   end
 

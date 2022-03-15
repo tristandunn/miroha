@@ -101,7 +101,7 @@ describe Commands::MoveCommand, type: :service do
 
     let(:direction) { "north" }
 
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe "#render_options" do
