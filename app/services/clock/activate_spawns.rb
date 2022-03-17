@@ -42,6 +42,8 @@ module Clock
     private_class_method :broadcast_spawn
 
     # Find spawns due to be activated.
+    #
+    # @return [ActiveRecord::Relation]
     def self.spawns_to_activate
       Spawn
         .includes(:base, :room)
