@@ -39,6 +39,26 @@ describe Clock::ActivateSpawns, type: :service do
           locals:  { monster: spawn.reload.entity }
         )
       end
+
+      context "with a duration" do
+        it "assigns an expiration time" do
+          spawn = create(:spawn, :monster, entity: nil, activates_at: Time.current, duration: 1.hour)
+
+          described_class.call
+
+          expect(spawn.reload.expires_at).to eq(Time.current + spawn.duration)
+        end
+      end
+
+      context "without a duration" do
+        it "does not assign an expiration time" do
+          spawn = create(:spawn, :monster, entity: nil, activates_at: Time.current, duration: nil)
+
+          described_class.call
+
+          expect(spawn.reload.expires_at).to be_nil
+        end
+      end
     end
 
     context "with a spawn not due to be activated" do

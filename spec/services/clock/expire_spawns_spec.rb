@@ -20,6 +20,26 @@ describe Clock::ExpireSpawns, type: :service do
 
         expect(spawn.reload.expires_at).to be_nil
       end
+
+      context "with a frequency" do
+        it "assigns an activation time" do
+          spawn = create(:spawn, :monster, expires_at: Time.current, frequency: 1.hour)
+
+          described_class.call
+
+          expect(spawn.reload.activates_at).to eq(Time.current + spawn.frequency)
+        end
+      end
+
+      context "without a frequency" do
+        it "does not assign an activation time" do
+          spawn = create(:spawn, :monster, expires_at: Time.current, frequency: nil)
+
+          described_class.call
+
+          expect(spawn.reload.activates_at).to be_nil
+        end
+      end
     end
 
     context "with a spawn not due to be expired" do

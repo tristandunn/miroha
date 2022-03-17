@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_03_035719) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_17_023422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_03_035719) do
     t.datetime "updated_at", null: false
     t.datetime "activates_at"
     t.datetime "expires_at"
+    t.bigint "duration"
+    t.bigint "frequency"
     t.index ["activates_at"], name: "index_spawns_on_activates_at", where: "(entity_id IS NULL)"
     t.index ["base_type", "base_id"], name: "index_spawns_on_base"
     t.index ["entity_type", "entity_id"], name: "index_spawns_on_entity"
