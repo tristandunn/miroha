@@ -19,7 +19,8 @@ module Clock
     def self.activate!(spawn)
       spawn.update!(
         activates_at: nil,
-        entity:       spawn.base.dup
+        entity:       spawn.base.dup,
+        expires_at:   spawn.duration ? Time.current + spawn.duration : nil
       )
 
       broadcast_spawn(spawn)

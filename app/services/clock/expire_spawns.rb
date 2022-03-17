@@ -20,8 +20,9 @@ module Clock
       spawn.transaction do
         spawn.entity.destroy!
         spawn.update!(
-          entity:     nil,
-          expires_at: nil
+          activates_at: spawn.frequency ? Time.current + spawn.frequency : nil,
+          entity:       nil,
+          expires_at:   nil
         )
       end
     end
