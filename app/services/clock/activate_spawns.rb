@@ -10,6 +10,8 @@ module Clock
     def self.call
       spawns_to_activate.find_each do |spawn|
         activate!(spawn)
+      rescue StandardError => error
+        Sentry.capture_exception(error)
       end
     end
 

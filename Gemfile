@@ -15,6 +15,8 @@ gem "rack-attack",       "6.6.0"
 gem "rack-timeout",      "0.6.0"
 gem "rails",             "7.0.2.3"
 gem "redis",             "4.6.0", require: %w(redis redis/connection/hiredis)
+gem "sentry-rails",      "5.2.1"
+gem "sentry-ruby",       "5.2.1"
 gem "sprockets-rails",   "3.4.2"
 gem "strong_migrations", "0.8.0"
 gem "tailwindcss-rails", "2.0.8"

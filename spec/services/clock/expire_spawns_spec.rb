@@ -57,5 +57,36 @@ describe Clock::ExpireSpawns, type: :service do
         expect { described_class.call }.not_to(change { spawn.reload.attributes })
       end
     end
+
+    context "with multiple spawns to be expired and an error" do
+      let(:invalid_spawn) { build_stubbed(:spawn, :monster) }
+      let(:scope)         { instance_double(ActiveRecord::Relation) }
+      let(:valid_spawn)   { build_stubbed(:spawn, :monster) }
+
+      before do
+        allow(invalid_spawn).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
+        allow(valid_spawn).to receive(:update!)
+
+        allow(Sentry).to receive(:capture_exception)
+
+        allow(Spawn).to receive(:includes).and_return(scope)
+        allow(scope).to receive(:where).and_return(scope)
+        allow(scope).to receive(:order).and_return(scope)
+        allow(scope).to receive(:limit).with(described_class::LIMIT).and_return(scope)
+        allow(scope).to receive(:find_each).and_yield(invalid_spawn).and_yield(valid_spawn)
+      end
+
+      it "reports the error" do
+        described_class.call
+
+        expect(Sentry).to have_received(:capture_exception).once
+      end
+
+      it "continues expiring other spawns" do
+        described_class.call
+
+        expect(valid_spawn).to have_received(:update!)
+      end
+    end
   end
 end
