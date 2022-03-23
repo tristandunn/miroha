@@ -4,7 +4,7 @@ module Clock
   class ExpireSpawns
     LIMIT = 128
 
-    # Expires spawns due to be expried.
+    # Expires spawns due to be expired.
     #
     # @return [void]
     def self.call

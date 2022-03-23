@@ -57,7 +57,7 @@ describe("GameController", () => {
       document.body.appendChild(main);
     });
 
-    context("with a matching charater ID on the source element", () => {
+    context("with a matching character ID on the source element", () => {
       beforeEach(() => {
         element.dataset.characterId = main.dataset.characterId;
       });
@@ -96,7 +96,7 @@ describe("GameController", () => {
       });
     });
 
-    context("with no charater ID on the source element", () => {
+    context("with no character ID on the source element", () => {
       beforeEach(() => {
         delete element.dataset.characterId;
       });
@@ -108,7 +108,7 @@ describe("GameController", () => {
       });
     });
 
-    context("with a non-matching charater ID on the source element", () => {
+    context("with a non-matching character ID on the source element", () => {
       beforeEach(() => {
         element.dataset.characterId = Math.random();
       });

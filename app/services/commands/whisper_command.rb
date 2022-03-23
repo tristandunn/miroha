@@ -47,7 +47,7 @@ module Commands
       @target = character.room.characters.active.find_by("LOWER(NAME) = ?", target_name.downcase)
     end
 
-    # Return the name of the taret.
+    # Return the name of the target.
     #
     # @return [String]
     def target_name
