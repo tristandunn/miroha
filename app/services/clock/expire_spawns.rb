@@ -2,13 +2,13 @@
 
 module Clock
   class ExpireSpawns
-    LIMIT = 256
+    LIMIT = 128
 
     # Expires spawns due to be expried.
     #
     # @return [void]
     def self.call
-      spawns_to_expire.find_each do |spawn|
+      spawns_to_expire.each do |spawn|
         expire!(spawn)
       end
     end
