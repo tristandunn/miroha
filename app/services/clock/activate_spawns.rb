@@ -2,13 +2,13 @@
 
 module Clock
   class ActivateSpawns
-    LIMIT = 256
+    LIMIT = 128
 
     # Activates spawns due to be activated.
     #
     # @return [void]
     def self.call
-      spawns_to_activate.find_each do |spawn|
+      spawns_to_activate.each do |spawn|
         activate!(spawn)
       end
     end
