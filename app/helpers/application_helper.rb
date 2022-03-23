@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  # Return a Turbo cable stream source tag with an identifer.
+  # Return a Turbo cable stream source tag with an identifier.
   #
   # @param [Array] streamables Channel streamables to subscribe to.
   # @return [String]

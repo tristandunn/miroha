@@ -23,7 +23,7 @@ class CharacterForm
 
   private
 
-  # Return the charactar attributes.
+  # Return the character attributes.
   #
   # @return [Hash]
   def attributes
