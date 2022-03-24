@@ -240,10 +240,4 @@ describe "Sending the move command", type: :feature, js: true do
       text: t("commands.move.unknown.message")
     )
   end
-
-  def wait_for(expectation)
-    expect(page).to expectation
-
-    yield
-  end
 end
