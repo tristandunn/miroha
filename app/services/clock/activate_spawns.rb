@@ -9,23 +9,11 @@ module Clock
     # @return [void]
     def self.call
       spawns_to_activate.each do |spawn|
-        activate!(spawn)
+        Spawns::Activate.call(spawn)
+
+        broadcast_spawn(spawn)
       end
     end
-
-    # Activate the provided spawn.
-    #
-    # @param [Spawn] spawn The spawn to activate.
-    def self.activate!(spawn)
-      spawn.update!(
-        activates_at: nil,
-        entity:       spawn.base.dup,
-        expires_at:   spawn.duration ? Time.current + spawn.duration : nil
-      )
-
-      broadcast_spawn(spawn)
-    end
-    private_class_method :activate!
 
     # Broadcast the entity spawn to the room.
     #

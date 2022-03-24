@@ -42,6 +42,11 @@
   @apply w-1/12 font-bold text-right;
 }
 
+#messages td.message-attack-hit,
+#messages td.message-attack-killed,
+#messages td.message-attacker-hit,
+#messages td.message-attacker-killed,
+#messages td.message-attacker-unknown,
 #messages td.message-emote,
 #messages td.message-enter-game,
 #messages td.message-exit-game,
@@ -83,6 +88,7 @@
   vertical-align: top;
 }
 
+#messages td.message-attacker-unknown,
 #messages td.message-unknown {
   @apply bg-red-100 border-red-200;
 }

@@ -9,24 +9,9 @@ module Clock
     # @return [void]
     def self.call
       spawns_to_expire.each do |spawn|
-        expire!(spawn)
+        Spawns::Expire.call(spawn)
       end
     end
-
-    # Expires the provided spawn.
-    #
-    # @param [Spawn] spawn The spawn to expire.
-    def self.expire!(spawn)
-      spawn.transaction do
-        spawn.entity.destroy!
-        spawn.update!(
-          activates_at: spawn.frequency ? Time.current + spawn.frequency : nil,
-          entity:       nil,
-          expires_at:   nil
-        )
-      end
-    end
-    private_class_method :expire!
 
     # Find spawns due to be expired.
     #

@@ -48,6 +48,23 @@ en:
       submit: "Create Your Character"
 
   commands:
+    attack:
+      attack:
+        hit:
+          message: "%{attacker_name} attacked %{target_name}."
+        killed:
+          message: "%{attacker_name} attacked %{target_name}, killing it."
+      attacker:
+        hit:
+          message:
+            one: "You hit %{target_name} for %{count} point of damage."
+            other: "You hit %{target_name} for %{count} points of damage."
+        killed:
+          message:
+            one: "You hit %{target_name} for %{count} point of damage, killing it."
+            other: "You hit %{target_name} for %{count} points of damage, killing it."
+        unknown:
+          message: "You don't see anything named \"%{target_name}\"."
     direct:
       self:
         message: "You are talking to yourself."
