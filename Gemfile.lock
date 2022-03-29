@@ -94,7 +94,6 @@ GEM
     climate_control (1.0.1)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
-    dalli (3.2.1)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
     database_cleaner-active_record (2.0.1)
@@ -109,6 +108,8 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    et-orbi (1.2.7)
+      tzinfo
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -117,6 +118,9 @@ GEM
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
+    fugit (1.5.2)
+      et-orbi (~> 1.1, >= 1.1.8)
+      raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hiredis (0.6.3)
@@ -173,6 +177,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.6.2)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-attack (6.6.0)
@@ -257,6 +262,8 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
+    rufus-scheduler (3.8.1)
+      fugit (~> 1.1, >= 1.1.6)
     selenium-webdriver (4.1.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -285,10 +292,6 @@ GEM
     strong_migrations (0.8.0)
       activerecord (>= 5.2)
     strscan (3.0.1)
-    suo (0.4.0)
-      dalli
-      msgpack
-      redis
     tailwindcss-rails (2.0.8-arm64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.8-x86_64-darwin)
@@ -317,11 +320,6 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.4)
-    zhong (0.3.0)
-      activesupport
-      redis
-      suo
-      tzinfo
 
 PLATFORMS
   arm64-darwin-21
@@ -357,6 +355,7 @@ DEPENDENCIES
   rubocop-performance (= 1.13.3)
   rubocop-rails (= 2.13.2)
   rubocop-rspec (= 2.9.0)
+  rufus-scheduler (= 3.8.1)
   selenium-webdriver (= 4.1.0)
   shoulda-matchers (= 5.1.0)
   simplecov-console (= 0.9.1)
@@ -365,7 +364,6 @@ DEPENDENCIES
   tailwindcss-rails (= 2.0.8)
   turbo-rails (= 1.0.1)
   web-console (= 4.2.0)
-  zhong (= 0.3.0)
 
 RUBY VERSION
    ruby 3.1.1p18
