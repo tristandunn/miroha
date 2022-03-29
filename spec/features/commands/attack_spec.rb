@@ -83,6 +83,15 @@ describe "Sending the attack command", type: :feature, js: true do
       expect(page).to have_attacker_killed_message(monster, damage: 1)
     end
 
+    it "broadcasts new experience to the character" do
+      send_command(:attack, monster.name)
+
+      expect(page).to have_css(
+        "#experience",
+        text: "#{monster.experience} / #{character.experience.needed}"
+      )
+    end
+
     it "broadcasts the attack killed message to the room" do
       using_session(:nearby_character) do
         sign_in_as_character create(:character, room: room)
@@ -152,6 +161,19 @@ describe "Sending the attack command", type: :feature, js: true do
         using_session(:distant_character) do
           expect(page).not_to have_attack_killed_message(monster)
         end
+      end
+    end
+
+    context "when the character levels up" do
+      let(:character) { create(:character, room: spawn.room, experience: 999) }
+
+      it "broadcasts new level to the character" do
+        send_command(:attack, monster.name)
+
+        expect(page).to have_css(
+          "#character h2",
+          text: t("game.sidebar.character.level", level: 2)
+        )
       end
     end
   end

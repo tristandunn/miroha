@@ -3,10 +3,25 @@
 require "rails_helper"
 
 describe Experience do
+  describe "#+" do
+    subject { described_class.new(current: 0, level: 1) }
+
+    it { is_expected.to delegate_method(:+).to(:current) }
+  end
+
+  describe "#current" do
+    subject { instance.current }
+
+    let(:current)  { 250 }
+    let(:instance) { described_class.new(current: current, level: 1) }
+
+    it { is_expected.to eq(250) }
+  end
+
   describe "#needed" do
     subject { instance.needed }
 
-    let(:instance) { described_class.new(experience: 0, level: level) }
+    let(:instance) { described_class.new(current: 0, level: level) }
 
     context "when on the first level" do
       let(:level) { 1 }
@@ -25,7 +40,7 @@ describe Experience do
     subject { instance.remaining }
 
     let(:experience) { 100 }
-    let(:instance)   { described_class.new(experience: experience, level: 1) }
+    let(:instance)   { described_class.new(current: experience, level: 1) }
 
     before do
       allow(instance).to receive(:needed).and_return(500)
@@ -37,13 +52,20 @@ describe Experience do
   describe "#remaining_percentage" do
     subject { instance.remaining_percentage }
 
-    let(:experience) { 100 }
-    let(:instance)   { described_class.new(experience: experience, level: 1) }
+    let(:instance) { described_class.new(current: experience, level: level) }
 
-    before do
-      allow(instance).to receive(:needed).and_return(500)
+    context "when on the first level" do
+      let(:level)      { 1 }
+      let(:experience) { 100 }
+
+      it { is_expected.to eq(10.0) }
     end
 
-    it { is_expected.to eq(20.0) }
+    context "when on the second level" do
+      let(:level)      { 2 }
+      let(:experience) { 1_914 }
+
+      it { is_expected.to eq(50.0) }
+    end
   end
 end

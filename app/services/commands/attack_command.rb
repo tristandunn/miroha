@@ -80,6 +80,8 @@ module Commands
       else
         broadcast_killed
         expire_spawn
+        reward_experience_and_level
+        broadcast_sidebar_character
       end
     end
 
@@ -88,6 +90,32 @@ module Commands
     # @return [void]
     def expire_spawn
       Spawns::Expire.call(target.spawn)
+    end
+
+    # Broadcast a sidebar character replacement to the character.
+    #
+    # @return [void]
+    def broadcast_sidebar_character
+      Turbo::StreamsChannel.broadcast_replace_later_to(
+        character,
+        target:  :character,
+        partial: "game/sidebar/character",
+        locals:  { character: character }
+      )
+    end
+
+    # Reward the character experience for killing the target, and level the
+    # character up when needed.
+    #
+    # @return [void]
+    def reward_experience_and_level
+      character.experience += target.experience
+
+      if character.experience.remaining <= 0
+        character.level += 1
+      end
+
+      character.save!
     end
 
     # Attempt to find the target by name.

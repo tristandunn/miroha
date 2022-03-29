@@ -39,7 +39,11 @@ describe Commands::AttackCommand, type: :service do
     end
 
     context "with a valid, killed target" do
-      let(:target) { create(:monster, room: character.room, current_health: 1) }
+      let(:target) { create(:monster, room: character.room, current_health: 1, experience: 5) }
+
+      before do
+        allow(Turbo::StreamsChannel).to receive(:broadcast_replace_later_to).once
+      end
 
       it "broadcasts killed partial to the room" do
         call
@@ -55,6 +59,48 @@ describe Commands::AttackCommand, type: :service do
               target_name:   target.name
             }
           )
+      end
+
+      it "rewards the character experience" do
+        expect { call }.to change { character.reload.experience.current }
+          .from(0)
+          .to(target.experience)
+      end
+
+      it "replaces experience partial for the character" do
+        call
+
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_replace_later_to)
+          .with(
+            character,
+            target:  :character,
+            partial: "game/sidebar/character",
+            locals:  {
+              character: character
+            }
+          )
+      end
+
+      context "when current experience meets the needed experience" do
+        let(:character) { create(:character, experience: 995) }
+
+        it "increases the character's level" do
+          expect { call }.to change { character.reload.level }.from(1).to(2)
+        end
+      end
+
+      context "when current experience exceeds the needed experience" do
+        let(:character) { create(:character, experience: 999) }
+
+        it "increases the character's level" do
+          expect { call }.to change { character.reload.level }.from(1).to(2)
+        end
+
+        it "retains the excess experience" do
+          call
+
+          expect(character.reload.experience.current).to eq(1_004)
+        end
       end
     end
 

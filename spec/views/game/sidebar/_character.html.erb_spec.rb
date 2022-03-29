@@ -14,18 +14,18 @@ describe "game/sidebar/_character.html.erb", type: :view do
 
   let(:character) { build_stubbed(:character) }
 
+  before do
+    stub_template(
+      "game/sidebar/character/_experience.html.erb" => "EXPERIENCE_TEMPLATE"
+    )
+  end
+
   it "renders the character name" do
     expect(html).to have_css("h1", text: character.name)
   end
 
-  it "renders the experience" do
-    width = "#{character.experience.remaining_percentage}%"
-    title = t(
-      "game.sidebar.character.experience",
-      remaining: number_with_delimiter(character.experience.remaining)
-    )
-
-    expect(html).to have_css(%(div[title="#{title}"] div[style="width: #{width};"]))
+  it "renders the experience template" do
+    expect(html).to have_content("EXPERIENCE_TEMPLATE")
   end
 
   it "renders the level" do
