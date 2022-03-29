@@ -15,11 +15,11 @@ gem "rack-attack",       "6.6.0"
 gem "rack-timeout",      "0.6.0"
 gem "rails",             "7.0.2.3"
 gem "redis",             "4.6.0", require: %w(redis redis/connection/hiredis)
+gem "rufus-scheduler",   "3.8.1"
 gem "sprockets-rails",   "3.4.2"
 gem "strong_migrations", "0.8.0"
 gem "tailwindcss-rails", "2.0.8"
 gem "turbo-rails",       "1.0.1"
-gem "zhong",             "0.3.0", require: false
 
 group :development, :test do
   gem "bullet",       "7.0.1"

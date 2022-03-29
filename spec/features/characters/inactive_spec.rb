@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Inactive characters", type: :feature, js: true, zhong: true do
+describe "Inactive characters", type: :feature, clock: true, js: true do
   let(:character) { create(:character) }
 
   before do
