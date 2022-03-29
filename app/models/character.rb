@@ -40,7 +40,7 @@ class Character < ApplicationRecord
   #
   # @return [Experience]
   def experience
-    Experience.new(experience: self[:experience], level: self[:level])
+    Experience.new(current: self[:experience], level: self[:level])
   end
 
   # Return if the character is inactive.

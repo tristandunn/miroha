@@ -71,6 +71,7 @@ jobs:
       - name: Run the Ruby tests
         env:
           COVERAGE: true
+          DATABASE_POOL: 10
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           RAILS_ENV: test

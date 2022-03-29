@@ -8,6 +8,8 @@ Room.find_or_initialize_by(x: 0, y: 0, z: 0).tap do |room|
   )
 
   Monster.find_or_create_by(name: "Rat").tap do |rat|
+    rat.update(experience: 25)
+
     Spawn.find_or_create_by(base: rat, room: room).tap do |spawn|
       spawn.update(
         activates_at: Time.current,

@@ -7,7 +7,7 @@
 }
 
 #sidebar {
-  grid-template-rows: 0.25rem max-content auto;
+  grid-template-rows: max-content auto;
 }
 
 #navigation {

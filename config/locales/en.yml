@@ -107,7 +107,8 @@ en:
         unread: "Unread Messages"
     sidebar:
       character:
-        experience: "You need %{remaining} more experience to level up."
+        experience:
+          title: "You need %{remaining} more experience to level up."
         level: "Level %{level}"
       navigation:
         menu:

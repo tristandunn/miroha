@@ -73,7 +73,7 @@ describe Character, type: :model do
 
     before do
       allow(Experience).to receive(:new)
-        .with(experience: character[:experience], level: character[:level])
+        .with(current: character[:experience], level: character[:level])
         .and_return(instance)
     end
 

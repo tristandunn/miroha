@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :monster do
     name
+    experience { 5 }
 
     transient do
       room { nil }
