@@ -51,5 +51,13 @@ describe Spawns::Expire, type: :service do
         expect(spawn.reload.activates_at).to be_nil
       end
     end
+
+    context "without an entity" do
+      it "does not raise an error" do
+        spawn = create(:spawn, :monster, entity: nil, expires_at: Time.current)
+
+        expect { described_class.call(spawn) }.not_to raise_error
+      end
+    end
   end
 end
