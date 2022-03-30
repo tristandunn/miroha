@@ -9,7 +9,7 @@ module Spawns
     # @return [void]
     def self.call(spawn)
       spawn.transaction do
-        spawn.entity.destroy!
+        spawn.entity&.destroy!
         spawn.update!(
           activates_at: spawn.frequency ? Time.current + spawn.frequency : nil,
           entity:       nil,
