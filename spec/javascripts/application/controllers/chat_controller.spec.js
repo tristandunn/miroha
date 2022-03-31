@@ -44,6 +44,14 @@ describe("ChatController", () => {
 
       expect(input.value).to.eq("/test example");
     });
+
+    it("tracks the attack command", () => {
+      const trackAttackCommand = sinon.stub(instance, "trackAttackCommand");
+
+      instance.aliasCommand();
+
+      expect(trackAttackCommand).to.have.been.called;
+    });
   });
 
   context("#focusCommand", () => {
@@ -250,6 +258,73 @@ describe("ChatController", () => {
         instance.scrollToBottom();
 
         expect(newMessagesTarget.classList).not.to.contain(["hidden"]);
+      });
+    });
+  });
+
+  describe("#trackAttackCommand", () => {
+    let input;
+
+    beforeEach(() => {
+      input = document.createElement("input");
+
+      instance.inputTarget = input;
+    });
+
+    context("attacking with a target name", () => {
+      it("saves attack commands", () => {
+        input.value = "/attack Rat";
+
+        instance.trackAttackCommand();
+
+        expect(instance.lastAttackCommand).to.eq("/attack Rat");
+      });
+
+      it("does not modify the command with the last attack command", () => {
+        instance.lastAttackCommand = "/attack Bird";
+        input.value = "/attack Rat";
+
+        instance.trackAttackCommand();
+
+        expect(input.value).to.eq("/attack Rat");
+      });
+    });
+
+    context("attacking without a target name", () => {
+      it("expands to the last attack command when present", () => {
+        instance.lastAttackCommand = "/attack Rat";
+        input.value = "/attack ";
+
+        instance.trackAttackCommand();
+
+        expect(input.value).to.eq("/attack Rat");
+      });
+
+      it("does not expand when last attack command is not present", () => {
+        input.value = "/attack";
+
+        instance.trackAttackCommand();
+
+        expect(input.value).to.eq("/attack");
+      });
+    });
+
+    context("when not attacking", () => {
+      it("does not save the command", () => {
+        input.value = "/say Hello!";
+
+        instance.trackAttackCommand();
+
+        expect(instance.lastAttackCommand).to.be.undefined;
+      });
+
+      it("does not modify the command with the last attack command", () => {
+        instance.lastAttackCommand = "/attack Bird";
+        input.value = "/say Hello!";
+
+        instance.trackAttackCommand();
+
+        expect(input.value).to.eq("/say Hello!");
       });
     });
   });

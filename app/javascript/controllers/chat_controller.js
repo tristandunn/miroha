@@ -4,6 +4,7 @@ const ALIAS_CLASS = "aliased";
 
 export default class ChatController extends Controller {
   static aliases = {
+    "/a": "/attack",
     "/d": "/direct",
     "/me": "/emote",
     "d": "/move down",
@@ -30,6 +31,8 @@ export default class ChatController extends Controller {
       input.classList.add(ALIAS_CLASS);
       input.value = input.value.replace(command, alias);
     }
+
+    this.trackAttackCommand();
   }
 
   /**
@@ -95,6 +98,27 @@ export default class ChatController extends Controller {
 
     if (event) {
       this.newMessagesTarget.classList.add("hidden");
+    }
+  }
+
+  /**
+   * Track the last attack command when a target is present, if no target is
+   * present use the last attack command if available.
+   *
+   * @return {void}
+   */
+  trackAttackCommand() {
+    const input = this.inputTarget,
+      [command, target] = input.value.trim().split(" ");
+
+    if (command !== "/attack") {
+      return;
+    }
+
+    if (target) {
+      this.lastAttackCommand = input.value;
+    } else if (this.lastAttackCommand) {
+      input.value = this.lastAttackCommand;
     }
   }
 
