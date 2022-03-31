@@ -178,11 +178,33 @@ describe "Sending the attack command", type: :feature, js: true do
     end
   end
 
-  context "with an unknown name" do
-    it "displays unknown name message to the sender" do
+  context "with an invalid target name" do
+    it "displays invalid name message to the sender" do
       send_command(:attack, :fake)
 
-      expect(page).to have_attacker_unknown_message("fake")
+      expect(page).to have_attacker_invalid_message("fake")
+    end
+
+    it "does not broadcast the invalid name message to the room" do
+      using_session(:nearby_character) do
+        sign_in_as_character create(:character, room: room)
+      end
+
+      send_command(:attack, :fake)
+
+      wait_for(have_attacker_invalid_message("fake")) do
+        using_session(:nearby_character) do
+          expect(page).not_to have_attacker_invalid_message("fake")
+        end
+      end
+    end
+  end
+
+  context "with no target name" do
+    it "displays unknown name message to the sender" do
+      send_command(:attack)
+
+      expect(page).to have_attacker_missing_message
     end
 
     it "does not broadcast the unknown name message to the room" do
@@ -190,11 +212,11 @@ describe "Sending the attack command", type: :feature, js: true do
         sign_in_as_character create(:character, room: room)
       end
 
-      send_command(:attack, :fake)
+      send_command(:attack)
 
-      wait_for(have_attacker_unknown_message("fake")) do
+      wait_for(have_attacker_missing_message) do
         using_session(:nearby_character) do
-          expect(page).not_to have_attacker_unknown_message("fake")
+          expect(page).not_to have_attacker_missing_message
         end
       end
     end
@@ -234,10 +256,17 @@ describe "Sending the attack command", type: :feature, js: true do
     )
   end
 
-  def have_attacker_unknown_message(name)
+  def have_attacker_invalid_message(name)
     have_css(
       "#messages .message-attacker-unknown",
-      text: t("commands.attack.attacker.unknown.message", target_name: name)
+      text: t("commands.attack.attacker.unknown.invalid", target_name: name)
+    )
+  end
+
+  def have_attacker_missing_message
+    have_css(
+      "#messages .message-attacker-unknown",
+      text: t("commands.attack.attacker.unknown.missing")
     )
   end
 end

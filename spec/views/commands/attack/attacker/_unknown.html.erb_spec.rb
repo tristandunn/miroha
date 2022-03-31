@@ -14,12 +14,25 @@ describe "commands/attack/attacker/_unknown.html.erb", type: :view do
     rendered
   end
 
-  let(:target_name) { generate(:name) }
+  context "with a target name" do
+    let(:target_name) { generate(:name) }
 
-  it "renders the unknown message" do
-    expect(html).to have_command_row(
-      "td[colspan=2]",
-      text: t("commands.attack.attacker.unknown.message", target_name: target_name)
-    )
+    it "renders the invalid message" do
+      expect(html).to have_command_row(
+        "td[colspan=2]",
+        text: t("commands.attack.attacker.unknown.invalid", target_name: target_name)
+      )
+    end
+  end
+
+  context "without a target name" do
+    let(:target_name) { " " }
+
+    it "renders the missing message" do
+      expect(html).to have_command_row(
+        "td[colspan=2]",
+        text: t("commands.attack.attacker.unknown.missing")
+      )
+    end
   end
 end
