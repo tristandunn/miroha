@@ -40,8 +40,10 @@ describe "Sending the direct command", type: :feature, js: true do
 
     send_command(:direct, nearby_character.name, message)
 
-    using_session(:distant_character) do
-      expect(page).not_to have_css("#messages .message-direct")
+    wait_for(have_direct(message, from: character, to: nearby_character)) do
+      using_session(:distant_character) do
+        expect(page).not_to have_css("#messages .message-direct")
+      end
     end
   end
 

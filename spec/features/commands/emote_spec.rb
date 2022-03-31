@@ -35,8 +35,10 @@ describe "Sending the emote command", type: :feature, js: true do
 
     send_command(:emote, message)
 
-    using_session(:distant_character) do
-      expect(page).not_to have_css("#messages .message-emote")
+    wait_for(have_emote(message, from: character)) do
+      using_session(:distant_character) do
+        expect(page).not_to have_css("#messages .message-emote")
+      end
     end
   end
 

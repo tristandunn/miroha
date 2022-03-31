@@ -23,8 +23,10 @@ describe "Sending the look command", type: :feature, js: true do
 
     send_command(:look)
 
-    using_session(:nearby_character) do
-      expect(page).not_to have_look_message(room, count: 2)
+    wait_for(have_look_message(room, count: 2)) do
+      using_session(:nearby_character) do
+        expect(page).not_to have_look_message(room, count: 2)
+      end
     end
   end
 end
