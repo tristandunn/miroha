@@ -35,8 +35,10 @@ describe "Sending the say command", type: :feature, js: true do
 
     send_command(:say, message)
 
-    using_session(:distant_character) do
-      expect(page).not_to have_css("#messages .message-say")
+    wait_for(have_message(message, from: character)) do
+      using_session(:distant_character) do
+        expect(page).not_to have_css("#messages .message-say")
+      end
     end
   end
 

@@ -23,8 +23,10 @@ describe "Sending an unknown command", type: :feature, js: true do
 
     send_text(command)
 
-    using_session(:nearby_character) do
-      expect(page).not_to have_unknown_command_message(command)
+    wait_for(have_unknown_command_message(command)) do
+      using_session(:nearby_character) do
+        expect(page).not_to have_unknown_command_message(command)
+      end
     end
   end
 

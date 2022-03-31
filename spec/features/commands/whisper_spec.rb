@@ -34,14 +34,16 @@ describe "Sending the whisper command", type: :feature, js: true do
   end
 
   it "does not broadcast the message to the room" do
-    using_session(:nearby_character) do
-      sign_in_as_character nearby_character
+    using_session(:other_character) do
+      sign_in_as_character create(:character, room: character.room)
     end
 
     send_command(:whisper, nearby_character.name, message)
 
-    using_session(:nearby_character) do
-      expect(page).not_to have_css("#messages .message-whisper")
+    wait_for(have_source_whisper(message, from: character, to: nearby_character)) do
+      using_session(:other_character) do
+        expect(page).not_to have_css("#messages .message-whisper")
+      end
     end
   end
 
@@ -52,8 +54,10 @@ describe "Sending the whisper command", type: :feature, js: true do
 
     send_command(:whisper, nearby_character.name, message)
 
-    using_session(:distant_character) do
-      expect(page).not_to have_css("#messages .message-whisper")
+    wait_for(have_source_whisper(message, from: character, to: nearby_character)) do
+      using_session(:distant_character) do
+        expect(page).not_to have_css("#messages .message-whisper")
+      end
     end
   end
 
