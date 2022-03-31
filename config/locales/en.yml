@@ -64,7 +64,8 @@ en:
             one: "You hit %{target_name} for %{count} point of damage, killing it."
             other: "You hit %{target_name} for %{count} points of damage, killing it."
         unknown:
-          message: "You don't see anything named \"%{target_name}\"."
+          invalid: "You don't see anything named \"%{target_name}\"."
+          missing: "You need to specify a target to attack."
     direct:
       self:
         message: "You are talking to yourself."

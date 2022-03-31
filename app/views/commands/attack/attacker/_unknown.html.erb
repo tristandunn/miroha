@@ -1,5 +1,9 @@
 <tr data-controller="message" data-target="messages.message">
   <td colspan="2" class="message-attacker-unknown">
-    <%= t(".message", target_name: target_name) %>
+    <% if target_name.present? %>
+      <%= t(".invalid", target_name: target_name) %>
+    <% else %>
+      <%= t(".missing") %>
+    <% end %>
   </td>
 </tr>
