@@ -220,6 +220,24 @@ describe "Sending the attack command", type: :feature, js: true do
         end
       end
     end
+
+    it "uses the last target when available" do
+      send_command(:attack, monster.name)
+
+      wait_for(have_css("#messages .message-attacker-hit")) do
+        send_command(:attack)
+
+        expect(page).to have_css("#messages .message-attacker-hit", count: 2)
+      end
+    end
+  end
+
+  context "when using the /a alias" do
+    it "displays the message to the sender" do
+      send_command(:a, monster.name)
+
+      expect(page).to have_attacker_hit_message(monster, damage: 1)
+    end
   end
 
   protected
