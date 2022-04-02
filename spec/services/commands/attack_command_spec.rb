@@ -8,6 +8,16 @@ describe Commands::AttackCommand, type: :service do
   let(:target)      { create(:monster, room: character.room) }
   let(:target_name) { target.name.upcase }
 
+  describe "constants" do
+    it "defines custom throttle limit" do
+      expect(described_class::THROTTLE_LIMIT).to eq(1)
+    end
+
+    it "defines custom throttle period" do
+      expect(described_class::THROTTLE_PERIOD).to eq(1)
+    end
+  end
+
   describe "#call" do
     subject(:call) { instance.call }
 

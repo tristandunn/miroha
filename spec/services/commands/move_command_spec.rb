@@ -8,6 +8,16 @@ describe Commands::MoveCommand, type: :service do
   let(:room)      { create(:room, origin) }
   let(:origin)    { { x: 0, y: 0, z: 0 } }
 
+  describe "constants" do
+    it "defines custom throttle limit" do
+      expect(described_class::THROTTLE_LIMIT).to eq(1)
+    end
+
+    it "defines custom throttle period" do
+      expect(described_class::THROTTLE_PERIOD).to eq(1)
+    end
+  end
+
   describe "#call" do
     subject(:call) { instance.call }
 

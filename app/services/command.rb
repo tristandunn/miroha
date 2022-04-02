@@ -1,57 +1,47 @@
 # frozen_string_literal: true
 
 class Command
-  DEFAULT = "say"
-  MATCHER = %r{^/([a-z]+)(?=\s|$)}i
-  SLASH   = "/"
+  DEFAULT_NAME = "say"
+  MATCHER      = %r{^/([a-z]+)(?=\s|$)}i
 
-  # Initialize a command.
+  # Parse the command, create an instance, and call +#call+.
   #
-  # @param [String] input The raw command input.
-  # @param [Character] character The character running the command.
-  def initialize(input, character:)
-    @character = character
-    @input     = input.squish
-  end
-
-  # Create an instance and call +#call+.
   # @param [String] input The raw command input.
   # @param [Character] character The character running the command.
   # @return [Command] The command instance.
   def self.call(input, character:)
-    new(input, character: character).call
-  end
-
-  # Call the command.
-  #
-  # @return [Command] The command instance.
-  def call
+    command  = parse(input)
     instance = command.new(input, character: character)
-    instance.call
-    instance
+    instance.tap(&:call)
   end
 
-  private
-
-  attr_reader :character, :input
-
-  # Determine the command name.
+  # Determine the throttle limit for the provided command.
   #
-  # @return [String] The parsed command name.
-  def name
-    if input.starts_with?(SLASH)
-      input.match(MATCHER)[1]
-    else
-      DEFAULT
-    end
+  # @param [String] input The raw command input.
+  # @return [Integer] The throttle limit for the parsed command.
+  def self.limit(input)
+    command = parse(input)
+    command.const_get(:THROTTLE_LIMIT)
   end
 
-  # Return the command class.
+  # Convert a command to a command class.
   #
-  # @return [Class] The command class.
-  def command
+  # @param [String] input The raw command input.
+  # @return [Commands::Base] The command class.
+  def self.parse(input)
+    name = input.match(MATCHER)&.captures&.first || DEFAULT_NAME
+
     "commands/#{name}_command".camelize.constantize
   rescue NameError
     Commands::UnknownCommand
+  end
+
+  # Determine the throttle period for the provided command.
+  #
+  # @param [String] input The raw command input.
+  # @return [Integer] The throttle period for the parsed command.
+  def self.period(input)
+    command = parse(input)
+    command.const_get(:THROTTLE_PERIOD)
   end
 end

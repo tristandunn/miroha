@@ -7,10 +7,19 @@ Rack::Attack.throttle("accounts/create", limit: 5, period: 60) do |request|
   end
 end
 
-# Limit command creation by account ID to 10 every five seconds.
-Rack::Attack.throttle("accounts/command", limit: 10, period: 5) do |request|
+# Limit command creation by account ID and command, with the limit and periods
+# defined based on the command.
+Rack::Attack.throttle(
+  "accounts/command",
+  limit:  proc { |request| Command.limit(request.params["input"]) },
+  period: proc { |request| Command.period(request.params["input"]) }
+) do |request|
   if request.post? && request.path == "/commands"
-    request.session["account_id"]
+    account_id = request.session["account_id"]
+    command    = Command.parse(request.params["input"])
+    name       = command.name.demodulize.delete_suffix(Commands::Base::SUFFIX)
+
+    [account_id, name].join("/")
   end
 end
 

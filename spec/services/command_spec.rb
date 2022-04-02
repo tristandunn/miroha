@@ -4,105 +4,84 @@ require "rails_helper"
 
 describe Command, type: :service do
   describe ".call" do
-    context "with valid command" do
-      let(:character) { build_stubbed(:character) }
-      let(:command)   { instance_double(Commands::SayCommand, call: true) }
-      let(:input)     { "/say Hello!" }
+    let(:character) { build_stubbed(:character) }
+    let(:command)   { Commands::SayCommand }
+    let(:instance)  { instance_double(command, call: true) }
+    let(:input)     { "/say Hello!" }
 
-      before do
-        allow(Commands::SayCommand).to receive(:new).and_return(command)
-      end
+    before do
+      allow(described_class).to receive(:parse).and_return(command)
+      allow(command).to receive(:new).and_return(instance)
+    end
 
-      it "creates the command" do
-        described_class.call(input, character: character)
+    it "parses the command" do
+      described_class.call(input, character: character)
 
-        expect(Commands::SayCommand).to have_received(:new)
-          .with(input, character: character)
-      end
+      expect(described_class).to have_received(:parse).with(input)
+    end
 
-      it "calls the command" do
-        described_class.call(input, character: character)
+    it "creates an instance of the command" do
+      described_class.call(input, character: character)
 
-        expect(command).to have_received(:call).with(no_args)
-      end
+      expect(command).to have_received(:new).with(input, character: character)
+    end
 
-      it "returns the command" do
-        result = described_class.call(input, character: character)
+    it "calls the command" do
+      described_class.call(input, character: character)
 
-        expect(result).to eq(command)
-      end
+      expect(instance).to have_received(:call).with(no_args)
+    end
 
-      context "with whitespace" do
-        let(:command) { instance_double(Commands::SayCommand, call: true) }
-        let(:input)   { "  /say  something  " }
+    it "returns the command" do
+      result = described_class.call(input, character: character)
 
-        it "calls the command with whitespace stripped" do
-          allow(Commands::SayCommand).to receive(:new).and_return(command)
+      expect(result).to eq(instance)
+    end
+  end
 
-          described_class.call(input, character: character)
+  describe ".limit" do
+    subject { described_class.limit("/attack Rat") }
 
-          expect(Commands::SayCommand).to have_received(:new)
-            .with("/say something", character: character)
-        end
-      end
+    let(:command) { Commands::AttackCommand }
+
+    before do
+      allow(described_class).to receive(:parse).and_return(command)
+    end
+
+    it { is_expected.to eq(command::THROTTLE_LIMIT) }
+  end
+
+  describe ".period" do
+    subject { described_class.period("/attack Rat") }
+
+    let(:command) { Commands::AttackCommand }
+
+    before do
+      allow(described_class).to receive(:parse).and_return(command)
+    end
+
+    it { is_expected.to eq(command::THROTTLE_PERIOD) }
+  end
+
+  describe ".parse" do
+    subject { described_class.parse(input) }
+
+    context "with a known command" do
+      let(:input) { "/attack Rat" }
+
+      it { is_expected.to eq(Commands::AttackCommand) }
+    end
+
+    context "with an unknown command" do
+      let(:input) { "/notareal command" }
+
+      it { is_expected.to eq(Commands::UnknownCommand) }
     end
 
     context "with no command" do
-      let(:character) { build_stubbed(:character) }
-      let(:command)   { instance_double(Commands::SayCommand, call: true) }
-      let(:input)     { "Hello, world!" }
+      let(:input) { "Hello, world!" }
 
-      before do
-        allow(Commands::SayCommand).to receive(:new).and_return(command)
-      end
-
-      it "creates the say command" do
-        described_class.call(input, character: character)
-
-        expect(Commands::SayCommand).to have_received(:new)
-          .with(input, character: character)
-      end
-
-      it "calls the command" do
-        described_class.call(input, character: character)
-
-        expect(command).to have_received(:call).with(no_args)
-      end
-
-      it "returns the command" do
-        result = described_class.call(input, character: character)
-
-        expect(result).to eq(command)
-      end
-    end
-
-    context "with unknown command" do
-      let(:character) { build_stubbed(:character) }
-      let(:command)   { instance_double(Commands::UnknownCommand, call: true) }
-      let(:input)     { "/notareal command" }
-
-      before do
-        allow(Commands::UnknownCommand).to receive(:new).and_return(command)
-      end
-
-      it "creates the unknown command" do
-        described_class.call(input, character: character)
-
-        expect(Commands::UnknownCommand).to have_received(:new)
-          .with(input, character: character)
-      end
-
-      it "calls the command" do
-        described_class.call(input, character: character)
-
-        expect(command).to have_received(:call).with(no_args)
-      end
-
-      it "returns the command" do
-        result = described_class.call(input, character: character)
-
-        expect(result).to eq(command)
-      end
+      it { is_expected.to eq(Commands::SayCommand) }
     end
   end
 end
