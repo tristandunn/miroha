@@ -6,6 +6,16 @@ describe Commands::Base, type: :service do
   let(:character) { build_stubbed(:character) }
   let(:instance)  { described_class.new("", character: character) }
 
+  describe "constants" do
+    it "defines default throttle limit" do
+      expect(described_class::THROTTLE_LIMIT).to eq(10)
+    end
+
+    it "defines default throttle period" do
+      expect(described_class::THROTTLE_PERIOD).to eq(5)
+    end
+  end
+
   describe "#call" do
     subject(:call) { instance.call }
 

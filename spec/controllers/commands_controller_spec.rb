@@ -5,15 +5,16 @@ require "rails_helper"
 describe CommandsController, type: :controller do
   describe "#create" do
     context "when created successfully" do
-      let(:character) { create(:character) }
-      let(:input)     { "Hello, world!" }
+      let(:character)   { create(:character) }
+      let(:clean_input) { "Hello, world!" }
+      let(:raw_input)   { "  Hello,  world!  " }
 
       before do
         allow(Command).to receive(:call).and_return(command)
 
         sign_in_as character
 
-        post :create, params: { input: input }, format: :turbo_stream
+        post :create, params: { input: raw_input }, format: :turbo_stream
       end
 
       context "with rendering" do
@@ -30,9 +31,9 @@ describe CommandsController, type: :controller do
         it { is_expected.to respond_with(200) }
         it { is_expected.to render_template("commands/_unknown") }
 
-        it "calls the command service" do
+        it "calls the command service with cleaned input" do
           expect(Command).to have_received(:call)
-            .with(input, character: character)
+            .with(clean_input, character: character)
         end
 
         it "marks the character is active", :freeze_time do
@@ -47,9 +48,9 @@ describe CommandsController, type: :controller do
 
         it { is_expected.to respond_with(204) }
 
-        it "calls the command service" do
+        it "calls the command service with cleaned input" do
           expect(Command).to have_received(:call)
-            .with(input, character: character)
+            .with(clean_input, character: character)
         end
 
         it "marks the character is active", :freeze_time do

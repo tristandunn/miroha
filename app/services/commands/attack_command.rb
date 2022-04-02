@@ -2,6 +2,9 @@
 
 module Commands
   class AttackCommand < Base
+    THROTTLE_LIMIT  = 1
+    THROTTLE_PERIOD = 1
+
     # Broadcast a whisper command to the target.
     def call
       if valid?

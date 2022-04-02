@@ -10,7 +10,7 @@ class CommandsController < ApplicationController
 
   # Execute a user command.
   def create
-    command = Command.call(input, character: current_character)
+    command = Command.call(input.squish, character: current_character)
 
     if command.rendered?
       render command.render_options

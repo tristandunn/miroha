@@ -11,6 +11,9 @@ module Commands
       west:  { x: -1 }
     }.freeze
 
+    THROTTLE_LIMIT  = 1
+    THROTTLE_PERIOD = 1
+
     # Move the character to the target room and broadcast the move, if valid.
     #
     # @return [void]

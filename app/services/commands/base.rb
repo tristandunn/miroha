@@ -2,7 +2,9 @@
 
 module Commands
   class Base
-    SUFFIX = "Command"
+    SUFFIX          = "Command"
+    THROTTLE_LIMIT  = 10
+    THROTTLE_PERIOD = 5
 
     # Initialize a command.
     #
