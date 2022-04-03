@@ -15,7 +15,7 @@
     "@rails/actioncable": "7.0.2-2",
     "esbuild": "0.14.29",
     "esbuild-plugin-yaml": "0.0.1",
-    "i18n-js": "3.8.0"
+    "i18n-js": "3.9.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.17.0",
@@ -35,6 +35,6 @@
     "stylelint-config-standard": "25.0.0"
   },
   "engines": {
-    "node": "17.6.0"
+    "node": "17.8.0"
   }
 }
