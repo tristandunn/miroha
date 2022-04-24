@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ruby   "3.1.1"
+ruby   "3.1.2"
 source "https://rubygems.org"
 
 gem "bcrypt",            "3.1.17"
@@ -11,7 +11,7 @@ gem "jsbundling-rails",  "1.0.2"
 gem "oj",                "3.13.11"
 gem "pg",                "1.3.5"
 gem "puma",              "5.6.4"
-gem "rack-attack",       "6.6.0"
+gem "rack-attack",       "6.6.1"
 gem "rack-timeout",      "0.6.0"
 gem "rails",             "7.0.2.3"
 gem "redis",             "4.6.0", require: %w(redis redis/connection/hiredis)
@@ -25,16 +25,16 @@ group :development, :test do
   gem "bullet",       "7.0.1"
   gem "cacheflow",    "0.2.1"
   gem "dotenv-rails", "2.7.6"
-  gem "rspec-rails",  "5.1.1"
+  gem "rspec-rails",  "5.1.2"
 end
 
 group :development do
   gem "brakeman",            "5.2.2", require: false
   gem "listen",              "3.7.1"
-  gem "rubocop",             "1.27.0", require: false
+  gem "rubocop",             "1.28.1", require: false
   gem "rubocop-performance", "1.13.3", require: false
   gem "rubocop-rails",       "2.14.2", require: false
-  gem "rubocop-rspec",       "2.9.0",  require: false
+  gem "rubocop-rspec",       "2.10.0", require: false
   gem "web-console",         "4.2.0"
 end
 
