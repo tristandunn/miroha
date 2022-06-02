@@ -46,11 +46,14 @@ describe "game/_surroundings.html.erb", type: :view do
   end
 
   context "with monsters" do
-    let(:monster_1) { create(:monster, name: "Blob") }
-    let(:monster_2) { create(:monster, name: "Rat") }
-    let(:room)      { create(:room, spawns: [spawn_1, spawn_2]) }
-    let(:spawn_1)   { create(:spawn, :monster, entity: monster_1) }
-    let(:spawn_2)   { create(:spawn, :monster, entity: monster_2) }
+    let(:monster_1) { create(:monster, room: room, name: "Blob") }
+    let(:monster_2) { create(:monster, room: room, name: "Rat") }
+    let(:room)      { create(:room) }
+
+    before do
+      create(:spawn, :monster, entity: monster_1, room: room)
+      create(:spawn, :monster, entity: monster_2, room: room)
+    end
 
     it "renders the surrounding monsters ordered by name" do
       expect(html).to have_css(

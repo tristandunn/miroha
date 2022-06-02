@@ -6,4 +6,7 @@ describe Spawn, type: :model do
   it { is_expected.to belong_to(:base) }
   it { is_expected.to belong_to(:entity).dependent(:destroy).optional(true) }
   it { is_expected.to belong_to(:room) }
+
+  it { is_expected.to allow_value(build(:monster, room: nil)).for(:base).on(:create) }
+  it { is_expected.not_to allow_value(build(:monster, room: build(:room))).for(:base).on(:create) }
 end

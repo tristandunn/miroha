@@ -3,7 +3,7 @@
 class Room < ApplicationRecord
   has_many :characters, dependent: :restrict_with_exception
   has_many :spawns, dependent: :destroy
-  has_many :monsters, through: :spawns, source: :entity, source_type: "Monster", dependent: :destroy
+  has_many :monsters, dependent: :destroy
 
   validates :description, presence: true
   validates :x, numericality: { only_integer: true },

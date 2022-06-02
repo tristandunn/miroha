@@ -9,14 +9,7 @@ describe Room, type: :model do
     expect(room).to have_many(:characters).dependent(:restrict_with_exception)
   end
 
-  it do
-    expect(room).to have_many(:monsters)
-      .through(:spawns)
-      .source(:entity)
-      .class_name("Monster")
-      .dependent(:destroy)
-  end
-
+  it { is_expected.to have_many(:monsters).dependent(:destroy) }
   it { is_expected.to have_many(:spawns).dependent(:destroy) }
 
   it { is_expected.to validate_presence_of(:description) }

@@ -10,8 +10,16 @@ describe Spawns::Activate, type: :service do
       described_class.call(spawn)
 
       expect(spawn.reload.entity.attributes).to include(
-        spawn.base.attributes.except("id", "created_at", "updated_at")
+        spawn.base.attributes.except("id", "room_id", "created_at", "updated_at")
       )
+    end
+
+    it "assigns the spawn room to the entity" do
+      spawn = create(:spawn, :monster, entity: nil, activates_at: Time.current)
+
+      described_class.call(spawn)
+
+      expect(spawn.reload.entity.room).to eq(spawn.room)
     end
 
     it "clears the activates_at attribute" do

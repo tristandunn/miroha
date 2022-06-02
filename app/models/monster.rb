@@ -6,6 +6,8 @@ class Monster < ApplicationRecord
 
   has_one :spawn, foreign_key: :entity_id, inverse_of: :entity, dependent: :nullify
 
+  belongs_to :room, optional: true
+
   validates :name, presence: true,
                    length:   { in: MINIMUM_NAME_LENGTH..MAXIMUM_NAME_LENGTH }
 end
