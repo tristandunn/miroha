@@ -5,6 +5,8 @@ require "rails_helper"
 describe Monster, type: :model do
   subject(:monster) { create(:monster) }
 
+  it { is_expected.to belong_to(:room).optional }
+
   it do
     expect(monster).to have_one(:spawn)
       .with_foreign_key(:entity_id)

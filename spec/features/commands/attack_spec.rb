@@ -3,10 +3,10 @@
 require "rails_helper"
 
 describe "Sending the attack command", type: :feature, js: true do
-  let(:character) { create(:character, room: spawn.room) }
-  let(:monster)   { create(:monster, room: room) }
-  let(:room)      { create(:room) }
-  let(:spawn)     { monster.spawn }
+  let(:character) { create(:character, room: room) }
+  let(:monster)   { spawn.entity }
+  let(:room)      { spawn.room }
+  let(:spawn)     { create(:spawn, :monster) }
 
   before do
     sign_in_as_character character
@@ -75,7 +75,9 @@ describe "Sending the attack command", type: :feature, js: true do
   end
 
   context "when the monster is killed" do
-    let(:monster) { create(:monster, room: room, current_health: 0) }
+    before do
+      monster.update!(current_health: 1)
+    end
 
     it "displays the attacker killed message to the sender" do
       send_command(:attack, monster.name)

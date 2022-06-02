@@ -31,6 +31,12 @@ en:
       account:
         email: "E-mail Address"
         password: "Password"
+    errors:
+      models:
+        spawn:
+          attributes:
+            base:
+              room: "can't belong to a room"
 
   characters:
     enter:

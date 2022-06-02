@@ -3,9 +3,10 @@
 require "rails_helper"
 
 describe Commands::AttackCommand, type: :service do
-  let(:character)   { create(:character) }
+  let(:character)   { create(:character, room: spawn.room) }
   let(:instance)    { described_class.new("/attack #{target_name}", character: character) }
-  let(:target)      { create(:monster, room: character.room) }
+  let(:spawn)       { create(:spawn, :monster) }
+  let(:target)      { spawn.entity }
   let(:target_name) { target.name.upcase }
 
   describe "constants" do
@@ -49,9 +50,9 @@ describe Commands::AttackCommand, type: :service do
     end
 
     context "with a valid, killed target" do
-      let(:target) { create(:monster, room: character.room, current_health: 1, experience: 5) }
-
       before do
+        target.update!(current_health: 1, experience: 5)
+
         allow(Turbo::StreamsChannel).to receive(:broadcast_replace_later_to).once
       end
 
@@ -92,7 +93,9 @@ describe Commands::AttackCommand, type: :service do
       end
 
       context "when current experience meets the needed experience" do
-        let(:character) { create(:character, experience: 995) }
+        before do
+          character.update!(experience: 995)
+        end
 
         it "increases the character's level" do
           expect { call }.to change { character.reload.level }.from(1).to(2)
@@ -100,7 +103,9 @@ describe Commands::AttackCommand, type: :service do
       end
 
       context "when current experience exceeds the needed experience" do
-        let(:character) { create(:character, experience: 999) }
+        before do
+          character.update!(experience: 999)
+        end
 
         it "increases the character's level" do
           expect { call }.to change { character.reload.level }.from(1).to(2)

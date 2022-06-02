@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_28_235622) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_03_003641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_235622) do
     t.integer "current_health", default: 5, null: false
     t.integer "maximum_health", default: 5, null: false
     t.integer "experience", default: 0, null: false
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_monsters_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -77,4 +79,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_235622) do
   end
 
   add_foreign_key "characters", "accounts"
+  add_foreign_key "monsters", "rooms"
 end
