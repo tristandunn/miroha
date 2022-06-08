@@ -7,7 +7,7 @@
     <%= form_for @form, url: characters_path, html: { class: "highlight-errors" } do |form| %>
       <div>
         <%= form.label :name, class: "block mb-1 text-sm font-medium text-gray-800" %>
-        <%= form.text_field :name, autocomplete: false, autofocus: true, class: "w-full text-gray-800 form-input", minlength: Character::MINIMUM_NAME_LENGTH, maxlength: Character::MAXIMUM_NAME_LENGTH, placeholder: t(".placeholder"), required: true %>
+        <%= form.text_field :name, autocomplete: false, autofocus: true, class: "w-full text-gray-800 border-gray-400 rounded focus:ring-2 focus:ring-green-200 focus:border-green-300", minlength: Character::MINIMUM_NAME_LENGTH, maxlength: Character::MAXIMUM_NAME_LENGTH, placeholder: t(".placeholder"), required: true %>
         <% if @form.errors[:name].present? %>
           <p class="mt-2 text-xs text-red-700"><%= Character.human_attribute_name(:name).humanize %> <%= @form.errors[:name].first %>.</p>
         <% end %>
