@@ -111,6 +111,6 @@
 }
 
 .highlight-errors .field_with_errors input:focus {
-  @apply shadow-red-200;
+  @apply ring-red-200;
 }
 /* stylelint-enable selector-class-pattern */
