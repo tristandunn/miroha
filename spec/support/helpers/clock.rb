@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+Clock.start
+Clock.pause
+
 module RSpec
   module Helpers
     module Clock

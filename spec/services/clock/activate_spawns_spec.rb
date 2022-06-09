@@ -3,7 +3,9 @@
 require "rails_helper"
 
 describe Clock::ActivateSpawns, type: :service do
-  describe ".call", :freeze_time do
+  describe "#call", :freeze_time do
+    subject(:call) { described_class.new.call }
+
     before do
       allow(Spawns::Activate).to receive(:call)
       allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
@@ -13,7 +15,7 @@ describe Clock::ActivateSpawns, type: :service do
       it "activates the spawn" do
         spawn = create(:spawn, :monster, entity: nil, activates_at: Time.current)
 
-        described_class.call
+        call
 
         expect(Spawns::Activate).to have_received(:call).with(spawn).once
       end
@@ -21,7 +23,7 @@ describe Clock::ActivateSpawns, type: :service do
       it "broadcasts the spawn to the room" do
         spawn = create(:spawn, :monster, activates_at: Time.current)
 
-        described_class.call
+        call
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to).with(
           spawn.room,
@@ -36,13 +38,13 @@ describe Clock::ActivateSpawns, type: :service do
       it "does not activate the spawn" do
         create(:spawn, :monster, entity: nil, activates_at: 1.minute.from_now)
 
-        described_class.call
+        call
 
         expect(Spawns::Activate).not_to have_received(:call)
       end
 
       it "does not broadcast" do
-        described_class.call
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
@@ -52,13 +54,13 @@ describe Clock::ActivateSpawns, type: :service do
       it "does not activate the spawn" do
         create(:spawn, :monster, activates_at: nil)
 
-        described_class.call
+        call
 
         expect(Spawns::Activate).not_to have_received(:call)
       end
 
       it "does not broadcast" do
-        described_class.call
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
