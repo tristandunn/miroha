@@ -3,7 +3,9 @@
 require "rails_helper"
 
 describe Clock::SignOutInactiveCharacters, type: :service do
-  describe ".call" do
+  describe "#call" do
+    subject(:call) { described_class.new.call }
+
     before do
       allow(Turbo::StreamsChannel).to receive(:broadcast_append_to)
     end
@@ -12,7 +14,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "marks the character as not playing" do
         character = create(:character, :inactive)
 
-        described_class.call
+        call
 
         expect(character.reload).not_to be_playing
       end
@@ -20,7 +22,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "broadcasts exit game message to the character" do
         character = create(:character, :inactive)
 
-        described_class.call
+        call
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_to).with(
           character,
@@ -34,7 +36,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "does not mark the character as not playing" do
         character = create(:character)
 
-        described_class.call
+        call
 
         expect(character.reload).to be_playing
       end
@@ -42,7 +44,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "does not broadcast exit game message to the character" do
         create(:character)
 
-        described_class.call
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_to)
       end
@@ -52,7 +54,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "does not broadcast exit game message to the character" do
         create(:character, :inactive, playing: false)
 
-        described_class.call
+        call
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_to)
       end

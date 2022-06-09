@@ -3,7 +3,9 @@
 require "rails_helper"
 
 describe Clock::ExpireSpawns, type: :service do
-  describe ".call", :freeze_time do
+  describe "#call", :freeze_time do
+    subject(:call) { described_class.new.call }
+
     before do
       allow(Spawns::Expire).to receive(:call)
     end
@@ -12,7 +14,7 @@ describe Clock::ExpireSpawns, type: :service do
       it "expires the spawn" do
         spawn = create(:spawn, :monster, expires_at: Time.current)
 
-        described_class.call
+        call
 
         expect(Spawns::Expire).to have_received(:call).with(spawn).once
       end
@@ -22,7 +24,7 @@ describe Clock::ExpireSpawns, type: :service do
       it "does not expire the spawn" do
         create(:spawn, :monster, expires_at: 1.minute.from_now)
 
-        described_class.call
+        call
 
         expect(Spawns::Expire).not_to have_received(:call)
       end
@@ -32,7 +34,7 @@ describe Clock::ExpireSpawns, type: :service do
       it "does not expire the spawn" do
         create(:spawn, :monster, expires_at: nil)
 
-        described_class.call
+        call
 
         expect(Spawns::Expire).not_to have_received(:call)
       end
