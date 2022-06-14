@@ -34,6 +34,7 @@ group :development do
   gem "rubocop",             "1.30.1", require: false
   gem "rubocop-performance", "1.14.2", require: false
   gem "rubocop-rails",       "2.15.0", require: false
+  gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.11.1", require: false
   gem "web-console",         "4.2.0"
 end

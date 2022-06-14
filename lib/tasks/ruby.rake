@@ -4,6 +4,7 @@ begin
   require "rspec/core/rake_task"
 
   namespace :ruby do
+    desc "Run all the Ruby tests"
     task test: :spec
   end
 
