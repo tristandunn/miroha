@@ -3,11 +3,15 @@
 require "rails_helper"
 
 describe Commands::AttackCommand, type: :service do
-  let(:character)   { create(:character, room: spawn.room) }
-  let(:instance)    { described_class.new("/attack #{target_name}", character: character) }
-  let(:spawn)       { create(:spawn, :monster) }
-  let(:target)      { spawn.entity }
-  let(:target_name) { target.name.upcase }
+  let(:character) { create(:character, room: spawn.room) }
+  let(:damage)    { 1 }
+  let(:instance)  { described_class.new("/attack #{target.name}", character: character) }
+  let(:spawn)     { create(:spawn, :monster) }
+  let(:target)    { spawn.entity }
+
+  before do
+    allow(SecureRandom).to receive(:random_number).with(0..1).and_return(damage)
+  end
 
   describe "constants" do
     it "defines custom throttle limit" do
@@ -45,7 +49,31 @@ describe Commands::AttackCommand, type: :service do
       end
 
       it "damages the target" do
-        expect { call }.to change { target.reload.current_health }.by(-1)
+        expect { call }.to change { target.reload.current_health }.by(-damage)
+      end
+    end
+
+    context "with a valid, missed target" do
+      let(:damage) { 0 }
+
+      it "broadcasts missed partial to the room" do
+        call
+
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
+          .with(
+            character.room,
+            target:  "messages",
+            partial: "commands/attack/attack/missed",
+            locals:  {
+              attacker_name: character.name,
+              character:     character,
+              target_name:   target.name
+            }
+          )
+      end
+
+      it "does not damage the target" do
+        expect { call }.not_to(change { target.reload.current_health })
       end
     end
 
@@ -134,7 +162,7 @@ describe Commands::AttackCommand, type: :service do
     end
 
     context "with invalid target" do
-      let(:target_name) { "Invalid" }
+      let(:instance) { described_class.new("/attack Invalid", character: character) }
 
       it "does not broadcast" do
         call
@@ -144,7 +172,7 @@ describe Commands::AttackCommand, type: :service do
     end
 
     context "with blank target" do
-      let(:target_name) { " " }
+      let(:instance) { described_class.new("/attack  ", character: character) }
 
       it "does not broadcast" do
         call
@@ -167,9 +195,9 @@ describe Commands::AttackCommand, type: :service do
       expect(render_options).to eq(
         partial: "commands/attack",
         locals:  {
-          damage:      1,
+          damage:      damage,
           target:      target,
-          target_name: target_name
+          target_name: target.name
         }
       )
     end

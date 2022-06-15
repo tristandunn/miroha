@@ -5,10 +5,14 @@ module Commands
     THROTTLE_LIMIT  = 1
     THROTTLE_PERIOD = 1
 
-    # Broadcast a whisper command to the target.
+    # Attempt to attack a target.
     def call
       if valid?
-        damage_target
+        if damage.positive?
+          damage_target
+        else
+          broadcast_missed
+        end
       end
     end
 
@@ -64,11 +68,27 @@ module Commands
       )
     end
 
+    # Broadcast the attack missed to the room.
+    #
+    # @return [void]
+    def broadcast_missed
+      Turbo::StreamsChannel.broadcast_append_later_to(
+        character.room,
+        target:  "messages",
+        partial: "commands/attack/attack/missed",
+        locals:  {
+          attacker_name: character.name,
+          character:     character,
+          target_name:   target.name
+        }
+      )
+    end
+
     # Return the damage being dealt to the target.
     #
     # @return [Integer]
     def damage
-      1
+      SecureRandom.random_number(0..1)
     end
 
     # Apply damage to the target.
@@ -126,9 +146,7 @@ module Commands
     # @return [Monster] If a monster is found.
     # @return [nil] If a monster is not found.
     def target
-      return @target if defined?(@target)
-
-      @target = character.room.monsters.where("LOWER(NAME) = ?", target_name.downcase).first
+      @target ||= character.room.monsters.where("LOWER(NAME) = ?", target_name.downcase).first
     end
 
     # Return the name of the target.
