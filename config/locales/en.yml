@@ -60,6 +60,8 @@ en:
           message: "%{attacker_name} attacked %{target_name}."
         killed:
           message: "%{attacker_name} attacked %{target_name}, killing it."
+        missed:
+          message: "%{attacker_name} attempted to attack %{target_name} and missed."
       attacker:
         hit:
           message:
@@ -69,6 +71,8 @@ en:
           message:
             one: "You hit %{target_name} for %{count} point of damage, killing it."
             other: "You hit %{target_name} for %{count} points of damage, killing it."
+        missed:
+          message: "You attempted to hit %{target_name} and missed."
         unknown:
           invalid: "You don't see anything named \"%{target_name}\"."
           missing: "You need to specify a target to attack."

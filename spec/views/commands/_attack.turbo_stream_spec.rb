@@ -32,6 +32,19 @@ describe "commands/_attack.turbo_stream.erb", type: :view do
     end
   end
 
+  context "with a missed target" do
+    let(:damage) { 0 }
+    let(:target) { build_stubbed(:monster) }
+
+    before do
+      stub_template("commands/attack/attacker/_missed.html.erb" => "MISSED_TEMPLATE")
+    end
+
+    it "renders the missed HTML template" do
+      expect(html).to include("MISSED_TEMPLATE")
+    end
+  end
+
   context "with a killed target" do
     let(:target) { build_stubbed(:monster, current_health: 0) }
 

@@ -4,18 +4,21 @@ require "rails_helper"
 
 describe "Sending the attack command", type: :feature, js: true do
   let(:character) { create(:character, room: room) }
+  let(:damage)    { 1 }
   let(:monster)   { spawn.entity }
   let(:room)      { spawn.room }
   let(:spawn)     { create(:spawn, :monster) }
 
   before do
     sign_in_as_character character
+
+    allow(SecureRandom).to receive(:random_number).with(0..1).and_return(damage)
   end
 
   it "displays the attacker hit message to the sender" do
     send_command(:attack, monster.name)
 
-    expect(page).to have_attacker_hit_message(monster, damage: 1)
+    expect(page).to have_attacker_hit_message(monster, damage: damage)
   end
 
   it "broadcasts the attack hit message to the room" do
@@ -39,9 +42,9 @@ describe "Sending the attack command", type: :feature, js: true do
 
     send_command(:attack, monster.name)
 
-    wait_for(have_attacker_hit_message(monster, damage: 1)) do
+    wait_for(have_attacker_hit_message(monster, damage: damage)) do
       using_session(:nearby_character) do
-        expect(page).not_to have_attacker_hit_message(monster, damage: 1)
+        expect(page).not_to have_attacker_hit_message(monster, damage: damage)
       end
     end
   end
@@ -53,9 +56,9 @@ describe "Sending the attack command", type: :feature, js: true do
 
     send_command(:attack, monster.name)
 
-    wait_for(have_attacker_hit_message(monster, damage: 1)) do
+    wait_for(have_attacker_hit_message(monster, damage: damage)) do
       using_session(:distant_character) do
-        expect(page).not_to have_attacker_hit_message(monster, damage: 1)
+        expect(page).not_to have_attacker_hit_message(monster, damage: damage)
       end
     end
   end
@@ -67,22 +70,46 @@ describe "Sending the attack command", type: :feature, js: true do
 
     send_command(:attack, monster.name)
 
-    wait_for(have_attacker_hit_message(monster, damage: 1)) do
+    wait_for(have_attacker_hit_message(monster, damage: damage)) do
       using_session(:distant_character) do
         expect(page).not_to have_attack_hit_message(monster)
       end
     end
   end
 
+  context "when the monster is missed" do
+    let(:damage) { 0 }
+
+    it "displays the attacker missed message to the sender" do
+      send_command(:attack, monster.name)
+
+      expect(page).to have_attacker_missed_message(monster)
+    end
+
+    it "broadcasts the attack missed message to the room" do
+      create(:room, x: 0, y: 1, z: 0)
+
+      using_session(:nearby_character) do
+        sign_in_as_character create(:character, room: room)
+      end
+
+      send_command(:attack, monster.name)
+
+      using_session(:nearby_character) do
+        expect(page).to have_attack_missed_message(monster)
+      end
+    end
+  end
+
   context "when the monster is killed" do
     before do
-      monster.update!(current_health: 1)
+      monster.update!(current_health: damage)
     end
 
     it "displays the attacker killed message to the sender" do
       send_command(:attack, monster.name)
 
-      expect(page).to have_attacker_killed_message(monster, damage: 1)
+      expect(page).to have_attacker_killed_message(monster, damage: damage)
     end
 
     it "broadcasts new experience to the character" do
@@ -131,9 +158,9 @@ describe "Sending the attack command", type: :feature, js: true do
 
       send_command(:attack, monster.name)
 
-      wait_for(have_attacker_killed_message(monster, damage: 1)) do
+      wait_for(have_attacker_killed_message(monster, damage: damage)) do
         using_session(:nearby_character) do
-          expect(page).not_to have_attacker_killed_message(monster, damage: 1)
+          expect(page).not_to have_attacker_killed_message(monster, damage: damage)
         end
       end
     end
@@ -145,9 +172,9 @@ describe "Sending the attack command", type: :feature, js: true do
 
       send_command(:attack, monster.name)
 
-      wait_for(have_attacker_killed_message(monster, damage: 1)) do
+      wait_for(have_attacker_killed_message(monster, damage: damage)) do
         using_session(:distant_character) do
-          expect(page).not_to have_attacker_killed_message(monster, damage: 1)
+          expect(page).not_to have_attacker_killed_message(monster, damage: damage)
         end
       end
     end
@@ -159,7 +186,7 @@ describe "Sending the attack command", type: :feature, js: true do
 
       send_command(:attack, monster.name)
 
-      wait_for(have_attacker_killed_message(monster, damage: 1)) do
+      wait_for(have_attacker_killed_message(monster, damage: damage)) do
         using_session(:distant_character) do
           expect(page).not_to have_attack_killed_message(monster)
         end
@@ -238,7 +265,7 @@ describe "Sending the attack command", type: :feature, js: true do
     it "displays the message to the sender" do
       send_command(:a, monster.name)
 
-      expect(page).to have_attacker_hit_message(monster, damage: 1)
+      expect(page).to have_attacker_hit_message(monster, damage: damage)
     end
   end
 
@@ -262,10 +289,26 @@ describe "Sending the attack command", type: :feature, js: true do
     )
   end
 
+  def have_attack_missed_message(monster)
+    have_css(
+      "#messages .message-attack-missed",
+      text: t("commands.attack.attack.missed.message",
+              attacker_name: character.name,
+              target_name:   monster.name)
+    )
+  end
+
   def have_attacker_hit_message(monster, damage:)
     have_css(
       "#messages .message-attacker-hit",
       text: t("commands.attack.attacker.hit.message", target_name: monster.name, count: damage)
+    )
+  end
+
+  def have_attacker_invalid_message(name)
+    have_css(
+      "#messages .message-attacker-unknown",
+      text: t("commands.attack.attacker.unknown.invalid", target_name: name)
     )
   end
 
@@ -276,10 +319,10 @@ describe "Sending the attack command", type: :feature, js: true do
     )
   end
 
-  def have_attacker_invalid_message(name)
+  def have_attacker_missed_message(monster)
     have_css(
-      "#messages .message-attacker-unknown",
-      text: t("commands.attack.attacker.unknown.invalid", target_name: name)
+      "#messages .message-attacker-missed",
+      text: t("commands.attack.attacker.missed.message", target_name: monster.name)
     )
   end
 
