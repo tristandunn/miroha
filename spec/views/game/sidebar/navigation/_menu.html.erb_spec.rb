@@ -22,6 +22,6 @@ describe "game/sidebar/navigation/_menu.html.erb", type: :view do
   end
 
   it "renders a submit button" do
-    expect(html).to have_css(%(button#exit_game[type="submit"]))
+    expect(html).to have_button
   end
 end

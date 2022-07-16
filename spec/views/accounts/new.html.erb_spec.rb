@@ -36,10 +36,7 @@ describe "accounts/new.html.erb", type: :view do
   end
 
   it "renders a submit button" do
-    expect(html).to have_css(
-      %(button[type="submit"]),
-      text: t("accounts.new.submit")
-    )
+    expect(html).to have_button(t("accounts.new.submit"))
   end
 
   context "when errors are present" do
