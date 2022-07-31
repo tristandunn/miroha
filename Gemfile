@@ -4,12 +4,12 @@ ruby   "3.1.2"
 source "https://rubygems.org"
 
 gem "bcrypt",            "3.1.18"
-gem "bootsnap",          "1.12.0", require: false
+gem "bootsnap",          "1.13.0", require: false
 gem "hiredis",           "0.6.3"
 gem "hotwire-rails",     "0.1.3"
 gem "jsbundling-rails",  "1.0.3"
-gem "oj",                "3.13.17"
-gem "pg",                "1.4.1"
+gem "oj",                "3.13.19"
+gem "pg",                "1.4.2"
 gem "puma",              "5.6.4"
 gem "rack-attack",       "6.6.1"
 gem "rack-timeout",      "0.6.3"
@@ -24,15 +24,15 @@ gem "turbo-rails",       "1.1.1"
 group :development, :test do
   gem "bullet",       "7.0.2"
   gem "cacheflow",    "0.2.1"
-  gem "dotenv-rails", "2.7.6"
+  gem "dotenv-rails", "2.8.1"
   gem "rspec-rails",  "5.1.2"
 end
 
 group :development do
   gem "brakeman",            "5.2.3", require: false
   gem "listen",              "3.7.1"
-  gem "rubocop",             "1.31.2", require: false
-  gem "rubocop-performance", "1.14.2", require: false
+  gem "rubocop",             "1.32.0", require: false
+  gem "rubocop-performance", "1.14.3", require: false
   gem "rubocop-rails",       "2.15.2", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.12.1", require: false
@@ -44,7 +44,7 @@ group :test do
   gem "climate_control",          "1.2.0"
   gem "database_cleaner",         "2.0.1"
   gem "factory_bot_rails",        "6.2.0"
-  gem "faker",                    "2.21.0"
+  gem "faker",                    "2.22.0"
   gem "rails-controller-testing", "1.0.5"
   gem "selenium-webdriver",       "4.3.0"
   gem "shoulda-matchers",         "5.1.0"
