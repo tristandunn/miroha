@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
-require "bullet"
-
 RSpec.configure do |config|
   config.before(:suite) do
-    Bullet.enable = true
-    Bullet.raise  = true
+    Prosopite.rails_logger = true
+    Prosopite.raise = true
   end
 
   config.around do |example|
-    Bullet.start_request
+    Prosopite.scan
 
     example.run
 
-    Bullet.end_request
+    Prosopite.finish
   end
 end
