@@ -19,7 +19,7 @@ describe Spawns::Activate, type: :service do
 
       described_class.call(spawn)
 
-      expect(spawn.reload.entity.room).to eq(spawn.room)
+      expect(spawn.reload.entity.room_id).to eq(spawn.room_id)
     end
 
     it "clears the activates_at attribute" do
