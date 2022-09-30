@@ -4,6 +4,7 @@ class Character < ApplicationRecord
   ACTIVE_DURATION     = 15.minutes
   MINIMUM_NAME_LENGTH = 3
   MAXIMUM_NAME_LENGTH = 12
+  SELECTED_KEY        = "character:%s:selected"
 
   belongs_to :account
   belongs_to :room
@@ -48,5 +49,12 @@ class Character < ApplicationRecord
   # @return [Boolean]
   def inactive?
     active_at < ACTIVE_DURATION.ago
+  end
+
+  # Return if the character was recently selected.
+  #
+  # @return [Boolean]
+  def recent?
+    Rails.cache.exist?(SELECTED_KEY % id)
   end
 end

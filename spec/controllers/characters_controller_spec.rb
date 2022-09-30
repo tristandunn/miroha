@@ -195,6 +195,12 @@ describe CharactersController, type: :controller do
       it { is_expected.not_to set_session[:character_id] }
       it { is_expected.to redirect_to(characters_url) }
 
+      it "assigns a flash error" do
+        expect(request).to set_flash[:warning].to(
+          t("activemodel.errors.models.character_select_form.attributes.base.character_missing")
+        )
+      end
+
       it "does not broadcast an enter message to the room" do
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_render_later_to)
       end
@@ -206,6 +212,34 @@ describe CharactersController, type: :controller do
       end
 
       it { is_expected.to redirect_to(new_sessions_url) }
+    end
+
+    context "when recently selected", :cache do
+      let(:account)   { character.account }
+      let(:character) { create(:character, :inactive) }
+
+      before do
+        allow(Turbo::StreamsChannel).to receive(:broadcast_render_later_to)
+
+        Rails.cache.write(Character::SELECTED_KEY % character.id, 1, expires_in: 5.minutes)
+
+        sign_in_as account
+
+        post :select, params: { id: character.id }
+      end
+
+      it { is_expected.not_to set_session[:character_id] }
+      it { is_expected.to redirect_to(characters_url) }
+
+      it "assigns a flash error" do
+        expect(request).to set_flash[:warning].to(
+          t("activemodel.errors.models.character_select_form.attributes.base.character_recent")
+        )
+      end
+
+      it "does not broadcast an enter message to the room" do
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_render_later_to)
+      end
     end
   end
 

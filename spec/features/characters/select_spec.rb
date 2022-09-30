@@ -83,4 +83,14 @@ describe "Selecting a character", type: :feature, js: true do
       expect(page).not_to have_css("#messages .message-enter-game")
     end
   end
+
+  it "does not allow quick repeated selection", cache: true, js: false do
+    Rails.cache.write(Character::SELECTED_KEY % character.id, 1, expires_in: 5.minutes)
+
+    click_button character.name
+
+    expect(page).to have_text(
+      t("activemodel.errors.models.character_select_form.attributes.base.character_recent")
+    )
+  end
 end

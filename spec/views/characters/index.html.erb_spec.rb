@@ -49,6 +49,26 @@ describe "characters/index.html.erb", type: :view do
     end
   end
 
+  context "with a recent character", cache: true do
+    let(:character) { create(:character) }
+
+    before do
+      assign :characters, [character]
+
+      Rails.cache.write(Character::SELECTED_KEY % character.id, 1, expires_in: 5.minutes)
+    end
+
+    it "renders the character as unselectable" do
+      expect(html).to have_css("div.cursor-not-allowed", text: character.name)
+    end
+
+    it "does not render a button for the character" do
+      expect(html).not_to have_css(
+        %(form[method="post"][action="#{select_character_path(character)}"] button)
+      )
+    end
+  end
+
   context "without characters" do
     it "renders the empty message" do
       expect(html).to have_css("p", text: t("characters.index.empty"))
@@ -61,6 +81,18 @@ describe "characters/index.html.erb", type: :view do
 
     it "does not render the character list" do
       expect(html).not_to have_css("#characters")
+    end
+  end
+
+  context "with a flash warning message" do
+    let(:message) { Faker::Lorem.sentence }
+
+    before do
+      flash.now[:warning] = message
+    end
+
+    it "renders the message" do
+      expect(html).to have_css("p", text: message)
     end
   end
 end
