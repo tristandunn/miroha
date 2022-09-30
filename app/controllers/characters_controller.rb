@@ -29,14 +29,14 @@ class CharactersController < ApplicationController
 
   # Select a character.
   def select
-    character = current_account.characters.find_by(id: params[:id])
+    form = CharacterSelectForm.new(account: current_account, id: params[:id])
 
-    if character.present?
-      enter_game(character)
+    if form.valid?
+      enter_game(form.character)
 
       redirect_to root_url
     else
-      redirect_to characters_url
+      redirect_to characters_url, flash: { warning: form.errors[:base].first }
     end
   end
 

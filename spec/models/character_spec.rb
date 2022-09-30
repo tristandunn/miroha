@@ -95,4 +95,22 @@ describe Character, type: :model do
       it { is_expected.to be(false) }
     end
   end
+
+  describe "#recent?", cache: true do
+    subject(:recent?) { character.recent? }
+
+    let(:character) { create(:character) }
+
+    context "when recently selected" do
+      before do
+        Rails.cache.write(described_class::SELECTED_KEY % character.id, 1, expires_in: 5.minutes)
+      end
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when not recently selected" do
+      it { is_expected.to be(false) }
+    end
+  end
 end

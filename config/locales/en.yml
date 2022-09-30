@@ -19,6 +19,11 @@ en:
         password: "Password"
     errors:
       models:
+        character_select_form:
+          attributes:
+            base:
+              character_missing: "Unknown character selected."
+              character_recent: "Character played too recently."
         session_form:
           attributes:
             email:
