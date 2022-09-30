@@ -1,28 +1,26 @@
-const { yamlPlugin } = require("esbuild-plugin-yaml"),
-  watch = process.argv.includes("--watch") && {
+const watch = process.argv.includes("--watch") && {
 
-    /**
-     * Log when a build is finished or failed.
-     *
-     * @param {Error|null} error The possible error.
-     * @returns {void}
-     */
-    onRebuild(error) {
-      if (error) {
-        // eslint-disable-next-line no-console
-        console.error("[watch] build failed", error);
-      } else {
-        console.log("[watch] build finished"); // eslint-disable-line no-console
-      }
+  /**
+   * Log when a build is finished or failed.
+   *
+   * @param {Error|null} error The possible error.
+   * @returns {void}
+   */
+  onRebuild(error) {
+    if (error) {
+      // eslint-disable-next-line no-console
+      console.error("[watch] build failed", error);
+    } else {
+      console.log("[watch] build finished"); // eslint-disable-line no-console
     }
-  };
+  }
+};
 
 require("esbuild").
   build({
     "bundle": true,
     "entryPoints": ["app/javascript/application.js"],
     "outfile": "app/assets/builds/application.js",
-    "plugins": [yamlPlugin()],
     watch
   }).
   catch(() => {

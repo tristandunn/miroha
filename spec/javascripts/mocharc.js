@@ -4,7 +4,6 @@ module.exports = {
   "reporter": "dot",
   "require": [
     "@babel/register",
-    "mocha-yaml-loader",
     "spec/javascripts/helpers.js"
   ]
 };
