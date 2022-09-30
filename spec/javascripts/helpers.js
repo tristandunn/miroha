@@ -14,11 +14,6 @@ global.createDOM = () => {
 
   global.window = dom.window;
   global.document = global.window.document;
-
-  global.window.I18n = {
-    "defaultLocale": "en",
-    "locale": "en"
-  };
 };
 
 global.createDOM();

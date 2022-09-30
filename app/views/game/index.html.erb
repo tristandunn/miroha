@@ -9,11 +9,5 @@
 <%= render "game/streams", character: @character %>
 
 <% content_for(:head) do %>
-  <script type="text/javascript">
-    window.I18n = {
-      defaultLocale : <%== I18n.default_locale.to_json %>,
-      locale        : <%== I18n.locale.to_json %>
-    };
-  </script>
   <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
 <% end %>
