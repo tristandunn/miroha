@@ -4,10 +4,8 @@ A web-based, role-playing game.
 
 ## Roadmap
 
-See the [development project](https://github.com/tristandunn/miroha/projects/1)
-for active development and the [backlog
-project](https://github.com/tristandunn/miroha/projects/2) for proposed features
-and bug reports.
+See [development][] for active development and the [backlog][] for proposed
+features and bug reports.
 
 ## Contributing
 
@@ -16,3 +14,6 @@ See the [contributing guidelines](docs/CONTRIBUTING.md).
 ## License
 
 Miroha uses the GNU AGPLv3 license. See [LICENSE](LICENSE) for more details.
+
+[backlog]: https://github.com/users/tristandunn/projects/7/views/3
+[development]: https://github.com/users/tristandunn/projects/7/views/1
