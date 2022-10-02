@@ -1,3 +1,4 @@
+.yarn/*
 app/assets/builds/*
 coverage/
 log/
@@ -5,3 +6,8 @@ node_modules/
 tmp/
 
 !app/assets/builds/.keep
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+!/.yarn/versions
