@@ -342,9 +342,27 @@ describe("ChatController", () => {
       instance.inputTarget = input;
     });
 
-    context("with a blank input input", () => {
+    context("with a blank input value", () => {
       beforeEach(() => {
         input.value = "  ";
+      });
+
+      it("prevents the default event", () => {
+        instance.validateCommand(event);
+
+        expect(preventDefault).to.have.been.calledWith();
+      });
+
+      it("stops propagation of the event", () => {
+        instance.validateCommand(event);
+
+        expect(stopPropagation).to.have.been.calledWith();
+      });
+    });
+
+    context("with an input value of a forward slash", () => {
+      beforeEach(() => {
+        input.value = " / ";
       });
 
       it("prevents the default event", () => {

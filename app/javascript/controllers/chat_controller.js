@@ -132,7 +132,7 @@ export default class ChatController extends Controller {
     const input = this.inputTarget,
       value = input.value.toString().trim();
 
-    if (value === "") {
+    if (value === "" || value === "/") {
       event.preventDefault();
       event.stopPropagation();
     }
