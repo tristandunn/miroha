@@ -36,7 +36,12 @@ describe "game/sidebar/_character.html.erb", type: :view do
   end
 
   it "renders the health points" do
-    expect(html).to have_css(%(div[title="8 / 10"] div[style="width: 80%;"]))
+    width = "#{character.health.remaining_percentage}%"
+    title = "#{character.health.current} / #{character.health.maximum}"
+
+    expect(html).to have_css(
+      %(div[title="#{title}"] div[style="width: #{width};"])
+    )
   end
 
   it "renders the magic points" do

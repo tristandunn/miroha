@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_03_003641) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_03_032730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_003641) do
     t.integer "experience", default: 0, null: false
     t.datetime "active_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.boolean "playing", default: false, null: false
+    t.integer "current_health", default: 10, null: false
+    t.integer "maximum_health", default: 10, null: false
     t.index ["account_id"], name: "index_characters_on_account_id"
     t.index ["active_at", "playing"], name: "index_characters_on_active_at_and_playing"
     t.index ["name"], name: "index_characters_on_name", unique: true
