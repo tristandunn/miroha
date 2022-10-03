@@ -44,6 +44,13 @@ class Character < ApplicationRecord
     Experience.new(current: self[:experience], level: self[:level])
   end
 
+  # Return a +HitPoints+ object for the character's health.
+  #
+  # @return [HitPoints]
+  def health
+    HitPoints.new(current: current_health, maximum: maximum_health)
+  end
+
   # Return if the character is inactive.
   #
   # @return [Boolean]

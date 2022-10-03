@@ -80,6 +80,20 @@ describe Character, type: :model do
     it { is_expected.to eq(instance) }
   end
 
+  describe "#health" do
+    subject(:health) { character.health }
+
+    let(:instance) { instance_double(HitPoints) }
+
+    before do
+      allow(HitPoints).to receive(:new)
+        .with(current: character.current_health, maximum: character.maximum_health)
+        .and_return(instance)
+    end
+
+    it { is_expected.to eq(instance) }
+  end
+
   describe "#inactive?", :freeze_time do
     subject(:inactive?) { character.inactive? }
 
