@@ -13,6 +13,12 @@ describe Monster, type: :model do
       .dependent(:nullify)
   end
 
+  it { is_expected.to validate_presence_of(:current_health) }
+  it { is_expected.to validate_numericality_of(:current_health).only_integer }
+
+  it { is_expected.to validate_presence_of(:maximum_health) }
+  it { is_expected.to validate_numericality_of(:maximum_health).only_integer }
+
   it { is_expected.to validate_presence_of(:name) }
 
   it do

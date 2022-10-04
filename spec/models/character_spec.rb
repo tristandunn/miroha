@@ -8,6 +8,12 @@ describe Character, type: :model do
   it { is_expected.to belong_to(:account) }
   it { is_expected.to belong_to(:room) }
 
+  it { is_expected.to validate_presence_of(:current_health) }
+  it { is_expected.to validate_numericality_of(:current_health).only_integer }
+
+  it { is_expected.to validate_presence_of(:maximum_health) }
+  it { is_expected.to validate_numericality_of(:maximum_health).only_integer }
+
   it { is_expected.to validate_presence_of(:level) }
 
   it { is_expected.to validate_presence_of(:name) }
