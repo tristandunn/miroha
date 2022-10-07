@@ -4,6 +4,7 @@ coverage/
 log/
 node_modules/
 tmp/
+config/credentials/production.key
 
 !app/assets/builds/.keep
 !/.yarn/patches
