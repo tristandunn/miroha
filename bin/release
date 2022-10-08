@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ "$RAILS_ENV" != "production" ]; then
+  echo "Attempting release outside of a production environment."
+  exit 1
+fi
+
+if [ "$RELEASE_DATABASE_RESET" == "true" ]; then
+  echo "Resetting the database..."
+  bundle exec rails db:migrate VERSION=0
+fi
+
+echo "Running database migrations..."
+bundle exec rails db:migrate
+
+if [ "$RELEASE_DATABASE_RESET" == "true" ]; then
+  echo "Seeding the database..."
+  bundle exec rails db:seed
+fi
