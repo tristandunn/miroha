@@ -3,6 +3,12 @@
 require "rails_helper"
 
 describe Monster, type: :model do
+  describe "class" do
+    subject { described_class }
+
+    it { is_expected.to include(Dispatchable) }
+  end
+
   describe "associations" do
     it { is_expected.to belong_to(:room).optional }
 

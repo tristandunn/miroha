@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Monster < ApplicationRecord
+  include Dispatchable
+
   MINIMUM_NAME_LENGTH = 3
   MAXIMUM_NAME_LENGTH = 24
 
