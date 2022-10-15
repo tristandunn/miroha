@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_03_032730) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_15_150719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_032730) do
     t.integer "maximum_health", default: 5, null: false
     t.integer "experience", default: 0, null: false
     t.bigint "room_id"
+    t.string "event_handlers", default: [], null: false, array: true
+    t.index ["event_handlers"], name: "index_monsters_on_event_handlers"
     t.index ["room_id"], name: "index_monsters_on_room_id"
   end
 

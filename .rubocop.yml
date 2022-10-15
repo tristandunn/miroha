@@ -23,6 +23,10 @@ Metrics/BlockLength:
     - config/routes.rb
     - spec/**/*.rb
 
+Metrics/ClassLength:
+  Exclude:
+    - app/services/commands/*.rb
+
 Naming/RescuedExceptionsVariableName:
   Enabled: true
   PreferredName: error

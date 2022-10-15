@@ -9,9 +9,9 @@ module Commands
     def call
       if valid?
         if damage.positive?
-          damage_target
+          attack_success
         else
-          broadcast_missed
+          attack_failure
         end
       end
     end
@@ -35,6 +35,36 @@ module Commands
     end
 
     private
+
+    # The attack failed, so broadcast a miss.
+    #
+    # @return [void]
+    def attack_failure
+      broadcast_missed
+    end
+
+    # The attack was successful, so damage and either attack or kill
+    # the target.
+    #
+    # @return [void]
+    def attack_success
+      damage_target
+
+      if target_dead?
+        kill_target
+      else
+        attack_target
+      end
+    end
+
+    # Attack the target by saving the damage, triggering an event, and
+    # broadcasting a message.
+    #
+    # @return [void]
+    def attack_target
+      trigger_target_attacked
+      broadcast_attack
+    end
 
     # Broadcast the attack to the room.
     #
@@ -84,38 +114,6 @@ module Commands
       )
     end
 
-    # Return the damage being dealt to the target.
-    #
-    # @return [Integer]
-    def damage
-      @damage ||= SecureRandom.random_number(0..1)
-    end
-
-    # Apply damage to the target.
-    #
-    # @return [void]
-    def damage_target
-      target.current_health -= damage
-
-      if target.current_health.positive?
-        target.save!
-
-        broadcast_attack
-      else
-        broadcast_killed
-        expire_spawn
-        reward_experience_and_level
-        broadcast_sidebar_character
-      end
-    end
-
-    # Expire the target's spawn.
-    #
-    # @return [void]
-    def expire_spawn
-      Spawns::Expire.call(target.spawn)
-    end
-
     # Broadcast a sidebar character replacement to the character.
     #
     # @return [void]
@@ -126,6 +124,40 @@ module Commands
         partial: "game/sidebar/character",
         locals:  { character: character }
       )
+    end
+
+    # Return the damage being dealt to the target.
+    #
+    # @return [Integer]
+    def damage
+      @damage ||= SecureRandom.random_number(0..1)
+    end
+
+    # Apply possible damage and save, unless the target is dead.
+    #
+    # @return [void]
+    def damage_target
+      target.current_health -= damage
+      target.save! unless target_dead?
+    end
+
+    # Expire the target's spawn.
+    #
+    # @return [void]
+    def expire_spawn
+      Spawns::Expire.call(target.spawn)
+    end
+
+    # Kill the target by broadcasting a killed message, expiring the spawn,
+    # rewarding experience and possibly a level, and updating the
+    # character sidebar.
+    #
+    # @return [void]
+    def kill_target
+      broadcast_killed
+      expire_spawn
+      reward_experience_and_level
+      broadcast_sidebar_character
     end
 
     # Reward the character experience for killing the target, and level the
@@ -150,11 +182,25 @@ module Commands
       @target ||= character.room.monsters.where("LOWER(NAME) = ?", target_name.downcase).first
     end
 
+    # Determine if the target is dead or not.
+    #
+    # @return [Boolean]
+    def target_dead?
+      !target.current_health.positive?
+    end
+
     # Return the name of the target.
     #
     # @return [String]
     def target_name
       input_without_command.split(" ", 2).first.to_s
+    end
+
+    # Notify the target being attacked.
+    #
+    # @return [void]
+    def trigger_target_attacked
+      target.trigger(:attacked, character: character, damage: damage)
     end
 
     # Determine if the command is valid based on the target.

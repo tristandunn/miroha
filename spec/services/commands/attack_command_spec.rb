@@ -51,6 +51,16 @@ describe Commands::AttackCommand, type: :service do
       it "damages the target" do
         expect { call }.to change { target.reload.current_health }.by(-damage)
       end
+
+      it "triggers an attacked event on the target" do
+        allow(target).to receive(:trigger)
+        allow(instance).to receive(:target).and_return(target)
+
+        call
+
+        expect(target).to have_received(:trigger)
+          .with(:attacked, character: character, damage: damage)
+      end
     end
 
     context "with a valid, missed target" do
@@ -74,6 +84,15 @@ describe Commands::AttackCommand, type: :service do
 
       it "does not damage the target" do
         expect { call }.not_to(change { target.reload.current_health })
+      end
+
+      it "does not trigger an attacked event on the target" do
+        allow(target).to receive(:trigger)
+        allow(instance).to receive(:target).and_return(target)
+
+        call
+
+        expect(target).not_to have_received(:trigger)
       end
     end
 
@@ -118,6 +137,15 @@ describe Commands::AttackCommand, type: :service do
               character: character
             }
           )
+      end
+
+      it "does not trigger an attacked event on the target" do
+        allow(target).to receive(:trigger)
+        allow(instance).to receive(:target).and_return(target)
+
+        call
+
+        expect(target).not_to have_received(:trigger)
       end
 
       context "when current experience meets the needed experience" do
