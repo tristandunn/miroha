@@ -3,9 +3,11 @@
 require "rails_helper"
 
 describe ApplicationRecord, type: :model do
-  subject(:klass) { described_class }
+  describe "class" do
+    subject(:klass) { described_class }
 
-  it "inherits from ActiveRecord base" do
-    expect(klass.superclass).to eq(ActiveRecord::Base)
+    it "inherits from ActiveRecord base" do
+      expect(klass.superclass).to eq(ActiveRecord::Base)
+    end
   end
 end
