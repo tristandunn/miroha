@@ -3,25 +3,29 @@
 require "rails_helper"
 
 describe Account, type: :model do
-  subject(:account) { create(:account) }
-
-  it { is_expected.to have_many(:characters).dependent(:destroy) }
-
-  it { is_expected.to validate_presence_of(:email) }
-  it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
-  it { is_expected.to allow_value("MrBoB@example.com").for(:email) }
-  it { is_expected.not_to allow_value("@.com").for(:email) }
-
-  it { is_expected.to validate_presence_of(:password).on(:update) }
-
-  it do
-    expect(account).to validate_length_of(:email)
-      .is_at_most(described_class::MAXIMUM_EMAIL_LENGTH)
+  describe "associations" do
+    it { is_expected.to have_many(:characters).dependent(:destroy) }
   end
 
-  it do
-    expect(account).to validate_length_of(:password)
-      .is_at_least(described_class::MINIMUM_PASSWORD_LENGTH)
+  describe "validations" do
+    subject(:account) { build(:account) }
+
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+    it { is_expected.to allow_value("MrBoB@example.com").for(:email) }
+    it { is_expected.not_to allow_value("@.com").for(:email) }
+
+    it { is_expected.to validate_presence_of(:password).on(:update) }
+
+    it "is expected to validate that the length of :email is at most the maximum" do
+      expect(account).to validate_length_of(:email)
+        .is_at_most(described_class::MAXIMUM_EMAIL_LENGTH)
+    end
+
+    it "is expected to validate that the length of :password is at least the minimum" do
+      expect(account).to validate_length_of(:password)
+        .is_at_least(described_class::MINIMUM_PASSWORD_LENGTH)
+    end
   end
 
   describe "#can_create_character?" do

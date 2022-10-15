@@ -3,38 +3,42 @@
 require "rails_helper"
 
 describe Character, type: :model do
-  subject(:character) { create(:character) }
-
-  it { is_expected.to belong_to(:account) }
-  it { is_expected.to belong_to(:room) }
-
-  it { is_expected.to validate_presence_of(:current_health) }
-  it { is_expected.to validate_numericality_of(:current_health).only_integer }
-
-  it { is_expected.to validate_presence_of(:maximum_health) }
-  it { is_expected.to validate_numericality_of(:maximum_health).only_integer }
-
-  it { is_expected.to validate_presence_of(:level) }
-
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
-
-  it do
-    expect(character).to validate_numericality_of(:experience)
-      .is_greater_than_or_equal_to(0)
-      .only_integer
+  describe "associations" do
+    it { is_expected.to belong_to(:account) }
+    it { is_expected.to belong_to(:room) }
   end
 
-  it do
-    expect(character).to validate_numericality_of(:level)
-      .is_greater_than_or_equal_to(1)
-      .only_integer
-  end
+  describe "validations" do
+    subject(:character) { build(:character) }
 
-  it do
-    expect(character).to validate_length_of(:name)
-      .is_at_least(described_class::MINIMUM_NAME_LENGTH)
-      .is_at_most(described_class::MAXIMUM_NAME_LENGTH)
+    it { is_expected.to validate_presence_of(:current_health) }
+    it { is_expected.to validate_numericality_of(:current_health).only_integer }
+
+    it { is_expected.to validate_presence_of(:maximum_health) }
+    it { is_expected.to validate_numericality_of(:maximum_health).only_integer }
+
+    it { is_expected.to validate_presence_of(:level) }
+
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
+
+    it "disallows :experience from being a decimal number not greater than or equal to 0" do
+      expect(character).to validate_numericality_of(:experience)
+        .is_greater_than_or_equal_to(0)
+        .only_integer
+    end
+
+    it "disallows :level from being a decimal number not greater than or equal to 1" do
+      expect(character).to validate_numericality_of(:level)
+        .is_greater_than_or_equal_to(1)
+        .only_integer
+    end
+
+    it "is expected to validate that the length of :name is between the minimum and maximum" do
+      expect(character).to validate_length_of(:name)
+        .is_at_least(described_class::MINIMUM_NAME_LENGTH)
+        .is_at_most(described_class::MAXIMUM_NAME_LENGTH)
+    end
   end
 
   describe ".active", type: :model do
@@ -75,7 +79,8 @@ describe Character, type: :model do
   describe "#experience" do
     subject(:experience) { character.experience }
 
-    let(:instance) { instance_double(Experience) }
+    let(:character) { build_stubbed(:character) }
+    let(:instance)  { instance_double(Experience) }
 
     before do
       allow(Experience).to receive(:new)
@@ -89,7 +94,8 @@ describe Character, type: :model do
   describe "#health" do
     subject(:health) { character.health }
 
-    let(:instance) { instance_double(HitPoints) }
+    let(:character) { build_stubbed(:character) }
+    let(:instance)  { instance_double(HitPoints) }
 
     before do
       allow(HitPoints).to receive(:new)
