@@ -10,7 +10,7 @@ describe Commands::AttackCommand, type: :service do
   let(:target)    { spawn.entity }
 
   before do
-    allow(SecureRandom).to receive(:random_number).with(0..1).and_return(damage)
+    allow(SecureRandom).to receive(:random_number).with(0..1).and_return(damage).once
   end
 
   describe "constants" do

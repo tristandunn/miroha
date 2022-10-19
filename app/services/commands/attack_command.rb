@@ -88,7 +88,7 @@ module Commands
     #
     # @return [Integer]
     def damage
-      SecureRandom.random_number(0..1)
+      @damage ||= SecureRandom.random_number(0..1)
     end
 
     # Apply damage to the target.
