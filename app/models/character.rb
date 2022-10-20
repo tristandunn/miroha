@@ -10,12 +10,12 @@ class Character < ApplicationRecord
   belongs_to :room
 
   validates :current_health, presence:     true,
-                             numericality: { only_integer: true }
-  validates :experience, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+                             numericality: { greater_than: 0, only_integer: true }
+  validates :experience, numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :level, presence:     true,
-                    numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+                    numericality: { greater_than_or_equal_to: 1, only_integer: true }
   validates :maximum_health, presence:     true,
-                             numericality: { only_integer: true }
+                             numericality: { greater_than: 0, only_integer: true }
   validates :name, presence:   true,
                    length:     { in: MINIMUM_NAME_LENGTH..MAXIMUM_NAME_LENGTH },
                    uniqueness: { case_sensitive: false }

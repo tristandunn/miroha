@@ -12,23 +12,23 @@ describe Character, type: :model do
     subject(:character) { build(:character) }
 
     it { is_expected.to validate_presence_of(:current_health) }
-    it { is_expected.to validate_numericality_of(:current_health).only_integer }
+    it { is_expected.to validate_numericality_of(:current_health).is_greater_than(0).only_integer }
 
     it { is_expected.to validate_presence_of(:maximum_health) }
-    it { is_expected.to validate_numericality_of(:maximum_health).only_integer }
+    it { is_expected.to validate_numericality_of(:maximum_health).is_greater_than(0).only_integer }
 
     it { is_expected.to validate_presence_of(:level) }
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
 
-    it "disallows :experience from being a decimal number not greater than or equal to 0" do
+    it "validates that :experience looks like an integer greater than or equal to 0" do
       expect(character).to validate_numericality_of(:experience)
         .is_greater_than_or_equal_to(0)
         .only_integer
     end
 
-    it "disallows :level from being a decimal number not greater than or equal to 1" do
+    it "validates that :level looks like an integer greater than or equal to 1" do
       expect(character).to validate_numericality_of(:level)
         .is_greater_than_or_equal_to(1)
         .only_integer
