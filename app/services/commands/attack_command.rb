@@ -96,9 +96,10 @@ module Commands
     # @return [void]
     def damage_target
       target.current_health -= damage
-      target.save!
 
       if target.current_health.positive?
+        target.save!
+
         broadcast_attack
       else
         broadcast_killed

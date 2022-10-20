@@ -17,10 +17,13 @@ describe Monster, type: :model do
     subject(:monster) { build(:monster) }
 
     it { is_expected.to validate_presence_of(:current_health) }
-    it { is_expected.to validate_numericality_of(:current_health).only_integer }
+    it { is_expected.to validate_numericality_of(:current_health).is_greater_than(0).only_integer }
+
+    it { is_expected.to validate_presence_of(:experience) }
+    it { is_expected.to validate_numericality_of(:experience).is_greater_than(0).only_integer }
 
     it { is_expected.to validate_presence_of(:maximum_health) }
-    it { is_expected.to validate_numericality_of(:maximum_health).only_integer }
+    it { is_expected.to validate_numericality_of(:maximum_health).is_greater_than(0).only_integer }
 
     it { is_expected.to validate_presence_of(:name) }
 

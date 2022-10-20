@@ -7,6 +7,9 @@ class Spawn < ApplicationRecord
 
   validate :base_cannot_belong_to_room, if: :base, on: :create
 
+  validates :duration, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
+  validates :frequency, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
+
   private
 
   # Ensure the base does not belong to a room.
