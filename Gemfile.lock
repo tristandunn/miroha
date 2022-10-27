@@ -336,6 +336,7 @@ DEPENDENCIES
   cacheflow (= 0.3.0)
   capybara (= 3.37.1)
   climate_control (= 1.2.0)
+  connection_pool (= 2.3.0)
   database_cleaner (= 2.0.1)
   dotenv-rails (= 2.8.1)
   factory_bot_rails (= 6.2.0)
