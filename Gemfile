@@ -5,6 +5,7 @@ source "https://rubygems.org"
 
 gem "bcrypt",            "3.1.18"
 gem "bootsnap",          "1.13.0", require: false
+gem "connection_pool",   "2.3.0"
 gem "hiredis-client",    "0.10.0"
 gem "hotwire-rails",     "0.1.3"
 gem "jsbundling-rails",  "1.0.3"
