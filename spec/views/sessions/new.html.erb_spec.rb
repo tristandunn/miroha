@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "sessions/new.html.erb", type: :view do
+describe "sessions/new.html.erb" do
   subject(:html) do
     render template: "sessions/new"
 

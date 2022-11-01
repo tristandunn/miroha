@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "characters/_enter.html.erb", type: :view do
+describe "characters/_enter.html.erb" do
   subject(:html) do
     render partial: "characters/enter", locals: { character: }
 

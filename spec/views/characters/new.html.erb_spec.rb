@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "characters/new.html.erb", type: :view do
+describe "characters/new.html.erb" do
   subject(:html) do
     render template: "characters/new"
 

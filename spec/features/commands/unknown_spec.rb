@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending an unknown command", type: :feature, js: true do
+describe "Sending an unknown command", js: true do
   let(:character) { create(:character) }
   let(:command)   { "/fake command" }
 

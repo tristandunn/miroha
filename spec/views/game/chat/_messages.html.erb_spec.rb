@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "game/chat/_messages.html.erb", type: :view do
+describe "game/chat/_messages.html.erb" do
   subject(:html) do
     render(
       partial: "game/chat/messages",

@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-describe GameController, type: :controller do
-  describe "#index", type: :controller do
+describe GameController do
+  describe "#index" do
     context "with a valid character ID" do
       let(:character) { create(:character) }
 

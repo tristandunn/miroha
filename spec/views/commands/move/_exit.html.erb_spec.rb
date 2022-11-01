@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/move/_exit.html.erb", type: :view do
+describe "commands/move/_exit.html.erb" do
   subject(:html) do
     render(
       partial: "commands/move/exit",

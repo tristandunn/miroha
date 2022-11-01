@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Character, type: :model do
+describe Character do
   describe "associations" do
     it { is_expected.to belong_to(:account) }
     it { is_expected.to belong_to(:room) }
@@ -41,7 +41,7 @@ describe Character, type: :model do
     end
   end
 
-  describe ".active", type: :model do
+  describe ".active" do
     subject(:active) { described_class.active }
 
     it "returns characters active within the last 15 minutes" do
@@ -53,7 +53,7 @@ describe Character, type: :model do
     end
   end
 
-  describe ".inactive", type: :model do
+  describe ".inactive" do
     subject(:inactive) { described_class.inactive }
 
     it "returns characters inactive outside the last 15 minutes" do
@@ -65,7 +65,7 @@ describe Character, type: :model do
     end
   end
 
-  describe ".playing", type: :model do
+  describe ".playing" do
     subject(:playing) { described_class.playing }
 
     it "returns playing characters" do

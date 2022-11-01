@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "game/_streams.html.erb", type: :view do
+describe "game/_streams.html.erb" do
   subject(:html) do
     render partial: "game/streams",
            locals:  { character: character }

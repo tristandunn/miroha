@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "characters/_exit.html.erb", type: :view do
+describe "characters/_exit.html.erb" do
   subject(:html) do
     render partial: "characters/exit", locals: { character: character }
 

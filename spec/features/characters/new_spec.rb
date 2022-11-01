@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Creating a new character", type: :feature do
+describe "Creating a new character" do
   before do
     create(:room)
     create_account

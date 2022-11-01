@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "characters/index.html.erb", type: :view do
+describe "characters/index.html.erb" do
   subject(:html) do
     render template: "characters/index"
 

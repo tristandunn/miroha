@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "game/sidebar/character/_experience.html.erb", type: :view do
+describe "game/sidebar/character/_experience.html.erb" do
   subject(:html) do
     render(
       partial: "game/sidebar/character/experience",

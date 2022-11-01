@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/attack/attacker/_killed.html.erb", type: :view do
+describe "commands/attack/attacker/_killed.html.erb" do
   subject(:html) do
     render(
       partial: "commands/attack/attacker/killed",

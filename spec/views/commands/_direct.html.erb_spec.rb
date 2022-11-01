@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_direct.html.erb", type: :view do
+describe "commands/_direct.html.erb" do
   subject(:html) do
     render partial: "commands/direct", locals: {
       character: character,

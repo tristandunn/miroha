@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "game/index.html.erb", type: :view do
+describe "game/index.html.erb" do
   subject(:html) do
     render template: "game/index"
 

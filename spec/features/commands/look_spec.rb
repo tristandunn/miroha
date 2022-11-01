@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending the look command", type: :feature, js: true do
+describe "Sending the look command", js: true do
   let(:character) { create(:character) }
   let(:room)      { character.room }
 

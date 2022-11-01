@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_whisper.html.erb", type: :view do
+describe "commands/_whisper.html.erb" do
   subject(:html) do
     render partial: "commands/whisper", locals: {
       character: character,
