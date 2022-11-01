@@ -1,0 +1,2 @@
+<%= turbo_stream.append("messages", partial: "characters/respawn", locals: { character: character }) %>
+<%= turbo_stream.append("surrounding-characters", partial: "game/surroundings/character", locals: { character: character }) %>

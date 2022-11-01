@@ -28,15 +28,8 @@ class CharacterForm < BaseForm
     {
       name:    name,
       playing: true,
-      room:    default_room
+      room:    Room.default
     }
-  end
-
-  # Return the default room.
-  #
-  # @return [Room]
-  def default_room
-    Room.first
   end
 
   # Validate the character, merging character errors into the form errors.

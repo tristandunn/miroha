@@ -6,5 +6,11 @@ FactoryBot.define do
     y           { Faker::Number.number }
     z           { Faker::Number.number }
     description { Faker::Lorem.sentence }
+
+    trait :default do
+      x { 0 }
+      y { 0 }
+      z { 0 }
+    end
   end
 end

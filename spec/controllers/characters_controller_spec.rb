@@ -83,7 +83,7 @@ describe CharactersController do
       let(:form)      { assigns(:form) }
 
       before do
-        create(:room)
+        create(:room, :default)
 
         sign_in_as account
 
