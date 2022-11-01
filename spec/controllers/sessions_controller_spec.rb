@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe SessionsController, type: :controller do
+describe SessionsController do
   it { is_expected.to be_a(ApplicationController) }
 
   describe "#new" do

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Viewing the index page", type: :feature do
+describe "Viewing the index page" do
   it "successfully" do
     visit root_path
 

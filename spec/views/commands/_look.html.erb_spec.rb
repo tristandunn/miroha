@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_look.html.erb", type: :view do
+describe "commands/_look.html.erb" do
   subject(:html) do
     render partial: "commands/look", locals: { room: room }
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_exit_game.html.erb", type: :view do
+describe "commands/_exit_game.html.erb" do
   subject(:html) do
     render partial: "commands/exit_game"
 

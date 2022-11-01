@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Creating a new account", type: :feature do
+describe "Creating a new account" do
   before do
     visit root_path
     click_link t("pages.index.new_account")

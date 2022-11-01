@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Creating a new session", type: :feature do
+describe "Creating a new session" do
   let(:account)  { create(:account, password: password) }
   let(:password) { generate(:password) }
 

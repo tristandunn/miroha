@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe ApplicationRecord, type: :model do
+describe ApplicationRecord do
   describe "class" do
     subject(:klass) { described_class }
 

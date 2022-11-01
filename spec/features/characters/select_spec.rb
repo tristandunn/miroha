@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Selecting a character", type: :feature, js: true do
+describe "Selecting a character", js: true do
   let(:character) { create(:character, :inactive) }
 
   before do

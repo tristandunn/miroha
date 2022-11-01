@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "game/sidebar/_character.html.erb", type: :view do
+describe "game/sidebar/_character.html.erb" do
   subject(:html) do
     render(
       partial: "game/sidebar/character",

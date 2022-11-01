@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending the move command", type: :feature, js: true do
+describe "Sending the move command", js: true do
   let(:character) { create(:character, room: room) }
   let(:room)      { create(:room, x: 0, y: 0, z: 0) }
 

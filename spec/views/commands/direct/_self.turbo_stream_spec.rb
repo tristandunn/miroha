@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/direct/_self.turbo_stream.erb", type: :view do
+describe "commands/direct/_self.turbo_stream.erb" do
   subject(:html) do
     render(
       partial: "commands/direct/self",

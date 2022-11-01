@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_attack.turbo_stream.erb", type: :view do
+describe "commands/_attack.turbo_stream.erb" do
   subject(:html) do
     render(
       partial: "commands/attack",

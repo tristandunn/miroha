@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe CommandsController, type: :controller do
+describe CommandsController do
   describe "#create" do
     context "when created successfully" do
       let(:character)   { create(:character) }

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_move.turbo_stream.erb", type: :view do
+describe "commands/_move.turbo_stream.erb" do
   let(:room) { build_stubbed(:room) }
 
   before do

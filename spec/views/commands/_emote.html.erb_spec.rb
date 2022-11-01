@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_emote.html.erb", type: :view do
+describe "commands/_emote.html.erb" do
   subject(:html) do
     render partial: "commands/emote", locals: { message: message }
 

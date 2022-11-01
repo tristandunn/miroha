@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Spawn, type: :model do
+describe Spawn do
   describe "associations" do
     it { is_expected.to belong_to(:base) }
     it { is_expected.to belong_to(:entity).dependent(:destroy).optional(true) }

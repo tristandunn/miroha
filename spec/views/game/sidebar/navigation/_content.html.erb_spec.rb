@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "game/sidebar/navigation/_content.html.erb", type: :view do
+describe "game/sidebar/navigation/_content.html.erb" do
   subject(:html) do
     render partial: "game/sidebar/navigation/content"
 

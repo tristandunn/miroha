@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Monster, type: :model do
+describe Monster do
   describe "class" do
     subject { described_class }
 

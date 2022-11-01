@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "game/surroundings/_monster.html.erb", type: :view do
+describe "game/surroundings/_monster.html.erb" do
   subject(:html) do
     render template: "game/surroundings/_monster",
            locals:   { monster: monster }

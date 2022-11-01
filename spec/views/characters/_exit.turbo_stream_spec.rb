@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "characters/_exit.turbo_stream.erb", type: :view do
+describe "characters/_exit.turbo_stream.erb" do
   subject(:html) do
     render partial: "characters/exit",
            formats: :turbo_stream,

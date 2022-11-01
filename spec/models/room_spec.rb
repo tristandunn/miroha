@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Room, type: :model do
+describe Room do
   describe "associations" do
     subject(:room) { build(:room) }
 

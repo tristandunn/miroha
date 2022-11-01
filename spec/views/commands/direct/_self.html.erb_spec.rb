@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/direct/_self.html.erb", type: :view do
+describe "commands/direct/_self.html.erb" do
   subject(:html) do
     render partial: "commands/direct/self"
 

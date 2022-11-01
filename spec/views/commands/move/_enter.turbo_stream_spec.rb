@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/move/_enter.turbo_stream.erb", type: :view do
+describe "commands/move/_enter.turbo_stream.erb" do
   subject(:html) do
     render(
       partial: "commands/move/enter",

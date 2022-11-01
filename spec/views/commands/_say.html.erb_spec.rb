@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "commands/_say.html.erb", type: :view do
+describe "commands/_say.html.erb" do
   subject(:html) do
     render partial: "commands/say", locals: {
       character: character,

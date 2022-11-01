@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Account, type: :model do
+describe Account do
   describe "associations" do
     it { is_expected.to have_many(:characters).dependent(:destroy) }
   end
