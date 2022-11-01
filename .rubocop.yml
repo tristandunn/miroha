@@ -25,7 +25,7 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Exclude:
-    - app/services/commands/*.rb
+    - app/services/**/*.rb
 
 Naming/RescuedExceptionsVariableName:
   Enabled: true

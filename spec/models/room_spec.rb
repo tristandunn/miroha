@@ -11,6 +11,12 @@ describe Room do
     end
   end
 
+  describe "constants" do
+    it "defines default room coordinates" do
+      expect(described_class::DEFAULT_COORDINATES).to eq(x: 0, y: 0, z: 0)
+    end
+  end
+
   describe "validations" do
     subject(:room) { build(:room) }
 
@@ -25,5 +31,21 @@ describe Room do
     it { is_expected.to validate_numericality_of(:y).only_integer }
 
     it { is_expected.to validate_numericality_of(:z).only_integer }
+  end
+
+  describe ".default" do
+    subject(:default) { described_class.default }
+
+    let(:room) { build_stubbed(:room) }
+
+    before do
+      allow(described_class).to receive(:find_by)
+        .with(described_class::DEFAULT_COORDINATES)
+        .and_return(room)
+    end
+
+    it "returns the default room" do
+      expect(default).to eq(room)
+    end
   end
 end

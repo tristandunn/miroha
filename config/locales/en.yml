@@ -57,6 +57,8 @@ en:
       header: "Create a Character"
       placeholder: "Yinohoo"
       submit: "Create Your Character"
+    respawn:
+      message: "%{name} arrived from a lost battle."
 
   commands:
     attack:
@@ -130,6 +132,26 @@ en:
         menu:
           equipment: "Equipment"
           exit: "Exit the game."
+
+  monsters:
+    attack:
+      hit:
+        message: "%{attacker_name} attacked %{target_name}."
+      kill:
+        message: "%{attacker_name} killed %{target_name}."
+      missed:
+        message: "%{attacker_name} attempted to attack %{target_name} and missed."
+      target:
+        hit:
+          message:
+            one: "%{attacker_name} hit you for %{count} point of damage."
+            other: "%{attacker_name} hit you for %{count} points of damage."
+        kill:
+          message:
+            one: "%{attacker_name} hit you for %{count} point of damage, killing you."
+            other: "%{attacker_name} hit you for %{count} points of damage, killing you."
+        missed:
+          message: "%{attacker_name} attempted to attack you and missed."
 
   pages:
     index:

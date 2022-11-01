@@ -71,6 +71,22 @@
   @apply max-w-2xl;
 }
 
+#messages tr.message-monsters-attack-hit td,
+#messages tr.message-monsters-attack-kill td,
+#messages tr.message-monsters-attack-missed td {
+  @apply bg-gray-200;
+}
+
+#messages tr.message-monsters-attack-target-hit td,
+#messages tr.message-monsters-attack-target-killed td,
+#messages tr.message-monsters-attack-target-missed td {
+  @apply bg-red-200 border-red-300;
+}
+
+#messages tr.message-monsters-attack-target-hit td {
+  @apply font-semibold;
+}
+
 #messages td.message-direct,
 #messages td.message-say {
   @apply py-3 leading-5;

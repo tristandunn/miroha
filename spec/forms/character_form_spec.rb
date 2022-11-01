@@ -15,10 +15,10 @@ describe CharacterForm, type: :form do
     end
 
     let(:account) { create(:account) }
-    let(:room)    { Room.first }
+    let(:room)    { create(:room) }
 
     before do
-      create_pair(:room)
+      allow(Room).to receive(:default).and_return(room)
     end
 
     it "builds a new character with the form attributes" do
@@ -38,10 +38,10 @@ describe CharacterForm, type: :form do
     end
 
     let(:account) { create(:account) }
-    let(:room)    { Room.first }
+    let(:room)    { create(:room) }
 
     before do
-      create_pair(:room)
+      allow(Room).to receive(:default).and_return(room)
     end
 
     context "when valid" do

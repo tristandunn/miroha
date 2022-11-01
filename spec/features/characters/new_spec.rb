@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Creating a new character" do
   before do
-    create(:room)
+    create(:room, :default)
     create_account
   end
 
