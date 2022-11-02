@@ -46,6 +46,7 @@ RSpec.configure do |config|
 
   # Filter libraries in backtraces.
   config.backtrace_exclusion_patterns << %r{/gems/}
+  config.backtrace_exclusion_patterns << %r{spec/support}
 
   # Patch for rspec/rails issue #2485.
   config.before(:context, type: :view) do
