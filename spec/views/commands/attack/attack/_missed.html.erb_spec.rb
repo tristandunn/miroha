@@ -22,12 +22,16 @@ describe "commands/attack/attack/_missed.html.erb" do
 
   it "renders the missed message" do
     expect(html).to have_command_row(
-      %(td[data-character-id="#{character.id}"]),
+      "td:nth-child(2)",
       text: t(
         "commands.attack.attack.missed.message",
         attacker_name: attacker_name,
         target_name:   target_name
       )
     )
+  end
+
+  it "includes the character ID on the message row" do
+    expect(html).to have_css(%(tr[data-character-id="#{character.id}"]))
   end
 end
