@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe SessionForm, type: :model do
+describe SessionForm, type: :form do
   it { is_expected.to validate_presence_of(:email) }
 
   it { is_expected.to validate_presence_of(:password) }

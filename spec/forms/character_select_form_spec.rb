@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe CharacterSelectForm, type: :model do
+describe CharacterSelectForm, type: :form do
   subject(:form) { described_class.new(account: account, id: id) }
 
   describe "#initialize" do
