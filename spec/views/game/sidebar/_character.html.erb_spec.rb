@@ -12,7 +12,7 @@ describe "game/sidebar/_character.html.erb" do
     rendered
   end
 
-  let(:character) { build_stubbed(:character) }
+  let(:character) { build_stubbed(:character, current_health: 1_337, maximum_health: 31_337) }
 
   before do
     stub_template(
@@ -37,7 +37,10 @@ describe "game/sidebar/_character.html.erb" do
 
   it "renders the health points" do
     width = "#{character.health.remaining_percentage}%"
-    title = "#{character.health.current} / #{character.health.maximum}"
+    title = [
+      number_with_delimiter(character.health.current),
+      number_with_delimiter(character.health.maximum)
+    ].join(" / ")
 
     expect(html).to have_css(
       %(div[title="#{title}"] div[style="width: #{width};"])
