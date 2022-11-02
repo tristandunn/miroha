@@ -12,7 +12,7 @@
     </div>
 
     <div class="clear-both py-2">
-      <div class="float-left relative h-2 bg-red-900 rounded" title="<%= character.health.current %> / <%= character.health.maximum %>" style="width: 45%">
+      <div class="float-left relative h-2 bg-red-900 rounded" title="<%= number_with_delimiter character.health.current %> / <%= number_with_delimiter character.health.maximum %>" style="width: 45%">
         <div class="absolute inset-0 h-full bg-red-700 rounded" style="width: <%= character.health.remaining_percentage %>%;"></div>
       </div>
 
