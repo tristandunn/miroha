@@ -1,6 +1,6 @@
-<tr data-controller="message" data-target="messages.message">
+<tr data-controller="message" data-target="messages.message" data-character-id="<%= character.id %>">
   <td></td>
-  <td class="message-attack-hit" data-character-id="<%= character.id %>">
+  <td class="message-attack-hit">
     <%= t(".message", attacker_name: attacker_name, target_name: target_name) %>
   </td>
 </tr>
