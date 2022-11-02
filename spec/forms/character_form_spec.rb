@@ -3,18 +3,24 @@
 require "rails_helper"
 
 describe CharacterForm, type: :form do
-  subject(:form) do
-    described_class.new(account: account, name: generate(:name))
-  end
-
-  let(:account) { create(:account) }
-  let(:room)    { Room.first }
-
-  before do
-    create_pair(:room)
+  describe "class" do
+    it "inherits from the base form" do
+      expect(described_class.superclass).to eq(BaseForm)
+    end
   end
 
   describe "#character" do
+    subject(:form) do
+      described_class.new(account: account, name: generate(:name))
+    end
+
+    let(:account) { create(:account) }
+    let(:room)    { Room.first }
+
+    before do
+      create_pair(:room)
+    end
+
     it "builds a new character with the form attributes" do
       expect(form.character).to be_a(Character).and(be_new_record).and(
         have_attributes(
@@ -26,6 +32,17 @@ describe CharacterForm, type: :form do
   end
 
   describe "#save" do
+    subject(:form) do
+      described_class.new(account: account, name: generate(:name))
+    end
+
+    let(:account) { create(:account) }
+    let(:room)    { Room.first }
+
+    before do
+      create_pair(:room)
+    end
+
     context "when valid" do
       it "saves the character" do
         form.save

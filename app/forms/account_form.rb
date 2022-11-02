@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class AccountForm
-  include ActiveModel::Model
-
+class AccountForm < BaseForm
   attr_accessor :email, :password
 
   # Attempt to save the account if it's valid.

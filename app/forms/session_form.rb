@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class SessionForm
-  include ActiveModel::Model
-
+class SessionForm < BaseForm
   attr_accessor :email, :password
 
   validates :email,    presence: true
