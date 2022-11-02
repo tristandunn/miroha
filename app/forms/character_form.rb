@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class CharacterForm
-  include ActiveModel::Model
-
+class CharacterForm < BaseForm
   attr_accessor :account, :name
 
   # Attempt to save the character if it's valid.

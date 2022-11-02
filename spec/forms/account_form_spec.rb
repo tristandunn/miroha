@@ -3,9 +3,15 @@
 require "rails_helper"
 
 describe AccountForm, type: :form do
-  subject(:form) { described_class.new(attributes_for(:account)) }
+  describe "class" do
+    it "inherits from the base form" do
+      expect(described_class.superclass).to eq(BaseForm)
+    end
+  end
 
   describe "#account" do
+    subject(:form) { described_class.new(attributes_for(:account)) }
+
     it "builds a new account with the form attributes" do
       expect(form.account).to be_a(Account).and(be_new_record).and(
         have_attributes(
@@ -17,6 +23,8 @@ describe AccountForm, type: :form do
   end
 
   describe "#save" do
+    subject(:form) { described_class.new(attributes_for(:account)) }
+
     context "when valid" do
       it "persists the account" do
         form.save

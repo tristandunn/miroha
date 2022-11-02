@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class CharacterSelectForm
-  include ActiveModel::Model
-
+class CharacterSelectForm < BaseForm
   LIMIT_DURATION = 5.minutes
 
   attr_accessor :account, :id

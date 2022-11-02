@@ -3,27 +3,35 @@
 require "rails_helper"
 
 describe SessionForm, type: :form do
-  it { is_expected.to validate_presence_of(:email) }
+  describe "class" do
+    it "inherits from the base form" do
+      expect(described_class.superclass).to eq(BaseForm)
+    end
+  end
 
-  it { is_expected.to validate_presence_of(:password) }
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:email) }
+
+    it { is_expected.to validate_presence_of(:password) }
+  end
 
   describe "#initialize" do
-    subject(:session) { described_class.new(email: email, password: password) }
+    subject(:form) { described_class.new(email: email, password: password) }
 
     let(:email)    { generate(:email) }
     let(:password) { generate(:password) }
 
     it "assigns the e-mail" do
-      expect(session.email).to eq(email)
+      expect(form.email).to eq(email)
     end
 
     it "assigns the password" do
-      expect(session.password).to eq(password)
+      expect(form.password).to eq(password)
     end
   end
 
   describe "#account" do
-    subject(:session) { described_class.new(email: email) }
+    subject(:form) { described_class.new(email: email) }
 
     let(:account) { create(:account) }
 
@@ -31,7 +39,7 @@ describe SessionForm, type: :form do
       let(:email) { account.email }
 
       it "returns the account" do
-        expect(session.account).to eq(account)
+        expect(form.account).to eq(account)
       end
     end
 
@@ -39,7 +47,7 @@ describe SessionForm, type: :form do
       let(:email) { generate(:email) }
 
       it "returns nil" do
-        expect(session.account).to be_nil
+        expect(form.account).to be_nil
       end
     end
 
@@ -51,13 +59,13 @@ describe SessionForm, type: :form do
       end
 
       it "does not attempt to find the account" do
-        session.account
+        form.account
 
         expect(Account).not_to have_received(:find_by)
       end
 
       it "returns nil" do
-        expect(session.account).to be_nil
+        expect(form.account).to be_nil
       end
     end
 
@@ -69,7 +77,7 @@ describe SessionForm, type: :form do
       end
 
       it "downcases and strips the e-mail for the query" do
-        session.account
+        form.account
 
         expect(Account).to have_received(:find_by).with(email: "an@example.com")
       end
@@ -77,20 +85,20 @@ describe SessionForm, type: :form do
   end
 
   describe "#persisted?" do
-    subject(:session) { described_class.new }
+    subject(:form) { described_class.new }
 
     it "returns false" do
-      expect(session.persisted?).to be(false)
+      expect(form.persisted?).to be(false)
     end
   end
 
   describe "#validate_account_and_password" do
-    subject(:session) { described_class.new(email: email, password: password) }
+    subject(:form) { described_class.new(email: email, password: password) }
 
     let(:account) { create(:account) }
 
     before do
-      session.valid?
+      form.valid?
     end
 
     context "with a valid account and password" do
@@ -98,11 +106,11 @@ describe SessionForm, type: :form do
       let(:password) { account.password }
 
       it "is valid" do
-        expect(session).to be_valid
+        expect(form).to be_valid
       end
 
       it "does not add errors" do
-        expect(session.errors).to be_empty
+        expect(form.errors).to be_empty
       end
     end
 
@@ -111,11 +119,11 @@ describe SessionForm, type: :form do
       let(:password) { generate(:password) }
 
       it "is not valid" do
-        expect(session).not_to be_valid
+        expect(form).not_to be_valid
       end
 
       it "adds an error message for e-mail" do
-        expect(session.errors[:email]).to eq(
+        expect(form.errors[:email]).to eq(
           [t("activemodel.errors.models.session_form.attributes.email.unknown")]
         )
       end
@@ -126,11 +134,11 @@ describe SessionForm, type: :form do
       let(:password) { "wrong" }
 
       it "is not valid" do
-        expect(session).not_to be_valid
+        expect(form).not_to be_valid
       end
 
       it "adds an error message for password" do
-        expect(session.errors[:password]).to eq(
+        expect(form.errors[:password]).to eq(
           [t("activemodel.errors.models.session_form.attributes.password.incorrect")]
         )
       end

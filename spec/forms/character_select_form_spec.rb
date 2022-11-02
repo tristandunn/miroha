@@ -3,9 +3,15 @@
 require "rails_helper"
 
 describe CharacterSelectForm, type: :form do
-  subject(:form) { described_class.new(account: account, id: id) }
+  describe "class" do
+    it "inherits from the base form" do
+      expect(described_class.superclass).to eq(BaseForm)
+    end
+  end
 
   describe "#initialize" do
+    subject(:form) { described_class.new(account: account, id: id) }
+
     let(:account) { build_stubbed(:account) }
     let(:id)      { SecureRandom.random_number }
 
@@ -19,6 +25,8 @@ describe CharacterSelectForm, type: :form do
   end
 
   describe "#character" do
+    subject(:form) { described_class.new(account: account, id: id) }
+
     let(:account) { create(:account) }
 
     context "with a matching character" do
@@ -58,6 +66,8 @@ describe CharacterSelectForm, type: :form do
   end
 
   describe "#ensure_character_is_valid", :cache do
+    subject(:form) { described_class.new(account: account, id: id) }
+
     let(:account) { create(:account) }
 
     context "with a valid ID" do
