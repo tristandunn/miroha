@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  Healthcheck.routes(self)
+
   resources :accounts, only: %i(new create)
 
   resources :characters, only: %i(index new create) do

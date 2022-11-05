@@ -202,6 +202,9 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-healthcheck (1.4.0)
+      actionpack
+      railties
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
     railties (7.0.4)
@@ -355,6 +358,7 @@ DEPENDENCIES
   rack-timeout (= 0.6.3)
   rails (= 7.0.4)
   rails-controller-testing (= 1.0.5)
+  rails-healthcheck (= 1.4.0)
   redis (= 5.0.5)
   redis-objects (= 1.7.0)
   rspec-rails (= 6.0.1)
