@@ -31,7 +31,7 @@
 }
 
 #messages td {
-  @apply bg-white px-4 py-2 border-b border-gray-300 leading-none;
+  @apply py-2 px-4 leading-none bg-white border-b border-gray-300;
 }
 
 #messages td + td {
@@ -77,7 +77,7 @@
 }
 
 #messages td.message-whisper {
-  @apply bg-slate-100 font-normal text-left;
+  @apply font-normal text-left bg-slate-100;
 }
 
 #messages td.message-whisper span {
