@@ -4,13 +4,13 @@ ruby   "3.1.2"
 source "https://rubygems.org"
 
 gem "bcrypt",            "3.1.18"
-gem "bootsnap",          "1.13.0", require: false
+gem "bootsnap",          "1.14.0", require: false
 gem "connection_pool",   "2.3.0"
-gem "hiredis-client",    "0.11.1"
+gem "hiredis-client",    "0.11.2"
 gem "hotwire-rails",     "0.1.3"
 gem "jsbundling-rails",  "1.0.3"
-gem "oj",                "3.13.22"
-gem "pg",                "1.4.4"
+gem "oj",                "3.13.23"
+gem "pg",                "1.4.5"
 gem "puma",              "6.0.0"
 gem "rack-attack",       "6.6.1"
 gem "rack-timeout",      "0.6.3"
@@ -21,7 +21,7 @@ gem "redis-objects",     "1.7.0"
 gem "rufus-scheduler",   "3.8.2"
 gem "sprockets-rails",   "3.4.2"
 gem "strong_migrations", "1.4.0"
-gem "tailwindcss-rails", "2.0.17"
+gem "tailwindcss-rails", "2.0.21"
 gem "turbo-rails",       "1.3.2"
 
 group :development, :test do
@@ -33,11 +33,11 @@ group :development, :test do
 end
 
 group :development do
-  gem "brakeman",            "5.3.1", require: false
+  gem "brakeman",            "5.4.0", require: false
   gem "listen",              "3.7.1"
-  gem "rubocop",             "1.38.0", require: false
-  gem "rubocop-performance", "1.15.0", require: false
-  gem "rubocop-rails",       "2.17.2", require: false
+  gem "rubocop",             "1.39.0", require: false
+  gem "rubocop-performance", "1.15.1", require: false
+  gem "rubocop-rails",       "2.17.3", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.15.0", require: false
   gem "web-console",         "4.2.0"
