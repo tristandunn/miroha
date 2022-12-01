@@ -26,8 +26,9 @@ class CharacterForm < BaseForm
   # @return [Hash]
   def attributes
     {
-      name: name,
-      room: default_room
+      name:    name,
+      playing: true,
+      room:    default_room
     }
   end
 
