@@ -24,8 +24,9 @@ describe CharacterForm, type: :form do
     it "builds a new character with the form attributes" do
       expect(form.character).to be_a(Character).and(be_new_record).and(
         have_attributes(
-          name: form.name,
-          room: room
+          name:    form.name,
+          playing: true,
+          room:    room
         )
       )
     end
