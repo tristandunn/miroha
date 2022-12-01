@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-ruby   "3.1.2"
+ruby   "3.1.3"
 source "https://rubygems.org"
 
 gem "bcrypt",            "3.1.18"
-gem "bootsnap",          "1.14.0", require: false
+gem "bootsnap",          "1.15.0", require: false
 gem "connection_pool",   "2.3.0"
 gem "hiredis-client",    "0.11.2"
 gem "hotwire-rails",     "0.1.3"
