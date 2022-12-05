@@ -22,16 +22,19 @@ describe Monster do
   describe "validations" do
     subject(:monster) { build(:monster) }
 
-    it { is_expected.to validate_presence_of(:current_health) }
     it { is_expected.to validate_numericality_of(:current_health).is_greater_than(0).only_integer }
 
     it { is_expected.to validate_presence_of(:experience) }
     it { is_expected.to validate_numericality_of(:experience).is_greater_than(0).only_integer }
 
-    it { is_expected.to validate_presence_of(:maximum_health) }
     it { is_expected.to validate_numericality_of(:maximum_health).is_greater_than(0).only_integer }
 
     it { is_expected.to validate_presence_of(:name) }
+
+    it "validates that :current_health is less than or equal to :maximum_health" do
+      expect(monster).to validate_numericality_of(:current_health)
+        .is_less_than_or_equal_to(monster.maximum_health)
+    end
 
     it "is expected to validate that the length of :name is between the minimum and maximum" do
       expect(monster).to validate_length_of(:name)

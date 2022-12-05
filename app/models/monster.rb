@@ -10,12 +10,12 @@ class Monster < ApplicationRecord
 
   belongs_to :room, optional: true
 
-  validates :current_health, presence:     true,
-                             numericality: { greater_than: 0, only_integer: true }
+  validates :current_health, numericality: {
+    less_than_or_equal_to: :maximum_health, greater_than: 0, only_integer: true
+  }
   validates :experience, presence:     true,
                          numericality: { greater_than: 0, only_integer: true }
-  validates :maximum_health, presence:     true,
-                             numericality: { greater_than: 0, only_integer: true }
+  validates :maximum_health, numericality: { greater_than: 0, only_integer: true }
   validates :name, presence: true,
                    length:   { in: MINIMUM_NAME_LENGTH..MAXIMUM_NAME_LENGTH }
 end

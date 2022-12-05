@@ -9,13 +9,13 @@ class Character < ApplicationRecord
   belongs_to :account
   belongs_to :room
 
-  validates :current_health, presence:     true,
-                             numericality: { greater_than: 0, only_integer: true }
+  validates :current_health, numericality: {
+    less_than_or_equal_to: :maximum_health, greater_than: 0, only_integer: true
+  }
   validates :experience, numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :level, presence:     true,
                     numericality: { greater_than_or_equal_to: 1, only_integer: true }
-  validates :maximum_health, presence:     true,
-                             numericality: { greater_than: 0, only_integer: true }
+  validates :maximum_health, numericality: { greater_than: 0, only_integer: true }
   validates :name, presence:   true,
                    length:     { in: MINIMUM_NAME_LENGTH..MAXIMUM_NAME_LENGTH },
                    uniqueness: { case_sensitive: false }

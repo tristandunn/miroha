@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_150719) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_05_042735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_150719) do
     t.index ["active_at", "playing"], name: "index_characters_on_active_at_and_playing"
     t.index ["name"], name: "index_characters_on_name", unique: true
     t.index ["room_id", "active_at"], name: "index_characters_on_room_id_and_active_at"
+    t.check_constraint "current_health <= maximum_health", name: "characters_current_health_check"
   end
 
   create_table "monsters", force: :cascade do |t|
@@ -51,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_150719) do
     t.string "event_handlers", default: [], null: false, array: true
     t.index ["event_handlers"], name: "index_monsters_on_event_handlers"
     t.index ["room_id"], name: "index_monsters_on_room_id"
+    t.check_constraint "current_health <= maximum_health", name: "monsters_current_health_check"
   end
 
   create_table "rooms", force: :cascade do |t|
