@@ -11,16 +11,19 @@ describe Character do
   describe "validations" do
     subject(:character) { build(:character) }
 
-    it { is_expected.to validate_presence_of(:current_health) }
     it { is_expected.to validate_numericality_of(:current_health).is_greater_than(0).only_integer }
 
-    it { is_expected.to validate_presence_of(:maximum_health) }
     it { is_expected.to validate_numericality_of(:maximum_health).is_greater_than(0).only_integer }
 
     it { is_expected.to validate_presence_of(:level) }
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
+
+    it "validates that :current_health is less than or equal to :maximum_health" do
+      expect(character).to validate_numericality_of(:current_health)
+        .is_less_than_or_equal_to(character.maximum_health)
+    end
 
     it "validates that :experience looks like an integer greater than or equal to 0" do
       expect(character).to validate_numericality_of(:experience)
