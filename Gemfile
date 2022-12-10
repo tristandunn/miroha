@@ -35,7 +35,7 @@ end
 group :development do
   gem "brakeman",            "5.4.0", require: false
   gem "listen",              "3.7.1"
-  gem "rubocop",             "1.39.0", require: false
+  gem "rubocop",             "1.40.0", require: false
   gem "rubocop-performance", "1.15.1", require: false
   gem "rubocop-rails",       "2.17.3", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
@@ -51,7 +51,7 @@ group :test do
   gem "faker",                    "3.0.0"
   gem "mock_redis",               "0.34.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.6.1"
+  gem "selenium-webdriver",       "4.7.1"
   gem "shoulda-matchers",         "5.2.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
