@@ -19,7 +19,7 @@ module RSpec
       module View
         def have_command_row(selector, **options)
           have_css(
-            %(tr[data-controller="message"][data-target="messages.message"] #{selector}),
+            %(tr[data-chat-target="message"] #{selector}),
             **options
           )
         end

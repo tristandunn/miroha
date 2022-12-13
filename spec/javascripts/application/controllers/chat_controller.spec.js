@@ -119,8 +119,8 @@ describe("ChatController", () => {
     });
   });
 
-  context("#messageConnected", () => {
-    const event = { "detail": { "height": 3 } };
+  context("#messageTargetConnected", () => {
+    const messageElement = { "offsetHeight": 3 };
 
     let newMessagesTarget, scrollToBottom;
 
@@ -142,13 +142,13 @@ describe("ChatController", () => {
       });
 
       it("scrolls to the bottom", () => {
-        instance.messageConnected(event);
+        instance.messageTargetConnected(messageElement);
 
         expect(scrollToBottom).to.have.been.calledWith();
       });
 
       it("does not remove the messages target hidden class", () => {
-        instance.messageConnected(event);
+        instance.messageTargetConnected(messageElement);
 
         expect(newMessagesTarget.classList).to.contain(["hidden"]);
       });
@@ -164,13 +164,13 @@ describe("ChatController", () => {
       });
 
       it("does not scroll to the bottom", () => {
-        instance.messageConnected(event);
+        instance.messageTargetConnected(messageElement);
 
         expect(scrollToBottom).to.have.been.calledWith();
       });
 
       it("does not remove the messages target hidden class", () => {
-        instance.messageConnected(event);
+        instance.messageTargetConnected(messageElement);
 
         expect(newMessagesTarget.classList).to.contain(["hidden"]);
       });
@@ -186,13 +186,13 @@ describe("ChatController", () => {
       });
 
       it("does not scroll to the bottom", () => {
-        instance.messageConnected(event);
+        instance.messageTargetConnected(messageElement);
 
         expect(scrollToBottom).not.to.have.been.calledWith();
       });
 
       it("removes the messages target hidden class", () => {
-        instance.messageConnected(event);
+        instance.messageTargetConnected(messageElement);
 
         expect(newMessagesTarget.classList).not.to.contain(["hidden"]);
       });

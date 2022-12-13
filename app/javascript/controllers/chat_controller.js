@@ -61,12 +61,12 @@ export default class ChatController extends Controller {
   /**
    * Scroll to the bottom when a message is connected.
    *
-   * @param {Event} event The dispatched event.
+   * @param {Element} element The message element connected.
    * @return {void}
    */
-  messageConnected(event) {
+  messageTargetConnected(element) {
     const { offsetHeight, scrollHeight, scrollTop } = this.messagesTarget,
-      difference = scrollHeight - offsetHeight - event.detail.height;
+      difference = scrollHeight - offsetHeight - element.offsetHeight;
 
     if (difference < 0 || difference === scrollTop) {
       this.scrollToBottom();
