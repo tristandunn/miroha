@@ -1,8 +1,8 @@
+import { Application } from "@hotwired/stimulus";
 import ChatController from "./chat_controller";
-import ExitGameController from "./exit_game_controller";
 import GameController from "./game_controller";
-import { application } from "./application";
+
+const application = Application.start();
 
 application.register("chat", ChatController);
-application.register("exit-game", ExitGameController);
 application.register("game", GameController);
