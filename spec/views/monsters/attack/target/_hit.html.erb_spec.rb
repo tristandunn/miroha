@@ -19,7 +19,7 @@ describe "monsters/attack/target/_hit.html.erb" do
   let(:damage)        { rand(1..10) }
 
   it "renders the target hit message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t("monsters.attack.target.hit.message",
               attacker_name: attacker_name,

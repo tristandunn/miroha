@@ -15,7 +15,7 @@ describe "characters/_respawn.html.erb" do
   let(:character) { build_stubbed(:character) }
 
   it "renders the respawn message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t("characters.respawn.message", name: character.name)
     )

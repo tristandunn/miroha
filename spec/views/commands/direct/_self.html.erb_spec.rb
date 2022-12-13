@@ -10,7 +10,7 @@ describe "commands/direct/_self.html.erb" do
   end
 
   it "renders the self message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td[colspan=2]",
       text: t("commands.direct.self.message")
     )

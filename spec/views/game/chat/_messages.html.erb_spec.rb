@@ -19,10 +19,7 @@ describe "game/chat/_messages.html.erb" do
   end
 
   it "renders the messages table" do
-    expect(html).to have_css(
-      '[data-chat-target="messages"] ' \
-      "table tbody#messages"
-    )
+    expect(html).to have_css('[data-chat-target="messages"] table tbody#messages')
   end
 
   it "renders the look command" do

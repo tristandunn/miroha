@@ -12,7 +12,7 @@ describe "commands/_unknown.html.erb" do
   let(:command) { "/unknown command" }
 
   it "renders the unknown command message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td[colspan=2]",
       text: t("commands.unknown.message", command: command)
     )

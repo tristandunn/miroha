@@ -16,10 +16,10 @@ describe "commands/_say.html.erb" do
   let(:message)   { Faker::Lorem.sentence }
 
   it "renders the character name" do
-    expect(html).to have_command_row("td:nth-child(1)", text: character.name)
+    expect(html).to have_message_row("td:nth-child(1)", text: character.name)
   end
 
   it "renders the message" do
-    expect(html).to have_command_row("td:nth-child(2)", text: message)
+    expect(html).to have_message_row("td:nth-child(2)", text: message)
   end
 end

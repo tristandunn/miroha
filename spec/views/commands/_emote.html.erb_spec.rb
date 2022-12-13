@@ -12,6 +12,6 @@ describe "commands/_emote.html.erb" do
   let(:message) { Faker::Lorem.sentence }
 
   it "renders the message" do
-    expect(html).to have_command_row("td[colspan=2]", text: message)
+    expect(html).to have_message_row("td[colspan=2]", text: message)
   end
 end

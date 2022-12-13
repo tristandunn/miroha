@@ -17,7 +17,7 @@ describe "commands/move/_failure.html.erb" do
   let(:direction) { :north }
 
   it "renders the failure message with the direction" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t("commands.move.failure.message", direction: direction)
     )

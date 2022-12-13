@@ -21,7 +21,7 @@ describe "commands/attack/attack/_killed.html.erb" do
   let(:target_name)   { generate(:name) }
 
   it "renders the killed message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t(
         "commands.attack.attack.killed.message",

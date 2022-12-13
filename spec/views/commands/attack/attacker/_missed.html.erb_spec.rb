@@ -17,7 +17,7 @@ describe "commands/attack/attacker/_missed.html.erb" do
   let(:target_name) { generate(:name) }
 
   it "renders the missed message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td",
       text: t("commands.attack.attacker.missed.message", target_name: target_name)
     )

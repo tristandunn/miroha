@@ -16,18 +16,8 @@ module RSpec
         end
       end
 
-      module View
-        def have_command_row(selector, **options)
-          have_css(
-            %(tr[data-chat-target="message"] #{selector}),
-            **options
-          )
-        end
-      end
-
       RSpec.configure do |config|
         config.include Feature, type: :feature
-        config.include View,    type: :view
       end
     end
   end
