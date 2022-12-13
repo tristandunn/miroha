@@ -18,7 +18,7 @@ describe "commands/_whisper.html.erb" do
   let(:target)    { build_stubbed(:character) }
 
   it "renders the message to the target" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td",
       text: strip_tags(
         t("commands.whisper.target.message_html", message: message, name: character.name)

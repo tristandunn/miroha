@@ -18,10 +18,10 @@ describe "commands/_direct.html.erb" do
   let(:target)    { build_stubbed(:character) }
 
   it "renders the character name" do
-    expect(html).to have_command_row("td:nth-child(1)", text: character.name)
+    expect(html).to have_message_row("td:nth-child(1)", text: character.name)
   end
 
   it "renders the message to the target" do
-    expect(html).to have_command_row("td:nth-child(2)", text: "#{target.name}: #{message}")
+    expect(html).to have_message_row("td:nth-child(2)", text: "#{target.name}: #{message}")
   end
 end

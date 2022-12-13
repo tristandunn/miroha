@@ -19,7 +19,7 @@ describe "commands/move/_exit.html.erb" do
   let(:direction) { :north }
 
   it "renders the exit message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t("commands.move.exit.#{direction}", name: character.name)
     )

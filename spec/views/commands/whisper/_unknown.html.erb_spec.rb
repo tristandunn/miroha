@@ -15,7 +15,7 @@ describe "commands/whisper/_unknown.html.erb" do
   let(:target_name) { generate(:name) }
 
   it "renders the unknown message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td[colspan=2]",
       text: t("commands.whisper.unknown.message", target_name: target_name)
     )

@@ -21,7 +21,7 @@ describe "monsters/attack/_hit.html.erb" do
   let(:target_name)   { generate(:name) }
 
   it "renders the hit message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t("monsters.attack.hit.message", attacker_name: attacker_name, target_name: target_name)
     )

@@ -12,6 +12,6 @@ describe "commands/_look.html.erb" do
   let(:room) { build_stubbed(:room) }
 
   it "renders the room description" do
-    expect(html).to have_command_row("td:nth-child(2)", text: room.description)
+    expect(html).to have_message_row("td:nth-child(2)", text: room.description)
   end
 end

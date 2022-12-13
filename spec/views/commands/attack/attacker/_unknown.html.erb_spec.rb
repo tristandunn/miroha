@@ -18,7 +18,7 @@ describe "commands/attack/attacker/_unknown.html.erb" do
     let(:target_name) { generate(:name) }
 
     it "renders the invalid message" do
-      expect(html).to have_command_row(
+      expect(html).to have_message_row(
         "td[colspan=2]",
         text: t("commands.attack.attacker.unknown.invalid", target_name: target_name)
       )
@@ -29,7 +29,7 @@ describe "commands/attack/attacker/_unknown.html.erb" do
     let(:target_name) { " " }
 
     it "renders the missing message" do
-      expect(html).to have_command_row(
+      expect(html).to have_message_row(
         "td[colspan=2]",
         text: t("commands.attack.attacker.unknown.missing")
       )

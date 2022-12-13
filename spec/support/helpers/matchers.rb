@@ -3,7 +3,7 @@
 module RSpec
   module Helpers
     module Matchers
-      module Surroundings
+      module Feature
         def have_look_message(room, count: 1)
           have_css("#messages .message-look", text: room.description, count: count)
         end
@@ -17,8 +17,18 @@ module RSpec
         end
       end
 
+      module View
+        def have_message_row(selector, **options)
+          have_css(
+            %(tr[data-chat-target="message"] #{selector}),
+            **options
+          )
+        end
+      end
+
       RSpec.configure do |config|
-        config.include Surroundings, type: :feature
+        config.include Feature, type: :feature
+        config.include View,    type: :view
       end
     end
   end

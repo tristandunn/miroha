@@ -12,7 +12,7 @@ describe "characters/_exit.html.erb" do
   let(:character) { build_stubbed(:character) }
 
   it "renders the character name and message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td[colspan=2]",
       text: t("characters.exit.message", name: character.name)
     )

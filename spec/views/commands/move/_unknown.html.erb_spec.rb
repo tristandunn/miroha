@@ -10,7 +10,7 @@ describe "commands/move/_unknown.html.erb" do
   end
 
   it "renders the unknown message" do
-    expect(html).to have_command_row(
+    expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t("commands.move.unknown.message")
     )
