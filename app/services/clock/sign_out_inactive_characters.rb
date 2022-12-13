@@ -26,16 +26,12 @@ module Clock
       character.update(playing: false)
     end
 
-    # Broadcast message to character triggering them to exit the game.
+    # Broadcast action to character triggering them to exit the game.
     #
     # @param [Character] character The character exiting the game.
     # @return [void]
     def sign_out(character)
-      Turbo::StreamsChannel.broadcast_append_to(
-        character,
-        target:  "messages",
-        partial: "commands/exit_game"
-      )
+      Turbo::StreamsChannel.broadcast_action_to(character, action: "exit")
     end
   end
 end

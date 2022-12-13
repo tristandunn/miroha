@@ -1,13 +1,7 @@
-import ExitGameController from "controllers/exit_game_controller";
+import Actions from "actions";
 
-describe("ExitGameController", () => {
-  let instance;
-
-  beforeEach(() => {
-    instance = new ExitGameController();
-  });
-
-  describe("#connect", () => {
+describe("Actions", () => {
+  describe("#exit", () => {
     let click,
       element,
       querySelector;
@@ -19,13 +13,13 @@ describe("ExitGameController", () => {
     });
 
     it("queries for the exit game button", () => {
-      instance.connect();
+      Actions.exit();
 
       expect(querySelector).to.have.been.calledWith("#exit_game");
     });
 
     it("clicks the exit game button", () => {
-      instance.connect();
+      Actions.exit();
 
       expect(click).to.have.been.called;
     });
