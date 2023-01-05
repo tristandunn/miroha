@@ -46,6 +46,6 @@ class Experience
   # @param [Integer] level The level to calculate the experience for.
   # @return [Integer]
   def experience_for(level)
-    (1_000 * (level**1.5)).floor
+    ((level**1.5) * 1_000).floor
   end
 end
