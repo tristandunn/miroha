@@ -87,7 +87,7 @@ describe Character do
 
     before do
       allow(Experience).to receive(:new)
-        .with(current: character[:experience], level: character[:level])
+        .with({ current: character[:experience], level: character[:level] })
         .and_return(instance)
     end
 
@@ -102,7 +102,7 @@ describe Character do
 
     before do
       allow(HitPoints).to receive(:new)
-        .with(current: character.current_health, maximum: character.maximum_health)
+        .with({ current: character.current_health, maximum: character.maximum_health })
         .and_return(instance)
     end
 

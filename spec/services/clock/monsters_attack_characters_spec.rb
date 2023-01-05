@@ -38,7 +38,7 @@ describe Clock::MonstersAttackCharacters, type: :service do
 
       it "limits the number of attacking monsters" do
         relation = instance_double(ActiveRecord::Relation)
-        allow(Monster).to receive(:where).with(room_id: []).and_return(relation)
+        allow(Monster).to receive(:where).with({ room_id: [] }).and_return(relation)
         allow(relation).to receive(:limit).with(described_class::LIMIT).and_return([])
 
         call
