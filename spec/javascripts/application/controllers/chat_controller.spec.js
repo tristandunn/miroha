@@ -68,25 +68,10 @@ describe("ChatController", () => {
   });
 
   context("#handleRedirect", () => {
-    const { location } = window;
+    let redirect;
 
     beforeEach(() => {
-      delete window.location;
-
-      window.location = Object.defineProperties(
-        {},
-        {
-          ...Object.getOwnPropertyDescriptors(location),
-          "assign": {
-            "configurable": true,
-            "value": sinon.stub()
-          }
-        }
-      );
-    });
-
-    afterEach(() => {
-      window.location = location;
+      redirect = sinon.stub(instance, "redirect");
     });
 
     context("with a redirect response", () => {
@@ -104,7 +89,7 @@ describe("ChatController", () => {
       it("redirects", () => {
         instance.handleRedirect(event);
 
-        expect(window.location.toString()).to.be.eq("https://example.com");
+        expect(redirect).to.have.been.calledWith("https://example.com");
       });
     });
 
@@ -114,7 +99,7 @@ describe("ChatController", () => {
       it("does not redirect", () => {
         instance.handleRedirect(event);
 
-        expect(window.location.toString()).to.be.eq("about:blank");
+        expect(redirect).not.to.have.been.called;
       });
     });
   });

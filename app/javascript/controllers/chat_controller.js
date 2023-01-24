@@ -50,11 +50,11 @@ export default class ChatController extends Controller {
    * @param {Event} event The submit event.
    * @return {void}
    */
-  handleRedirect(event) { // eslint-disable-line class-methods-use-this
+  handleRedirect(event) {
     const { redirected, url } = event.detail.fetchResponse.response;
 
     if (redirected) {
-      window.location = url;
+      this.redirect(url);
     }
   }
 
@@ -73,6 +73,19 @@ export default class ChatController extends Controller {
     } else {
       this.newMessagesTarget.classList.remove("hidden");
     }
+  }
+
+  /**
+   * Redirect to the provided URL.
+   *
+   * This is strictly a helper method to allow stubbing in tests.
+   *
+   * @param {String} url The URL to redirect to.
+   * @return {void}
+   */
+  /* istanbul ignore next */
+  redirect(url) { // eslint-disable-line class-methods-use-this
+    window.location = url;
   }
 
   /**
