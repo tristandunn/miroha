@@ -49,7 +49,7 @@ describe Clock::MonstersAttackCharacters, type: :service do
 
     context "with a character that is not active" do
       it "does not attack" do
-        create(:character, room: monster.room, active_at: 1.hour.ago)
+        create(:character, :inactive, room: monster.room)
 
         call
 
