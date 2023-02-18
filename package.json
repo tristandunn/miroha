@@ -34,7 +34,7 @@
     "stylelint-config-standard": "30.0.1"
   },
   "engines": {
-    "node": "18.14.0"
+    "node": "18.14.1"
   },
   "packageManager": "yarn@3.4.1"
 }
