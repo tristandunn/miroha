@@ -24,9 +24,9 @@ gem "tailwindcss-rails", "2.0.22"
 gem "turbo-rails",       "1.3.3"
 
 group :development, :test do
-  gem "cacheflow",    "0.3.0"
+  gem "cacheflow",    "0.3.1"
   gem "dotenv-rails", "2.8.1"
-  gem "pg_query",     "2.2.1"
+  gem "pg_query",     "4.2.0"
   gem "prosopite",    "1.3.0"
   gem "rspec-rails",  "6.0.1"
 end
@@ -50,7 +50,7 @@ group :test do
   gem "faker",                    "3.1.1"
   gem "mock_redis",               "0.36.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.8.0"
+  gem "selenium-webdriver",       "4.8.1"
   gem "shoulda-matchers",         "5.3.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
