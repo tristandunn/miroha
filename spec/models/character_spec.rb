@@ -52,7 +52,7 @@ describe Character do
       character_2 = create(:character, active_at: described_class::ACTIVE_DURATION.ago)
       create(:character, active_at: described_class::ACTIVE_DURATION.ago - 1.second)
 
-      expect(active).to match_array([character_1, character_2])
+      expect(active).to contain_exactly(character_1, character_2)
     end
   end
 
@@ -64,7 +64,7 @@ describe Character do
       create(:character, active_at: described_class::ACTIVE_DURATION.ago)
       character = create(:character, active_at: described_class::ACTIVE_DURATION.ago - 1.second)
 
-      expect(inactive).to match_array([character])
+      expect(inactive).to contain_exactly(character)
     end
   end
 
@@ -75,7 +75,7 @@ describe Character do
       create(:character, playing: false)
       character = create(:character, playing: true)
 
-      expect(playing).to match_array([character])
+      expect(playing).to contain_exactly(character)
     end
   end
 
