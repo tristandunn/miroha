@@ -8,6 +8,14 @@ describe("ChatController", () => {
     instance = new ChatController({ "scope": { element } });
   });
 
+  context("#initialize", () => {
+    it("sets message count to zero", () => {
+      instance.initialize();
+
+      expect(instance.messageCount).to.eq(0);
+    });
+  });
+
   context("#aliasCommand", () => {
     let input;
 
@@ -107,9 +115,10 @@ describe("ChatController", () => {
   context("#messageTargetConnected", () => {
     const messageElement = { "offsetHeight": 3 };
 
-    let newMessagesTarget, scrollToBottom;
+    let newMessagesTarget, pruneMessages, scrollToBottom;
 
     beforeEach(() => {
+      pruneMessages = sinon.stub(instance, "pruneMessages");
       scrollToBottom = sinon.stub(instance, "scrollToBottom");
       newMessagesTarget = document.createElement("div");
       newMessagesTarget.classList.add("hidden");
@@ -132,6 +141,12 @@ describe("ChatController", () => {
         expect(scrollToBottom).to.have.been.calledWith();
       });
 
+      it("prunes the messages", () => {
+        instance.messageTargetConnected(messageElement);
+
+        expect(pruneMessages).to.have.been.calledWith();
+      });
+
       it("does not remove the messages target hidden class", () => {
         instance.messageTargetConnected(messageElement);
 
@@ -148,10 +163,16 @@ describe("ChatController", () => {
         };
       });
 
-      it("does not scroll to the bottom", () => {
+      it("scrolls to the bottom", () => {
         instance.messageTargetConnected(messageElement);
 
         expect(scrollToBottom).to.have.been.calledWith();
+      });
+
+      it("prunes the messages", () => {
+        instance.messageTargetConnected(messageElement);
+
+        expect(pruneMessages).to.have.been.calledWith();
       });
 
       it("does not remove the messages target hidden class", () => {
@@ -176,10 +197,67 @@ describe("ChatController", () => {
         expect(scrollToBottom).not.to.have.been.calledWith();
       });
 
+      it("does not prune the messages", () => {
+        instance.messageTargetConnected(messageElement);
+
+        expect(pruneMessages).not.to.have.been.calledWith();
+      });
+
       it("removes the messages target hidden class", () => {
         instance.messageTargetConnected(messageElement);
 
         expect(newMessagesTarget.classList).not.to.contain(["hidden"]);
+      });
+    });
+  });
+
+  context("#pruneMessages", () => {
+    let remove;
+
+    beforeEach(() => {
+      const row = document.createElement("tr");
+
+      sinon.stub(element, "querySelector").
+        withArgs("table tr:first-child").
+        returns(row);
+
+      remove = sinon.stub(row, "remove");
+    });
+
+    context("when message count exceeds the limit", () => {
+      beforeEach(() => {
+        instance.messageCount = 999;
+      });
+
+      it("removes the first row in the element table", () => {
+
+        instance.pruneMessages();
+
+        expect(remove).to.have.been.calledWith();
+      });
+
+      it("does not increment the message count", () => {
+        instance.pruneMessages();
+
+        expect(instance.messageCount).to.eq(999);
+      });
+    });
+
+    context("when message count does not exceed the limit", () => {
+      beforeEach(() => {
+        instance.messageCount = 0;
+      });
+
+      it("does not remove the first row in the element table", () => {
+        instance.pruneMessages();
+
+        expect(remove).not.to.have.been.calledWith();
+      });
+
+      it("increments the message count", () => {
+        instance.pruneMessages();
+
+        expect(instance.messageCount).to.eq(1);
       });
     });
   });
