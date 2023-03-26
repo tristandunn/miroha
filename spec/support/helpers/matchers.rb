@@ -4,8 +4,8 @@ module RSpec
   module Helpers
     module Matchers
       module Feature
-        def have_look_message(room, count: 1)
-          have_css("#messages .message-look", text: room.description, count: count)
+        def have_look_message(description, count: 1)
+          have_css("#messages .message-look", text: description, count: count)
         end
 
         def have_surrounding_character(character)

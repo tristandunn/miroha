@@ -88,6 +88,8 @@ en:
         message: "You are talking to yourself."
       unknown:
         message: "You don't see anyone named \"%{target_name}\"."
+    look:
+      unknown: "You don't see %{article} %{target} here."
     move:
       enter:
         down: "%{name} arrived from above."

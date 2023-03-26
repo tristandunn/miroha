@@ -3,8 +3,10 @@
 require "rails_helper"
 
 describe Commands::LookCommand, type: :service do
-  let(:character) { build_stubbed(:character) }
-  let(:instance)  { described_class.new("/look", character: character) }
+  let(:character) { build_stubbed(:character, room: room) }
+  let(:object)    { nil }
+  let(:room)      { build_stubbed(:room) }
+  let(:instance)  { described_class.new("/look #{object}", character: character) }
 
   describe "#call" do
     subject(:call) { instance.call }
@@ -31,13 +33,48 @@ describe Commands::LookCommand, type: :service do
   describe "#render_options" do
     subject(:render_options) { instance.render_options }
 
-    it "returns the partial with the character room as a local" do
-      expect(render_options).to eq(
-        partial: "commands/look",
-        locals:  {
-          room: character.room
-        }
-      )
+    context "with no object" do
+      it "returns the partial with the room description as a local" do
+        expect(render_options).to eq(
+          partial: "commands/look",
+          locals:  {
+            description: room.description
+          }
+        )
+      end
+    end
+
+    context "with a valid object" do
+      let(:description) { Faker::Lorem.sentence }
+      let(:object)      { Faker::Lorem.word }
+      let(:room)        { build_stubbed(:room, objects: { object => description }) }
+
+      it "returns the partial with the object description as a local" do
+        expect(render_options).to eq(
+          partial: "commands/look",
+          locals:  {
+            description: description
+          }
+        )
+      end
+    end
+
+    context "with an invalid object" do
+      let(:object)      { Faker::Lorem.word }
+      let(:room)        { build_stubbed(:room) }
+
+      it "returns the partial with the object description as a local" do
+        expect(render_options).to eq(
+          partial: "commands/look",
+          locals:  {
+            description: I18n.t(
+              "commands.look.unknown",
+              article: object.indefinite_article,
+              target:  object
+            )
+          }
+        )
+      end
     end
   end
 end

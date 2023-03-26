@@ -8,14 +8,14 @@ describe "commands/_look.turbo_stream.erb" do
       partial: "commands/look",
       formats: :turbo_stream,
       locals:  {
-        room: room
+        description: description
       }
     )
 
     rendered
   end
 
-  let(:room) { build_stubbed(:room) }
+  let(:description) { Faker::Lorem.sentence }
 
   before do
     stub_template("commands/_look.html.erb" => "LOOK_TEMPLATE")
