@@ -2,4 +2,4 @@
 <%= turbo_stream.replace("character", partial: "game/sidebar/character", locals: { character: character }) %>
 
 <%= render "commands/move/surroundings", room: room %>
-<%= render "commands/look", room: room %>
+<%= render "commands/look", description: room.description %>

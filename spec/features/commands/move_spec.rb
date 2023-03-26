@@ -15,7 +15,7 @@ describe "Sending the move command", js: true do
 
     send_command(:move, :north)
 
-    expect(page).to have_look_message(north_room)
+    expect(page).to have_look_message(north_room.description)
   end
 
   it "updates surrounding characters to the sender" do
@@ -110,7 +110,7 @@ describe "Sending the move command", js: true do
 
     send_command(:move, :north)
 
-    wait_for(have_look_message(north_room)) do
+    wait_for(have_look_message(north_room.description)) do
       expect(page).not_to have_enter_message(name: character.name, direction: :north)
     end
   end
@@ -120,7 +120,7 @@ describe "Sending the move command", js: true do
 
     send_command(:move, :north)
 
-    wait_for(have_look_message(north_room)) do
+    wait_for(have_look_message(north_room.description)) do
       expect(page).not_to have_exit_message(name: character.name, direction: :north)
     end
   end
@@ -134,7 +134,7 @@ describe "Sending the move command", js: true do
 
     send_command(:move, :north)
 
-    wait_for(have_look_message(north_room)) do
+    wait_for(have_look_message(north_room.description)) do
       using_session(:distant_character) do
         expect(page).not_to have_exit_message(name: character.name, direction: :north)
       end
@@ -150,7 +150,7 @@ describe "Sending the move command", js: true do
 
     send_command(:move, :north)
 
-    wait_for(have_look_message(north_room)) do
+    wait_for(have_look_message(north_room.description)) do
       using_session(:nearby_character) do
         expect(page).not_to have_enter_message(name: character.name, direction: :north)
       end
@@ -207,7 +207,7 @@ describe "Sending the move command", js: true do
 
       send_text(:n)
 
-      expect(page).to have_look_message(north_room)
+      expect(page).to have_look_message(north_room.description)
     end
   end
 

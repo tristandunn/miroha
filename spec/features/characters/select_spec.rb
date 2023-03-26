@@ -18,7 +18,7 @@ describe "Selecting a character", js: true do
   it "displays room description in chat", js: false do
     click_button character.name
 
-    expect(page).to have_look_message(character.room)
+    expect(page).to have_look_message(character.room.description)
   end
 
   it "displays active characters in surroundings", js: false do

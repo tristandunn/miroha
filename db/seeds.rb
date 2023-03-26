@@ -10,13 +10,19 @@ end
 
 Room.find_or_initialize_by(x: -1, y: 0, z: 0).tap do |room|
   room.update(
-    description: <<~DESCRIPTION.squish
+    description: <<~DESCRIPTION.squish,
       You enter a small, mostly empty tavern. It's as dreary inside as it is on
       the outside. Wooden beams support the upper floor and the sconces
       attached to them. The walls are decorated, if you can call it that, with
       old paintings covered in dust. A small window provides a view of the
       street to the east.
     DESCRIPTION
+    objects:     {
+      "paintings" => <<~DESCRIPTION.squish
+        You attempt to squint to see through the dust on the
+        paintings but you still can't tell what they are.
+      DESCRIPTION
+    }
   )
 end
 
