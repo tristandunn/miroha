@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
-const ALIAS_CLASS = "aliased";
+const ALIAS_CLASS = "aliased",
+  MESSAGE_LIMIT = 256;
 
 export default class ChatController extends Controller {
   static aliases = {
@@ -16,6 +17,15 @@ export default class ChatController extends Controller {
   };
 
   static targets = ["input", "message", "messages", "newMessages"];
+
+  /**
+   * Initialize the controller when connected.
+   *
+   * @return {void}
+   */
+  initialize() {
+    this.messageCount = 0;
+  }
 
   /**
    * Expand command aliases in the command input element.
@@ -70,8 +80,22 @@ export default class ChatController extends Controller {
 
     if (difference < 0 || difference === scrollTop) {
       this.scrollToBottom();
+      this.pruneMessages();
     } else {
       this.newMessagesTarget.classList.remove("hidden");
+    }
+  }
+
+  /**
+   * When the message limit is reached, remove the first message.
+   *
+   * @return {void}
+   */
+  pruneMessages() {
+    if (this.messageCount < MESSAGE_LIMIT) {
+      this.messageCount += 1;
+    } else {
+      this.element.querySelector("table tr:first-child").remove();
     }
   }
 
