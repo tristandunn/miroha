@@ -40,10 +40,9 @@ describe("GameController", () => {
   });
 
   context("#onBeforeStreamRender", () => {
-    const main = document.createElement("main");
-
     let element,
-      event;
+      event,
+      main;
 
     beforeEach(() => {
       element = document.createElement("div");
@@ -51,6 +50,7 @@ describe("GameController", () => {
         "preventDefault": sinon.stub(),
         "target": element
       };
+      main = document.createElement("main");
 
       main.dataset.characterId = Math.random();
 
