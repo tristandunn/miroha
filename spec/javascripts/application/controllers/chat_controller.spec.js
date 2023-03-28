@@ -393,11 +393,10 @@ describe("ChatController", () => {
   });
 
   context("#validateCommand", () => {
-    const event = document.createEvent("Event");
-
-    let input, preventDefault, stopPropagation;
+    let event, input, preventDefault, stopPropagation;
 
     beforeEach(() => {
+      event = document.createEvent("Event");
       input = document.createElement("input");
       preventDefault = sinon.stub(event, "preventDefault");
       stopPropagation = sinon.stub(event, "stopPropagation");

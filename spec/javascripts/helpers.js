@@ -15,5 +15,3 @@ global.createDOM = () => {
   global.window = dom.window;
   global.document = global.window.document;
 };
-
-global.createDOM();

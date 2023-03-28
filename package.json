@@ -8,8 +8,8 @@
     "lint": "eslint app config spec/javascripts *.js",
     "lint:css": "stylelint app/assets/stylesheets/**/*.css",
     "outdated": "yarn upgrade-interactive",
-    "test": "NODE_ENV=test NODE_PATH=app/javascript mocha --config spec/javascripts/mocharc.js spec/javascripts",
-    "test:coverage": "NODE_ENV=test NODE_PATH=app/javascript nyc mocha --config spec/javascripts/mocharc.js spec/javascripts"
+    "test": "bin/mocha spec/javascripts",
+    "test:coverage": "nyc bin/mocha spec/javascripts"
   },
   "dependencies": {
     "@hotwired/stimulus": "3.2.1",

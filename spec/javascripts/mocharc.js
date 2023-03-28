@@ -4,6 +4,7 @@ module.exports = {
   "reporter": "dot",
   "require": [
     "@babel/register",
-    "spec/javascripts/helpers.js"
+    "spec/javascripts/helpers.js",
+    "spec/javascripts/helpers/hooks.js"
   ]
 };
