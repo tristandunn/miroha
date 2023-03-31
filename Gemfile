@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
-ruby   "3.2.1"
+ruby   "3.2.2"
 source "https://rubygems.org"
 
 gem "bcrypt",             "3.1.18"
 gem "bootsnap",           "1.16.0", require: false
-gem "connection_pool",    "2.3.0"
 gem "hotwire-rails",      "0.1.3"
 gem "indefinite_article", "0.2.5"
 gem "jsbundling-rails",   "1.1.1"
 gem "oj",                 "3.14.2"
 gem "pg",                 "1.4.6"
-gem "puma",               "6.1.1"
+gem "puma",               "6.2.1"
 gem "rack-attack",        "6.6.1"
 gem "rack-timeout",       "0.6.3"
 gem "rails",              "7.0.4.3"
@@ -21,7 +20,7 @@ gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.8.2"
 gem "sprockets-rails",    "3.4.2"
 gem "strong_migrations",  "1.4.4"
-gem "tailwindcss-rails",  "2.0.25"
+gem "tailwindcss-rails",  "2.0.26"
 gem "turbo-rails",        "1.4.0"
 
 group :development, :test do
@@ -52,7 +51,7 @@ group :test do
   gem "faker",                    "3.1.1"
   gem "mock_redis",               "0.36.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.8.1"
+  gem "selenium-webdriver",       "4.8.6"
   gem "shoulda-matchers",         "5.3.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
