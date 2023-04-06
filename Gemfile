@@ -20,7 +20,7 @@ gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.8.2"
 gem "sprockets-rails",    "3.4.2"
 gem "strong_migrations",  "1.4.4"
-gem "tailwindcss-rails",  "2.0.26"
+gem "tailwindcss-rails",  "2.0.27"
 gem "turbo-rails",        "1.4.0"
 
 group :development, :test do
@@ -34,7 +34,7 @@ end
 group :development do
   gem "brakeman",            "5.4.1", require: false
   gem "listen",              "3.8.0"
-  gem "rubocop",             "1.48.1", require: false
+  gem "rubocop",             "1.49.0", require: false
   gem "rubocop-capybara",    "2.17.1", require: false
   gem "rubocop-performance", "1.16.0", require: false
   gem "rubocop-rails",       "2.18.0", require: false
@@ -44,7 +44,7 @@ group :development do
 end
 
 group :test do
-  gem "capybara",                 "3.38.0"
+  gem "capybara",                 "3.39.0"
   gem "climate_control",          "1.2.0"
   gem "database_cleaner",         "2.0.2"
   gem "factory_bot_rails",        "6.2.0"
