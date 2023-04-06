@@ -15,6 +15,8 @@ module.exports = {
 
   "theme": {
     "fontFamily": {
+      ...fontFamily,
+
       "sans": ["Inter var", ...fontFamily.sans]
     }
   }
