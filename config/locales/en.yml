@@ -88,6 +88,29 @@ en:
         message: "You are talking to yourself."
       unknown:
         message: "You don't see anyone named \"%{target_name}\"."
+    help:
+      commands:
+        attack:
+          arguments: "[target]"
+          description: "Attempt to attack a target."
+        direct:
+          arguments: "[name] [message]"
+          description: "Send a message to a specific character."
+        emote:
+          arguments: "[message]"
+          description: "Emote a message to the room."
+        look:
+          arguments: ""
+          description: "Look at the room."
+        move:
+          arguments: "[direction]"
+          description: "Move to a room in the direction specified."
+        say:
+          arguments: "[message]"
+          description: "Send a message to the room."
+        whisper:
+          arguments: "[name] [message]"
+          description: "Whisper a message to a character in the room."
     look:
       unknown: "You don't see %{article} %{target} here."
     move:

@@ -63,6 +63,10 @@
   @apply bg-gray-200;
 }
 
+#messages .message-help td {
+  @apply py-2 px-4 font-normal text-left border-0 bg-inherit;
+}
+
 #messages td.message-look {
   @apply font-normal leading-5 text-left bg-gray-200;
 }
@@ -107,6 +111,29 @@
 #messages td.message-attacker-unknown,
 #messages td.message-unknown {
   @apply bg-red-100 border-red-200;
+}
+
+#messages .message-help {
+  @apply p-0;
+}
+
+#messages .message-help tr {
+  @apply odd:bg-white even:bg-gray-100;
+}
+
+#messages .message-help td:nth-child(1),
+#messages .message-help td:nth-child(2) {
+  @apply w-1/12 font-mono text-sm whitespace-nowrap;
+
+  font-size: 0.8rem;
+}
+
+#messages .message-help td:nth-child(1) {
+  @apply pr-2 text-right;
+}
+
+#messages .message-help td:nth-child(2) {
+  @apply pl-0;
 }
 
 #surroundings ol {

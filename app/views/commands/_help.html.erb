@@ -1,0 +1,19 @@
+<tr data-chat-target="message">
+  <td colspan="2" class="message-help">
+    <table>
+      <% commands.each do |command| %>
+        <tr>
+          <td>
+            /<%= command[:name] %>
+          </td>
+          <td>
+            <%= command[:arguments] %>
+          </td>
+          <td>
+            <%= command[:description] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </td>
+</tr>
