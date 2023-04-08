@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "./lib/middleware/backdoor"
+
 Rails.application.configure do
   # Disable caching for classes.
   config.cache_classes = false
@@ -40,4 +42,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Add the authentication backdoor middleware.
+  config.middleware.use(Middleware::Backdoor)
 end
