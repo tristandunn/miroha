@@ -5,6 +5,7 @@ require "rails_helper"
 describe "Destroying a session" do
   before do
     sign_in
+    visit characters_path
   end
 
   it "successfully" do

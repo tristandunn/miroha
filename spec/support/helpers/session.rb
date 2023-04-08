@@ -24,18 +24,11 @@ module RSpec
         end
 
         def sign_in_as(account)
-          visit root_path
-          click_link t("pages.index.sign_in")
-          fill_in t("activemodel.attributes.account_form.email"),
-                  with: account.email
-          fill_in t("activemodel.attributes.account_form.password"),
-                  with: account.password
-          click_button t("sessions.new.submit")
+          visit root_path(account: account.id)
         end
 
         def sign_in_as_character(character = create(:character))
-          sign_in_as character.account
-          click_button character.name
+          visit root_path(account: character.account_id, character: character.id)
 
           expect(page).to have_css("#sidebar h1", text: character.name)
         end

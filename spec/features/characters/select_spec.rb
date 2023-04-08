@@ -7,6 +7,7 @@ describe "Selecting a character", js: true do
 
   before do
     sign_in_as character.account
+    visit characters_path
   end
 
   it "successfully" do
