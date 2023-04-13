@@ -8,7 +8,7 @@ gem "bootsnap",           "1.16.0", require: false
 gem "hotwire-rails",      "0.1.3"
 gem "indefinite_article", "0.2.5"
 gem "jsbundling-rails",   "1.1.1"
-gem "oj",                 "3.14.2"
+gem "oj",                 "3.14.3"
 gem "pg",                 "1.4.6"
 gem "puma",               "6.2.1"
 gem "rack-attack",        "6.6.1"
@@ -34,10 +34,10 @@ end
 group :development do
   gem "brakeman",            "5.4.1", require: false
   gem "listen",              "3.8.0"
-  gem "rubocop",             "1.49.0", require: false
+  gem "rubocop",             "1.50.1", require: false
   gem "rubocop-capybara",    "2.17.1", require: false
-  gem "rubocop-performance", "1.16.0", require: false
-  gem "rubocop-rails",       "2.18.0", require: false
+  gem "rubocop-performance", "1.17.1", require: false
+  gem "rubocop-rails",       "2.19.0", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.19.0", require: false
   gem "web-console",         "4.2.0"
