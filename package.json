@@ -14,7 +14,7 @@
   "dependencies": {
     "@hotwired/stimulus": "3.2.1",
     "@hotwired/turbo-rails": "7.3.0",
-    "esbuild": "0.17.15"
+    "esbuild": "0.17.16"
   },
   "devDependencies": {
     "@babel/core": "7.21.4",
@@ -24,7 +24,7 @@
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-istanbul": "6.1.1",
     "chai": "4.3.7",
-    "eslint": "8.37.0",
+    "eslint": "8.38.0",
     "jsdom": "21.1.1",
     "mocha": "10.2.0",
     "nyc": "15.1.0",
