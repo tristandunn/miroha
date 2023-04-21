@@ -19,54 +19,57 @@ describe "game/_surroundings.html.erb" do
   end
 
   context "with characters" do
-    let(:character_1) { create(:character, name: "Alex") }
-    let(:character_2) { create(:character, name: "Jody") }
-    let(:character_3) { create(:character, :inactive, name: "Rory") }
-    let(:room)        { create(:room, characters: [character_1, character_2, character_3]) }
+    let(:character_first)  { create(:character, name: "Alex") }
+    let(:character_second) { create(:character, :inactive, name: "Jody") }
+    let(:character_third)  { create(:character, name: "Rory") }
+
+    let(:room) do
+      create(:room, characters: [character_first, character_second, character_third])
+    end
 
     it "renders the surrounding, active characters ordered by name" do
       expect(html).to have_css(
-        "#surrounding-characters #surrounding_character_#{character_1.id}"
+        "#surrounding-characters #surrounding_character_#{character_first.id}"
       ).and(
         have_css(
-          "#surrounding-characters #surrounding_character_#{character_2.id}"
+          "#surrounding-characters #surrounding_character_#{character_third.id}"
         )
       ).and(
         have_css(
           "#surrounding-characters " \
-          "#surrounding_character_#{character_1.id} + " \
-          "#surrounding_character_#{character_2.id}"
+          "#surrounding_character_#{character_first.id} + " \
+          "#surrounding_character_#{character_third.id}"
         )
       )
     end
 
     it "does not render the surrounding, inactive characters" do
-      expect(html).not_to have_css("#surrounding_character_#{character_3.id}")
+      expect(html).not_to have_css("#surrounding_character_#{character_second.id}")
     end
   end
 
   context "with monsters" do
-    let(:monster_1) { create(:monster, room: room, name: "Blob") }
-    let(:monster_2) { create(:monster, room: room, name: "Rat") }
-    let(:room)      { create(:room) }
+    let(:monster_first)  { create(:monster, room: room, name: "Blob") }
+    let(:monster_second) { create(:monster, room: room, name: "Rat") }
+    let(:room)           { create(:room) }
 
     before do
-      create(:spawn, :monster, entity: monster_1, room: room)
-      create(:spawn, :monster, entity: monster_2, room: room)
+      create(:spawn, :monster, entity: monster_first, room: room)
+      create(:spawn, :monster, entity: monster_second, room: room)
     end
 
     it "renders the surrounding monsters ordered by name" do
       expect(html).to have_css(
-        "#surrounding-monsters #surrounding_monster_#{monster_1.id}"
+        "#surrounding-monsters #surrounding_monster_#{monster_first.id}"
       ).and(
         have_css(
-          "#surrounding-monsters #surrounding_monster_#{monster_2.id}"
+          "#surrounding-monsters #surrounding_monster_#{monster_second.id}"
         )
       ).and(
         have_css(
           "#surrounding-monsters " \
-          "#surrounding_monster_#{monster_1.id} + " \
-          "#surrounding_monster_#{monster_2.id}"
+          "#surrounding_monster_#{monster_first.id} + " \
+          "#surrounding_monster_#{monster_second.id}"
         )
       )
     end
