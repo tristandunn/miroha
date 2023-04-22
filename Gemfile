@@ -34,6 +34,7 @@ end
 group :development do
   gem "brakeman",            "5.4.1", require: false
   gem "listen",              "3.8.0"
+  gem "rack-mini-profiler",  "3.1.0"
   gem "rubocop",             "1.50.2", require: false
   gem "rubocop-capybara",    "2.18.0", require: false
   gem "rubocop-performance", "1.17.1", require: false
