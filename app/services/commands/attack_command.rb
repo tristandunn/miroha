@@ -179,7 +179,9 @@ module Commands
     # @return [Monster] If a monster is found.
     # @return [nil] If a monster is not found.
     def target
-      @target ||= character.room.monsters.where("LOWER(NAME) = ?", target_name.downcase).first
+      if target_name.present?
+        @target ||= character.room.monsters.where("LOWER(NAME) = ?", target_name.downcase).first
+      end
     end
 
     # Determine if the target is dead or not.

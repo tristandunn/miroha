@@ -207,6 +207,14 @@ describe Commands::AttackCommand, type: :service do
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
+
+      it "does not query for the target" do
+        allow(character.room).to receive(:monsters).and_return(Monster.all)
+
+        call
+
+        expect(character.room).not_to have_received(:monsters)
+      end
     end
   end
 
