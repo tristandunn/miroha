@@ -23,6 +23,19 @@ describe("ChatController", () => {
       input = document.createElement("input");
 
       instance.inputTarget = input;
+
+      window.Miroha = {
+        "Settings": {
+          "aliases": {
+            "/a": "/attack",
+            "/me": "/emote"
+          }
+        }
+      };
+    });
+
+    afterEach(() => {
+      delete window.Miroha;
     });
 
     it("adds the aliased class to the input", () => {
@@ -35,7 +48,7 @@ describe("ChatController", () => {
 
     it("expands aliases in the input on the element", () => {
       Object.
-        entries(ChatController.aliases).
+        entries(window.Miroha.Settings.aliases).
         forEach(([alias, command]) => {
           input.value = `${alias} example`;
 

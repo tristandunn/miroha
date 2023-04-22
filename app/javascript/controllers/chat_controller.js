@@ -4,18 +4,6 @@ const ALIAS_CLASS = "aliased",
   MESSAGE_LIMIT = 256;
 
 export default class ChatController extends Controller {
-  static aliases = {
-    "/a": "/attack",
-    "/d": "/direct",
-    "/me": "/emote",
-    "d": "/move down",
-    "e": "/move east",
-    "n": "/move north",
-    "s": "/move south",
-    "u": "/move up",
-    "w": "/move west"
-  };
-
   static targets = ["input", "message", "messages", "newMessages"];
 
   /**
@@ -35,7 +23,7 @@ export default class ChatController extends Controller {
   aliasCommand() {
     const input = this.inputTarget,
       [command] = input.value.trim().split(" "),
-      alias = ChatController.aliases[command];
+      alias = window.Miroha.Settings.aliases[command];
 
     if (alias) {
       input.classList.add(ALIAS_CLASS);
