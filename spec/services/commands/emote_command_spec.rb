@@ -22,7 +22,7 @@ describe Commands::EmoteCommand, type: :service do
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
           .with(
-            character.room,
+            character.room_gid,
             target:  "messages",
             partial: "commands/emote",
             locals:  {
@@ -41,7 +41,7 @@ describe Commands::EmoteCommand, type: :service do
 
           expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
             .with(
-              character.room,
+              character.room_gid,
               target:  "messages",
               partial: "commands/emote",
               locals:  {

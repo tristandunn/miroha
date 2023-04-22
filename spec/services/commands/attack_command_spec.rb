@@ -37,7 +37,7 @@ describe Commands::AttackCommand, type: :service do
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
           .with(
-            character.room,
+            character.room_gid,
             target:  "messages",
             partial: "commands/attack/attack/hit",
             locals:  {
@@ -71,7 +71,7 @@ describe Commands::AttackCommand, type: :service do
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
           .with(
-            character.room,
+            character.room_gid,
             target:  "messages",
             partial: "commands/attack/attack/missed",
             locals:  {
@@ -108,7 +108,7 @@ describe Commands::AttackCommand, type: :service do
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_render_later_to)
           .with(
-            character.room,
+            character.room_gid,
             partial: "commands/attack/attack/killed",
             locals:  {
               attacker_name: character.name,

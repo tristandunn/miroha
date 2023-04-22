@@ -9,7 +9,7 @@ module Commands
     # Broadcast an emote command to chat.
     def call
       if valid?
-        broadcast_append_later_to(character.room, target: "messages")
+        broadcast_append_later_to(character.room_gid, target: "messages")
       end
     end
 
