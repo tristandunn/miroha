@@ -448,11 +448,13 @@ describe Authentication do
       end
     end
 
-    context "with no character present" do
+    context "with an account present and no character present" do
+      let(:account)           { build_stubbed(:account) }
       let(:new_character_url) { double }
 
       before do
         allow(instance).to receive(:redirect_to)
+        allow(instance).to receive(:current_account).and_return(account)
         allow(instance).to receive(:current_character).and_return(nil)
         allow(instance).to receive(:new_character_url).and_return(new_character_url)
       end
@@ -461,6 +463,23 @@ describe Authentication do
         instance.require_active_character
 
         expect(instance).to have_received(:redirect_to).with(new_character_url)
+      end
+    end
+
+    context "with no account or character present" do
+      let(:account)          { build_stubbed(:account) }
+      let(:new_sessions_url) { double }
+
+      before do
+        allow(instance).to receive(:access_denied)
+        allow(instance).to receive(:current_account).and_return(nil)
+        allow(instance).to receive(:current_character).and_return(nil)
+      end
+
+      it "redirects to new_character_url" do
+        instance.require_active_character
+
+        expect(instance).to have_received(:access_denied)
       end
     end
   end

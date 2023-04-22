@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CommandsController < ApplicationController
-  before_action :authenticate, :require_active_character
+  before_action :require_active_character
   after_action :mark_character_as_active
 
   rescue_from ActionController::ParameterMissing do
