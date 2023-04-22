@@ -2,7 +2,7 @@
 
 class CommandsController < ApplicationController
   before_action :require_active_character
-  after_action :mark_character_as_active
+  after_action :mark_character_as_active, if: :mark_character_as_active?
 
   rescue_from ActionController::ParameterMissing do
     head :no_content
@@ -32,6 +32,13 @@ class CommandsController < ApplicationController
   #
   # @return [void]
   def mark_character_as_active
-    current_character.update(active_at: Time.current)
+    current_character.touch(:active_at) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  # Determine if it's time to mark a character as active.
+  #
+  # @return [Boolean]
+  def mark_character_as_active?
+    current_character.active_at <= 30.seconds.ago
   end
 end
