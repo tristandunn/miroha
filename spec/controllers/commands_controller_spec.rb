@@ -9,6 +9,10 @@ describe CommandsController do
       let(:clean_input) { "Hello, world!" }
       let(:raw_input)   { "  Hello,  world!  " }
 
+      let(:command) do
+        instance_double(Commands::UnknownCommand, rendered?: false)
+      end
+
       before do
         allow(Command).to receive(:call).and_return(command)
 
@@ -35,25 +39,29 @@ describe CommandsController do
           expect(Command).to have_received(:call)
             .with(clean_input, character: character)
         end
-
-        it "marks the character is active", :freeze_time do
-          expect(character.reload.active_at).to eq(Time.current)
-        end
       end
 
       context "without rendering" do
-        let(:command) do
-          instance_double(Commands::UnknownCommand, rendered?: false)
-        end
-
         it { is_expected.to respond_with(204) }
 
         it "calls the command service with cleaned input" do
           expect(Command).to have_received(:call)
             .with(clean_input, character: character)
         end
+      end
 
-        it "marks the character is active", :freeze_time do
+      context "when recently active", :freeze_time do
+        let(:character) { create(:character, active_at: 25.seconds.ago) }
+
+        it "does not mark the character is active" do
+          expect(character.reload.active_at).not_to eq(Time.current)
+        end
+      end
+
+      context "when not recently active", :freeze_time do
+        let(:character) { create(:character, active_at: 45.seconds.ago) }
+
+        it "marks the character is active" do
           expect(character.reload.active_at).to eq(Time.current)
         end
       end
