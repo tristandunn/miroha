@@ -94,7 +94,11 @@ module Authentication
   # @return [void]
   def require_active_character
     if current_character.nil?
-      redirect_to new_character_url
+      if current_account.nil?
+        access_denied
+      else
+        redirect_to new_character_url
+      end
     elsif current_character.inactive?
       redirect_to characters_url
     end
