@@ -68,4 +68,17 @@ class Character < ApplicationRecord
   def recent?
     Rails.cache.exist?(SELECTED_KEY % id)
   end
+
+  # Return a GlobalID parameter for the character's room.
+  #
+  # @return [String]
+  def room_gid
+    GlobalID.new(
+      URI::GID.build(
+        app:        GlobalID.app,
+        model_name: "Room",
+        model_id:   room_id
+      )
+    ).to_param
+  end
 end

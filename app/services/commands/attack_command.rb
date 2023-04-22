@@ -71,7 +71,7 @@ module Commands
     # @return [void]
     def broadcast_attack
       Turbo::StreamsChannel.broadcast_append_later_to(
-        character.room,
+        character.room_gid,
         target:  "messages",
         partial: "commands/attack/attack/hit",
         locals:  {
@@ -87,7 +87,7 @@ module Commands
     # @return [void]
     def broadcast_killed
       Turbo::StreamsChannel.broadcast_render_later_to(
-        character.room,
+        character.room_gid,
         partial: "commands/attack/attack/killed",
         locals:  {
           attacker_name: character.name,
@@ -103,7 +103,7 @@ module Commands
     # @return [void]
     def broadcast_missed
       Turbo::StreamsChannel.broadcast_append_later_to(
-        character.room,
+        character.room_gid,
         target:  "messages",
         partial: "commands/attack/attack/missed",
         locals:  {

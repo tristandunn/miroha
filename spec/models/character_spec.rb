@@ -142,4 +142,23 @@ describe Character do
       it { is_expected.to be(false) }
     end
   end
+
+  describe "#room_gid" do
+    subject { character.room_gid }
+
+    let(:character) { build_stubbed(:character) }
+    let(:global_id) { instance_double(GlobalID) }
+    let(:parameter) { double }
+    let(:uri)       { instance_double(URI::GID) }
+
+    before do
+      allow(global_id).to receive(:to_param).and_return(parameter)
+      allow(GlobalID).to receive(:new).with(uri).and_return(global_id)
+      allow(URI::GID).to receive(:build)
+        .with(app: GlobalID.app, model_name: "Room", model_id: character.room_id)
+        .and_return(uri)
+    end
+
+    it { is_expected.to eq(parameter) }
+  end
 end
