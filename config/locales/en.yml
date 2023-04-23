@@ -61,6 +61,8 @@ en:
       message: "%{name} arrived from a lost battle."
 
   commands:
+    alias:
+      header: "Command Aliases"
     attack:
       attack:
         hit:
@@ -89,6 +91,7 @@ en:
       unknown:
         message: "You don't see anyone named \"%{target_name}\"."
     help:
+      header: "Available Commands"
       commands:
         attack:
           arguments: "[target]"

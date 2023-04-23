@@ -63,6 +63,7 @@
   @apply bg-gray-200;
 }
 
+#messages .message-alias td,
 #messages .message-help td {
   @apply py-2 px-4 font-normal text-left border-0 bg-inherit;
 }
@@ -113,19 +114,31 @@
   @apply bg-red-100 border-red-200;
 }
 
+#messages .message-alias,
 #messages .message-help {
   @apply p-0;
 }
 
+#messages .message-alias tr,
 #messages .message-help tr {
   @apply odd:bg-white even:bg-gray-100;
 }
 
+#messages .message-alias td:nth-child(1),
+#messages .message-alias td:nth-child(2),
 #messages .message-help td:nth-child(1),
 #messages .message-help td:nth-child(2) {
   @apply w-1/12 font-mono text-sm whitespace-nowrap;
 
   font-size: 0.8rem;
+}
+
+#messages .message-alias td:nth-child(1) {
+  @apply pr-2 text-right;
+}
+
+#messages .message-alias td:nth-child(2) {
+  @apply w-11/12;
 }
 
 #messages .message-help td:nth-child(1) {
@@ -134,6 +147,11 @@
 
 #messages .message-help td:nth-child(2) {
   @apply pl-0;
+}
+
+#messages .message-alias td[colspan="2"],
+#messages .message-help td[colspan="3"] {
+  @apply font-sans font-bold text-center bg-slate-200;
 }
 
 #surroundings ol {

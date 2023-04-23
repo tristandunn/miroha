@@ -17,6 +17,13 @@ describe "commands/_help.html.erb" do
     }
   end
 
+  it "renders the header" do
+    expect(html).to have_css(
+      ".message-help td[colspan=3]",
+      text: t("commands.help.header")
+    )
+  end
+
   it "renders the command name" do
     expect(html).to have_message_row(
       "td[colspan=2] td:nth-child(1)",
