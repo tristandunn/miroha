@@ -12,6 +12,7 @@ describe "game/index.html.erb" do
   let(:character) { build_stubbed(:character) }
 
   before do
+    assign :account,   character.account
     assign :character, character
 
     stub_template(

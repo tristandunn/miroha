@@ -28,6 +28,14 @@ describe Account do
     end
   end
 
+  describe "#assign_default_aliases" do
+    subject(:account) { create(:account, aliases: {}) }
+
+    it "assigns the default alaises" do
+      expect(account.aliases).to eq(described_class::DEFAULT_ALIASES)
+    end
+  end
+
   describe "#can_create_character?" do
     subject { account.can_create_character? }
 
