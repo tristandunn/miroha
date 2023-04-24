@@ -11,6 +11,7 @@ class GameController < ApplicationController
 
   # Render the game.
   def index
+    @account   = current_account
     @character = current_character
   end
 

@@ -16,6 +16,10 @@ describe GameController do
       it { is_expected.to respond_with(200) }
       it { is_expected.to render_template("game/index", layout: "game") }
 
+      it "assigns the current account" do
+        expect(assigns(:account)).to eq(character.account)
+      end
+
       it "assigns the current character" do
         expect(assigns(:character)).to eq(character)
       end

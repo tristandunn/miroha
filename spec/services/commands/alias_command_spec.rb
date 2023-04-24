@@ -37,7 +37,7 @@ describe Commands::AliasCommand, type: :service do
       expect(render_options).to eq(
         partial: "commands/alias",
         locals:  {
-          aliases: Command::DEFAULT_ALIASES
+          aliases: character.account.aliases
         }
       )
     end

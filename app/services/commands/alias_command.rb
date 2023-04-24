@@ -15,7 +15,7 @@ module Commands
     #
     # @return [Hash] A hash of alias to command mappings.
     def aliases
-      Command::DEFAULT_ALIASES
+      character.account.aliases
     end
 
     # Return the locals for the partial template.

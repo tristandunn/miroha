@@ -1,18 +1,6 @@
 # frozen_string_literal: true
 
 class Command
-  DEFAULT_ALIASES = {
-    "/a"  => "/attack",
-    "/d"  => "/direct",
-    "/me" => "/emote",
-    "d"   => "/move down",
-    "e"   => "/move east",
-    "n"   => "/move north",
-    "s"   => "/move south",
-    "u"   => "/move up",
-    "w"   => "/move west"
-  }.freeze
-
   DEFAULT_NAME = "say"
   MATCHER      = %r{^/([a-z]+)(?=\s|$)}i
 
