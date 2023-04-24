@@ -25,17 +25,6 @@ module Commands
       end
     end
 
-    # Return the locals for the partial template.
-    #
-    # @return [Hash] The local variables.
-    def locals
-      {
-        direction:   direction,
-        room_source: room_source,
-        room_target: room_target
-      }
-    end
-
     # Determine if the command is rendered immediately.
     #
     # @return [Boolean]
@@ -85,6 +74,17 @@ module Commands
       if OFFSETS.key?(name)
         name
       end
+    end
+
+    # Return the locals for the partial template.
+    #
+    # @return [Hash] The local variables.
+    def locals
+      {
+        direction:   direction,
+        room_source: room_source,
+        room_target: room_target
+      }
     end
 
     # Move the character to the target room.

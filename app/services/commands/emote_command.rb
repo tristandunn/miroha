@@ -13,6 +13,8 @@ module Commands
       end
     end
 
+    private
+
     # Return the locals for the partial template.
     #
     # @return [Hash] The local variables.
@@ -21,8 +23,6 @@ module Commands
         message: message
       }
     end
-
-    private
 
     # Return the message with the character's name as a prefix and a period
     # suffix if there's no existing punctuation.

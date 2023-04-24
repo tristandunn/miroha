@@ -9,6 +9,10 @@ module Commands
       end
     end
 
+    private
+
+    alias message input_without_command
+
     # Return the locals for the partial template.
     #
     # @return [Hash] The local variables.
@@ -18,10 +22,6 @@ module Commands
         message:   message
       }
     end
-
-    private
-
-    alias message input_without_command
 
     # Determine if the command is valid based on input presence.
     #
