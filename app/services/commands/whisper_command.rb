@@ -9,6 +9,15 @@ module Commands
       end
     end
 
+    # Determine if the command is rendered immediately.
+    #
+    # @return [Boolean]
+    def rendered?
+      true
+    end
+
+    private
+
     # Return the locals for the partial template.
     #
     # @return [Hash] The local variables.
@@ -20,15 +29,6 @@ module Commands
         target_name: target_name
       }
     end
-
-    # Determine if the command is rendered immediately.
-    #
-    # @return [Boolean]
-    def rendered?
-      true
-    end
-
-    private
 
     # Return the message being whispered to the target.
     #

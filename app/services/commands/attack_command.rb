@@ -16,17 +16,6 @@ module Commands
       end
     end
 
-    # Return the locals for the partial template.
-    #
-    # @return [Hash] The local variables.
-    def locals
-      {
-        damage:      damage,
-        target:      target,
-        target_name: target_name
-      }
-    end
-
     # Determine if the command is rendered immediately.
     #
     # @return [Boolean]
@@ -158,6 +147,17 @@ module Commands
       expire_spawn
       reward_experience_and_level
       broadcast_sidebar_character
+    end
+
+    # Return the locals for the partial template.
+    #
+    # @return [Hash] The local variables.
+    def locals
+      {
+        damage:      damage,
+        target:      target,
+        target_name: target_name
+      }
     end
 
     # Reward the character experience for killing the target, and level the
