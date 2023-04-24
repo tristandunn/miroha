@@ -93,6 +93,8 @@ en:
     help:
       header: "Available Commands"
       commands:
+        alias:
+          description: "List the available command aliases."
         attack:
           arguments: "[target]"
           description: "Attempt to attack a target."
@@ -103,7 +105,6 @@ en:
           arguments: "[message]"
           description: "Emote a message to the room."
         look:
-          arguments: ""
           description: "Look at the room."
         move:
           arguments: "[direction]"
