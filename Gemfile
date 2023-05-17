@@ -27,32 +27,33 @@ group :development, :test do
   gem "cacheflow",    "0.3.1"
   gem "dotenv-rails", "2.8.1"
   gem "pg_query",     "4.2.0"
-  gem "prosopite",    "1.3.0"
-  gem "rspec-rails",  "6.0.1"
+  gem "prosopite",    "1.3.1"
+  gem "rspec-rails",  "6.0.2"
 end
 
 group :development do
   gem "brakeman",            "5.4.1", require: false
   gem "listen",              "3.8.0"
   gem "rack-mini-profiler",  "3.1.0"
-  gem "rubocop",             "1.50.2", require: false
+  gem "rubocop",             "1.51.0", require: false
   gem "rubocop-capybara",    "2.18.0", require: false
+  gem "rubocop-factory_bot", "2.23.1", require: false
   gem "rubocop-performance", "1.17.1", require: false
   gem "rubocop-rails",       "2.19.1", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
-  gem "rubocop-rspec",       "2.20.0", require: false
+  gem "rubocop-rspec",       "2.22.0", require: false
   gem "web-console",         "4.2.0"
 end
 
 group :test do
-  gem "capybara",                 "3.39.0"
+  gem "capybara",                 "3.39.1"
   gem "climate_control",          "1.2.0"
   gem "database_cleaner",         "2.0.2"
   gem "factory_bot_rails",        "6.2.0"
   gem "faker",                    "3.2.0"
   gem "mock_redis",               "0.36.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.9.0"
+  gem "selenium-webdriver",       "4.9.1"
   gem "shoulda-matchers",         "5.3.0"
   gem "simplecov-console",        "0.9.1", require: false
 end

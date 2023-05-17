@@ -5,8 +5,8 @@ FactoryBot.define do
     room
 
     trait :monster do
-      base { create(:monster, room: nil) }
-      entity { build(:monster, room: room) }
+      base { association(:monster, room: nil) }
+      entity { association(:monster, room: room) }
     end
   end
 end
