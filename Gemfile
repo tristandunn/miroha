@@ -13,7 +13,7 @@ gem "pg",                 "1.5.3"
 gem "puma",               "6.2.2"
 gem "rack-attack",        "6.6.1"
 gem "rack-timeout",       "0.6.3"
-gem "rails",              "7.0.4.3"
+gem "rails",              "7.0.5"
 gem "rails-healthcheck",  "1.4.0"
 gem "redis",              "5.0.6"
 gem "redis-objects",      "1.7.0"
@@ -26,19 +26,19 @@ gem "turbo-rails",        "1.4.0"
 group :development, :test do
   gem "cacheflow",    "0.3.1"
   gem "dotenv-rails", "2.8.1"
-  gem "pg_query",     "4.2.0"
+  gem "pg_query",     "4.2.1"
   gem "prosopite",    "1.3.1"
   gem "rspec-rails",  "6.0.2"
 end
 
 group :development do
-  gem "brakeman",            "5.4.1", require: false
+  gem "brakeman",            "6.0.0", require: false
   gem "listen",              "3.8.0"
   gem "rack-mini-profiler",  "3.1.0"
   gem "rubocop",             "1.51.0", require: false
   gem "rubocop-capybara",    "2.18.0", require: false
   gem "rubocop-factory_bot", "2.23.1", require: false
-  gem "rubocop-performance", "1.17.1", require: false
+  gem "rubocop-performance", "1.18.0", require: false
   gem "rubocop-rails",       "2.19.1", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.22.0", require: false
