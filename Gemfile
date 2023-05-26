@@ -33,6 +33,7 @@ end
 
 group :development do
   gem "brakeman",            "6.0.0", require: false
+  gem "erb_lint",            "0.4.0", require: false
   gem "listen",              "3.8.0"
   gem "rack-mini-profiler",  "3.1.0"
   gem "rubocop",             "1.51.0", require: false

@@ -5,6 +5,7 @@ namespace :check do
   task code: %i(
     ruby:test
     javascript:test
+    erb:lint
     ruby:lint
     javascript:lint
     css:lint
