@@ -15,15 +15,6 @@ class Command
     instance.tap(&:call)
   end
 
-  # Determine the throttle limit for the provided command.
-  #
-  # @param [String] input The raw command input.
-  # @return [Integer] The throttle limit for the parsed command.
-  def self.limit(input)
-    command = parse(input)
-    command.const_get(:THROTTLE_LIMIT)
-  end
-
   # Convert a command to a command class.
   #
   # @param [String] input The raw command input.
@@ -34,14 +25,5 @@ class Command
     "commands/#{name}_command".camelize.constantize
   rescue NameError
     Commands::UnknownCommand
-  end
-
-  # Determine the throttle period for the provided command.
-  #
-  # @param [String] input The raw command input.
-  # @return [Integer] The throttle period for the parsed command.
-  def self.period(input)
-    command = parse(input)
-    command.const_get(:THROTTLE_PERIOD)
   end
 end

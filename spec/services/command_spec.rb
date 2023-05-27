@@ -39,30 +39,6 @@ describe Command, type: :service do
     end
   end
 
-  describe ".limit" do
-    subject { described_class.limit("/attack Rat") }
-
-    let(:command) { Commands::AttackCommand }
-
-    before do
-      allow(described_class).to receive(:parse).and_return(command)
-    end
-
-    it { is_expected.to eq(command::THROTTLE_LIMIT) }
-  end
-
-  describe ".period" do
-    subject { described_class.period("/attack Rat") }
-
-    let(:command) { Commands::AttackCommand }
-
-    before do
-      allow(described_class).to receive(:parse).and_return(command)
-    end
-
-    it { is_expected.to eq(command::THROTTLE_PERIOD) }
-  end
-
   describe ".parse" do
     subject { described_class.parse(input) }
 

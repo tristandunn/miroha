@@ -16,6 +16,30 @@ describe Commands::Base, type: :service do
     end
   end
 
+  describe ".limit" do
+    subject { described_class.limit }
+
+    let(:value) { rand }
+
+    before do
+      allow(described_class).to receive(:const_get).with(:THROTTLE_LIMIT).and_return(value)
+    end
+
+    it { is_expected.to eq(value) }
+  end
+
+  describe ".period" do
+    subject { described_class.period }
+
+    let(:value) { rand }
+
+    before do
+      allow(described_class).to receive(:const_get).with(:THROTTLE_PERIOD).and_return(value)
+    end
+
+    it { is_expected.to eq(value) }
+  end
+
   describe "#call" do
     subject(:call) { instance.call }
 

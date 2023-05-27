@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Rack::Attack do
-  subject { throttle.block.call(request) }
+  subject(:call) { throttle.block.call(request) }
 
   describe "accounts/create" do
     let(:throttle) { described_class.throttles["accounts/create"] }
@@ -33,13 +33,9 @@ describe Rack::Attack do
     let(:throttle) { described_class.throttles["accounts/command"] }
 
     context "with a dynamic limit" do
-      let(:input)   { double }
+      let(:command) { class_double(Commands::Base, limit: limit) }
       let(:limit)   { rand }
-      let(:request) { instance_double(Rack::Attack::Request, params: { "input" => input }) }
-
-      before do
-        allow(Command).to receive(:limit).with(input).and_return(limit)
-      end
+      let(:request) { instance_double(Rack::Attack::Request, env: { "miroha.command" => command }) }
 
       it "returns limit from the command" do
         expect(throttle.limit.call(request)).to eq(limit)
@@ -47,13 +43,9 @@ describe Rack::Attack do
     end
 
     context "with a dynamic period" do
-      let(:input)   { double }
+      let(:command) { class_double(Commands::Base, period: period) }
       let(:period)  { rand }
-      let(:request) { instance_double(Rack::Attack::Request, params: { "input" => input }) }
-
-      before do
-        allow(Command).to receive(:period).with(input).and_return(period)
-      end
+      let(:request) { instance_double(Rack::Attack::Request, env: { "miroha.command" => command }) }
 
       it "returns period from the command" do
         expect(throttle.period.call(request)).to eq(period)
@@ -68,6 +60,7 @@ describe Rack::Attack do
       let(:request) do
         instance_double(
           Rack::Attack::Request,
+          env:     {},
           params:  { "input" => input },
           path:    "/commands",
           post?:   true,
@@ -77,6 +70,12 @@ describe Rack::Attack do
 
       before do
         allow(Command).to receive(:parse).with(input).and_return(command)
+      end
+
+      it "assigns the command to the environment" do
+        call
+
+        expect(request.env["miroha.command"]).to eq(command)
       end
 
       it { is_expected.to eq("#{account_id}/Attack") }
