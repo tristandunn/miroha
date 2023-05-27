@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Commands::LookCommand, type: :service do
+describe Commands::Look, type: :service do
   let(:character) { build_stubbed(:character, room: room) }
   let(:object)    { nil }
   let(:room)      { build_stubbed(:room) }

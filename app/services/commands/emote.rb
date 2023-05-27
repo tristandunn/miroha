@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Commands
-  class EmoteCommand < Base
+  class Emote < Base
     DEFAULT_PUNCTUATION    = "."
     PUNCTUATION_CHARACTERS = %w(. ? ! " …).freeze
     PUNCTUATION_MATCHER    = /[#{PUNCTUATION_CHARACTERS.join}]\z/

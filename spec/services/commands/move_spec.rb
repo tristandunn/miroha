@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Commands::MoveCommand, type: :service do
+describe Commands::Move, type: :service do
   let(:character) { create(:character, room: room) }
   let(:instance)  { described_class.new("/move #{direction}", character: character) }
   let(:room)      { create(:room, origin) }

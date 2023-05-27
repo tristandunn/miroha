@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Commands::UnknownCommand, type: :service do
+describe Commands::Unknown, type: :service do
   let(:character) { build_stubbed(:character) }
   let(:instance)  { described_class.new("/unknown", character: character) }
 

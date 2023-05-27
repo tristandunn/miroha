@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Commands
-  class HelpCommand < Base
+  class Help < Base
     # Return help data for each command.
     #
     # @return [Array] An array of command help hashes.

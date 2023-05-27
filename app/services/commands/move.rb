@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Commands
-  class MoveCommand < Base
+  class Move < Base
     OFFSETS = {
       down:  { z: -1 },
       east:  { x:  1 },

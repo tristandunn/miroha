@@ -10,7 +10,7 @@ describe CommandsController do
       let(:raw_input)   { "  Hello,  world!  " }
 
       let(:command) do
-        instance_double(Commands::UnknownCommand, rendered?: false)
+        instance_double(Commands::Unknown, rendered?: false)
       end
 
       before do
@@ -24,7 +24,7 @@ describe CommandsController do
       context "with rendering" do
         let(:command) do
           instance_double(
-            Commands::UnknownCommand,
+            Commands::Unknown,
             rendered?:      true,
             render_options: {
               partial: "commands/unknown"

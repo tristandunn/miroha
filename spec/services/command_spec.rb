@@ -5,7 +5,7 @@ require "rails_helper"
 describe Command, type: :service do
   describe ".call" do
     let(:character) { build_stubbed(:character) }
-    let(:command)   { Commands::SayCommand }
+    let(:command)   { Commands::Say }
     let(:instance)  { instance_double(command, call: true) }
     let(:input)     { "/say Hello!" }
 
@@ -45,19 +45,19 @@ describe Command, type: :service do
     context "with a known command" do
       let(:input) { "/attack Rat" }
 
-      it { is_expected.to eq(Commands::AttackCommand) }
+      it { is_expected.to eq(Commands::Attack) }
     end
 
     context "with an unknown command" do
       let(:input) { "/notareal command" }
 
-      it { is_expected.to eq(Commands::UnknownCommand) }
+      it { is_expected.to eq(Commands::Unknown) }
     end
 
     context "with no command" do
       let(:input) { "Hello, world!" }
 
-      it { is_expected.to eq(Commands::SayCommand) }
+      it { is_expected.to eq(Commands::Say) }
     end
   end
 end

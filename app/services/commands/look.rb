@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Commands
-  class LookCommand < Base
+  class Look < Base
     # Determine if the command is rendered immediately.
     #
     # @return [Boolean]

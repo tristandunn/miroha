@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Commands::AttackCommand, type: :service do
+describe Commands::Attack, type: :service do
   let(:character) { create(:character, room: spawn.room) }
   let(:damage)    { 1 }
   let(:instance)  { described_class.new("/attack #{target.name}", character: character) }
