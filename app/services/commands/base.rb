@@ -47,7 +47,7 @@ module Commands
     # @return [Hash]
     def render_options
       {
-        partial: "commands/#{name}",
+        partial: self.class.name.underscore,
         locals:  locals
       }
     end

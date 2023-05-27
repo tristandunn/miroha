@@ -55,9 +55,16 @@ describe Commands::Base, type: :service do
   describe "#render_options" do
     subject(:render_options) { instance.render_options }
 
+    let(:instance) { subclass.new("", character: nil) }
+    let(:subclass) { Class.new(described_class) }
+
+    before do
+      stub_const("Commands::Example::Subclass", subclass)
+    end
+
     it "returns the partial with no locals" do
       expect(render_options).to eq(
-        partial: "commands/base",
+        partial: "commands/example/subclass",
         locals:  {}
       )
     end
