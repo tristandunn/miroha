@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Commands
-  class SayCommand < Base
+  class Say < Base
     # Broadcast a say command to chat.
     def call
       if valid?

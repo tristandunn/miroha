@@ -19,7 +19,7 @@ Rack::Attack.throttle(
 
     [
       request.session["account_id"],
-      command.name.demodulize.delete_suffix(Commands::Base::SUFFIX)
+      command.name.delete_prefix("Commands::").underscore
     ].join("/")
   end
 end

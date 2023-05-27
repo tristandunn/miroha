@@ -22,8 +22,8 @@ class Command
   def self.parse(input)
     name = input.match(MATCHER)&.captures&.first || DEFAULT_NAME
 
-    "commands/#{name}_command".camelize.constantize
+    "commands/#{name}".camelize.constantize
   rescue NameError
-    Commands::UnknownCommand
+    Commands::Unknown
   end
 end

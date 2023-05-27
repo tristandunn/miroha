@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Commands
-  class WhisperCommand < Base
-    # Broadcast a whisper command to the target.
+  class Direct < Base
+    # Broadcast a direct command to chat.
     def call
       if valid?
-        broadcast_append_later_to(target, target: "messages")
+        broadcast_append_later_to(character.room_gid, target: "messages")
       end
     end
 
@@ -13,7 +13,7 @@ module Commands
     #
     # @return [Boolean]
     def rendered?
-      true
+      !valid? && message.present?
     end
 
     private
@@ -30,7 +30,7 @@ module Commands
       }
     end
 
-    # Return the message being whispered to the target.
+    # Return the message being directed to the target.
     #
     # @return [String]
     def message

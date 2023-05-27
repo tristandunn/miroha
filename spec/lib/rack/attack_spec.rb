@@ -54,7 +54,7 @@ describe Rack::Attack do
 
     context "with a POST to /commands" do
       let(:account_id) { rand }
-      let(:command)    { Commands::AttackCommand }
+      let(:command)    { stub_const("Commands::Test::Example", Class.new) }
       let(:input)      { double }
 
       let(:request) do
@@ -78,7 +78,7 @@ describe Rack::Attack do
         expect(request.env["miroha.command"]).to eq(command)
       end
 
-      it { is_expected.to eq("#{account_id}/Attack") }
+      it { is_expected.to eq("#{account_id}/test/example") }
     end
 
     context "with other requests" do

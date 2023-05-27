@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe Commands::HelpCommand, type: :service do
+describe Commands::Alias, type: :service do
   let(:character) { build_stubbed(:character) }
-  let(:instance)  { described_class.new("/help", character: character) }
+  let(:instance)  { described_class.new("/alias", character: character) }
 
   describe "#call" do
     subject(:call) { instance.call }
@@ -33,24 +33,11 @@ describe Commands::HelpCommand, type: :service do
   describe "#render_options" do
     subject(:render_options) { instance.render_options }
 
-    let(:command)      { { arguments: "[test]", description: "Testing.", name: "example" } }
-    let(:translations) { { example: { arguments: "[test]", description: "Testing." } } }
-
-    before do
-      allow(I18n).to receive(:t).with("commands.help.commands").and_return(translations)
-
-      described_class.instance_variable_set(:@commands, nil)
-    end
-
-    after do
-      described_class.instance_variable_set(:@commands, nil)
-    end
-
-    it "returns the partial with command locals" do
+    it "returns the partial with aliases locals" do
       expect(render_options).to eq(
-        partial: "commands/help",
+        partial: "commands/alias",
         locals:  {
-          commands: [command]
+          aliases: character.account.aliases
         }
       )
     end

@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe Commands::WhisperCommand, type: :service do
+describe Commands::Direct, type: :service do
   let(:character)   { create(:character) }
-  let(:instance)    { described_class.new("/whisper #{target_name} #{message}", character: character) }
+  let(:instance)    { described_class.new("/direct #{target_name} #{message}", character: character) }
   let(:message)     { "Hello." }
   let(:target)      { create(:character, room: character.room) }
   let(:target_name) { target.name.upcase }
@@ -17,14 +17,14 @@ describe Commands::WhisperCommand, type: :service do
     end
 
     context "with a valid target" do
-      it "broadcasts whisper partial to the target" do
+      it "broadcasts direct partial to the room" do
         call
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
           .with(
-            target,
+            character.room_gid,
             target:  "messages",
-            partial: "commands/whisper",
+            partial: "commands/direct",
             locals:  {
               character:   character,
               message:     message,
@@ -90,7 +90,7 @@ describe Commands::WhisperCommand, type: :service do
     subject(:rendered?) { instance.rendered? }
 
     context "with a valid target" do
-      it { is_expected.to be(true) }
+      it { is_expected.to be(false) }
     end
 
     context "with character as target" do
@@ -108,7 +108,7 @@ describe Commands::WhisperCommand, type: :service do
     context "with blank message" do
       let(:message) { " " }
 
-      it { is_expected.to be(true) }
+      it { is_expected.to be(false) }
     end
   end
 
@@ -117,7 +117,7 @@ describe Commands::WhisperCommand, type: :service do
 
     it "returns the partial with character and message locals" do
       expect(render_options).to eq(
-        partial: "commands/whisper",
+        partial: "commands/direct",
         locals:  {
           character:   character,
           message:     message,

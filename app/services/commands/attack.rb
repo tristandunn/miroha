@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Commands
-  class AttackCommand < Base
+  class Attack < Base
     THROTTLE_LIMIT  = 1
     THROTTLE_PERIOD = 1
 

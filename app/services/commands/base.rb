@@ -2,7 +2,6 @@
 
 module Commands
   class Base
-    SUFFIX          = "Command"
     THROTTLE_LIMIT  = 10
     THROTTLE_PERIOD = 5
 
@@ -87,12 +86,12 @@ module Commands
 
     # Return the name of the command.
     #
-    #     Commands::SayCommand
+    #     Commands::Say
     #     # => "say"
     #
     # @return [String]
     def name
-      @name ||= self.class.name.demodulize.delete_suffix(SUFFIX).downcase
+      @name ||= self.class.name.demodulize.downcase
     end
   end
 end

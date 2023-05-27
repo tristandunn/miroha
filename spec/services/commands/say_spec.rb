@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe Commands::EmoteCommand, type: :service do
+describe Commands::Say, type: :service do
   let(:character) { build_stubbed(:character) }
-  let(:command)   { "/emote #{message}" }
+  let(:command)   { "/say #{message}" }
   let(:instance)  { described_class.new(command, character: character) }
 
   describe "#call" do
@@ -14,46 +14,27 @@ describe Commands::EmoteCommand, type: :service do
       allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
     end
 
-    context "with no punctuation" do
-      let(:message) { "laughs" }
+    context "with a message" do
+      let(:message) { "Hello, world!" }
 
-      it "broadcasts emote partial to the room" do
+      it "broadcasts say partial to the room" do
         call
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
           .with(
             character.room_gid,
             target:  "messages",
-            partial: "commands/emote",
+            partial: "commands/say",
             locals:  {
-              message: "#{character.name} #{message}#{described_class::DEFAULT_PUNCTUATION}"
+              character: character,
+              message:   message
             }
           )
       end
     end
 
-    described_class::PUNCTUATION_CHARACTERS.each do |punctuation|
-      context "with #{punctuation} punctuation" do
-        let(:message) { "laughs#{punctuation}" }
-
-        it "does not append default punctuation" do
-          call
-
-          expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-            .with(
-              character.room_gid,
-              target:  "messages",
-              partial: "commands/emote",
-              locals:  {
-                message: "#{character.name} #{message}"
-              }
-            )
-        end
-      end
-    end
-
     context "with blank message" do
-      let(:command) { "/emote " }
+      let(:message) { " " }
 
       it "does not broadcast" do
         call
@@ -63,7 +44,7 @@ describe Commands::EmoteCommand, type: :service do
     end
 
     context "with no message" do
-      let(:command) { "/emote" }
+      let(:command) { "/say" }
 
       it "does not broadcast" do
         call
@@ -76,7 +57,7 @@ describe Commands::EmoteCommand, type: :service do
   describe "#rendered?" do
     subject(:rendered?) { instance.rendered? }
 
-    let(:message) { "laughs" }
+    let(:message) { "Hello, world!" }
 
     it { is_expected.to be(false) }
   end
@@ -84,13 +65,14 @@ describe Commands::EmoteCommand, type: :service do
   describe "#render_options" do
     subject(:render_options) { instance.render_options }
 
-    let(:message) { "laughs" }
+    let(:message) { "Hello, world!" }
 
     it "returns the partial with character and message locals" do
       expect(render_options).to eq(
-        partial: "commands/emote",
+        partial: "commands/say",
         locals:  {
-          message: "#{character.name} #{message}#{described_class::DEFAULT_PUNCTUATION}"
+          character: character,
+          message:   message
         }
       )
     end
