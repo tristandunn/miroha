@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe Commands::Say, type: :service do
   let(:character) { build_stubbed(:character) }
-  let(:command)   { "/say #{message}" }
+  let(:command)   { "/Say #{message}" }
   let(:instance)  { described_class.new(command, character: character) }
 
   describe "#call" do
