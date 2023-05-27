@@ -74,7 +74,7 @@ module Commands
     #
     # @return [String]
     def input_without_command
-      @input_without_command ||= input.sub(%r{^/#{name}(\s+|\z)}, "")
+      @input_without_command ||= input.sub(%r{^/[a-z]+(\s+|\z)}i, "")
     end
 
     # Return the locals for the partial template.
@@ -82,16 +82,6 @@ module Commands
     # @return [Hash] The local variables.
     def locals
       {}
-    end
-
-    # Return the name of the command.
-    #
-    #     Commands::Say
-    #     # => "say"
-    #
-    # @return [String]
-    def name
-      @name ||= self.class.name.demodulize.downcase
     end
   end
 end
