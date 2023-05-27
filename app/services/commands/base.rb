@@ -15,6 +15,20 @@ module Commands
       @input     = input
     end
 
+    # Determine the throttle limit for the command.
+    #
+    # @return [Integer] The throttle limit for the command.
+    def self.limit
+      const_get(:THROTTLE_LIMIT)
+    end
+
+    # Determine the throttle period for the command.
+    #
+    # @return [Integer] The throttle period for the command.
+    def self.period
+      const_get(:THROTTLE_PERIOD)
+    end
+
     # Execute the command.
     #
     # @abstract Subclass and override to implement command logic.

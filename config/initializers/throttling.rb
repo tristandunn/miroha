@@ -11,15 +11,16 @@ end
 # defined based on the command.
 Rack::Attack.throttle(
   "accounts/command",
-  limit:  proc { |request| Command.limit(request.params["input"]) },
-  period: proc { |request| Command.period(request.params["input"]) }
+  limit:  proc { |request| request.env["miroha.command"].limit },
+  period: proc { |request| request.env["miroha.command"].period }
 ) do |request|
   if request.post? && request.path == "/commands"
-    account_id = request.session["account_id"]
-    command    = Command.parse(request.params["input"])
-    name       = command.name.demodulize.delete_suffix(Commands::Base::SUFFIX)
+    command = request.env["miroha.command"] = Command.parse(request.params["input"])
 
-    [account_id, name].join("/")
+    [
+      request.session["account_id"],
+      command.name.demodulize.delete_suffix(Commands::Base::SUFFIX)
+    ].join("/")
   end
 end
 
