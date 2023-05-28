@@ -15,7 +15,7 @@ Rack::Attack.throttle(
   period: proc { |request| request.env["miroha.command"].period }
 ) do |request|
   if request.post? && request.path == "/commands"
-    command = request.env["miroha.command"] = Command.parse(request.params["input"])
+    command = request.env["miroha.command"] = Command::Parser.call(request.params["input"])
 
     [
       request.session["account_id"],
