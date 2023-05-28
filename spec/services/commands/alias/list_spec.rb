@@ -2,9 +2,25 @@
 
 require "rails_helper"
 
-describe Commands::Alias, type: :service do
+describe Commands::Alias::List, type: :service do
   let(:character) { build_stubbed(:character) }
   let(:instance)  { described_class.new("/alias", character: character) }
+
+  describe "#match?" do
+    subject { described_class.match?(arguments) }
+
+    context "with no arguments" do
+      let(:arguments) { [] }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "with arguments arguments" do
+      let(:arguments) { ["add"] }
+
+      it { is_expected.to be(false) }
+    end
+  end
 
   describe "#call" do
     subject(:call) { instance.call }
@@ -35,7 +51,7 @@ describe Commands::Alias, type: :service do
 
     it "returns the partial with aliases locals" do
       expect(render_options).to eq(
-        partial: "commands/alias",
+        partial: "commands/alias/list",
         locals:  {
           aliases: character.account.aliases
         }

@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe "commands/_alias.html.erb" do
+describe "commands/alias/list.html.erb" do
   subject(:html) do
-    render partial: "commands/alias", locals: { aliases: aliases }
+    render partial: "commands/alias/list", locals: { aliases: aliases }
 
     rendered
   end
@@ -19,7 +19,7 @@ describe "commands/_alias.html.erb" do
   it "renders the header" do
     expect(html).to have_css(
       ".message-alias td[colspan=2]",
-      text: t("commands.alias.header")
+      text: t("commands.alias.list.header")
     )
   end
 
