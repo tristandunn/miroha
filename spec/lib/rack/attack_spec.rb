@@ -69,7 +69,7 @@ describe Rack::Attack do
       end
 
       before do
-        allow(Command).to receive(:parse).with(input).and_return(command)
+        allow(Command::Parser).to receive(:call).with(input).and_return(command)
       end
 
       it "assigns the command to the environment" do
