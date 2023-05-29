@@ -50,19 +50,19 @@ describe Command::Parser, type: :service do
         stub_const("Commands::Nested::List", no_argument_command)
       end
 
-      context "when provided arugments" do
+      context "when provided arguments" do
         let(:input) { "/nested add example" }
 
         it { is_expected.to eq(argument_command) }
       end
 
-      context "when not provided arugments" do
+      context "when not provided arguments" do
         let(:input) { "/nested" }
 
         it { is_expected.to eq(no_argument_command) }
       end
 
-      context "when provided invalid arugments" do
+      context "when provided invalid arguments" do
         let(:input) { "/nested invalid" }
 
         before do
