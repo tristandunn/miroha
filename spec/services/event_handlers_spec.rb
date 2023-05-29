@@ -18,7 +18,7 @@ describe EventHandlers, type: :service do
 
     it { is_expected.to include(class_stub) }
 
-    context "with a constant that is not a moudle" do
+    context "with a constant that is not a module" do
       before do
         stub_const("EventHandlers::PI", 3.14)
       end

@@ -18,7 +18,7 @@ module Spawns
     # Duplicate the spawn base entity, assign the spawn room to the entity, and
     # return the new entity.
     #
-    # @param [Spawn] spawn The spaw to build an entity for.
+    # @param [Spawn] spawn The spawn to build an entity for.
     # @return [Monster] The entity created.
     def self.build_entity(spawn)
       entity = spawn.base.dup
