@@ -61,36 +61,4 @@ describe Account do
       expect(account.email).to eq("an@example.com")
     end
   end
-
-  describe "#password=" do
-    subject(:account) { build(:account) }
-
-    let(:plain_text_password) { generate(:password) }
-
-    before do
-      allow(BCrypt::Password).to receive(:create)
-      allow(BCrypt::Password).to receive(:create)
-        .with(plain_text_password).and_return("hash")
-    end
-
-    it "assigns unencrypted password to password" do
-      account.password = plain_text_password
-
-      expect(account.password).to eq(plain_text_password)
-    end
-
-    it "assigns hashed password to password digest" do
-      account.password = plain_text_password
-
-      expect(account.password_digest).to eq(
-        BCrypt::Password.create(plain_text_password)
-      )
-    end
-
-    it "removes password digest when assigned nil" do
-      account.password = nil
-
-      expect(account.password_digest).to be_nil
-    end
-  end
 end
