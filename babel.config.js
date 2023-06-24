@@ -26,7 +26,7 @@ module.exports = function babel (api) {
         "@babel/plugin-transform-object-rest-spread",
         { "useBuiltIns": true }
       ],
-      ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
+      ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
       ["@babel/plugin-transform-private-methods", { "loose": true }],
       ["@babel/plugin-transform-regenerator", { "async": false }]
     ].filter(Boolean),
