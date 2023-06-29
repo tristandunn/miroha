@@ -13,7 +13,7 @@ gem "pg",                 "1.5.3"
 gem "puma",               "6.3.0"
 gem "rack-attack",        "6.6.1"
 gem "rack-timeout",       "0.6.3"
-gem "rails",              "7.0.5"
+gem "rails",              "7.0.6"
 gem "rails-healthcheck",  "1.4.0"
 gem "redis",              "5.0.6"
 gem "redis-objects",      "1.7.0"
@@ -36,7 +36,7 @@ group :development do
   gem "erb_lint",            "0.4.0", require: false
   gem "listen",              "3.8.0"
   gem "rack-mini-profiler",  "3.1.0"
-  gem "rubocop",             "1.53.0", require: false
+  gem "rubocop",             "1.53.1", require: false
   gem "rubocop-capybara",    "2.18.0", require: false
   gem "rubocop-factory_bot", "2.23.1", require: false
   gem "rubocop-performance", "1.18.0", require: false
