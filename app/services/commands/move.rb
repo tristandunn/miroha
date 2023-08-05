@@ -4,10 +4,10 @@ module Commands
   class Move < Base
     OFFSETS = {
       down:  { z: -1 },
-      east:  { x:  1 },
-      north: { y:  1 },
+      east:  { x: 1 },
+      north: { y: 1 },
       south: { y: -1 },
-      up:    { z:  1 },
+      up:    { z: 1 },
       west:  { x: -1 }
     }.freeze
 
