@@ -437,8 +437,10 @@ describe Authentication do
 
       before do
         allow(instance).to receive(:redirect_to)
-        allow(instance).to receive(:current_character).and_return(character)
-        allow(instance).to receive(:characters_url).and_return(characters_url)
+        allow(instance).to receive_messages(
+          characters_url:    characters_url,
+          current_character: character
+        )
       end
 
       it "redirects to characters_url" do
@@ -454,9 +456,11 @@ describe Authentication do
 
       before do
         allow(instance).to receive(:redirect_to)
-        allow(instance).to receive(:current_account).and_return(account)
-        allow(instance).to receive(:current_character).and_return(nil)
-        allow(instance).to receive(:new_character_url).and_return(new_character_url)
+        allow(instance).to receive_messages(
+          current_account:   account,
+          current_character: nil,
+          new_character_url: new_character_url
+        )
       end
 
       it "redirects to new_character_url" do
@@ -472,8 +476,7 @@ describe Authentication do
 
       before do
         allow(instance).to receive(:access_denied)
-        allow(instance).to receive(:current_account).and_return(nil)
-        allow(instance).to receive(:current_character).and_return(nil)
+        allow(instance).to receive_messages(current_account: nil, current_character: nil)
       end
 
       it "redirects to new_character_url" do
