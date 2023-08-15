@@ -43,7 +43,7 @@ describe "Sending an unknown command", :js do
   def have_unknown_command_message(command)
     have_css(
       "#messages .message-unknown",
-      text: t("commands.unknown.message", command: command)
+      text: t("commands.unknown.success.message", command: command)
     )
   end
 end

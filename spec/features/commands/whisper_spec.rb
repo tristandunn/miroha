@@ -77,7 +77,7 @@ describe "Sending the whisper command", :js do
     have_css(
       "#messages .message-whisper",
       text: strip_tags(
-        t("commands.whisper.target.message_html", message: message, name: from.name)
+        t("commands.whisper.success.message_html", message: message, name: from.name)
       )
     )
   end

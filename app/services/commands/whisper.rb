@@ -2,39 +2,27 @@
 
 module Commands
   class Whisper < Base
-    # Broadcast a whisper command to the target.
-    def call
-      if valid?
-        broadcast_append_later_to(target, target: "messages")
-      end
-    end
-
-    # Determine if the command is rendered immediately.
-    #
-    # @return [Boolean]
-    def rendered?
-      true
-    end
+    argument message: (1..)
+    argument target:  0
 
     private
 
-    # Return the locals for the partial template.
+    # Determine if the target is missing from the room.
     #
-    # @return [Hash] The local variables.
-    def locals
-      {
-        character:   character,
-        message:     message,
-        target:      target,
-        target_name: target_name
-      }
+    # @return [Boolean]
+    def missing_target?
+      parameters[:target].blank? || target.nil?
     end
 
-    # Return the message being whispered to the target.
+    # Return the handler for a successful command execution.
     #
-    # @return [String]
-    def message
-      @message ||= input_without_command.split(" ", 2).second
+    # @return [Success]
+    def success
+      Success.new(
+        character: character,
+        message:   parameters[:message],
+        target:    target
+      )
     end
 
     # Attempt to find the target by name.
@@ -44,23 +32,31 @@ module Commands
     def target
       return @target if defined?(@target)
 
-      @target = character.room.characters.active.find_by("LOWER(NAME) = ?", target_name.downcase)
+      @target = character.room.characters.active
+                         .find_by("LOWER(NAME) = ?", parameters[:target].downcase)
     end
 
-    # Return the name of the target.
+    # Validate a message is present.
     #
-    # @return [String]
-    def target_name
-      input_without_command.split(" ", 2).first
+    # @return [Class]
+    # @return [nil]
+    def validate_message
+      if parameters[:message].blank?
+        MissingMessage.new
+      end
     end
 
-    # Determine if the command is valid based on the input and target.
+    # Validate a target is present and valid.
     #
-    # @return [Boolean]
-    def valid?
-      message.present? &&
-        target.present? &&
-        target != character
+    # @return [MissingTarget] If the target is missing.
+    # @return [InvalidTarget] If the target is invalid.
+    # @return [nil] If the target is present and valid.
+    def validate_target
+      if missing_target?
+        MissingTarget.new(target: parameters[:target])
+      elsif target == character
+        InvalidTarget.new
+      end
     end
   end
 end

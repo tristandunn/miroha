@@ -22,8 +22,8 @@ describe "characters/_reset.turbo_stream.erb" do
   let(:room)          { build_stubbed(:room) }
 
   before do
-    stub_template("commands/_look.turbo_stream.erb" => "LOOK_TEMPLATE")
-    stub_template("commands/move/_surroundings.turbo_stream.erb" => "SURROUNDINGS_TEMPLATE")
+    stub_template("commands/look/_success.turbo_stream.erb" => "LOOK_TEMPLATE")
+    stub_template("game/_surroundings.turbo_stream.erb" => "SURROUNDINGS_TEMPLATE")
   end
 
   it "appends a kill message to the messages element" do

@@ -15,7 +15,7 @@ describe "game/chat/_messages.html.erb" do
   let(:room) { build_stubbed(:room) }
 
   before do
-    stub_template("commands/_look.html.erb" => "<p>Look</p>")
+    stub_template("commands/look/_success.html.erb" => "<p>Look</p>")
   end
 
   it "renders the messages table" do

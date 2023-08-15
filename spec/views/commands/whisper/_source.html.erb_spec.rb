@@ -5,9 +5,9 @@ require "rails_helper"
 describe "commands/whisper/_source.html.erb" do
   subject(:html) do
     render partial: "commands/whisper/source", locals: {
-      character:   character,
-      message:     message,
-      target_name: target.name
+      character: character,
+      message:   message,
+      target:    target
     }
 
     rendered

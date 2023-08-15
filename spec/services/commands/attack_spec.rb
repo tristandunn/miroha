@@ -3,239 +3,124 @@
 require "rails_helper"
 
 describe Commands::Attack, type: :service do
-  let(:character) { create(:character, room: spawn.room) }
+  let(:character) { create(:character, room: target.room) }
   let(:damage)    { 1 }
   let(:instance)  { described_class.new("/attack #{target.name}", character: character) }
-  let(:spawn)     { create(:spawn, :monster) }
-  let(:target)    { spawn.entity }
+  let(:target)    { create(:spawn, :monster).entity }
 
   before do
     allow(SecureRandom).to receive(:random_number).with(0..1).and_return(damage).once
   end
 
-  describe "constants" do
-    it "defines custom throttle limit" do
-      expect(described_class::THROTTLE_LIMIT).to eq(1)
-    end
-
-    it "defines custom throttle period" do
-      expect(described_class::THROTTLE_PERIOD).to eq(1)
-    end
-  end
-
   describe "#call" do
     subject(:call) { instance.call }
 
-    before do
-      allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to).once
-      allow(Turbo::StreamsChannel).to receive(:broadcast_render_later_to).once
-    end
+    context "with a valid, hit target" do
+      let(:result) { instance_double(described_class::Hit) }
 
-    context "with a valid, alive target" do
-      it "broadcasts attack hit partial to the room" do
-        call
-
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-          .with(
-            character.room_gid,
-            target:  "messages",
-            partial: "commands/attack/attack/hit",
-            locals:  {
-              attacker_name: character.name,
-              character:     character,
-              target_name:   target.name
-            }
-          )
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::Hit).to receive(:new)
+          .with(character: character, damage: damage, target: target)
+          .and_return(result)
       end
 
-      it "damages the target" do
-        expect { call }.to change { target.reload.current_health }.by(-damage)
-      end
-
-      it "triggers an attacked event on the target" do
-        allow(target).to receive(:trigger)
-        allow(instance).to receive(:target).and_return(target)
-
+      it "delegates to hit handler" do
         call
 
-        expect(target).to have_received(:trigger)
-          .with(:attacked, character: character, damage: damage)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with a valid, missed target" do
       let(:damage) { 0 }
+      let(:result) { instance_double(described_class::Missed) }
 
-      it "broadcasts missed partial to the room" do
-        call
-
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-          .with(
-            character.room_gid,
-            target:  "messages",
-            partial: "commands/attack/attack/missed",
-            locals:  {
-              attacker_name: character.name,
-              character:     character,
-              target_name:   target.name
-            }
-          )
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::Missed).to receive(:new)
+          .with(character: character, target: target)
+          .and_return(result)
       end
 
-      it "does not damage the target" do
-        expect { call }.not_to(change { target.reload.current_health })
-      end
-
-      it "does not trigger an attacked event on the target" do
-        allow(target).to receive(:trigger)
-        allow(instance).to receive(:target).and_return(target)
-
+      it "delegates to miss handler" do
         call
 
-        expect(target).not_to have_received(:trigger)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with a valid, killed target" do
+      let(:result) { instance_double(described_class::Killed) }
+
       before do
         target.update!(current_health: 1, experience: 5)
 
-        allow(Turbo::StreamsChannel).to receive(:broadcast_replace_later_to).once
+        allow(result).to receive(:call)
+        allow(described_class::Killed).to receive(:new)
+          .with(character: character, damage: damage, target: target)
+          .and_return(result)
       end
 
-      it "broadcasts killed partial to the room" do
+      it "delegates to killed handler" do
         call
 
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_render_later_to)
-          .with(
-            character.room_gid,
-            partial: "commands/attack/attack/killed",
-            locals:  {
-              attacker_name: character.name,
-              character:     character,
-              target_id:     target.id,
-              target_name:   target.name
-            }
-          )
-      end
-
-      it "rewards the character experience" do
-        expect { call }.to change { character.reload.experience.current }
-          .from(0)
-          .to(target.experience)
-      end
-
-      it "replaces experience partial for the character" do
-        call
-
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_replace_later_to)
-          .with(
-            character,
-            target:  :character,
-            partial: "game/sidebar/character",
-            locals:  {
-              character: character
-            }
-          )
-      end
-
-      it "does not trigger an attacked event on the target" do
-        allow(target).to receive(:trigger)
-        allow(instance).to receive(:target).and_return(target)
-
-        call
-
-        expect(target).not_to have_received(:trigger)
-      end
-
-      context "when current experience meets the needed experience" do
-        before do
-          character.update!(experience: 995)
-        end
-
-        it "increases the character's level" do
-          expect { call }.to change { character.reload.level }.from(1).to(2)
-        end
-      end
-
-      context "when current experience exceeds the needed experience" do
-        before do
-          character.update!(experience: 999)
-        end
-
-        it "increases the character's level" do
-          expect { call }.to change { character.reload.level }.from(1).to(2)
-        end
-
-        it "retains the excess experience" do
-          call
-
-          expect(character.reload.experience.current).to eq(1_004)
-        end
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with target in a different room" do
-      let(:target) { create(:monster, room: create(:room)) }
+      let(:character) { create(:character) }
+      let(:result)    { instance_double(described_class::InvalidTarget) }
 
-      it "does not broadcast" do
-        call
-
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::InvalidTarget).to receive(:new)
+          .with(target_name: target.name)
+          .and_return(result)
       end
 
-      it "does not damage the target" do
-        expect { call }.not_to(change { target.reload.current_health })
+      it "delegates to invalid target handler" do
+        call
+
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with invalid target" do
       let(:instance) { described_class.new("/attack Invalid", character: character) }
+      let(:result)   { instance_double(described_class::InvalidTarget) }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::InvalidTarget).to receive(:new)
+          .with(target_name: "Invalid")
+          .and_return(result)
+      end
+
+      it "delegates to invalid target handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with blank target" do
-      let(:instance) { described_class.new("/attack  ", character: character) }
+      let(:instance) { described_class.new("/attack ", character: character) }
+      let(:result)   { instance_double(described_class::MissingTarget) }
 
-      it "does not broadcast" do
-        call
-
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::MissingTarget).to receive(:new)
+          .with(no_args)
+          .and_return(result)
       end
 
-      it "does not query for the target" do
-        allow(character.room).to receive(:monsters).and_return(Monster.all)
-
+      it "delegates to missing target handler" do
         call
 
-        expect(character.room).not_to have_received(:monsters)
+        expect(result).to have_received(:call).with(no_args)
       end
-    end
-  end
-
-  describe "#rendered?" do
-    subject(:rendered?) { instance.rendered? }
-
-    it { is_expected.to be(true) }
-  end
-
-  describe "#render_options" do
-    subject(:render_options) { instance.render_options }
-
-    it "returns the partial with damage and target locals" do
-      expect(render_options).to eq(
-        partial: "commands/attack",
-        locals:  {
-          damage:      damage,
-          target:      target,
-          target_name: target.name
-        }
-      )
     end
   end
 end

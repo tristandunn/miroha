@@ -1,3 +1,5 @@
+<%= turbo_stream.append("messages", partial: "commands/look/success", locals: { description: room_target.description }) %>
+<%= turbo_stream.replace("surroundings", partial: "game/surroundings", locals: { room: room_target }) %>
 <%= turbo_stream.remove(room_source) %>
 <%= turbo_stream.append("streams") do %>
   <%= turbo_stream_from room_target, id: dom_id(room_target) %>

@@ -27,13 +27,13 @@ describe CommandsController do
             Commands::Unknown,
             rendered?:      true,
             render_options: {
-              partial: "commands/unknown"
+              partial: "commands/unknown/success"
             }
           )
         end
 
         it { is_expected.to respond_with(200) }
-        it { is_expected.to render_template("commands/_unknown") }
+        it { is_expected.to render_template("commands/unknown/_success") }
 
         it "calls the command service with cleaned input" do
           expect(Command).to have_received(:call)

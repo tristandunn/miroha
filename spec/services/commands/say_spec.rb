@@ -10,71 +10,61 @@ describe Commands::Say, type: :service do
   describe "#call" do
     subject(:call) { instance.call }
 
-    before do
-      allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
-    end
-
     context "with a message" do
       let(:message) { "Hello, world!" }
+      let(:result)  { instance_double(described_class::Success) }
 
-      it "broadcasts say partial to the room" do
+      before do
+        allow(described_class::Success).to receive(:new)
+          .with(character: character, message: message)
+          .and_return(result)
+      end
+
+      it "delegates to success handler" do
+        allow(result).to receive(:call)
+
         call
 
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-          .with(
-            character.room_gid,
-            target:  "messages",
-            partial: "commands/say",
-            locals:  {
-              character: character,
-              message:   message
-            }
-          )
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with blank message" do
       let(:message) { " " }
+      let(:result)  { instance_double(described_class::MissingMessage) }
 
-      it "does not broadcast" do
+      before do
+        allow(described_class::MissingMessage).to receive(:new)
+          .with(no_args)
+          .and_return(result)
+      end
+
+      it "delegates to missing message handler" do
+        allow(result).to receive(:call)
+
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with no message" do
-      let(:command) { "/say" }
+      let(:message) { nil }
+      let(:result)  { instance_double(described_class::MissingMessage) }
 
-      it "does not broadcast" do
+      before do
+        allow(described_class::MissingMessage).to receive(:new)
+          .with(no_args)
+          .and_return(result)
+      end
+
+      it "delegates to missing message handler" do
+        allow(result).to receive(:call)
+
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
-    end
-  end
-
-  describe "#rendered?" do
-    subject(:rendered?) { instance.rendered? }
-
-    let(:message) { "Hello, world!" }
-
-    it { is_expected.to be(false) }
-  end
-
-  describe "#render_options" do
-    subject(:render_options) { instance.render_options }
-
-    let(:message) { "Hello, world!" }
-
-    it "returns the partial with character and message locals" do
-      expect(render_options).to eq(
-        partial: "commands/say",
-        locals:  {
-          character: character,
-          message:   message
-        }
-      )
     end
   end
 end

@@ -3,103 +3,45 @@
 module Commands
   class Move < Base
     OFFSETS = {
-      down:  { z: -1 },
-      east:  { x: 1 },
-      north: { y: 1 },
-      south: { y: -1 },
-      up:    { z: 1 },
-      west:  { x: -1 }
+      "down"  => { z: -1 },
+      "east"  => { x: 1 },
+      "north" => { y: 1 },
+      "south" => { y: -1 },
+      "up"    => { z: 1 },
+      "west"  => { x: -1 }
     }.freeze
 
     THROTTLE_LIMIT  = 1
     THROTTLE_PERIOD = 1
 
-    # Move the character to the target room and broadcast the move, if valid.
-    #
-    # @return [void]
-    def call
-      if room_target
-        move_character
-        broadcast_exit
-        broadcast_enter
-      end
-    end
+    argument direction: 0
 
-    # Determine if the command is rendered immediately.
+    # Return the handler for a successful command execution.
     #
-    # @return [Boolean]
-    def rendered?
-      true
+    # @return [Success]
+    def success
+      Success.new(
+        character:   character,
+        direction:   parameters[:direction],
+        room_source: room_source,
+        room_target: room_target
+      )
     end
 
     private
 
-    # Broadcast the entrance to the target room.
+    # Return if the direction is invalid.
     #
-    # @return [void]
-    def broadcast_enter
-      Turbo::StreamsChannel.broadcast_render_later_to(
-        room_target,
-        partial: "commands/move/enter",
-        locals:  {
-          character: character,
-          direction: direction,
-          room:      room_target
-        }
-      )
-    end
-
-    # Broadcast the exit to the source room.
-    #
-    # @return [void]
-    def broadcast_exit
-      Turbo::StreamsChannel.broadcast_render_later_to(
-        room_source,
-        partial: "commands/move/exit",
-        locals:  {
-          character: character,
-          direction: direction,
-          room:      room_source
-        }
-      )
-    end
-
-    # Return the direction, if valid.
-    #
-    # @return [Symbol] If the direction name is valid.
-    # @return [nil] If the direction name is not valid.
-    def direction
-      name = input_without_command.to_sym
-
-      if OFFSETS.key?(name)
-        name
-      end
-    end
-
-    # Return the locals for the partial template.
-    #
-    # @return [Hash] The local variables.
-    def locals
-      {
-        direction:   direction,
-        room_source: room_source,
-        room_target: room_target
-      }
-    end
-
-    # Move the character to the target room.
-    #
-    # @return [void]
-    def move_character
-      character.update(room: room_target)
+    # @return [Boolean]
+    def invalid_direction?
+      !OFFSETS.key?(parameters[:direction])
     end
 
     # Return the offsets for the provided direction.
     #
-    # @return [Hash] If there are offsets defined for the direction.
-    # @return [nil] If there are no offsets defined for the direction.
+    # @return [Hash]
     def offsets
-      @offsets ||= OFFSETS[direction]
+      OFFSETS[parameters[:direction]]
     end
 
     # Return the source room.
@@ -109,14 +51,12 @@ module Commands
       @room_source ||= character.room
     end
 
-    # Attempt to find the target room based on direction offsets.
+    # Return the target room based on the target coordinates.
     #
-    # @return [Room] If there is a room at the target coordinates.
-    # @return [nil] If there is not a room at the target coordinates.
+    # @return [Room] If the room is found.
+    # @return [nil] If the room is not found.
     def room_target
-      if offsets.present?
-        @room_target ||= Room.find_by(target_coordinates)
-      end
+      @room_target ||= Room.find_by(target_coordinates)
     end
 
     # Return the target coordinates for the move.
@@ -128,6 +68,19 @@ module Commands
         y: room_source.y + offsets.fetch(:y, 0),
         z: room_source.z + offsets.fetch(:z, 0)
       }
+    end
+
+    # Validate the direction is valid.
+    #
+    # @return [InvalidDirection] If the direction is invalid.
+    # @return [EmptyDirection] If there's no room in that direction.
+    # @return [nil] If the direction is valid.
+    def validate_direction
+      if invalid_direction?
+        InvalidDirection.new
+      elsif room_target.nil?
+        EmptyDirection.new(direction: parameters[:direction])
+      end
     end
   end
 end

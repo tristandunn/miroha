@@ -4,77 +4,26 @@ require "rails_helper"
 
 describe Commands::Look, type: :service do
   let(:character) { build_stubbed(:character, room: room) }
-  let(:object)    { nil }
+  let(:object)    { "object" }
   let(:room)      { build_stubbed(:room) }
   let(:instance)  { described_class.new("/look #{object}", character: character) }
 
   describe "#call" do
     subject(:call) { instance.call }
 
+    let(:result) { instance_double(described_class::Success) }
+
     before do
-      allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
+      allow(result).to receive(:call)
+      allow(described_class::Success).to receive(:new)
+        .with(character: character, object: object)
+        .and_return(result)
     end
 
-    it { is_expected.to be_nil }
-
-    it "does not broadcast" do
+    it "delegates to success handler" do
       call
 
-      expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
-    end
-  end
-
-  describe "#rendered?" do
-    subject { instance.rendered? }
-
-    it { is_expected.to be(true) }
-  end
-
-  describe "#render_options" do
-    subject(:render_options) { instance.render_options }
-
-    context "with no object" do
-      it "returns the partial with the room description as a local" do
-        expect(render_options).to eq(
-          partial: "commands/look",
-          locals:  {
-            description: room.description
-          }
-        )
-      end
-    end
-
-    context "with a valid object" do
-      let(:description) { Faker::Lorem.sentence }
-      let(:object)      { Faker::Lorem.word }
-      let(:room)        { build_stubbed(:room, objects: { object => description }) }
-
-      it "returns the partial with the object description as a local" do
-        expect(render_options).to eq(
-          partial: "commands/look",
-          locals:  {
-            description: description
-          }
-        )
-      end
-    end
-
-    context "with an invalid object" do
-      let(:object)      { Faker::Lorem.word }
-      let(:room)        { build_stubbed(:room) }
-
-      it "returns the partial with the object description as a local" do
-        expect(render_options).to eq(
-          partial: "commands/look",
-          locals:  {
-            description: I18n.t(
-              "commands.look.unknown",
-              article: object.indefinite_article,
-              target:  object
-            )
-          }
-        )
-      end
+      expect(result).to have_received(:call).with(no_args)
     end
   end
 end

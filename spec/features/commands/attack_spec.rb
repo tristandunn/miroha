@@ -274,7 +274,7 @@ describe "Sending the attack command", :js do
   def have_attack_hit_message(monster)
     have_css(
       "#messages .message-attack-hit",
-      text: t("commands.attack.attack.hit.message",
+      text: t("commands.attack.observer.hit.message",
               attacker_name: character.name,
               target_name:   monster.name)
     )
@@ -283,7 +283,7 @@ describe "Sending the attack command", :js do
   def have_attack_killed_message(monster)
     have_css(
       "#messages .message-attack-killed",
-      text: t("commands.attack.attack.killed.message",
+      text: t("commands.attack.observer.killed.message",
               attacker_name: character.name,
               target_name:   monster.name)
     )
@@ -292,7 +292,7 @@ describe "Sending the attack command", :js do
   def have_attack_missed_message(monster)
     have_css(
       "#messages .message-attack-missed",
-      text: t("commands.attack.attack.missed.message",
+      text: t("commands.attack.observer.missed.message",
               attacker_name: character.name,
               target_name:   monster.name)
     )
@@ -301,35 +301,35 @@ describe "Sending the attack command", :js do
   def have_attacker_hit_message(monster, damage:)
     have_css(
       "#messages .message-attacker-hit",
-      text: t("commands.attack.attacker.hit.message", target_name: monster.name, count: damage)
+      text: t("commands.attack.hit.message", target_name: monster.name, count: damage)
     )
   end
 
   def have_attacker_invalid_message(name)
     have_css(
       "#messages .message-attacker-unknown",
-      text: t("commands.attack.attacker.unknown.invalid", target_name: name)
+      text: t("commands.attack.invalid_target.message", target_name: name)
     )
   end
 
   def have_attacker_killed_message(monster, damage:)
     have_css(
       "#messages .message-attacker-killed",
-      text: t("commands.attack.attacker.killed.message", target_name: monster.name, count: damage)
+      text: t("commands.attack.killed.message", target_name: monster.name, count: damage)
     )
   end
 
   def have_attacker_missed_message(monster)
     have_css(
       "#messages .message-attacker-missed",
-      text: t("commands.attack.attacker.missed.message", target_name: monster.name)
+      text: t("commands.attack.missed.message", target_name: monster.name)
     )
   end
 
   def have_attacker_missing_message
     have_css(
       "#messages .message-attacker-unknown",
-      text: t("commands.attack.attacker.unknown.missing")
+      text: t("commands.attack.missing_target.message")
     )
   end
 end
