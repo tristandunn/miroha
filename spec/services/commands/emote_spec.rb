@@ -6,93 +6,62 @@ describe Commands::Emote, type: :service do
   let(:character) { build_stubbed(:character) }
   let(:command)   { "/emote #{message}" }
   let(:instance)  { described_class.new(command, character: character) }
+  let(:message)   { "laughs" }
 
   describe "#call" do
     subject(:call) { instance.call }
 
-    before do
-      allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
-    end
+    context "with a message" do
+      let(:result) { instance_double(described_class::Success) }
 
-    context "with no punctuation" do
-      let(:message) { "laughs" }
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::Success).to receive(:new)
+          .with(character: character, message: message)
+          .and_return(result)
+      end
 
-      it "broadcasts emote partial to the room" do
+      it "delegates to success handler" do
         call
 
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-          .with(
-            character.room_gid,
-            target:  "messages",
-            partial: "commands/emote",
-            locals:  {
-              message: "#{character.name} #{message}#{described_class::DEFAULT_PUNCTUATION}"
-            }
-          )
-      end
-    end
-
-    described_class::PUNCTUATION_CHARACTERS.each do |punctuation|
-      context "with #{punctuation} punctuation" do
-        let(:message) { "laughs#{punctuation}" }
-
-        it "does not append default punctuation" do
-          call
-
-          expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-            .with(
-              character.room_gid,
-              target:  "messages",
-              partial: "commands/emote",
-              locals:  {
-                message: "#{character.name} #{message}"
-              }
-            )
-        end
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with blank message" do
-      let(:command) { "/emote " }
+      let(:message) { " " }
+      let(:result)  { instance_double(described_class::MissingMessage) }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::MissingMessage).to receive(:new)
+          .with(no_args)
+          .and_return(result)
+      end
+
+      it "delegates to missing message handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with no message" do
-      let(:command) { "/emote" }
+      let(:message) { nil }
+      let(:result)  { instance_double(described_class::MissingMessage) }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::MissingMessage).to receive(:new)
+          .with(no_args)
+          .and_return(result)
+      end
+
+      it "delegates to missing message handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
-    end
-  end
-
-  describe "#rendered?" do
-    subject(:rendered?) { instance.rendered? }
-
-    let(:message) { "laughs" }
-
-    it { is_expected.to be(false) }
-  end
-
-  describe "#render_options" do
-    subject(:render_options) { instance.render_options }
-
-    let(:message) { "laughs" }
-
-    it "returns the partial with character and message locals" do
-      expect(render_options).to eq(
-        partial: "commands/emote",
-        locals:  {
-          message: "#{character.name} #{message}#{described_class::DEFAULT_PUNCTUATION}"
-        }
-      )
     end
   end
 end

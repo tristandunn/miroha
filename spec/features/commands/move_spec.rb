@@ -230,14 +230,14 @@ describe "Sending the move command", :js do
   def have_failure_message(direction:)
     have_css(
       "#messages .message-move-failure",
-      text: t("commands.move.failure.message", direction: direction)
+      text: t("commands.move.empty_direction.message", direction: direction)
     )
   end
 
   def have_unknown_direction_message
     have_css(
       "#messages .message-move-unknown",
-      text: t("commands.move.unknown.message")
+      text: t("commands.move.invalid_direction.message")
     )
   end
 end

@@ -1,5 +1,5 @@
 <%= turbo_stream.append("messages", partial: "monsters/attack/target/kill", locals: { attacker_name: attacker_name, damage: damage }) %>
 <%= turbo_stream.replace("character", partial: "game/sidebar/character", locals: { character: character }) %>
 
-<%= render "commands/move/surroundings", room: room %>
-<%= render "commands/look", description: room.description %>
+<%= render "game/surroundings", room: room %>
+<%= render "commands/look/success", description: room.description %>

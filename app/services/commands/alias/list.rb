@@ -1,32 +1,23 @@
 # frozen_string_literal: true
 
 module Commands
-  module Alias
-    class List < Base
-      # Return if the arguments match the command.
-      #
-      # @return [Boolean]
-      def self.match?(arguments)
-        arguments.empty?
-      end
+  class Alias < Base
+    class List < Result
+      locals :aliases
 
-      # Determine if the command is rendered immediately.
+      delegate :account, to: :character, private: true
+      delegate :aliases, to: :account, private: true
+
+      # Initialize an alias list result.
       #
-      # @return [Boolean]
-      def rendered?
-        true
+      # @return [void]
+      def initialize(character:)
+        @character = character
       end
 
       private
 
-      # Return the locals for the partial template.
-      #
-      # @return [Hash] The local variables.
-      def locals
-        {
-          aliases: character.account.aliases
-        }
-      end
+      attr_reader :character
     end
   end
 end

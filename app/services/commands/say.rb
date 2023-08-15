@@ -2,32 +2,25 @@
 
 module Commands
   class Say < Base
-    # Broadcast a say command to chat.
-    def call
-      if valid?
-        broadcast_append_later_to(character.room_gid, target: "messages")
-      end
-    end
+    argument message: (0..)
 
     private
 
-    alias message input_without_command
-
-    # Return the locals for the partial template.
+    # Return the handler for a successful command execution.
     #
-    # @return [Hash] The local variables.
-    def locals
-      {
-        character: character,
-        message:   message
-      }
+    # @return [Success]
+    def success
+      Success.new(character: character, message: parameters[:message])
     end
 
-    # Determine if the command is valid based on input presence.
+    # Validate a message is present.
     #
-    # @return [Boolean]
-    def valid?
-      message.present?
+    # @return [MissingMessage] If the message is missing.
+    # @return [nil] If the message is present.
+    def validate_message
+      if parameters[:message].blank?
+        MissingMessage.new
+      end
     end
   end
 end

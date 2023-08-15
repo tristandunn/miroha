@@ -2,22 +2,13 @@
 
 module Commands
   class Unknown < Base
-    # Determine if the command is rendered immediately.
-    #
-    # @return [Boolean]
-    def rendered?
-      true
-    end
-
     private
 
-    # Return the locals for the partial template.
+    # Return the handler for a successful command execution.
     #
-    # @return [Hash] The local variables.
-    def locals
-      {
-        command: input
-      }
+    # @return [Success]
+    def success
+      Success.new(command: input)
     end
   end
 end

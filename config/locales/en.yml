@@ -65,34 +65,33 @@ en:
       list:
         header: "Command Aliases"
     attack:
-      attack:
+      hit:
+        message:
+          one: "You hit %{target_name} for %{count} point of damage."
+          other: "You hit %{target_name} for %{count} points of damage."
+      invalid_target:
+        message: "You don't see anything named \"%{target_name}\"."
+      killed:
+        message:
+          one: "You hit %{target_name} for %{count} point of damage, killing it."
+          other: "You hit %{target_name} for %{count} points of damage, killing it."
+      missed:
+        message: "You attempted to hit %{target_name} and missed."
+      missing_target:
+        message: "You need to specify a target to attack."
+      observer:
         hit:
           message: "%{attacker_name} attacked %{target_name}."
         killed:
           message: "%{attacker_name} attacked %{target_name}, killing it."
         missed:
           message: "%{attacker_name} attempted to attack %{target_name} and missed."
-      attacker:
-        hit:
-          message:
-            one: "You hit %{target_name} for %{count} point of damage."
-            other: "You hit %{target_name} for %{count} points of damage."
-        killed:
-          message:
-            one: "You hit %{target_name} for %{count} point of damage, killing it."
-            other: "You hit %{target_name} for %{count} points of damage, killing it."
-        missed:
-          message: "You attempted to hit %{target_name} and missed."
-        unknown:
-          invalid: "You don't see anything named \"%{target_name}\"."
-          missing: "You need to specify a target to attack."
     direct:
-      self:
+      invalid_target:
         message: "You are talking to yourself."
-      unknown:
+      missing_target:
         message: "You don't see anyone named \"%{target_name}\"."
     help:
-      header: "Available Commands"
       commands:
         alias:
           description: "List the available command aliases."
@@ -116,9 +115,13 @@ en:
         whisper:
           arguments: "[name] [message]"
           description: "Whisper a message to a character in the room."
+      success:
+        header: "Available Commands"
     look:
       unknown: "You don't see %{article} %{target} here."
     move:
+      empty_direction:
+        message: "There doesn't appear to be anything %{direction}."
       enter:
         down: "%{name} arrived from above."
         east: "%{name} arrived from the west."
@@ -133,21 +136,20 @@ en:
         south: "%{name} went south."
         up: "%{name} went above."
         west: "%{name} went west."
-      failure:
-        message: "There doesn't appear to be anything %{direction}."
-      unknown:
+      invalid_direction:
         message: "Unknown direction."
     unknown:
-      message: "Unknown command: %{command}"
+      success:
+        message: "Unknown command: %{command}"
     whisper:
-      target:
-        message_html: "<span>%{name}</span> whispers \"%{message}\""
-      self:
+      invalid_target:
         message: "You are talking to yourself."
+      missing_target:
+        message: "You don't see anyone named \"%{target_name}\"."
+      success:
+        message_html: "<span>%{name}</span> whispers \"%{message}\""
       source:
         message_html: "<span>You</span> whisper \"%{message}\" to %{target_name}."
-      unknown:
-        message: "You don't see anyone named \"%{target_name}\"."
 
   game:
     chat:

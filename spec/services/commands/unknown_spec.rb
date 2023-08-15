@@ -4,42 +4,25 @@ require "rails_helper"
 
 describe Commands::Unknown, type: :service do
   let(:character) { build_stubbed(:character) }
-  let(:instance)  { described_class.new("/unknown", character: character) }
+  let(:input)     { "/unknown arg" }
+  let(:instance)  { described_class.new(input, character: character) }
 
   describe "#call" do
     subject(:call) { instance.call }
 
+    let(:result) { instance_double(described_class::Success) }
+
     before do
-      allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
+      allow(result).to receive(:call)
+      allow(described_class::Success).to receive(:new)
+        .with(command: input)
+        .and_return(result)
     end
 
-    it "does not broadcast" do
+    it "delegates to success handler" do
       call
 
-      expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
-    end
-
-    it "returns nil" do
-      expect(call).to be_nil
-    end
-  end
-
-  describe "#rendered?" do
-    subject(:rendered?) { instance.rendered? }
-
-    it { is_expected.to be(true) }
-  end
-
-  describe "#render_options" do
-    subject(:render_options) { instance.render_options }
-
-    it "returns the partial with command locals" do
-      expect(render_options).to eq(
-        partial: "commands/unknown",
-        locals:  {
-          command: "/unknown"
-        }
-      )
+      expect(result).to have_received(:call).with(no_args)
     end
   end
 end

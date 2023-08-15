@@ -1,9 +1,0 @@
-<% if room_target %>
-  <%= render "commands/move/success", room_source: room_source, room_target: room_target %>
-  <%= render "commands/move/surroundings", room: room_target %>
-  <%= render "commands/look", description: room_target.description %>
-<% elsif direction %>
-  <%= render "commands/move/failure", direction: direction %>
-<% else %>
-  <%= render "commands/move/unknown" %>
-<% end %>

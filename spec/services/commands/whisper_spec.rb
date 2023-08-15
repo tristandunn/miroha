@@ -3,128 +3,122 @@
 require "rails_helper"
 
 describe Commands::Whisper, type: :service do
-  let(:character)   { create(:character) }
-  let(:instance)    { described_class.new("/whisper #{target_name} #{message}", character: character) }
-  let(:message)     { "Hello." }
-  let(:target)      { create(:character, room: character.room) }
-  let(:target_name) { target.name.upcase }
+  let(:character) { create(:character) }
+  let(:message)   { "Hello." }
+  let(:target)    { create(:character, room: character.room) }
+
+  let(:instance) do
+    described_class.new("/whisper #{target.name} #{message}", character: character)
+  end
 
   describe "#call" do
     subject(:call) { instance.call }
 
-    before do
-      allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
-    end
-
     context "with a valid target" do
-      it "broadcasts whisper partial to the target" do
+      let(:result) { instance_double(described_class::Success) }
+
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::Success).to receive(:new)
+          .with(character: character, message: message, target: target)
+          .and_return(result)
+      end
+
+      it "delegates to success handler" do
         call
 
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-          .with(
-            target,
-            target:  "messages",
-            partial: "commands/whisper",
-            locals:  {
-              character:   character,
-              message:     message,
-              target:      target,
-              target_name: target_name
-            }
-          )
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with target in a different room" do
+      let(:result) { instance_double(described_class::MissingTarget) }
       let(:target) { create(:character) }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::MissingTarget).to receive(:new)
+          .with(target: target.name)
+          .and_return(result)
+      end
+
+      it "delegates to missing target handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with character as target" do
+      let(:result) { instance_double(described_class::InvalidTarget) }
       let(:target) { character }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::InvalidTarget).to receive(:new)
+          .with(no_args)
+          .and_return(result)
+      end
+
+      it "delegates to invalid target handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with inactive character as target" do
+      let(:result) { instance_double(described_class::MissingTarget) }
       let(:target) { create(:character, :inactive, room: character.room) }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::MissingTarget).to receive(:new)
+          .with(target: target.name)
+          .and_return(result)
+      end
+
+      it "delegates to missing target handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
-    context "with invalid target" do
-      let(:target_name) { "Nobody" }
+    context "with unknown target" do
+      let(:result) { instance_double(described_class::MissingTarget) }
+      let(:target) { instance_double(Character, name: "Unknown") }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::MissingTarget).to receive(:new)
+          .with(target: target.name)
+          .and_return(result)
+      end
+
+      it "delegates to missing target handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
     end
 
     context "with blank message" do
+      let(:result)  { instance_double(described_class::MissingMessage) }
       let(:message) { " " }
 
-      it "does not broadcast" do
+      before do
+        allow(result).to receive(:call)
+        allow(described_class::MissingMessage).to receive(:new)
+          .with(no_args)
+          .and_return(result)
+      end
+
+      it "delegates to missing message handler" do
         call
 
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
+        expect(result).to have_received(:call).with(no_args)
       end
-    end
-  end
-
-  describe "#rendered?" do
-    subject(:rendered?) { instance.rendered? }
-
-    context "with a valid target" do
-      it { is_expected.to be(true) }
-    end
-
-    context "with character as target" do
-      let(:target) { character }
-
-      it { is_expected.to be(true) }
-    end
-
-    context "with invalid target" do
-      let(:target_name) { "Nobody" }
-
-      it { is_expected.to be(true) }
-    end
-
-    context "with blank message" do
-      let(:message) { " " }
-
-      it { is_expected.to be(true) }
-    end
-  end
-
-  describe "#render_options" do
-    subject(:render_options) { instance.render_options }
-
-    it "returns the partial with character and message locals" do
-      expect(render_options).to eq(
-        partial: "commands/whisper",
-        locals:  {
-          character:   character,
-          message:     message,
-          target:      target,
-          target_name: target_name
-        }
-      )
     end
   end
 end

@@ -2,8 +2,14 @@
 
 module Commands
   class Base
+    extend Forwardable
+
+    SPACES          = /\s+/
+    SUFFIX          = "Command"
     THROTTLE_LIMIT  = 10
     THROTTLE_PERIOD = 5
+
+    def_delegators :handler, :call, :locals, :render_options, :rendered?
 
     # Initialize a command.
     #
@@ -12,6 +18,23 @@ module Commands
     def initialize(input, character:)
       @character = character
       @input     = input
+    end
+
+    # Define an argument for the command class.
+    #
+    # @return [void]
+    def self.argument(argument)
+      @arguments ||= {}
+      @arguments[to_s] ||= {}
+      @arguments[to_s].merge!(argument)
+    end
+
+    # Return the arguments for the command class.
+    #
+    # @return [Hash]
+    def self.arguments
+      @arguments ||= {}
+      @arguments[to_s] || {}
     end
 
     # Determine the throttle limit for the command.
@@ -28,60 +51,53 @@ module Commands
       const_get(:THROTTLE_PERIOD)
     end
 
-    # Execute the command.
-    #
-    # @abstract Subclass and override to implement command logic.
-    def call
-      nil
-    end
-
-    # Determine if the command is rendered immediately.
-    #
-    # @return [Boolean]
-    def rendered?
-      false
-    end
-
-    # Return the options for rendering the command.
-    #
-    # @return [Hash]
-    def render_options
-      {
-        partial: self.class.name.underscore,
-        locals:  locals
-      }
-    end
-
     private
 
     attr_reader :character, :input
 
-    # Broadcast an append later, with automatic partial.
+    # Remove the command prefix and split the input into arguments separated by
+    # spaces.
     #
-    # @param [Array] streamables Channel streamables to broadcast to.
-    # @param [String] target The append target.
-    # @param [Hash] custom_render_options Custom rendering options.
-    # @return [void]
-    def broadcast_append_later_to(*streamables, target:, **custom_render_options)
-      Turbo::StreamsChannel.broadcast_append_later_to(
-        *streamables,
-        target: target,
-        **render_options.merge(custom_render_options)
-      )
+    # @return [Array]
+    def arguments
+      @arguments ||= input.sub(%r{^/#{name}(\s+|\z)}i, "").split(SPACES)
     end
 
-    # Return the input without the command prefix.
+    # Validate parameters and return the command handler.
+    #
+    # @return [Class]
+    def handler
+      @handler ||= validations.find(&:itself) || success
+    end
+
+    # Return the name of the command.
+    #
+    #     Commands::SayCommand
+    #     # => "say"
     #
     # @return [String]
-    def input_without_command
-      @input_without_command ||= input.sub(%r{^/[a-z]+(\s+|\z)}i, "")
+    def name
+      @name ||= self.class.name.demodulize.delete_suffix(SUFFIX).downcase
     end
 
-    # Return the locals for the partial template.
+    # Parse the arguments into position based parameters.
     #
-    # @return [Hash] The local variables.
-    def locals
-      {}
+    # @return [Hash]
+    def parameters
+      @parameters ||= self.class.arguments.each.with_object({}) do |(name, position), result|
+        result[name] = Array(arguments[position]).join(" ").presence
+      end
+    end
+
+    # Return a lazy enumerable to call possible validation for each parameter.
+    #
+    # @return [Enumerable]
+    def validations
+      parameters.keys.lazy.map do |parameter|
+        send("validate_#{parameter}")
+      rescue NoMethodError
+        nil
+      end
     end
   end
 end
