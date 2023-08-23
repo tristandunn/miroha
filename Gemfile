@@ -8,12 +8,12 @@ gem "bootsnap",           "1.16.0", require: false
 gem "hotwire-rails",      "0.1.3"
 gem "indefinite_article", "0.2.5"
 gem "jsbundling-rails",   "1.1.2"
-gem "oj",                 "3.15.1"
+gem "oj",                 "3.16.0"
 gem "pg",                 "1.5.3"
-gem "puma",               "6.3.0"
+gem "puma",               "6.3.1"
 gem "rack-attack",        "6.7.0"
 gem "rack-timeout",       "0.6.3"
-gem "rails",              "7.0.7"
+gem "rails",              "7.0.7.2"
 gem "rails-healthcheck",  "1.4.0"
 gem "redis",              "5.0.7"
 gem "redis-objects",      "1.7.0"
@@ -36,10 +36,10 @@ group :development do
   gem "erb_lint",            "0.4.0", require: false
   gem "listen",              "3.8.0"
   gem "rack-mini-profiler",  "3.1.1"
-  gem "rubocop",             "1.56.0", require: false
+  gem "rubocop",             "1.56.1", require: false
   gem "rubocop-capybara",    "2.18.0", require: false
   gem "rubocop-factory_bot", "2.23.1", require: false
-  gem "rubocop-performance", "1.18.0", require: false
+  gem "rubocop-performance", "1.19.0", require: false
   gem "rubocop-rails",       "2.20.2", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.23.2", require: false
@@ -51,7 +51,7 @@ group :test do
   gem "climate_control",          "1.2.0"
   gem "database_cleaner",         "2.0.2"
   gem "factory_bot_rails",        "6.2.0"
-  gem "faker",                    "3.2.0"
+  gem "faker",                    "3.2.1"
   gem "mock_redis",               "0.37.0"
   gem "rails-controller-testing", "1.0.5"
   gem "selenium-webdriver",       "4.11.0"
