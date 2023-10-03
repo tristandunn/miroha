@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending the whisper command", js: true do
+describe "Sending the whisper command", :js do
   let(:character)        { create(:character) }
   let(:message)          { Faker::Lorem.sentence }
   let(:nearby_character) { create(:character, room: character.room) }

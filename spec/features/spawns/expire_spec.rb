@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Expire spawns", clock: true, js: true do
+describe "Expire spawns", :clock, :js do
   let(:character) { create(:character) }
   let(:room)      { character.room }
 

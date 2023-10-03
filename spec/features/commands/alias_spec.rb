@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending the alias command", js: true do
+describe "Sending the alias command", :js do
   let(:character) { create(:character) }
   let(:command)   { "/alias" }
 

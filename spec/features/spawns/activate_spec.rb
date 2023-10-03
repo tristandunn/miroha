@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Activate spawns", clock: true, js: true do
+describe "Activate spawns", :clock, :js do
   let(:character) { create(:character) }
   let(:room)      { character.room }
 

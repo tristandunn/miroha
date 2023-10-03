@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending the attack command", js: true do
+describe "Sending the attack command", :js do
   let(:character) { create(:character, room: room) }
   let(:damage)    { 1 }
   let(:monster)   { spawn.entity }
