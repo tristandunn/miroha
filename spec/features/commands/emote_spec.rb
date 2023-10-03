@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending the emote command", js: true do
+describe "Sending the emote command", :js do
   let(:character) { create(:character) }
   let(:message)   { Faker::Lorem.sentence }
 

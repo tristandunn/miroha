@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sending the say command", js: true do
+describe "Sending the say command", :js do
   let(:character) { create(:character) }
   let(:message)   { Faker::Lorem.sentence }
 

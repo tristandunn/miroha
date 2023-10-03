@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Character exiting the game", js: true do
+describe "Character exiting the game", :js do
   let(:character) { create(:character) }
 
   before do

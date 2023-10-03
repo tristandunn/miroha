@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Selecting a character", js: true do
+describe "Selecting a character", :js do
   let(:character) { create(:character, :inactive) }
 
   before do
@@ -85,7 +85,7 @@ describe "Selecting a character", js: true do
     end
   end
 
-  it "does not allow quick repeated selection", cache: true, js: false do
+  it "does not allow quick repeated selection", :cache, js: false do
     Rails.cache.write(Character::SELECTED_KEY % character.id, 1, expires_in: 5.minutes)
 
     click_button character.name
