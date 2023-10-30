@@ -1,0 +1,13 @@
+{
+  "healthchecks": {
+    "web": [
+      {
+        "type":     "startup",
+        "path":     "/health",
+        "attempts": 30,
+        "timeout":  1,
+        "wait":     1
+      }
+    ]
+  }
+}
