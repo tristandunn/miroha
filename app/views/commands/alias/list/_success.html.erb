@@ -2,7 +2,7 @@
   <td colspan="2" class="message-alias">
     <table>
       <tr>
-        <td colspan="2"><%= t(".header") %></td>
+        <td colspan="2"><%= t(".header", count: aliases.size) %></td>
       </tr>
 
       <% aliases.each do |(name, command)| %>

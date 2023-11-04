@@ -19,7 +19,7 @@ describe "commands/alias/list/success.html.erb" do
   it "renders the header" do
     expect(html).to have_css(
       ".message-alias td[colspan=2]",
-      text: t("commands.alias.list.success.header")
+      text: t("commands.alias.list.success.header", count: 2)
     )
   end
 
