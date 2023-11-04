@@ -64,7 +64,12 @@ en:
     alias:
       list:
         success:
-          header: "Command Aliases"
+          header:
+            one: "Command Alias"
+            other: "Command Aliases"
+      show:
+        unknown_alias:
+          message: "You do not have an alias for \"%{name}\"."
     attack:
       hit:
         message:
