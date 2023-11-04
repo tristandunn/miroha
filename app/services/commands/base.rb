@@ -4,8 +4,8 @@ module Commands
   class Base
     extend Forwardable
 
+    PREFIX          = "Commands::"
     SPACES          = /\s+/
-    SUFFIX          = "Command"
     THROTTLE_LIMIT  = 10
     THROTTLE_PERIOD = 5
 
@@ -60,7 +60,7 @@ module Commands
     #
     # @return [Array]
     def arguments
-      @arguments ||= input.sub(%r{^/#{name}(\s+|\z)}i, "").split(SPACES)
+      @arguments ||= input.sub(%r{^/#{parts}(\s+|\z)}i, "").split(SPACES)
     end
 
     # Validate parameters and return the command handler.
@@ -70,16 +70,6 @@ module Commands
       @handler ||= validations.find(&:itself) || success
     end
 
-    # Return the name of the command.
-    #
-    #     Commands::SayCommand
-    #     # => "say"
-    #
-    # @return [String]
-    def name
-      @name ||= self.class.name.demodulize.delete_suffix(SUFFIX).downcase
-    end
-
     # Parse the arguments into position based parameters.
     #
     # @return [Hash]
@@ -87,6 +77,18 @@ module Commands
       @parameters ||= self.class.arguments.each.with_object({}) do |(name, position), result|
         result[name] = Array(arguments[position]).join(" ").presence
       end
+    end
+
+    # Return the parts of the command.
+    #
+    #     Commands::Say
+    #     # => "say"
+    #     Commands::Alias::List
+    #     # => "alias list"
+    #
+    # @return [String]
+    def parts
+      @parts ||= self.class.name.to_s.delete_prefix(PREFIX).gsub("::", " ").downcase
     end
 
     # Return a lazy enumerable to call possible validation for each parameter.

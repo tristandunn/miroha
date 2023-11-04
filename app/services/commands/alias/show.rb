@@ -3,7 +3,7 @@
 module Commands
   module Alias
     class Show < Base
-      argument alias_name: 2
+      argument alias_name: 0
 
       # Determine if the argument matches this command.
       #
