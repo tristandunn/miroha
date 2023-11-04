@@ -38,8 +38,8 @@ module Commands
 
     # Validate a message is present.
     #
-    # @return [Class]
-    # @return [nil]
+    # @return [MissingMessage] If the message is blank.
+    # @return [nil] If the message is present.
     def validate_message
       if parameters[:message].blank?
         MissingMessage.new
