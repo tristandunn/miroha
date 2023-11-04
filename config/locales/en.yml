@@ -63,7 +63,8 @@ en:
   commands:
     alias:
       list:
-        header: "Command Aliases"
+        success:
+          header: "Command Aliases"
     attack:
       hit:
         message:

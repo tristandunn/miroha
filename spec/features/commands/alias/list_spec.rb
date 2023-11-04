@@ -2,15 +2,15 @@
 
 require "rails_helper"
 
-describe "Sending the alias command", :js do
+describe "Sending the alias list command", :js do
   let(:character) { create(:character) }
-  let(:command)   { "/alias" }
+  let(:command)   { "/alias list" }
 
   before do
     sign_in_as_character character
   end
 
-  it "displays the alias command message to the sender" do
+  it "displays the alias list command message to the sender" do
     send_text(command)
 
     expect(page).to have_alias_command_message
