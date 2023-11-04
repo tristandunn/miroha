@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe "commands/alias/_list.turbo_stream.erb" do
+describe "commands/alias/list/_success.turbo_stream.erb" do
   subject(:html) do
-    render partial: "commands/alias/list",
+    render partial: "commands/alias/list/success",
            formats: :turbo_stream,
            locals:  { aliases: [] }
 
@@ -12,7 +12,7 @@ describe "commands/alias/_list.turbo_stream.erb" do
   end
 
   before do
-    stub_template("commands/alias/_list.html.erb" => "ALIAS_TEMPLATE")
+    stub_template("commands/alias/list/_success.html.erb" => "ALIAS_TEMPLATE")
   end
 
   it "appends to the messages element" do

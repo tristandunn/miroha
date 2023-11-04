@@ -1,23 +1,21 @@
 # frozen_string_literal: true
 
 module Commands
-  class Alias < Base
-    class List < Result
-      locals :aliases
-
-      delegate :account, to: :character, private: true
-      delegate :aliases, to: :account, private: true
-
-      # Initialize an alias list result.
+  module Alias
+    class List < Base
+      # Determine if the argument matches this command.
       #
-      # @return [void]
-      def initialize(character:)
-        @character = character
+      # @return [Boolean]
+      def self.match?(arguments)
+        arguments.empty? || arguments.first == "list"
       end
 
-      private
-
-      attr_reader :character
+      # Return the handler for a successful command execution.
+      #
+      # @return [List]
+      def success
+        Success.new(character: character)
+      end
     end
   end
 end

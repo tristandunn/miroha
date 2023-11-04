@@ -3,18 +3,46 @@
 require "rails_helper"
 
 describe Commands::Alias::List, type: :service do
-  describe "class" do
-    it "inherits from command result" do
-      expect(described_class.superclass).to eq(Commands::Result)
+  describe ".match?" do
+    subject { described_class.match?(arguments) }
+
+    context "with no arguments" do
+      let(:arguments) { [] }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "with list argument" do
+      let(:arguments) { ["list"] }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "with other arguments" do
+      let(:arguments) { %w(fake list) }
+
+      it { is_expected.to be(false) }
     end
   end
 
-  describe "#locals" do
-    subject { instance.locals }
+  describe "#call" do
+    subject(:call) { instance.call }
 
-    let(:instance)  { described_class.new(character: character) }
     let(:character) { build_stubbed(:character) }
+    let(:instance)  { described_class.new("/alias", character: character) }
+    let(:result)    { instance_double(described_class::Success) }
 
-    it { is_expected.to eq(aliases: character.account.aliases) }
+    before do
+      allow(result).to receive(:call)
+      allow(described_class::Success).to receive(:new)
+        .with(character: character)
+        .and_return(result)
+    end
+
+    it "delegates to success handler" do
+      call
+
+      expect(result).to have_received(:call).with(no_args)
+    end
   end
 end
