@@ -6,8 +6,7 @@ describe "commands/whisper/_success.html.erb" do
   subject(:html) do
     render partial: "commands/whisper/success", locals: {
       character: character,
-      message:   message,
-      target:    target
+      message:   message
     }
 
     rendered
@@ -15,7 +14,6 @@ describe "commands/whisper/_success.html.erb" do
 
   let(:character) { build_stubbed(:character) }
   let(:message)   { Faker::Lorem.sentence }
-  let(:target)    { build_stubbed(:character) }
 
   it "renders the message to the target" do
     expect(html).to have_message_row(

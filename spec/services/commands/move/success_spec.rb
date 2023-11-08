@@ -44,10 +44,8 @@ describe Commands::Move::Success, type: :service do
           room_source,
           partial: "commands/move/exit",
           locals:  {
-            character:   character,
-            direction:   direction,
-            room_source: room_source,
-            room_target: room_target
+            character: character,
+            direction: direction
           }
         )
     end
@@ -60,10 +58,8 @@ describe Commands::Move::Success, type: :service do
           room_target,
           partial: "commands/move/enter",
           locals:  {
-            character:   character,
-            direction:   direction,
-            room_source: room_source,
-            room_target: room_target
+            character: character,
+            direction: direction
           }
         )
     end
@@ -86,13 +82,6 @@ describe Commands::Move::Success, type: :service do
       )
     end
 
-    it do
-      expect(locals).to eq(
-        character:   character,
-        direction:   direction,
-        room_source: room_source,
-        room_target: room_target
-      )
-    end
+    it { is_expected.to eq(room_source: room_source, room_target: room_target) }
   end
 end

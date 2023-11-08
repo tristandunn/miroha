@@ -1,3 +1,4 @@
+<%# locals: (character:) %>
 <div id="streams">
   <%= turbo_stream_from character, id: dom_id(character) %>
   <%= turbo_stream_from character.room, id: dom_id(character.room) %>

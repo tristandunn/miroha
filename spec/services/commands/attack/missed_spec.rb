@@ -28,7 +28,8 @@ describe Commands::Attack::Missed, type: :service do
         .with(
           character.room_gid,
           target:  :messages,
-          partial: "commands/attack/observer/missed"
+          partial: "commands/attack/observer/missed",
+          locals:  { character: character, target_name: target.name }
         )
     end
   end
@@ -40,11 +41,6 @@ describe Commands::Attack::Missed, type: :service do
     let(:instance)  { described_class.new(character: character, target: target) }
     let(:target)    { instance_double(Monster, name: "Target") }
 
-    it do
-      expect(locals).to eq(
-        character:   character,
-        target_name: target.name
-      )
-    end
+    it { is_expected.to eq(target_name: target.name) }
   end
 end

@@ -3,7 +3,7 @@
 module Commands
   class Attack < Base
     class Missed < Result
-      locals :character, :target_name
+      locals :target_name
 
       delegate :name, to: :target, prefix: :target, private: true
 
@@ -24,7 +24,7 @@ module Commands
 
       private
 
-      attr_reader :target
+      attr_reader :character, :target
 
       # Broadcast the missed attack to the character's room.
       #
@@ -33,7 +33,8 @@ module Commands
         broadcast_append_later_to(
           character.room_gid,
           target:  :messages,
-          partial: "commands/attack/observer/missed"
+          partial: "commands/attack/observer/missed",
+          locals:  { character: character, target_name: target_name }
         )
       end
     end

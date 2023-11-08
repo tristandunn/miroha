@@ -38,7 +38,8 @@ describe Commands::Attack::Killed, type: :service do
       expect(instance).to have_received(:broadcast_render_later_to)
         .with(
           character.room_gid,
-          partial: "commands/attack/observer/killed"
+          partial: "commands/attack/observer/killed",
+          locals:  { character: character, target_id: target.id, target_name: target.name }
         )
     end
 
@@ -113,7 +114,6 @@ describe Commands::Attack::Killed, type: :service do
 
     it do
       expect(locals).to eq(
-        character:   character,
         damage:      damage,
         target_id:   target.id,
         target_name: target.name

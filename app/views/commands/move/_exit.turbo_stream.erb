@@ -1,3 +1,4 @@
+<%# locals: (character:, direction:) %>
 <%= turbo_stream.append("messages", partial: "commands/move/exit", locals: { character: character, direction: direction }) %>
 <%= content_tag(
       "turbo-stream",

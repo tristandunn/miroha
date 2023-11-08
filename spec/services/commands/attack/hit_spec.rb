@@ -48,7 +48,8 @@ describe Commands::Attack::Hit, type: :service do
         .with(
           character.room_gid,
           target:  :messages,
-          partial: "commands/attack/observer/hit"
+          partial: "commands/attack/observer/hit",
+          locals:  { character: character, target_name: target.name }
         )
     end
   end
@@ -63,7 +64,6 @@ describe Commands::Attack::Hit, type: :service do
 
     it do
       expect(locals).to eq(
-        character:   character,
         damage:      damage,
         target_name: target.name
       )

@@ -1,2 +1,3 @@
+<%# locals: (character:) %>
 <%= turbo_stream.append("messages", partial: "characters/exit", locals: { character: character }) %>
 <%= turbo_stream.remove("surrounding_character_#{character.id}") %>
