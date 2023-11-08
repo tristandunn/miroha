@@ -70,16 +70,10 @@ describe SessionForm, type: :form do
     end
 
     context "with an oddly formatted e-mail" do
-      let(:email) { "  AN@EXAMPLE.COM  " }
+      let(:email) { "  #{account.email.upcase}  " }
 
-      before do
-        allow(Account).to receive(:find_by)
-      end
-
-      it "downcases and strips the e-mail for the query" do
-        form.account
-
-        expect(Account).to have_received(:find_by).with(email: "an@example.com")
+      it "returns the account" do
+        expect(form.account).to eq(account)
       end
     end
   end
