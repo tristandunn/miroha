@@ -13,7 +13,7 @@ class SessionForm < BaseForm
   # @return [Account]
   def account
     if email.present?
-      @account ||= Account.find_by(email: email.to_s.strip.downcase)
+      @account ||= Account.find_by(email: email)
     end
   end
 

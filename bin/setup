@@ -8,7 +8,10 @@ gem list bundler --installed > /dev/null ||
 bundle check || bundle install
 
 # Install the Node dependencies.
-yarn check || yarn install
+yarn install
 
 # Prepare the database.
 ./bin/rails db:prepare
+
+# Clean up.
+./bin/rails log:clear tmp:clear

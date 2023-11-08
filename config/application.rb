@@ -18,10 +18,12 @@ Bundler.require(*Rails.groups)
 module Miroha
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
 
-    # Add the library directory to the autoload paths.
-    config.autoload_paths << Rails.root.join("lib")
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w(assets middleware tasks))
 
     # Don't generate system test files.
     config.generators.system_tests = nil

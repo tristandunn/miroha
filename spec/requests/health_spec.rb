@@ -39,7 +39,7 @@ describe "Health" do
 
     context "with pending migrations" do
       before do
-        allow(ActiveRecord::Migration).to receive(:check_pending!).and_raise
+        allow(ActiveRecord::Migration).to receive(:check_all_pending!).and_raise
       end
 
       it "returns service unavailable" do

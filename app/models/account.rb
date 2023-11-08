@@ -21,15 +21,16 @@ class Account < ApplicationRecord
 
   has_many :characters, dependent: :destroy
 
+  before_create :assign_default_aliases
+
+  normalizes :email, with: ->(email) { email.strip.downcase }
+
   validates :email, presence:   true,
                     length:     { maximum: MAXIMUM_EMAIL_LENGTH },
                     format:     { with: EMAIL_MATCHER },
                     uniqueness: { case_sensitive: false }
 
   validates :password, length: { minimum: MINIMUM_PASSWORD_LENGTH }
-
-  before_validation :format_attributes
-  before_create     :assign_default_aliases
 
   # Determine if an account can create a character.
   #
@@ -45,14 +46,5 @@ class Account < ApplicationRecord
   # @return [avoid]
   def assign_default_aliases
     self.aliases = DEFAULT_ALIASES
-  end
-
-  # Format attributes to be consistent.
-  #
-  # * Lowercase and strip the e-mail address.
-  #
-  # @return [void]
-  def format_attributes
-    self.email = email.to_s.strip.downcase
   end
 end

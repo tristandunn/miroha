@@ -9,5 +9,5 @@ Healthcheck.configure do |config|
 
   config.add_check :cache,      -> { Redis::Objects.redis.info }
   config.add_check :database,   -> { ActiveRecord::Base.connection.execute("SELECT 1") }
-  config.add_check :migrations, -> { ActiveRecord::Migration.check_pending! }
+  config.add_check :migrations, -> { ActiveRecord::Migration.check_all_pending! }
 end
