@@ -4,7 +4,7 @@ ruby   "3.2.2"
 source "https://rubygems.org"
 
 gem "bcrypt",             "3.1.19"
-gem "bootsnap",           "1.16.0", require: false
+gem "bootsnap",           "1.17.0", require: false
 gem "hotwire-rails",      "0.1.3"
 gem "indefinite_article", "0.2.5"
 gem "jsbundling-rails",   "1.2.1"
@@ -51,10 +51,10 @@ group :test do
   gem "climate_control",          "1.2.0"
   gem "database_cleaner",         "2.0.2"
   gem "factory_bot_rails",        "6.2.0"
-  gem "faker",                    "3.2.1"
-  gem "mock_redis",               "0.38.0"
+  gem "faker",                    "3.2.2"
+  gem "mock_redis",               "0.39.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.14.0"
+  gem "selenium-webdriver",       "4.15.0"
   gem "shoulda-matchers",         "5.3.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
