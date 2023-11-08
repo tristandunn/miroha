@@ -16,18 +16,6 @@ module Commands
 
     argument direction: 0
 
-    # Return the handler for a successful command execution.
-    #
-    # @return [Success]
-    def success
-      Success.new(
-        character:   character,
-        direction:   parameters[:direction],
-        room_source: room_source,
-        room_target: room_target
-      )
-    end
-
     private
 
     # Return if the direction is invalid.
@@ -57,6 +45,18 @@ module Commands
     # @return [nil] If the room is not found.
     def room_target
       @room_target ||= Room.find_by(target_coordinates)
+    end
+
+    # Return the handler for a successful command execution.
+    #
+    # @return [Success]
+    def success
+      Success.new(
+        character:   character,
+        direction:   parameters[:direction],
+        room_source: room_source,
+        room_target: room_target
+      )
     end
 
     # Return the target coordinates for the move.
