@@ -1,2 +1,3 @@
+<%# locals: (character:, direction:) %>
 <%= turbo_stream.append("messages", partial: "commands/move/enter", locals: { character: character, direction: direction }) %>
 <%= turbo_stream.append("surrounding-characters", partial: "game/surroundings/character", locals: { character: character }) %>

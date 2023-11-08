@@ -3,7 +3,7 @@
 module Commands
   class Attack < Base
     class Killed < Result
-      locals :character, :damage, :target_id, :target_name
+      locals :damage, :target_id, :target_name
 
       delegate :id, :name, to: :target, prefix: true
 
@@ -29,7 +29,7 @@ module Commands
 
       private
 
-      attr_reader :target
+      attr_reader :character, :target
 
       # Broadcast a sidebar character replacement to the character.
       #
@@ -49,7 +49,8 @@ module Commands
       def broadcast_killed
         broadcast_render_later_to(
           character.room_gid,
-          partial: "commands/attack/observer/killed"
+          partial: "commands/attack/observer/killed",
+          locals:  { character: character, target_id: target_id, target_name: target_name }
         )
       end
 

@@ -3,7 +3,7 @@
 module Commands
   class Move < Base
     class Success < Result
-      locals :character, :direction, :room_source, :room_target
+      locals :room_source, :room_target
 
       # Initialize a successful move result.
       #
@@ -26,18 +26,28 @@ module Commands
 
       private
 
+      attr_reader :character, :direction
+
       # Broadcast the entrance to the target room.
       #
       # @return [void]
       def broadcast_enter
-        broadcast_render_later_to(room_target, partial: "commands/move/enter")
+        broadcast_render_later_to(
+          room_target,
+          partial: "commands/move/enter",
+          locals:  { character: character, direction: direction }
+        )
       end
 
       # Broadcast the exit to the source room.
       #
       # @return [void]
       def broadcast_exit
-        broadcast_render_later_to(room_source, partial: "commands/move/exit")
+        broadcast_render_later_to(
+          room_source,
+          partial: "commands/move/exit",
+          locals:  { character: character, direction: direction }
+        )
       end
 
       # Move the character to the target room.
