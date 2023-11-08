@@ -1,10 +1,13 @@
+---
 name: Bug Report
 description: Create a bug report for Miroha.
 labels: ["bug-report"]
 body:
   - type: markdown
     attributes:
-      value: Thanks for taking the time to file a bug report! Please fill out this form as completely as possible.
+      value:
+        Thanks for taking the time to file a bug report! Please fill out
+        this form as completely as possible.
   - type: textarea
     attributes:
       label: Description
@@ -20,12 +23,19 @@ body:
   - type: textarea
     attributes:
       label: How To Reproduce
-      description: Clearly defined steps to reproduce the behavior. Screenshots can be provided if needed.
+      description:
+        Clearly defined steps to reproduce the behavior. Screenshots can be
+        provided if needed.
     validations:
       required: true
   - type: markdown
     attributes:
-      value: Before posting the issue go through the steps you've written down to make sure the steps provided are detailed and clear. Anyone should be able to follow the steps provided in order to reproduce the bug. These steps are used to add integration tests to ensure the same issue does not happen again. Thanks!
+      value:
+        Before posting the issue go through the steps you've written down to
+        make sure the steps provided are detailed and clear. Anyone should be
+        able to follow the steps provided in order to reproduce the bug. These
+        steps are used to add integration tests to ensure the same issue does
+        not happen again. Thanks!
   - type: input
     attributes:
       label: What browser are you using?
@@ -43,12 +53,14 @@ body:
       label: Is there an existing issue for this bug?
       description: Please search to see if an issue already exists for the bug you encountered.
       options:
-      - label: I have searched and there is no existing issue.
-        required: true
+        - label: I have searched and there is no existing issue.
+          required: true
   - type: checkboxes
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/tristandunn/miroha/blob/main/docs/CODE_OF_CONDUCT.md).
+      description:
+        By submitting this issue, you agree to follow our [Code of
+        Conduct](https://github.com/tristandunn/miroha/blob/main/docs/CODE_OF_CONDUCT.md).
       options:
         - label: I agree to follow this project's Code of Conduct.
           required: true
