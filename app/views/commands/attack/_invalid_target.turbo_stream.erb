@@ -1,1 +1,2 @@
+<%# locals: (target_name:) %>
 <%= turbo_stream.append("messages", partial: "commands/attack/invalid_target", locals: { target_name: target_name }) %>

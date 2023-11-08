@@ -28,7 +28,7 @@ describe Commands::Whisper::Success, type: :service do
       call
 
       expect(instance).to have_received(:broadcast_append_later_to)
-        .with(target, target: "messages")
+        .with(target, target: "messages", locals: { character: character, message: message })
     end
   end
 

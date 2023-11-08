@@ -3,7 +3,7 @@
 module Commands
   class Attack < Base
     class Hit < Result
-      locals :character, :damage, :target_name
+      locals :damage, :target_name
 
       delegate :name, to: :target, prefix: :target
 
@@ -27,7 +27,7 @@ module Commands
 
       private
 
-      attr_reader :target
+      attr_reader :character, :target
 
       # Broadcast the attack hit to the room.
       #
@@ -36,7 +36,8 @@ module Commands
         broadcast_append_later_to(
           character.room_gid,
           target:  :messages,
-          partial: "commands/attack/observer/hit"
+          partial: "commands/attack/observer/hit",
+          locals:  { character: character, target_name: target_name }
         )
       end
 

@@ -1,1 +1,2 @@
+<%# locals: (direction:) %>
 <%= turbo_stream.append("messages", partial: "commands/move/empty_direction", locals: { direction: direction }) %>

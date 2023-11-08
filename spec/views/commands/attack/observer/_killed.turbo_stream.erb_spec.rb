@@ -9,7 +9,6 @@ describe "commands/attack/observer/_killed.turbo_stream.erb" do
       formats: :turbo_stream,
       locals:  {
         character:   character,
-        damage:      damage,
         target_id:   target.id,
         target_name: target.name
       }
@@ -19,7 +18,6 @@ describe "commands/attack/observer/_killed.turbo_stream.erb" do
   end
 
   let(:character) { build_stubbed(:character) }
-  let(:damage)    { rand(1..10) }
   let(:target)    { build_stubbed(:monster) }
 
   before do

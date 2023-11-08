@@ -8,7 +8,6 @@ describe "commands/attack/_killed.turbo_stream.erb" do
       partial: "commands/attack/killed",
       formats: :turbo_stream,
       locals:  {
-        character:   double,
         damage:      double,
         target_id:   target_id,
         target_name: double
