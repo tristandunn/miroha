@@ -1,6 +1,7 @@
+---
 name: CI
 
-on:
+on: # yamllint disable-line rule:truthy
   pull_request:
   workflow_call:
 
@@ -21,13 +22,13 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
       redis:
-         image: redis:7-alpine
-         ports: ["6379:6379"]
-         options: >-
-           --health-cmd "redis-cli ping"
-           --health-interval 10ms
-           --health-retries 10
-           --health-timeout 1s
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10ms
+          --health-retries 10
+          --health-timeout 1s
 
     steps:
       - name: Checkout the code
@@ -105,4 +106,3 @@ jobs:
           bundler-cache: true
       - name: Scan for vulnerabilities
         run: bundle exec brakeman --format github --no-pager
-
