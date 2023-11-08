@@ -27,7 +27,11 @@ module Commands
       #
       # @return [void]
       def broadcast_message
-        broadcast_append_later_to(target, target: "messages")
+        broadcast_append_later_to(
+          target,
+          target: "messages",
+          locals: { character: character, message: message }
+        )
       end
     end
   end

@@ -1,2 +1,3 @@
+<%# locals: (attacker_name:, character:, target_name:) %>
 <%= turbo_stream.remove("surrounding_character_#{character.id}") %>
 <%= turbo_stream.append("messages", partial: "monsters/attack/kill", locals: { attacker_name: attacker_name, character: character, target_name: target_name }) %>

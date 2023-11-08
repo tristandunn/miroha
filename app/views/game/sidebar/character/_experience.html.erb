@@ -1,3 +1,4 @@
+<%# locals: (character:) %>
 <% character.experience.tap do |experience| %>
   <div id="experience" class="relative h-1 bg-yellow-900" title="<%= t(".title", remaining: number_with_delimiter(experience.remaining)) %>">
     <div class="absolute inset-0 h-full bg-yellow-600 select-none -indent-96" style="width: <%= experience.remaining_percentage %>%;"><%= experience.current %> / <%= experience.needed %></div>

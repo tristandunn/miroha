@@ -1,1 +1,2 @@
+<%# locals: (character:, target_name:) %>
 <%= turbo_stream.append("messages", partial: "commands/attack/observer/hit", locals: { character: character, target_name: target_name }) %>
