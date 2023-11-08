@@ -10,6 +10,8 @@ module Commands
         arguments.empty? || arguments.first == "list"
       end
 
+      private
+
       # Return the handler for a successful command execution.
       #
       # @return [List]
