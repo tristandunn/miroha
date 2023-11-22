@@ -3,7 +3,7 @@
 ruby   "3.2.2"
 source "https://rubygems.org"
 
-gem "bcrypt",             "3.1.19"
+gem "bcrypt",             "3.1.20"
 gem "bootsnap",           "1.17.0", require: false
 gem "hotwire-rails",      "0.1.3"
 gem "indefinite_article", "0.2.5"
@@ -28,7 +28,7 @@ group :development, :test do
   gem "dotenv-rails", "2.8.1"
   gem "pg_query",     "4.2.3"
   gem "prosopite",    "1.4.1"
-  gem "rspec-rails",  "6.0.3"
+  gem "rspec-rails",  "6.1.0"
 end
 
 group :development do
@@ -40,7 +40,7 @@ group :development do
   gem "rubocop-capybara",    "2.19.0", require: false
   gem "rubocop-factory_bot", "2.24.0", require: false
   gem "rubocop-performance", "1.19.1", require: false
-  gem "rubocop-rails",       "2.22.1", require: false
+  gem "rubocop-rails",       "2.22.2", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.25.0", require: false
   gem "web-console",         "4.2.1"
@@ -52,7 +52,7 @@ group :test do
   gem "database_cleaner",         "2.0.2"
   gem "factory_bot_rails",        "6.2.0"
   gem "faker",                    "3.2.2"
-  gem "mock_redis",               "0.39.0"
+  gem "mock_redis",               "0.40.0"
   gem "rails-controller-testing", "1.0.5"
   gem "selenium-webdriver",       "4.15.0"
   gem "shoulda-matchers",         "5.3.0"
