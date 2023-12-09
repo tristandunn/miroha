@@ -82,7 +82,7 @@ class Command
     #
     # @return [String]
     def name
-      @name ||= (input.match(MATCHER)&.captures&.first || DEFAULT_NAME)
+      @name ||= input.match(MATCHER)&.captures&.first || DEFAULT_NAME
     end
 
     # Returns the command class for unknown commands.
