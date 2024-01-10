@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Creating a new account" do
   before do
     visit root_path
-    click_link t("pages.index.new_account")
+    click_on t("pages.index.new_account")
   end
 
   it "successfully" do
@@ -46,6 +46,6 @@ describe "Creating a new account" do
   def fill_in_account_and_submit(email:, password:)
     fill_in t("activemodel.attributes.account_form.email"), with: email
     fill_in t("activemodel.attributes.account_form.password"), with: password
-    click_button t("accounts.new.submit")
+    click_on t("accounts.new.submit")
   end
 end

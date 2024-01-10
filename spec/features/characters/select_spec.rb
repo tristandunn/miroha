@@ -11,13 +11,13 @@ describe "Selecting a character", :js do
   end
 
   it "successfully" do
-    click_button character.name
+    click_on character.name
 
     expect(page).to have_css("#sidebar h1", text: character.name)
   end
 
   it "displays room description in chat", js: false do
-    click_button character.name
+    click_on character.name
 
     expect(page).to have_look_message(character.room.description)
   end
@@ -25,7 +25,7 @@ describe "Selecting a character", :js do
   it "displays active characters in surroundings", js: false do
     nearby_character = create(:character, room: character.room)
 
-    click_button character.name
+    click_on character.name
 
     expect(page).to have_surrounding_character(nearby_character)
   end
@@ -33,7 +33,7 @@ describe "Selecting a character", :js do
   it "displays monsters in surroundings", js: false do
     monster = create(:monster, room: character.room)
 
-    click_button character.name
+    click_on character.name
 
     expect(page).to have_surrounding_monster(monster)
   end
@@ -43,7 +43,7 @@ describe "Selecting a character", :js do
       sign_in_as_character create(:character, room: character.room)
     end
 
-    click_button character.name
+    click_on character.name
 
     using_session(:nearby_character) do
       expect(page).to have_css(
@@ -58,7 +58,7 @@ describe "Selecting a character", :js do
       sign_in_as_character create(:character, room: character.room)
     end
 
-    click_button character.name
+    click_on character.name
 
     using_session(:nearby_character) do
       expect(page).to have_surrounding_character(character)
@@ -68,7 +68,7 @@ describe "Selecting a character", :js do
   it "does not display inactive characters in surroundings", js: false do
     inactive_character = create(:character, :inactive, room: character.room)
 
-    click_button character.name
+    click_on character.name
 
     expect(page).not_to have_surrounding_character(inactive_character)
   end
@@ -78,17 +78,17 @@ describe "Selecting a character", :js do
       sign_in_as_character
     end
 
-    click_button character.name
+    click_on character.name
 
     using_session(:distant_character) do
-      expect(page).not_to have_css("#messages .message-enter-game")
+      expect(page).to have_no_css("#messages .message-enter-game")
     end
   end
 
   it "does not allow quick repeated selection", :cache, js: false do
     Rails.cache.write(Character::SELECTED_KEY % character.id, 1, expires_in: 5.minutes)
 
-    click_button character.name
+    click_on character.name
 
     expect(page).to have_text(
       t("activemodel.errors.models.character_select_form.attributes.base.character_recent")

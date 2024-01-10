@@ -40,16 +40,16 @@ describe "Creating a new character" do
 
   def create_account
     visit root_path
-    click_link t("pages.index.new_account")
+    click_on t("pages.index.new_account")
     fill_in t("activemodel.attributes.account_form.email"),
             with: generate(:email)
     fill_in t("activemodel.attributes.account_form.password"),
             with: generate(:password)
-    click_button t("accounts.new.submit")
+    click_on t("accounts.new.submit")
   end
 
   def fill_in_character_and_submit(name:)
     fill_in t("activemodel.attributes.character_form.name"), with: name
-    click_button t("characters.new.submit")
+    click_on t("characters.new.submit")
   end
 end

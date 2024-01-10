@@ -22,9 +22,9 @@ module EventHandlers
   def self.for(*events)
     events.flat_map do |event|
       all.select do |handler|
-        handler.respond_to?("on_#{event}") ||
-          handler.respond_to?("before_#{event}") ||
-          handler.respond_to?("after_#{event}")
+        handler.respond_to?(:"on_#{event}") ||
+          handler.respond_to?(:"before_#{event}") ||
+          handler.respond_to?(:"after_#{event}")
       end
     end
   end

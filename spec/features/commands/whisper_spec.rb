@@ -42,7 +42,7 @@ describe "Sending the whisper command", :js do
 
     wait_for(have_source_whisper(message, from: character, to: nearby_character)) do
       using_session(:other_character) do
-        expect(page).not_to have_css("#messages .message-whisper")
+        expect(page).to have_no_css("#messages .message-whisper")
       end
     end
   end
@@ -56,7 +56,7 @@ describe "Sending the whisper command", :js do
 
     wait_for(have_source_whisper(message, from: character, to: nearby_character)) do
       using_session(:distant_character) do
-        expect(page).not_to have_css("#messages .message-whisper")
+        expect(page).to have_no_css("#messages .message-whisper")
       end
     end
   end

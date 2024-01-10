@@ -52,7 +52,7 @@ describe "Inactive characters", :clock, :js do
     run("Sign out inactive characters.")
 
     using_session(:distant_character) do
-      expect(page).not_to have_css("#messages .message-exit-game")
+      expect(page).to have_no_css("#messages .message-exit-game")
     end
   end
 end

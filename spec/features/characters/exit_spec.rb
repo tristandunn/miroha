@@ -10,7 +10,7 @@ describe "Character exiting the game", :js do
   end
 
   it "successfully" do
-    click_button "exit_game"
+    click_on "exit_game"
 
     expect(page).to have_css("h1", text: t("characters.index.header"))
   end
@@ -20,7 +20,7 @@ describe "Character exiting the game", :js do
       sign_in_as_character create(:character, room: character.room)
     end
 
-    click_button "exit_game"
+    click_on "exit_game"
 
     using_session(:nearby_character) do
       expect(page).to have_css(
@@ -35,7 +35,7 @@ describe "Character exiting the game", :js do
       sign_in_as_character create(:character, room: character.room)
     end
 
-    click_button "exit_game"
+    click_on "exit_game"
 
     using_session(:nearby_character) do
       expect(page).not_to have_surrounding_character(character)
@@ -47,10 +47,10 @@ describe "Character exiting the game", :js do
       sign_in_as_character
     end
 
-    click_button "exit_game"
+    click_on "exit_game"
 
     using_session(:distant_character) do
-      expect(page).not_to have_css("#messages .message-exit-game")
+      expect(page).to have_no_css("#messages .message-exit-game")
     end
   end
 end

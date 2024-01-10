@@ -17,6 +17,6 @@ describe "Expire spawns", :clock, :js do
     run("Expire spawns.")
     visit current_path
 
-    expect(page).not_to have_text(monster_name)
+    expect(page).to have_no_text(monster_name)
   end
 end
