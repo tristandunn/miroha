@@ -37,7 +37,7 @@ describe "Sending the say command", :js do
 
     wait_for(have_message(message, from: character)) do
       using_session(:distant_character) do
-        expect(page).not_to have_css("#messages .message-say")
+        expect(page).to have_no_css("#messages .message-say")
       end
     end
   end
@@ -45,7 +45,7 @@ describe "Sending the say command", :js do
   it "does not allow blank messages" do
     send_text("")
 
-    expect(page).not_to have_css("#messages .message-say")
+    expect(page).to have_no_css("#messages .message-say")
   end
 
   protected

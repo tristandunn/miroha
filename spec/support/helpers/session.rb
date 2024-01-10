@@ -40,7 +40,7 @@ module RSpec
         end
 
         def sign_out
-          click_button t("characters.index.sign_out")
+          click_on t("characters.index.sign_out")
         end
       end
 

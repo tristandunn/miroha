@@ -37,13 +37,13 @@ describe "pages/index.html.erb" do
     end
 
     it "does not link to the new account path" do
-      expect(html).not_to have_css(%(a[href="#{new_account_path}"]),
-                                   text: t("pages.index.new_account"))
+      expect(html).to have_no_css(%(a[href="#{new_account_path}"]),
+                                  text: t("pages.index.new_account"))
     end
 
     it "does not link to the new session path" do
-      expect(html).not_to have_css(%(a[href="#{new_sessions_path}"]),
-                                   text: t("pages.index.sign_in"))
+      expect(html).to have_no_css(%(a[href="#{new_sessions_path}"]),
+                                  text: t("pages.index.sign_in"))
     end
   end
 end

@@ -40,12 +40,12 @@ describe "characters/index.html.erb" do
     end
 
     it "does not render the empty message" do
-      expect(html).not_to have_css("p", text: t("characters.index.empty"))
+      expect(html).to have_no_css("p", text: t("characters.index.empty"))
     end
 
     it "does not link to the new character path" do
-      expect(html).not_to have_css(%(a[href="#{new_character_path}"]),
-                                   text: t("characters.index.new_character"))
+      expect(html).to have_no_css(%(a[href="#{new_character_path}"]),
+                                  text: t("characters.index.new_character"))
     end
   end
 
@@ -63,7 +63,7 @@ describe "characters/index.html.erb" do
     end
 
     it "does not render a button for the character" do
-      expect(html).not_to have_css(
+      expect(html).to have_no_css(
         %(form[method="post"][action="#{select_character_path(character)}"] button)
       )
     end
@@ -80,7 +80,7 @@ describe "characters/index.html.erb" do
     end
 
     it "does not render the character list" do
-      expect(html).not_to have_css("#characters")
+      expect(html).to have_no_css("#characters")
     end
   end
 

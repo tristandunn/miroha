@@ -36,7 +36,7 @@ describe "sessions/new.html.erb" do
   end
 
   it "does not display an error message" do
-    expect(html).not_to have_css("p.error")
+    expect(html).to have_no_css("p.error")
   end
 
   context "with errors" do

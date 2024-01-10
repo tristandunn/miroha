@@ -8,7 +8,7 @@ describe "Creating a new session" do
 
   before do
     visit root_path
-    click_link t("pages.index.sign_in")
+    click_on t("pages.index.sign_in")
   end
 
   it "successfully" do
@@ -49,6 +49,6 @@ describe "Creating a new session" do
   def fill_in_and_submit(email:, password:)
     fill_in "E-mail Address", with: email
     fill_in "Password", with: password
-    click_button t("sessions.new.submit")
+    click_on t("sessions.new.submit")
   end
 end

@@ -11,6 +11,6 @@ describe "Destroying a session" do
   it "successfully" do
     sign_out
 
-    expect(page).not_to have_text(t("characters.index.empty"))
+    expect(page).to have_no_text(t("characters.index.empty"))
   end
 end

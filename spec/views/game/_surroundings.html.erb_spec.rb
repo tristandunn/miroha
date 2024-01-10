@@ -44,7 +44,7 @@ describe "game/_surroundings.html.erb" do
     end
 
     it "does not render the surrounding, inactive characters" do
-      expect(html).not_to have_css("#surrounding_character_#{character_second.id}")
+      expect(html).to have_no_css("#surrounding_character_#{character_second.id}")
     end
   end
 

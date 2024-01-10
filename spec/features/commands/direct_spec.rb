@@ -42,7 +42,7 @@ describe "Sending the direct command", :js do
 
     wait_for(have_direct(message, from: character, to: nearby_character)) do
       using_session(:distant_character) do
-        expect(page).not_to have_css("#messages .message-direct")
+        expect(page).to have_no_css("#messages .message-direct")
       end
     end
   end
