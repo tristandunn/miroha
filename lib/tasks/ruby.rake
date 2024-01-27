@@ -7,8 +7,6 @@ begin
     desc "Run all the Ruby tests"
     task test: :spec
   end
-
-  Rake::Task["spec:prepare"].enhance(["javascript:build", "tailwindcss:build"])
 rescue LoadError # rubocop:disable Lint/SuppressedException
 end
 
