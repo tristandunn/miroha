@@ -13,12 +13,12 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "3.2.2",
-    "@hotwired/turbo-rails": "8.0.0-beta.4",
+    "@hotwired/turbo-rails": "8.0.2",
     "esbuild": "0.20.0"
   },
   "devDependencies": {
     "@babel/core": "7.23.9",
-    "@babel/eslint-parser": "7.23.9",
+    "@babel/eslint-parser": "7.23.10",
     "@babel/preset-env": "7.23.9",
     "@babel/register": "7.23.7",
     "babel-plugin-dynamic-import-node": "2.3.3",
@@ -26,7 +26,7 @@
     "chai": "4.4.1",
     "eslint": "8.56.0",
     "jsdom": "24.0.0",
-    "mocha": "10.2.0",
+    "mocha": "10.3.0",
     "nyc": "15.1.0",
     "sinon": "17.0.1",
     "sinon-chai": "3.7.0",
@@ -36,5 +36,5 @@
   "engines": {
     "node": "20.11.0"
   },
-  "packageManager": "yarn@4.0.2"
+  "packageManager": "yarn@4.1.0"
 }
