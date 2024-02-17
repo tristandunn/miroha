@@ -8,11 +8,12 @@ module Dispatchable
     #
     # @return [ActiveRecord::Relation]
     def with_event_handlers(*events)
-      handlers = EventHandlers.for(*events).map do |handler|
-        handler.to_s.delete_prefix("EventHandlers::")
-      end
+      EventHandlers.for(*events).inject(nil) do |scope, handler|
+        handler = handler.to_s.delete_prefix("EventHandlers::")
 
-      where("event_handlers @> ARRAY[?]::varchar[]", handlers)
+        query = where("event_handlers LIKE ?", "%#{handler}%")
+        query || scope.or(query)
+      end
     end
   end
 
