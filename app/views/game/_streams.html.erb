@@ -1,4 +1,13 @@
-<div id="streams">
-  <%= turbo_stream_from character, id: dom_id(character) %>
-  <%= turbo_stream_from character.room, id: dom_id(character.room) %>
+<div data-controller="streams">
+  <div id="streams" data-streams-id-value="<%= character.id %>">
+    <%= turbo_stream_from character, id: dom_id(character), data: { "streams-target" => "stream" } %>
+    <%= turbo_stream_from character.room, id: dom_id(character.room) %>
+  </div>
+
+  <div data-streams-target="notice" class="grid hidden absolute top-0 right-0 bottom-0 left-0 content-center text-center select-none">
+    <div class="absolute top-0 right-0 bottom-0 left-0 bg-black opacity-60"></div>
+    <div>
+      <span class="relative py-2 px-4 text-white bg-red-900 rounded"><%= t(".disconnected") %></span>
+    </div>
+  </div>
 </div>

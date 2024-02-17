@@ -171,6 +171,8 @@ en:
         menu:
           equipment: "Equipment"
           exit: "Exit the game."
+    streams:
+      disconnected: "Disconnected from Miroha."
 
   monsters:
     attack:
