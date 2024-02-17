@@ -205,6 +205,9 @@ en:
         menu:
           equipment: "Equipment"
           exit: "Exit the game."
+    streams:
+      message: "You will be reconnected automatically, if possible."
+      title: "You've been disconnected."
 
   monsters:
     attack:
