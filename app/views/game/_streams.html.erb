@@ -1,4 +1,4 @@
-<div id="streams">
-  <%= turbo_stream_from character, id: dom_id(character) %>
+<div id="streams" data-controller="streams" data-streams-id-value="<%= character.id %>">
+  <%= turbo_stream_from character, id: dom_id(character), data: { "streams-target" => "stream" } %>
   <%= turbo_stream_from character.room, id: dom_id(character.room) %>
 </div>
