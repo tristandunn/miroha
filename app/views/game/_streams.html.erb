@@ -1,5 +1,17 @@
 <%# locals: (character:) %>
-<div id="streams">
-  <%= turbo_stream_from character, id: dom_id(character) %>
-  <%= turbo_stream_from character.room, id: dom_id(character.room) %>
+<div data-controller="streams">
+  <div id="streams">
+    <%= turbo_stream_from character, id: dom_id(character), data: { "streams-target" => "stream" } %>
+    <%= turbo_stream_from character.room, id: dom_id(character.room) %>
+  </div>
+
+  <div data-streams-target="notice" class="grid hidden absolute top-0 right-0 bottom-0 left-0 content-center text-center select-none">
+    <div class="absolute top-0 right-0 bottom-0 left-0 bg-black opacity-70"></div>
+    <div class="m-auto inline-block">
+      <div class="relative px-8 py-6 text-white bg-slate-800 rounded">
+        <span class="pb-2 block font-bold"><%= t(".title") %></span>
+        <span><%= t(".message") %></span>
+      </div>
+    </div>
+  </div>
 </div>
