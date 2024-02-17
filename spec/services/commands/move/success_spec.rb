@@ -63,6 +63,19 @@ describe Commands::Move::Success, type: :service do
           }
         )
     end
+
+    it "notifies monsters in the target room of the character entering" do
+      event_monsters = instance_double(ActiveRecord::Relation)
+      monster = instance_double(Monster, trigger: true)
+      monsters = class_double(Monster)
+      allow(monsters).to receive(:with_event_handlers).with(:enter).and_return(event_monsters)
+      allow(event_monsters).to receive(:find_each).and_yield(monster)
+      allow(room_target).to receive(:monsters).and_return(monsters)
+
+      call
+
+      expect(monster).to have_received(:trigger).with(:enter, character: character)
+    end
   end
 
   describe "#locals" do
