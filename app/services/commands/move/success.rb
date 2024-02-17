@@ -22,6 +22,10 @@ module Commands
         move_character
         broadcast_exit
         broadcast_enter
+
+        room_target.monsters.with_event_handlers(:enter).find_each do |monster|
+          monster.trigger(:enter, character: character)
+        end
       end
 
       private
