@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "3.2.2",
-    "@hotwired/turbo-rails": "8.0.2",
-    "esbuild": "0.20.0"
+    "@hotwired/turbo-rails": "8.0.3",
+    "esbuild": "0.20.1"
   },
   "devDependencies": {
     "@babel/core": "7.23.9",

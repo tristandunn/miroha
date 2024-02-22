@@ -9,11 +9,11 @@ gem "hotwire-rails",      "0.1.3"
 gem "indefinite_article", "0.2.5"
 gem "jsbundling-rails",   "1.3.0"
 gem "oj",                 "3.16.3"
-gem "pg",                 "1.5.4"
+gem "pg",                 "1.5.5"
 gem "puma",               "6.4.2"
 gem "rack-attack",        "6.7.0"
 gem "rack-timeout",       "0.6.3"
-gem "rails",              "7.1.3"
+gem "rails",              "7.1.3.2"
 gem "rails-healthcheck",  "1.4.0"
 gem "redis",              "5.1.0"
 gem "redis-objects",      "1.7.0"
@@ -21,21 +21,21 @@ gem "rufus-scheduler",    "3.9.1"
 gem "sprockets-rails",    "3.4.2"
 gem "strong_migrations",  "1.7.0"
 gem "tailwindcss-rails",  "2.3.0"
-gem "turbo-rails",        "2.0.2"
+gem "turbo-rails",        "2.0.4"
 
 group :development, :test do
-  gem "cacheflow",    "0.3.2"
-  gem "dotenv-rails", "3.0.0"
-  gem "pg_query",     "5.1.0"
-  gem "prosopite",    "1.4.2"
-  gem "rspec-rails",  "6.1.1"
+  gem "cacheflow",   "0.3.2"
+  gem "dotenv",      "3.0.2"
+  gem "pg_query",    "5.1.0"
+  gem "prosopite",   "1.4.2"
+  gem "rspec-rails", "6.1.1"
 end
 
 group :development do
   gem "brakeman",            "6.1.2", require: false
   gem "erb_lint",            "0.5.0", require: false
   gem "listen",              "3.8.0"
-  gem "rack-mini-profiler",  "3.3.0"
+  gem "rack-mini-profiler",  "3.3.1"
   gem "rubocop",             "1.60.2", require: false
   gem "rubocop-capybara",    "2.20.0", require: false
   gem "rubocop-factory_bot", "2.25.1", require: false
@@ -54,7 +54,7 @@ group :test do
   gem "faker",                    "3.2.3"
   gem "mock_redis",               "0.44.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.17.0"
+  gem "selenium-webdriver",       "4.18.1"
   gem "shoulda-matchers",         "6.1.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
