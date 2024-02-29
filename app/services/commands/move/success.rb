@@ -21,11 +21,7 @@ module Commands
       def call
         move_character
         broadcast_exit
-        broadcast_enter
-
-        room_target.monsters.with_event_handlers(:enter).find_each do |monster|
-          monster.trigger(:enter, character: character)
-        end
+        trigger_enter { broadcast_enter }
       end
 
       private
@@ -49,6 +45,24 @@ module Commands
       # @return [void]
       def move_character
         character.update(room: room_target)
+      end
+
+      # @return [Relation] A relation of monsters in the target room with enter handlers.
+      def target_monsters
+        room_target.monsters.with_event_handlers(:enter)
+      end
+
+      # Trigger events for the entering the target room.
+      #
+      # @return [void]
+      def trigger_enter(&block)
+        if target_monsters.any?
+          target_monsters.find_each do |monster|
+            monster.trigger(:enter, character: character, &block)
+          end
+        else
+          yield
+        end
       end
     end
   end
