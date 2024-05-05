@@ -96,7 +96,7 @@ export default class ChatController extends Controller {
    * @return {void}
    */
   /* istanbul ignore next */
-  redirect(url) { // eslint-disable-line class-methods-use-this
+  redirect(url) {
     window.location = url;
   }
 

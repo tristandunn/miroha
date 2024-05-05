@@ -1,5 +1,3 @@
-/* eslint-disable complexity */
-
 module.exports = function babel (api) {
   const currentEnv = api.env(),
     isDevelopmentEnv = api.env("development"),

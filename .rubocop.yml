@@ -6,6 +6,7 @@ require:
   - rubocop-rails
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   CacheRootDirectory: "tmp/rubocop_cache"

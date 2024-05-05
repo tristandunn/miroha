@@ -32,7 +32,7 @@ export default class GameController extends Controller {
    * @param {Event} event The stream render event.
    * @return {void}
    */
-  onBeforeStreamRender(event) { // eslint-disable-line class-methods-use-this
+  onBeforeStreamRender(event) {
     const { target } = event,
       currentId = document.querySelector("main").dataset.characterId,
       eventId = target.dataset.characterId,

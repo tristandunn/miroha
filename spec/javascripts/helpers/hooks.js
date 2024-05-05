@@ -1,4 +1,4 @@
-exports.mochaHooks = {
+module.exports.mochaHooks = {
   afterEach() {
     sinon.restore();
   },
