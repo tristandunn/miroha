@@ -1,3 +1,5 @@
+/* global process */
+
 const esbuild = require("esbuild");
 
 (async () => {
