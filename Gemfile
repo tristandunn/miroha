@@ -13,7 +13,7 @@ gem "pg",                 "1.5.6"
 gem "puma",               "6.4.2"
 gem "rack-attack",        "6.7.0"
 gem "rack-timeout",       "0.6.3"
-gem "rails",              "7.1.3.2"
+gem "rails",              "7.1.3.3"
 gem "rails-healthcheck",  "1.4.0"
 gem "redis",              "5.2.0"
 gem "redis-objects",      "1.7.0"
@@ -25,7 +25,7 @@ gem "turbo-rails",        "2.0.5"
 
 group :development, :test do
   gem "cacheflow",   "0.3.3"
-  gem "dotenv",      "3.1.1"
+  gem "dotenv",      "3.1.2"
   gem "pg_query",    "5.1.0"
   gem "prosopite",   "1.4.2"
   gem "rspec-rails", "6.1.2"
@@ -36,11 +36,11 @@ group :development do
   gem "erb_lint",            "0.5.0", require: false
   gem "listen",              "3.9.0"
   gem "rack-mini-profiler",  "3.3.1"
-  gem "rubocop",             "1.63.4", require: false
+  gem "rubocop",             "1.63.5", require: false
   gem "rubocop-capybara",    "2.20.0", require: false
   gem "rubocop-factory_bot", "2.25.1", require: false
   gem "rubocop-performance", "1.21.0", require: false
-  gem "rubocop-rails",       "2.24.1", require: false
+  gem "rubocop-rails",       "2.25.0", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "2.29.2", require: false
   gem "rubocop-rspec_rails", "2.28.3", require: false
@@ -55,7 +55,7 @@ group :test do
   gem "faker",                    "3.3.1"
   gem "mock_redis",               "0.44.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.20.1"
+  gem "selenium-webdriver",       "4.21.1"
   gem "shoulda-matchers",         "6.2.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
