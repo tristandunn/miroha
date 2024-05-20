@@ -23,7 +23,7 @@ module Clock
     def spawns_to_expire
       Spawn
         .includes(:entity)
-        .where("expires_at <= ?", Time.current)
+        .where(expires_at: ..Time.current)
         .order(expires_at: :asc)
         .limit(LIMIT)
     end

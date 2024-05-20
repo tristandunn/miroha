@@ -39,7 +39,7 @@ module Clock
     def spawns_to_activate
       Spawn
         .includes(:base, :room)
-        .where("activates_at <= ?", Time.current)
+        .where(activates_at: ..Time.current)
         .order(activates_at: :asc)
         .limit(LIMIT)
     end
