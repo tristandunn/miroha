@@ -19,7 +19,7 @@ gem "redis",              "5.2.0"
 gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.9.1"
 gem "sprockets-rails",    "3.5.1"
-gem "strong_migrations",  "1.8.0"
+gem "strong_migrations",  "2.0.0"
 gem "tailwindcss-rails",  "2.6.1"
 gem "turbo-rails",        "2.0.5"
 
@@ -28,7 +28,7 @@ group :development, :test do
   gem "dotenv",      "3.1.2"
   gem "pg_query",    "5.1.0"
   gem "prosopite",   "1.4.2"
-  gem "rspec-rails", "6.1.2"
+  gem "rspec-rails", "6.1.3"
 end
 
 group :development do
@@ -40,7 +40,7 @@ group :development do
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
   gem "rubocop-performance", "1.21.1", require: false
-  gem "rubocop-rails",       "2.25.0", require: false
+  gem "rubocop-rails",       "2.25.1", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "3.0.1",  require: false
   gem "rubocop-rspec_rails", "2.30.0", require: false
@@ -55,7 +55,7 @@ group :test do
   gem "faker",                    "3.4.1"
   gem "mock_redis",               "0.44.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.21.1"
+  gem "selenium-webdriver",       "4.22.0"
   gem "shoulda-matchers",         "6.2.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
