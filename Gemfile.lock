@@ -160,7 +160,7 @@ GEM
     indefinite_article (0.2.5)
       activesupport
     io-console (0.7.2)
-    irb (1.13.2)
+    irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jsbundling-rails (1.3.0)
@@ -217,7 +217,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.0)
-    rack (3.1.4)
+    rack (3.1.6)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
     rack-mini-profiler (3.3.1)
@@ -328,7 +328,7 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    rubocop-rspec (3.0.1)
+    rubocop-rspec (3.0.2)
       rubocop (~> 1.61)
     rubocop-rspec_rails (2.30.0)
       rubocop (~> 1.61)
@@ -390,7 +390,7 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
     webrick (1.8.1)
-    websocket (1.2.10)
+    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -439,7 +439,7 @@ DEPENDENCIES
   rubocop-performance (= 1.21.1)
   rubocop-rails (= 2.25.1)
   rubocop-rake (= 0.6.0)
-  rubocop-rspec (= 3.0.1)
+  rubocop-rspec (= 3.0.2)
   rubocop-rspec_rails (= 2.30.0)
   rufus-scheduler (= 3.9.1)
   selenium-webdriver (= 4.22.0)
@@ -455,4 +455,4 @@ RUBY VERSION
    ruby 3.3.3p89
 
 BUNDLED WITH
-   2.5.14
+   2.5.15
