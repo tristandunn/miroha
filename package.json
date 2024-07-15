@@ -1,6 +1,7 @@
 {
   "name": "miroha",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "node config/esbuild.config.js",
     "fix:css": "rustywind --custom-regex '@apply ([_a-zA.-Z0-9-:\\[\\] ]+);' --write ./app/assets/stylesheets/**/*",
@@ -9,7 +10,7 @@
     "lint:css": "stylelint app/assets/stylesheets/**/*.css",
     "outdated": "yarn upgrade-interactive",
     "test": "bin/mocha spec/javascripts",
-    "test:coverage": "nyc bin/mocha spec/javascripts"
+    "test:coverage": "c8 --100 --clean --skip-full bin/mocha spec/javascripts"
   },
   "dependencies": {
     "@hotwired/stimulus": "3.2.2",
@@ -24,11 +25,11 @@
     "@stylistic/eslint-plugin-js": "2.3.0",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-istanbul": "7.0.0",
-    "chai": "4.4.1",
+    "c8": "10.1.2",
+    "chai": "5.1.1",
     "eslint": "9.7.0",
     "jsdom": "24.1.0",
     "mocha": "10.6.0",
-    "nyc": "17.0.0",
     "sinon": "18.0.0",
     "sinon-chai": "3.7.0",
     "stylelint": "16.7.0",

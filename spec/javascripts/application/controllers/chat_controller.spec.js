@@ -1,4 +1,4 @@
-import ChatController from "controllers/chat_controller";
+import ChatController from "@app/controllers/chat_controller.js";
 
 describe("ChatController", () => {
   let element, instance;
@@ -272,6 +272,28 @@ describe("ChatController", () => {
 
         expect(instance.messageCount).to.eq(1);
       });
+    });
+  });
+
+  context("#redirect", () => {
+    let originalWindow;
+
+    beforeEach(() => {
+      originalWindow = global.window;
+
+      global.window = {};
+    });
+
+    afterEach(() => {
+      global.window = originalWindow;
+    });
+
+    it("sets the window location to the provided URL", () => {
+      const url = sinon.stub();
+
+      instance.redirect(url);
+
+      expect(window.location).to.eq(url);
     });
   });
 
