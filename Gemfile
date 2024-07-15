@@ -20,7 +20,7 @@ gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.9.1"
 gem "sprockets-rails",    "3.5.1"
 gem "strong_migrations",  "2.0.0"
-gem "tailwindcss-rails",  "2.6.1"
+gem "tailwindcss-rails",  "2.6.2"
 gem "turbo-rails",        "2.0.5"
 
 group :development, :test do
@@ -42,7 +42,7 @@ group :development do
   gem "rubocop-performance", "1.21.1", require: false
   gem "rubocop-rails",       "2.25.1", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
-  gem "rubocop-rspec",       "3.0.2",  require: false
+  gem "rubocop-rspec",       "3.0.3",  require: false
   gem "rubocop-rspec_rails", "2.30.0", require: false
   gem "web-console",         "4.2.1"
 end
