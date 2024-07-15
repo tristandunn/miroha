@@ -1,4 +1,4 @@
-import Actions from "actions";
+import Actions from "@app/actions/index.js";
 
 describe("Actions", () => {
   describe("#exit", () => {

@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 NODE_ENV=test \
-NODE_PATH=app/javascript \
   node_modules/.bin/mocha \
-    --config spec/javascripts/mocharc.js \
+    --config spec/javascripts/mocharc.json \
     "$@"

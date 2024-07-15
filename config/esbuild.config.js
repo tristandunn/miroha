@@ -1,6 +1,6 @@
 /* global process */
 
-const esbuild = require("esbuild");
+import esbuild from "esbuild";
 
 (async () => {
   const context = await esbuild.context({

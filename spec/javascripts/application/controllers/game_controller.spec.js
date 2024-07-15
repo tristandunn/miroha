@@ -1,4 +1,4 @@
-import GameController from "controllers/game_controller";
+import GameController from "@app/controllers/game_controller.js";
 
 describe("GameController", () => {
   let instance;

@@ -1,10 +1,11 @@
-module.exports = {
+{
   "exit": true,
   "recursive": true,
   "reporter": "dot",
   "require": [
     "@babel/register",
+    "spec/javascripts/register.js",
     "spec/javascripts/helpers.js",
     "spec/javascripts/helpers/hooks.js"
   ]
-};
+}

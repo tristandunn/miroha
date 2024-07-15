@@ -1,7 +1,8 @@
-const js = require("@eslint/js"),
-  stylistic = require("@stylistic/eslint-plugin-js");
+import js from "@eslint/js";
+import parser from "@babel/eslint-parser";
+import stylistic from "@stylistic/eslint-plugin-js";
 
-module.exports = [
+export default [
   {
     "files": ["**/*.js"],
     "ignores": [
@@ -17,7 +18,7 @@ module.exports = [
         "require": "readonly",
         "window": "readonly"
       },
-      "parser": require("@babel/eslint-parser"),
+      "parser": parser,
       "parserOptions": {
         "sourceType": "module"
       }

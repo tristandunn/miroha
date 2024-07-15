@@ -1,7 +1,7 @@
-const chai = require("chai"),
-  sinon = require("sinon"),
-  sinonChai = require("sinon-chai"),
-  { JSDOM } = require("jsdom");
+import * as chai from "chai";
+import sinon from "sinon";
+import sinonChai from "sinon-chai";
+import { JSDOM } from "jsdom";
 
 chai.use(sinonChai);
 
