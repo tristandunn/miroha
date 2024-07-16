@@ -1,3 +1,4 @@
+*.js
 app/assets/builds
 coverage
 vendor/bundle
