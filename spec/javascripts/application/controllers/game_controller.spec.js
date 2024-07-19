@@ -39,7 +39,7 @@ describe("GameController", () => {
     });
   });
 
-  context("#onBeforeStreamRender", () => {
+  describe("#onBeforeStreamRender", () => {
     let element,
       event,
       main;

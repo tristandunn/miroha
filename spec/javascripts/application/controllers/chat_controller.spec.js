@@ -8,7 +8,7 @@ describe("ChatController", () => {
     instance = new ChatController({ "scope": { element } });
   });
 
-  context("#initialize", () => {
+  describe("#initialize", () => {
     it("sets message count to zero", () => {
       instance.initialize();
 
@@ -16,7 +16,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#aliasCommand", () => {
+  describe("#aliasCommand", () => {
     let input;
 
     beforeEach(() => {
@@ -75,7 +75,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#focusCommand", () => {
+  describe("#focusCommand", () => {
     it("focuses the input on the element", () => {
       const input = document.createElement("input"),
         inputFocus = sinon.stub(input, "focus");
@@ -88,7 +88,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#handleRedirect", () => {
+  describe("#handleRedirect", () => {
     let redirect;
 
     beforeEach(() => {
@@ -125,7 +125,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#messageTargetConnected", () => {
+  describe("#messageTargetConnected", () => {
     const messageElement = { "offsetHeight": 3 };
 
     let newMessagesTarget, pruneMessages, scrollToBottom;
@@ -224,7 +224,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#pruneMessages", () => {
+  describe("#pruneMessages", () => {
     let remove;
 
     beforeEach(() => {
@@ -275,7 +275,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#redirect", () => {
+  describe("#redirect", () => {
     let originalWindow;
 
     beforeEach(() => {
@@ -297,7 +297,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#resetForm", () => {
+  describe("#resetForm", () => {
     let input;
 
     beforeEach(() => {
@@ -322,7 +322,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#scrollToBottom", () => {
+  describe("#scrollToBottom", () => {
     const messagesTarget = {
       "scrollHeight": 311,
       "scrollTop": 100
@@ -427,7 +427,7 @@ describe("ChatController", () => {
     });
   });
 
-  context("#validateCommand", () => {
+  describe("#validateCommand", () => {
     let event, input, preventDefault, stopPropagation;
 
     beforeEach(() => {
