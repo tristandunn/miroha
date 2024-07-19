@@ -20,7 +20,7 @@ gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.9.1"
 gem "sprockets-rails",    "3.5.1"
 gem "strong_migrations",  "2.0.0"
-gem "tailwindcss-rails",  "2.6.2"
+gem "tailwindcss-rails",  "2.6.3"
 gem "turbo-rails",        "2.0.5"
 
 group :development, :test do
@@ -52,7 +52,7 @@ group :test do
   gem "climate_control",          "1.2.0"
   gem "database_cleaner",         "2.0.2"
   gem "factory_bot_rails",        "6.4.3"
-  gem "faker",                    "3.4.1"
+  gem "faker",                    "3.4.2"
   gem "mock_redis",               "0.44.0"
   gem "rails-controller-testing", "1.0.5"
   gem "selenium-webdriver",       "4.22.0"
