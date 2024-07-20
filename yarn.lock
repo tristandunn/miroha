@@ -70,14 +70,14 @@ __metadata:
   linkType: hard
 
 "@babel/generator@npm:^7.24.8, @babel/generator@npm:^7.24.9":
-  version: 7.24.9
-  resolution: "@babel/generator@npm:7.24.9"
+  version: 7.24.10
+  resolution: "@babel/generator@npm:7.24.10"
   dependencies:
     "@babel/types": "npm:^7.24.9"
     "@jridgewell/gen-mapping": "npm:^0.3.5"
     "@jridgewell/trace-mapping": "npm:^0.3.25"
     jsesc: "npm:^2.5.1"
-  checksum: 10c0/cd1f7edce7717462546c349e15289d1267a3ed627c6f6583fbf51e78eacacc6500ec2f0024f08f1cc7138989e575635b931acf4549f9e728017a22176a9ea6b6
+  checksum: 10c0/abcfd75f625aecc87ce6036ef788b12723fd3c46530df1130d1f00d18e48b462849ddaeef8b1a02bfdcb6e28956389a98c5729dad1c3c5448307dacb6c959f29
   languageName: node
   linkType: hard
 
@@ -1652,20 +1652,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hotwired/turbo-rails@npm:8.0.4":
-  version: 8.0.4
-  resolution: "@hotwired/turbo-rails@npm:8.0.4"
+"@hotwired/turbo-rails@npm:8.0.5":
+  version: 8.0.5
+  resolution: "@hotwired/turbo-rails@npm:8.0.5"
   dependencies:
-    "@hotwired/turbo": "npm:^8.0.4"
+    "@hotwired/turbo": "npm:^8.0.5"
     "@rails/actioncable": "npm:^7.0"
-  checksum: 10c0/c35fdcc79876f3ceaed7100f2e6965bcf9aa647309dce7a6ed685e880ffc1ac475299e00538ecc926addfa4023704c9bd1ea37e70fbef3a77697f7f01d4e344f
+  checksum: 10c0/eed67bcf4258500897772d38831bce5954a851e457a584e377518e10c5b09bab81eaa2902f5e689bdb60f4433ef9765c2cd6cd6760033e39b962fdc2d4fc08aa
   languageName: node
   linkType: hard
 
-"@hotwired/turbo@npm:^8.0.4":
-  version: 8.0.4
-  resolution: "@hotwired/turbo@npm:8.0.4"
-  checksum: 10c0/3e7174d550adf3b9a0a4c45ff5d1b71d47c20de6ae01f646fbbaf8ed447677bd1a5fb6dbd46e95b14645a663fe58a6187c1c6d2a688b0981b5cf437379c5e00a
+"@hotwired/turbo@npm:^8.0.5":
+  version: 8.0.5
+  resolution: "@hotwired/turbo@npm:8.0.5"
+  checksum: 10c0/fc8d1bcb2707c601f98c47d7598b538faaa894f0b16a00e88de0d9d514ebc105631261381acef1ba5c1fa2b8c638a1f4ff2583c881f8da520afa42931884bd88
   languageName: node
   linkType: hard
 
@@ -2662,9 +2662,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.820":
-  version: 1.4.828
-  resolution: "electron-to-chromium@npm:1.4.828"
-  checksum: 10c0/3c9d101379c952d2ebe62941ba91cd7806ff47d0fc957e3e38c89bf6a3b4a6bbe1e7cf38017144ac28dc4856fe202a06371d969a041a746763ed6a88a2b4fb18
+  version: 1.4.832
+  resolution: "electron-to-chromium@npm:1.4.832"
+  checksum: 10c0/40d427b513bdfdadaced02163d702a74fe8662cb8d696570fd641f5cef42f362180ea2b4259ab2f3aab30bca66748358f2b552d00ae7915f731ce27bf8052816
   languageName: node
   linkType: hard
 
@@ -3594,11 +3594,11 @@ __metadata:
   linkType: hard
 
 "is-core-module@npm:^2.13.0":
-  version: 2.14.0
-  resolution: "is-core-module@npm:2.14.0"
+  version: 2.15.0
+  resolution: "is-core-module@npm:2.15.0"
   dependencies:
     hasown: "npm:^2.0.2"
-  checksum: 10c0/ae8dbc82bd20426558bc8d20ce290ce301c1cfd6ae4446266d10cacff4c63c67ab16440ade1d72ced9ec41c569fbacbcee01e293782ce568527c4cdf35936e4c
+  checksum: 10c0/da161f3d9906f459486da65609b2f1a2dfdc60887c689c234d04e88a062cb7920fa5be5fb7ab08dc43b732929653c4135ef05bf77888ae2a9040ce76815eb7b1
   languageName: node
   linkType: hard
 
@@ -4242,7 +4242,7 @@ __metadata:
     "@babel/preset-env": "npm:7.24.8"
     "@babel/register": "npm:7.24.6"
     "@hotwired/stimulus": "npm:3.2.2"
-    "@hotwired/turbo-rails": "npm:8.0.4"
+    "@hotwired/turbo-rails": "npm:8.0.5"
     "@stylistic/eslint-plugin-js": "npm:2.3.0"
     babel-plugin-dynamic-import-node: "npm:2.3.3"
     babel-plugin-istanbul: "npm:7.0.0"
@@ -4370,9 +4370,9 @@ __metadata:
   linkType: hard
 
 "node-releases@npm:^2.0.14":
-  version: 2.0.14
-  resolution: "node-releases@npm:2.0.14"
-  checksum: 10c0/199fc93773ae70ec9969bc6d5ac5b2bbd6eb986ed1907d751f411fef3ede0e4bfdb45ceb43711f8078bea237b6036db8b1bf208f6ff2b70c7d615afd157f3ab9
+  version: 2.0.17
+  resolution: "node-releases@npm:2.0.17"
+  checksum: 10c0/8b8af0ade683e89e1a9c379e3a2d89604c9ae767ef1e52aa5029ca2db1fab5f741140d04cdbf204f56e4a789e319908988291fb22015f8e9f784b7ea9b1b3dd3
   languageName: node
   linkType: hard
 
@@ -4955,11 +4955,11 @@ __metadata:
   linkType: hard
 
 "semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4":
-  version: 7.6.2
-  resolution: "semver@npm:7.6.2"
+  version: 7.6.3
+  resolution: "semver@npm:7.6.3"
   bin:
     semver: bin/semver.js
-  checksum: 10c0/97d3441e97ace8be4b1976433d1c32658f6afaff09f143e52c593bae7eef33de19e3e369c88bd985ce1042c6f441c80c6803078d1de2a9988080b66684cbb30c
+  checksum: 10c0/88f33e148b210c153873cb08cfe1e281d518aaa9a666d4d148add6560db5cd3c582f3a08ccb91f38d5f379ead256da9931234ed122057f40bb5766e65e58adaf
   languageName: node
   linkType: hard
 

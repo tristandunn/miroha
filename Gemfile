@@ -21,7 +21,7 @@ gem "rufus-scheduler",    "3.9.1"
 gem "sprockets-rails",    "3.5.1"
 gem "strong_migrations",  "2.0.0"
 gem "tailwindcss-rails",  "2.6.3"
-gem "turbo-rails",        "2.0.5"
+gem "turbo-rails",        "2.0.6"
 
 group :development, :test do
   gem "cacheflow",   "0.3.3"
@@ -55,7 +55,7 @@ group :test do
   gem "faker",                    "3.4.2"
   gem "mock_redis",               "0.44.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.22.0"
+  gem "selenium-webdriver",       "4.23.0"
   gem "shoulda-matchers",         "6.2.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
