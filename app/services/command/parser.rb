@@ -3,7 +3,7 @@
 class Command
   class Parser
     DEFAULT_NAME = "say"
-    MATCHER      = %r{^/([a-z]+)(?=\s|$)}i
+    MATCHER      = %r{^/([\p{L}\p{M}]+)(?=\s|$)}i
 
     # Initialize a command parser.
     #
@@ -78,11 +78,23 @@ class Command
       end
     end
 
-    # Return the name of the command based on the input.
+    # Return the name of the command based on the internationalized name.
     #
     # @return [String]
     def name
-      @name ||= input.match(MATCHER)&.captures&.first || DEFAULT_NAME
+      lookup = I18n.t("commands.lookup").transform_values { |value| value[:name] }.invert
+      lookup[name_match].to_s
+    end
+
+    # Attempt to match a command name in the raw command input.
+    #
+    # @return [String] The matched command name when found, or the default command name.
+    def name_match
+      if (match = input.match(MATCHER))
+        match.captures.first.downcase
+      else
+        DEFAULT_NAME
+      end
     end
 
     # Returns the command class for unknown commands.
