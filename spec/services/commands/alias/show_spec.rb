@@ -7,7 +7,7 @@ describe Commands::Alias::Show, type: :service do
     subject { described_class.match?(arguments) }
 
     context "with show argument" do
-      let(:arguments) { %w(show u) }
+      let(:arguments) { [t("commands.lookup.alias.arguments.show")] }
 
       it { is_expected.to be(true) }
     end

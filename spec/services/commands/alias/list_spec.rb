@@ -13,7 +13,7 @@ describe Commands::Alias::List, type: :service do
     end
 
     context "with list argument" do
-      let(:arguments) { ["list"] }
+      let(:arguments) { [t("commands.lookup.alias.arguments.list")] }
 
       it { is_expected.to be(true) }
     end

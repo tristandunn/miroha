@@ -9,7 +9,7 @@ module Commands
       #
       # @return [Boolean]
       def self.match?(arguments)
-        arguments.first == "show"
+        arguments.first == I18n.t("commands.lookup.alias.arguments.show")
       end
 
       private

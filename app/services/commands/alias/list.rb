@@ -7,7 +7,7 @@ module Commands
       #
       # @return [Boolean]
       def self.match?(arguments)
-        arguments.empty? || arguments.first == "list"
+        arguments.empty? || arguments.first == I18n.t("commands.lookup.alias.arguments.list")
       end
 
       private

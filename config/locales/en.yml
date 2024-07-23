@@ -126,6 +126,28 @@ en:
         header: "Available Commands"
     look:
       unknown: "You don't see %{article} %{target} here."
+    lookup:
+      alias:
+        name: "alias"
+        arguments:
+          list: "list"
+          show: "show"
+      attack:
+        name: "attack"
+      direct:
+        name: "direct"
+      emote:
+        name: "emote"
+      help:
+        name: "help"
+      look:
+        name: "look"
+      move:
+        name: "move"
+      say:
+        name: "say"
+      whisper:
+        name: "whisper"
     move:
       empty_direction:
         message: "There doesn't appear to be anything %{direction}."

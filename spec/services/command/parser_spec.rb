@@ -16,6 +16,16 @@ describe Command::Parser, type: :service do
       end
 
       it { is_expected.to eq(command) }
+
+      context "with an internationalized command" do
+        let(:input) { "/cabhrú" }
+
+        before do
+          allow(I18n).to receive(:t).with("commands.lookup").and_return(help: { name: "cabhrú" })
+        end
+
+        it { is_expected.to eq(command) }
+      end
     end
 
     context "with a command with arguments" do
@@ -48,6 +58,8 @@ describe Command::Parser, type: :service do
       before do
         stub_const("Commands::Nested::Add", argument_command)
         stub_const("Commands::Nested::List", no_argument_command)
+
+        allow(I18n).to receive(:t).with("commands.lookup").and_return(nested: { name: "nested" })
       end
 
       context "when provided arguments" do
