@@ -20,9 +20,9 @@
   "devDependencies": {
     "@babel/core": "7.25.2",
     "@babel/eslint-parser": "7.25.1",
-    "@babel/preset-env": "7.25.2",
+    "@babel/preset-env": "7.25.3",
     "@babel/register": "7.24.6",
-    "@stylistic/eslint-plugin-js": "2.4.0",
+    "@stylistic/eslint-plugin-js": "2.6.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-istanbul": "7.0.0",
     "c8": "10.1.2",
@@ -36,7 +36,7 @@
     "stylelint-config-standard": "36.0.1"
   },
   "engines": {
-    "node": "20.15.1"
+    "node": "20.16.0"
   },
   "packageManager": "yarn@4.3.1"
 }
