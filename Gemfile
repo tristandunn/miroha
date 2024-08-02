@@ -18,7 +18,7 @@ gem "rails-healthcheck",  "1.4.0"
 gem "redis",              "5.2.0"
 gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.9.1"
-gem "sprockets-rails",    "3.5.1"
+gem "sprockets-rails",    "3.5.2"
 gem "strong_migrations",  "2.0.0"
 gem "tailwindcss-rails",  "2.6.5"
 gem "turbo-rails",        "2.0.6"
@@ -33,10 +33,10 @@ end
 
 group :development do
   gem "brakeman",            "6.1.2", require: false
-  gem "erb_lint",            "0.5.0", require: false
+  gem "erb_lint",            "0.6.0", require: false
   gem "listen",              "3.9.0"
   gem "rack-mini-profiler",  "3.3.1"
-  gem "rubocop",             "1.64.1", require: false
+  gem "rubocop",             "1.65.1", require: false
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
   gem "rubocop-performance", "1.21.1", require: false
