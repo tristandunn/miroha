@@ -10,11 +10,12 @@ describe AccountForm, type: :form do
   end
 
   describe "#account" do
-    subject(:form) { described_class.new(attributes_for(:account)) }
+    subject(:form) { described_class.new(email: generate(:email), password: generate(:password)) }
 
     it "builds a new account with the form attributes" do
       expect(form.account).to be_a(Account).and(be_new_record).and(
         have_attributes(
+          aliases:  I18n.t("account_form.default_aliases").stringify_keys,
           email:    form.email,
           password: form.password
         )
@@ -23,7 +24,7 @@ describe AccountForm, type: :form do
   end
 
   describe "#save" do
-    subject(:form) { described_class.new(attributes_for(:account)) }
+    subject(:form) { described_class.new(email: generate(:email), password: generate(:password)) }
 
     context "when valid" do
       it "persists the account" do
