@@ -2,6 +2,18 @@
 en:
   title: "Miroha"
 
+  account_form:
+    default_aliases:
+      "/a": "/attack"
+      "/d": "/direct"
+      "/me": "/emote"
+      "d": "/move down"
+      "e": "/move east"
+      "n": "/move north"
+      "s": "/move south"
+      "u": "/move up"
+      "w": "/move west"
+
   accounts:
     new:
       header: "Create an Account"

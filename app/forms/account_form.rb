@@ -16,10 +16,17 @@ class AccountForm < BaseForm
   #
   # @return [Account]
   def account
-    @account ||= Account.new(email: email, password: password)
+    @account ||= Account.new(aliases: default_aliases, email: email, password: password)
   end
 
   private
+
+  # Return the internationalized default aliases.
+  #
+  # @return [Hash]
+  def default_aliases
+    I18n.t("account_form.default_aliases")
+  end
 
   # Validate the account, merging account errors into the form errors.
   #
