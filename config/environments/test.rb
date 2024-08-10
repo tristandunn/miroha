@@ -21,11 +21,12 @@ Rails.application.configure do
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
-  config.cache_store = :null_store
+  config.cache_store                       = :null_store
+  config.consider_all_requests_local       = true
 
-  # Raise exceptions instead of rendering exception templates.
+  # Render exception templates for rescuable exceptions and raise for
+  # other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 
   # Disable request forgery protection in test environment.
@@ -49,6 +50,9 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference
   # missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Run jobs asynchronously so Turbo jobs are executed.
+  config.active_job.queue_adapter = :async
 
   # Add the authentication backdoor middleware.
   config.middleware.use(Middleware::Backdoor)
