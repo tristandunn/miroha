@@ -25,12 +25,6 @@ Rails.application.configure do
   # sometimes Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
-  # Compress CSS using a preprocessor.
-  # config.assets.css_compressor = :sass
-
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
@@ -51,9 +45,12 @@ Rails.application.configure do
   # Strict-Transport-Security and secure cookies.
   config.assume_ssl = true
 
-  # Force all access to the application over SSL, use
-  # Strict-Transport-Security, and use secure cookies.
+  # Force all access to the app over SSL, use Strict-Transport-Security, and
+  # use secure cookies.
   config.force_ssl = true
+
+  # Skip http-to-https redirect for the default health check endpoint.
+  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger
@@ -64,7 +61,7 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
-  # Info include generic and useful information about system operation, but
+  # Info includes generic and useful information about system operation, but
   # avoids logging too much information to avoid inadvertent exposure of
   # personally identifiable information (PII). If you want to log everything,
   # set the level to "debug".

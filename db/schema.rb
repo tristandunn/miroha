@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_04_24_003938) do
+ActiveRecord::Schema[7.2].define(version: 2023_04_24_003938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_04_24_003938) do
     t.bigint "room_id", null: false
     t.integer "level", default: 1, null: false
     t.integer "experience", default: 0, null: false
-    t.datetime "active_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "active_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.boolean "playing", default: false, null: false
     t.integer "current_health", default: 10, null: false
     t.integer "maximum_health", default: 10, null: false
