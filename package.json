@@ -22,14 +22,14 @@
     "@babel/eslint-parser": "7.25.1",
     "@babel/preset-env": "7.25.3",
     "@babel/register": "7.24.6",
-    "@stylistic/eslint-plugin-js": "2.6.1",
+    "@stylistic/eslint-plugin-js": "2.6.2",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-istanbul": "7.0.0",
     "c8": "10.1.2",
     "chai": "5.1.1",
-    "eslint": "9.8.0",
+    "eslint": "9.9.0",
     "jsdom": "24.1.1",
-    "mocha": "10.7.0",
+    "mocha": "10.7.3",
     "sinon": "18.0.0",
     "sinon-chai": "4.0.0",
     "stylelint": "16.8.1",
@@ -38,5 +38,5 @@
   "engines": {
     "node": "20.16.0"
   },
-  "packageManager": "yarn@4.3.1"
+  "packageManager": "yarn@4.4.0"
 }
