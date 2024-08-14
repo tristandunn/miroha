@@ -45,6 +45,11 @@ Naming/VariableNumber:
 Rails:
   Enabled: true
 
+Rails/ApplicationController:
+  Enabled: true
+  Exclude:
+    - app/controllers/health_controller.rb
+
 RSpec/ExampleLength:
   Max: 20
 
