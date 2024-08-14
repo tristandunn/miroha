@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  Healthcheck.routes(self)
-
   resources :accounts, only: %i(new create)
 
   resources :characters, only: %i(index new create) do
@@ -21,6 +19,8 @@ Rails.application.routes.draw do
   constraints(->(request) { Constraints::Game.matches?(request) }) do
     root to: "game#index", as: :game_root
   end
+
+  get "/health", to: "health#index"
 
   root to: "pages#index"
 end
