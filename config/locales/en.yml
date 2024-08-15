@@ -80,6 +80,11 @@ en:
           header:
             one: "Command Alias"
             other: "Command Aliases"
+      remove:
+        success:
+          message: "The \"%{name}\" alias has been removed."
+        unknown_alias:
+          message: "You do not have an alias for \"%{name}\"."
       show:
         unknown_alias:
           message: "You do not have an alias for \"%{name}\"."
@@ -143,6 +148,7 @@ en:
         name: "alias"
         arguments:
           list: "list"
+          remove: "remove"
           show: "show"
       attack:
         name: "attack"

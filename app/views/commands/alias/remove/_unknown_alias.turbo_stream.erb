@@ -1,0 +1,2 @@
+<%# locals: (name:) %>
+<%= turbo_stream.append("messages", partial: "commands/alias/remove/unknown_alias", locals: { name: name }) %>
