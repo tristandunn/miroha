@@ -10,6 +10,6 @@ FactoryBot.define do
   end
 
   sequence :password do
-    Faker::Internet.password
+    Faker::Internet.password(min_length: Account::MINIMUM_PASSWORD_LENGTH)
   end
 end
