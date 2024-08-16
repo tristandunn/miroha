@@ -17,7 +17,7 @@ class Account < ApplicationRecord
                     format:     { with: EMAIL_MATCHER },
                     uniqueness: { case_sensitive: false }
 
-  validates :password, length: { minimum: MINIMUM_PASSWORD_LENGTH }
+  validates :password, length: { minimum: MINIMUM_PASSWORD_LENGTH, allow_blank: true }
 
   # Determine if an account can create a character.
   #
