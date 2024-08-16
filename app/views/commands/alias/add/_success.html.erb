@@ -1,0 +1,9 @@
+<%# locals: (account:, command:, shortcut:) %>
+<tr data-chat-target="message">
+  <td class="message-alias-add"></td>
+  <td class="message-alias-add">
+    <%= t(".message", command: command, shortcut: shortcut) %></td>
+  </td>
+</tr>
+
+<script>window.Miroha.Settings.aliases = <%== account.aliases.to_json %>;</script>

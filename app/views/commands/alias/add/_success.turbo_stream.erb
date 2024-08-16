@@ -1,0 +1,2 @@
+<%# locals: (account:, command:, shortcut:) %>
+<%= turbo_stream.append("messages", partial: "commands/alias/add/success", locals: { account: account, command: command, shortcut: shortcut }) %>
