@@ -12,7 +12,7 @@ describe "commands/alias/list/_success.turbo_stream.erb" do
   end
 
   before do
-    stub_template("commands/alias/list/_success.html.erb" => "ALIAS_TEMPLATE")
+    stub_template("commands/alias/list/_success.html.erb" => "SUCCESS_TEMPLATE")
   end
 
   it "appends to the messages element" do
@@ -23,6 +23,6 @@ describe "commands/alias/list/_success.turbo_stream.erb" do
   end
 
   it "renders the HTML template" do
-    expect(html).to include("ALIAS_TEMPLATE")
+    expect(html).to include("SUCCESS_TEMPLATE")
   end
 end

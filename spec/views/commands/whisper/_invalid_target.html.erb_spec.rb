@@ -9,7 +9,7 @@ describe "commands/whisper/_invalid_target.html.erb" do
     rendered
   end
 
-  it "renders the self message" do
+  it "renders the invalid target message" do
     expect(html).to have_message_row(
       "td[colspan=2]",
       text: t("commands.whisper.invalid_target.message")
