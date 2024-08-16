@@ -16,7 +16,7 @@ describe "commands/attack/_invalid_target.html.erb" do
 
   let(:target_name) { generate(:name) }
 
-  it "renders the invalid message" do
+  it "renders the invalid target message" do
     expect(html).to have_message_row(
       "td[colspan=2]",
       text: t("commands.attack.invalid_target.message", target_name: target_name)

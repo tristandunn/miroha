@@ -13,7 +13,7 @@ describe "commands/move/_invalid_direction.turbo_stream.erb" do
   end
 
   before do
-    stub_template("commands/move/_invalid_direction.html.erb" => "INVALID_TEMPLATE")
+    stub_template("commands/move/_invalid_direction.html.erb" => "INVALID_DIRECTION_TEMPLATE")
   end
 
   it "appends to the messages element" do
@@ -24,6 +24,6 @@ describe "commands/move/_invalid_direction.turbo_stream.erb" do
   end
 
   it "renders the HTML template" do
-    expect(html).to include("INVALID_TEMPLATE")
+    expect(html).to include("INVALID_DIRECTION_TEMPLATE")
   end
 end

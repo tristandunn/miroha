@@ -12,7 +12,7 @@ describe "commands/alias/show/_unknown_alias.html.erb" do
 
   let(:name) { "unknown" }
 
-  it "renders the invalid direction message" do
+  it "renders the unknown alias message" do
     expect(html).to have_message_row(
       "td:nth-child(2)",
       text: t("commands.alias.show.unknown_alias.message", name: name)
