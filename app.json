@@ -2,11 +2,13 @@
   "healthchecks": {
     "web": [
       {
-        "type":     "startup",
-        "path":     "/health",
+        "name": "HTTP Response",
+        "type": "startup",
+        "path": "/health",
         "attempts": 30,
-        "timeout":  1,
-        "wait":     1
+        "initialDelay": 1,
+        "timeout": 1,
+        "wait": 1
       }
     ]
   }
