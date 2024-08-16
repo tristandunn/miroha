@@ -75,6 +75,11 @@ en:
 
   commands:
     alias:
+      add:
+        invalid_command:
+          message: "There is no \"%{command}\" command."
+        success:
+          message: "The alias \"%{shortcut}\" has been added for the \"%{command}\" command."
       list:
         success:
           header:
@@ -147,6 +152,7 @@ en:
       alias:
         name: "alias"
         arguments:
+          add: "add"
           list: "list"
           remove: "remove"
           show: "show"
