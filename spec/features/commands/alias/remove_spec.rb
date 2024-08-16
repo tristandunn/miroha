@@ -64,7 +64,7 @@ describe "Sending the alias remove command", :js do
   def have_unknown_alias_message(name:)
     have_css(
       "#messages .message-alias-remove-unknown",
-      text: t("commands.alias.show.unknown_alias.message", name: name)
+      text: t("commands.alias.remove.unknown_alias.message", name: name)
     )
   end
 end
