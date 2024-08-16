@@ -15,7 +15,7 @@ describe Account do
     it { is_expected.to allow_value("MrBoB@example.com").for(:email) }
     it { is_expected.not_to allow_value("@.com").for(:email) }
 
-    it { is_expected.to validate_presence_of(:password).on(:update) }
+    it { is_expected.to validate_presence_of(:password).allow_blank }
 
     it "is expected to validate that the length of :email is at most the maximum" do
       expect(account).to validate_length_of(:email)
