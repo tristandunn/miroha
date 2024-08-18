@@ -19,7 +19,7 @@ gem "redis",              "5.2.0"
 gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.9.1"
 gem "strong_migrations",  "2.0.0"
-gem "tailwindcss-rails",  "2.7.2"
+gem "tailwindcss-rails",  "2.7.3"
 gem "turbo-rails",        "2.0.6"
 
 group :development, :test do
@@ -27,7 +27,7 @@ group :development, :test do
   gem "dotenv",      "3.1.2"
   gem "pg_query",    "5.1.0"
   gem "prosopite",   "1.4.2"
-  gem "rspec-rails", "6.1.3"
+  gem "rspec-rails", "6.1.4"
 end
 
 group :development do
@@ -55,6 +55,6 @@ group :test do
   gem "mock_redis",               "0.44.0"
   gem "rails-controller-testing", "1.0.5"
   gem "selenium-webdriver",       "4.23.0"
-  gem "shoulda-matchers",         "6.3.1"
+  gem "shoulda-matchers",         "6.4.0"
   gem "simplecov-console",        "0.9.1", require: false
 end
