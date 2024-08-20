@@ -65,7 +65,8 @@
 }
 
 #messages .message-alias td,
-#messages .message-help td {
+#messages .message-help td,
+#messages .message-help th {
   @apply py-2 px-4 font-normal text-left border-0 bg-inherit;
 }
 
@@ -151,7 +152,7 @@
 }
 
 #messages .message-alias td[colspan="2"],
-#messages .message-help td[colspan="3"] {
+#messages .message-help th {
   @apply font-sans font-bold text-center bg-slate-200;
 }
 

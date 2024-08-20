@@ -2,7 +2,7 @@
 
 module Commands
   class Help < Base
-    class Success < Result
+    class List < Result
       locals :commands
 
       delegate :commands, to: :class

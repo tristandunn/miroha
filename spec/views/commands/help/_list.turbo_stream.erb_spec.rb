@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe "commands/help/_success.turbo_stream.erb" do
+describe "commands/help/_list.turbo_stream.erb" do
   subject(:html) do
-    render partial: "commands/help/success",
+    render partial: "commands/help/list",
            formats: :turbo_stream,
            locals:  { commands: [] }
 
@@ -12,7 +12,7 @@ describe "commands/help/_success.turbo_stream.erb" do
   end
 
   before do
-    stub_template("commands/help/_success.html.erb" => "HELP_TEMPLATE")
+    stub_template("commands/help/_list.html.erb" => "HELP_TEMPLATE")
   end
 
   it "appends to the messages element" do
