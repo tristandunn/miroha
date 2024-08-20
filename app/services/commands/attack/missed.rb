@@ -9,6 +9,8 @@ module Commands
 
       # Initialize a missed attack result.
       #
+      # @param [Character] character The character missing the target.
+      # @param [Monster] target The target being missed.
       # @return [void]
       def initialize(character:, target:)
         @character = character

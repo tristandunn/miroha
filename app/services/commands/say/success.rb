@@ -7,6 +7,8 @@ module Commands
 
       # Initialize a successful say result.
       #
+      # @param [Character] character The character speaking.
+      # @param [String] message The message being spoken.
       # @return [void]
       def initialize(character:, message:)
         @character = character

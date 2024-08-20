@@ -7,6 +7,7 @@ module Commands
 
       # Initialize a missing target whisper result.
       #
+      # @param [Character] target The missing target.
       # @return [void]
       def initialize(target:)
         @target = target

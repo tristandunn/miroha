@@ -7,6 +7,8 @@ module Commands
 
       # Initialize a successful look result.
       #
+      # @param [Character] character The character looking at the object.
+      # @param [String] object The optional object to look at.
       # @return [void]
       def initialize(character:, object:)
         @character = character

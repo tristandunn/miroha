@@ -11,6 +11,7 @@ module Commands
 
         # Initialize an alias list result.
         #
+        # @param [Character] character The character listing the aliases.
         # @return [void]
         def initialize(character:)
           @character = character

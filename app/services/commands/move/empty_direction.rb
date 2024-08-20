@@ -7,6 +7,7 @@ module Commands
 
       # Initialize an empty direction move result.
       #
+      # @param [String] direction The empty direction.
       # @return [void]
       def initialize(direction:)
         @direction = direction

@@ -8,6 +8,8 @@ module Commands
 
         # Initialize a successful alias remove result.
         #
+        # @param [Character] character The character removing the alias.
+        # @param [String] name The alias name to remove.
         # @return [void]
         def initialize(character:, name:)
           @character = character

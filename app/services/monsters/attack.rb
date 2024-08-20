@@ -5,6 +5,7 @@ module Monsters
     # Initialize an instance.
     #
     # @param [Monster] monster The monster performing the attack.
+    # @return [void]
     def initialize(monster)
       @monster = monster
     end

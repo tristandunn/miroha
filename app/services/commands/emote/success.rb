@@ -11,6 +11,8 @@ module Commands
 
       # Initialize a successful emote result.
       #
+      # @param [Character] character The character emoting.
+      # @param [String] message The message being emoted.
       # @return [void]
       def initialize(character:, message:)
         @character = character

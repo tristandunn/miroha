@@ -7,6 +7,9 @@ module Commands
 
       # Initialize a successful whisper result.
       #
+      # @param [Character] character The character whispering.
+      # @param [String] message The message being whispered.
+      # @param [Character] target The target being whispered to.
       # @return [void]
       def initialize(character:, message:, target:)
         @character = character

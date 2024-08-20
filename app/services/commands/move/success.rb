@@ -7,6 +7,10 @@ module Commands
 
       # Initialize a successful move result.
       #
+      # @param [Character] character The character moving.
+      # @param [String] direction The direction the character is moving.
+      # @param [Room] room_source The room the character is moving from.
+      # @param [Room] room_target The room the character is moving to.
       # @return [void]
       def initialize(character:, direction:, room_source:, room_target:)
         @character   = character
