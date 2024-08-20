@@ -123,7 +123,20 @@ en:
     help:
       commands:
         alias:
-          description: "List the available command aliases."
+          arguments: "(add|list|remove|show)"
+          description: "Manage the command aliases for your account."
+          subcommands:
+            add:
+              arguments: "[alias] [command]"
+              description: "Add a new command alias."
+            list:
+              description: "List all available command aliases."
+            remove:
+              arguments: "[alias]"
+              description: "Remove a command alias."
+            show:
+              arguments: "[alias]"
+              description: "Show a command alias."
         attack:
           arguments: "[target]"
           description: "Attempt to attack a target."
@@ -133,6 +146,9 @@ en:
         emote:
           arguments: "[message]"
           description: "Emote a message to the room."
+        help:
+          arguments: "[command]"
+          description: "Display help for commands, or a specific command."
         look:
           description: "Look at the room."
         move:
@@ -144,8 +160,11 @@ en:
         whisper:
           arguments: "[name] [message]"
           description: "Whisper a message to a character in the room."
-      success:
-        header: "Available Commands"
+      invalid_command:
+        message: "There is no \"%{name}\" command."
+      list:
+        command: "Command"
+        description: "Description"
     look:
       unknown: "You don't see %{article} %{target} here."
     lookup:

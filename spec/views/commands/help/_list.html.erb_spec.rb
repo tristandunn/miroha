@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe "commands/help/_success.html.erb" do
+describe "commands/help/_list.html.erb" do
   subject(:html) do
-    render partial: "commands/help/success", locals: { commands: [command] }
+    render partial: "commands/help/list", locals: { commands: [command] }
 
     rendered
   end
@@ -17,10 +17,15 @@ describe "commands/help/_success.html.erb" do
     }
   end
 
-  it "renders the header" do
+  it "renders the headers" do
     expect(html).to have_css(
-      ".message-help td[colspan=3]",
-      text: t("commands.help.success.header")
+      ".message-help th[colspan=2]",
+      text: t("commands.help.list.command")
+    ).and(
+      have_css(
+        ".message-help th",
+        text: t("commands.help.list.description")
+      )
     )
   end
 

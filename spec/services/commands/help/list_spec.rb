@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Commands::Help::Success, type: :service do
+describe Commands::Help::List, type: :service do
   describe "class" do
     it { is_expected.to delegate_method(:commands).to(:class) }
 
