@@ -7,6 +7,7 @@ module Commands
 
       # Initialize a help command result.
       #
+      # @param [String] name The name of the command for help.
       # @return [void]
       def initialize(name:)
         @name = name

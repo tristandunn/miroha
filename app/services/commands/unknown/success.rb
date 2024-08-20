@@ -7,6 +7,7 @@ module Commands
 
       # Initialize a successful unknown result.
       #
+      # @param [String] command The unknown command name.
       # @return [void]
       def initialize(command:)
         @command = command

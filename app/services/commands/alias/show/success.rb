@@ -8,6 +8,7 @@ module Commands
 
         # Initialize a successful alias show result.
         #
+        # @param [Array] aliases An array of a single alias being shown.
         # @return [void]
         def initialize(aliases:)
           @aliases = aliases

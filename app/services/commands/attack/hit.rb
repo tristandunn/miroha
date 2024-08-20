@@ -9,6 +9,9 @@ module Commands
 
       # Initialize a successful attack hit result.
       #
+      # @param [Character] character The character hitting the target.
+      # @param [Integer] damage The damage dealt to the target.
+      # @param [Monster] target The target being attacked.
       # @return [void]
       def initialize(character:, damage:, target:)
         @character = character

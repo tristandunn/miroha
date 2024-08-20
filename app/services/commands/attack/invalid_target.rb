@@ -7,6 +7,7 @@ module Commands
 
       # Initialize an attack invalid target result.
       #
+      # @param [String] target_name The name of the invalid target.
       # @return [void]
       def initialize(target_name:)
         @target_name = target_name

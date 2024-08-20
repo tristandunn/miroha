@@ -7,6 +7,7 @@ module Commands
 
       # Initialize a help invalid command result.
       #
+      # @param [String] name The invalid command name.
       # @return [void]
       def initialize(name:)
         @name = name

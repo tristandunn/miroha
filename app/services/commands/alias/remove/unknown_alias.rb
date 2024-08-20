@@ -8,6 +8,7 @@ module Commands
 
         # Initialize an unknown alias remove result.
         #
+        # @param [String] name The invalid alias name.
         # @return [void]
         def initialize(name:)
           @name = name

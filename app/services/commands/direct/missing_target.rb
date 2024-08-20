@@ -7,6 +7,7 @@ module Commands
 
       # Initialize a missing target direct message result.
       #
+      # @param [String] target_name The missing target name.
       # @return [void]
       def initialize(target_name:)
         @target_name = target_name

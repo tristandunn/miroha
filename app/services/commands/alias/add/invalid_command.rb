@@ -8,6 +8,7 @@ module Commands
 
         # Initialize an alias add invalid command result.
         #
+        # @param [String] command The invalid command name.
         # @return [void]
         def initialize(command:)
           @command = command
