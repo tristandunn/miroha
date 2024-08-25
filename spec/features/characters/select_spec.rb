@@ -38,6 +38,14 @@ describe "Selecting a character", :js do
     expect(page).to have_surrounding_monster(monster)
   end
 
+  it "displays items in surroundings", js: false do
+    item = create(:item, owner: character.room)
+
+    click_on character.name
+
+    expect(page).to have_surrounding_item(item)
+  end
+
   it "broadcasts an enter message to the room" do
     using_session(:nearby_character) do
       sign_in_as_character create(:character, room: character.room)

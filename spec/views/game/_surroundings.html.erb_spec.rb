@@ -48,6 +48,29 @@ describe "game/_surroundings.html.erb" do
     end
   end
 
+  context "with items" do
+    let(:room) { create(:room) }
+
+    it "renders the surrounding items ordered by name" do
+      item_first  = create(:item, owner: room, name: "Dagger")
+      item_second = create(:item, owner: room, name: "Knife")
+
+      expect(html).to have_css(
+        "#surrounding-items #surrounding_item_#{item_first.id}"
+      ).and(
+        have_css(
+          "#surrounding-items #surrounding_item_#{item_second.id}"
+        )
+      ).and(
+        have_css(
+          "#surrounding-items " \
+          "#surrounding_item_#{item_first.id} + " \
+          "#surrounding_item_#{item_second.id}"
+        )
+      )
+    end
+  end
+
   context "with monsters" do
     let(:monster_first)  { create(:monster, room: room, name: "Blob") }
     let(:monster_second) { create(:monster, room: room, name: "Rat") }

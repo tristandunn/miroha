@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2023_04_24_003938) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_25_015139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,15 @@ ActiveRecord::Schema[7.2].define(version: 2023_04_24_003938) do
     t.index ["name"], name: "index_characters_on_name", unique: true
     t.index ["room_id", "active_at"], name: "index_characters_on_room_id_and_active_at"
     t.check_constraint "current_health <= maximum_health", name: "characters_current_health_check"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.string "name", limit: 24, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_items_on_owner"
   end
 
   create_table "monsters", force: :cascade do |t|
