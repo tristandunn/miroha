@@ -14,8 +14,8 @@ gem "propshaft",          "0.9.1"
 gem "puma",               "6.4.2"
 gem "rack-attack",        "6.7.0"
 gem "rack-timeout",       "0.7.0"
-gem "rails",              "7.2.0"
-gem "redis",              "5.2.0"
+gem "rails",              "7.2.1"
+gem "redis",              "5.3.0"
 gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.9.1"
 gem "strong_migrations",  "2.0.0"
@@ -31,7 +31,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "brakeman",            "6.1.2", require: false
+  gem "brakeman",            "6.2.1", require: false
   gem "erb_lint",            "0.6.0", require: false
   gem "listen",              "3.9.0"
   gem "rack-mini-profiler",  "3.3.1"
@@ -39,7 +39,7 @@ group :development do
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
   gem "rubocop-performance", "1.21.1", require: false
-  gem "rubocop-rails",       "2.25.1", require: false
+  gem "rubocop-rails",       "2.26.0", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "3.0.4",  require: false
   gem "rubocop-rspec_rails", "2.30.0", require: false
