@@ -24,10 +24,22 @@ describe Commands::Look::Success, type: :service do
 
     context "with a valid object" do
       let(:description) { Faker::Lorem.sentence }
-      let(:room)        { build_stubbed(:room, objects: { object => description }) }
-      let(:object)      { Faker::Lorem.word }
+      let(:object)      { "paintings" }
+      let(:room)        { build_stubbed(:room, objects: { "paintings" => description }) }
 
       it { is_expected.to eq(description: description) }
+
+      context "when stored singular and sent plural" do
+        let(:room) { build_stubbed(:room, objects: { "painting" => description }) }
+
+        it { is_expected.to eq(description: description) }
+      end
+
+      context "when stored plural and sent singular" do
+        let(:object) { "painting" }
+
+        it { is_expected.to eq(description: description) }
+      end
     end
 
     context "with an invalid object" do
