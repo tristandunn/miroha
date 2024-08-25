@@ -12,6 +12,10 @@ module RSpec
           have_css("#surrounding-characters li", text: character.name)
         end
 
+        def have_surrounding_item(item)
+          have_css("#surrounding-items li", text: item.name)
+        end
+
         def have_surrounding_monster(monster)
           have_css("#surrounding-monsters li", text: monster.name)
         end

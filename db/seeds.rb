@@ -24,6 +24,10 @@ Room.find_or_initialize_by(x: -1, y: 0, z: 0).tap do |room|
       DESCRIPTION
     }
   )
+
+  Item.find_or_create_by(owner: room).tap do |item|
+    item.update(name: "Empty Jug")
+  end
 end
 
 Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
