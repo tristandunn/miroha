@@ -166,7 +166,7 @@ en:
         command: "Command"
         description: "Description"
     look:
-      unknown: "You don't see %{article} %{target} here."
+      unknown: "You don't see %{article} \"%{target}\" here."
     lookup:
       alias:
         name: "alias"

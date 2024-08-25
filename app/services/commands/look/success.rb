@@ -31,11 +31,20 @@ module Commands
       # @return [String]
       def description
         if object.present?
-          room.objects[object].presence ||
+          object_description ||
             I18n.t("commands.look.unknown", article: article, target: object)
         else
           room.description
         end
+      end
+
+      # Returns the object description if present.
+      #
+      # @return [String] Description of the room object if present.
+      # @return [nil] If no object description is present.
+      def object_description
+        objects = room.objects
+        objects[object] || objects[object.pluralize] || objects[object.singularize]
       end
 
       # Return the character's room.
