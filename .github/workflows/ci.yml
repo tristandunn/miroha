@@ -83,6 +83,21 @@ jobs:
       - name: Lint the CSS
         run: yarn lint:css
 
+  Docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+      - name: Build the image
+        uses: docker/build-push-action@v6
+        with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+
   Vulnerabilities:
     runs-on: ubuntu-latest
 

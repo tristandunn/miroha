@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node config/esbuild.config.js",
+    "build:css": "tailwindcss --config config/tailwind.config.js --input app/assets/stylesheets/application.tailwind.css --output app/assets/builds/tailwind.css --minify",
     "fix:css": "rustywind --custom-regex '@apply ([_a-zA.-Z0-9-:\\[\\] ]+);' --write ./app/assets/stylesheets/**/*",
     "fix:html": "rustywind --write app/views",
     "lint": "eslint app config spec/javascripts *.js",
@@ -15,7 +16,9 @@
   "dependencies": {
     "@hotwired/stimulus": "3.2.2",
     "@hotwired/turbo-rails": "8.0.5",
-    "esbuild": "0.23.1"
+    "@tailwindcss/forms": "0.5.8",
+    "esbuild": "0.23.1",
+    "tailwindcss": "3.4.10"
   },
   "devDependencies": {
     "@babel/core": "7.25.2",

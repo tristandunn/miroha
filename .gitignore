@@ -1,14 +1,10 @@
 .yarn/*
 app/assets/builds/*
 coverage/
-log/
+log/*
 node_modules/
-tmp/
+tmp/*
 config/credentials/production.key
 
-!app/assets/builds/.keep
-!/.yarn/patches
-!/.yarn/plugins
-!/.yarn/releases
-!/.yarn/sdks
-!/.yarn/versions
+!.keep
+!.yarn/releases
