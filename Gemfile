@@ -7,7 +7,6 @@ gem "bcrypt",             "3.1.20"
 gem "bootsnap",           "1.18.4", require: false
 gem "hotwire-rails",      "0.1.3"
 gem "indefinite_article", "0.2.5"
-gem "jsbundling-rails",   "1.3.1"
 gem "oj",                 "3.16.5"
 gem "pg",                 "1.5.7"
 gem "propshaft",          "0.9.1"
@@ -19,7 +18,6 @@ gem "redis",              "5.3.0"
 gem "redis-objects",      "1.7.0"
 gem "rufus-scheduler",    "3.9.1"
 gem "strong_migrations",  "2.0.0"
-gem "tailwindcss-rails",  "2.7.3"
 gem "turbo-rails",        "2.0.6"
 
 group :development, :test do

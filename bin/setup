@@ -13,5 +13,8 @@ yarn install
 # Prepare the database.
 ./bin/rails db:prepare
 
+# Prepare the tests.
+./bin/rails spec:prepare
+
 # Clean up.
 ./bin/rails log:clear tmp:clear
