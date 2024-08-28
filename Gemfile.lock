@@ -141,10 +141,10 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (4.27.3-arm64-darwin)
+    google-protobuf (4.27.4-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.3-x86_64-linux)
+    google-protobuf (4.27.4-x86_64-linux)
       bigdecimal
       rake (>= 13)
     hotwire-rails (0.1.3)
@@ -181,7 +181,7 @@ GEM
     minitest (5.25.1)
     mock_redis (0.44.0)
     msgpack (1.7.2)
-    net-imap (0.4.14)
+    net-imap (0.4.15)
       date
       net-protocol
     net-pop (0.1.2)
@@ -448,4 +448,4 @@ RUBY VERSION
    ruby 3.3.4p94
 
 BUNDLED WITH
-   2.5.17
+   2.5.18
