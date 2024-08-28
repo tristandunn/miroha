@@ -96,9 +96,9 @@ module Commands
     # @return [Enumerable]
     def validations
       parameters.keys.lazy.map do |parameter|
-        send(:"validate_#{parameter}")
-      rescue NoMethodError
-        nil
+        suppress(NoMethodError) do
+          send(:"validate_#{parameter}")
+        end
       end
     end
   end
