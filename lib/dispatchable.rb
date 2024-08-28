@@ -21,9 +21,9 @@ module Dispatchable
   # @return [Array] The event handler classes.
   def event_handlers
     @event_handlers ||= read_attribute(:event_handlers).filter_map do |handler|
-      EventHandlers.const_get(handler, false)
-    rescue NameError
-      nil
+      suppress(NameError) do
+        EventHandlers.const_get(handler, false)
+      end
     end
   end
 
