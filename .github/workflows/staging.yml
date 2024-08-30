@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push to Staging
-        uses: dokku/github-action@v1.4.0
+        uses: dokku/github-action@v1.5.0
         with:
           branch: staging
           git_push_flags: "--force"
