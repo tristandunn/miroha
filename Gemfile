@@ -54,7 +54,7 @@ group :test do
   gem "faker",                    "3.4.2"
   gem "mock_redis",               "0.44.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.23.0"
+  gem "selenium-webdriver",       "4.24.0"
   gem "shoulda-matchers",         "6.4.0"
   gem "simplecov-console",        "0.9.1", require: false
 end

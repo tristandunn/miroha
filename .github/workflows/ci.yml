@@ -11,24 +11,16 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16-alpine
-        ports: ["5432:5432"]
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-retries 10
-          --health-timeout 1s
+        image: postgres:16.4-alpine3.20
+        ports:
+          - 5432:5432
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_USER: miroha
       redis:
-        image: redis:7-alpine
-        ports: ["6379:6379"]
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10ms
-          --health-retries 10
-          --health-timeout 1s
+        image: redis:7.4.0-alpine3.20
+        ports:
+          - 6379:6379
 
     steps:
       - name: Checkout the code
@@ -47,8 +39,7 @@ jobs:
         env:
           COVERAGE: true
           DATABASE_POOL: 10
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: miroha
           RAILS_ENV: test
         run: bundle exec rails db:setup ruby:test
 
