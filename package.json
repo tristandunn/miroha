@@ -25,7 +25,7 @@
     "@babel/eslint-parser": "7.25.1",
     "@babel/preset-env": "7.25.4",
     "@babel/register": "7.24.6",
-    "@stylistic/eslint-plugin-js": "2.7.1",
+    "@stylistic/eslint-plugin-js": "2.7.2",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-istanbul": "7.0.0",
     "c8": "10.1.2",
