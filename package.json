@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node config/esbuild.config.js",
-    "build:css": "tailwindcss --config config/tailwind.config.js --input app/assets/stylesheets/application.tailwind.css --output app/assets/builds/tailwind.css --minify",
+    "build:css": "bin/tailwindcss",
     "fix:css": "rustywind --custom-regex '@apply ([_a-zA.-Z0-9-:\\[\\] ]+);' --write ./app/assets/stylesheets/**/*",
     "fix:html": "rustywind --write app/views",
     "lint": "eslint app config spec/javascripts *.js",
