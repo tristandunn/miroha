@@ -32,6 +32,7 @@ RUN yarn build
 
 # Copy in files for CSS assets.
 COPY app/views app/views
+COPY bin/tailwindcss bin/tailwindcss
 COPY config/tailwind.config.js config/tailwind.config.js
 
 # Build the CSS assets.
