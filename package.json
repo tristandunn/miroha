@@ -33,6 +33,7 @@
     "eslint": "9.9.1",
     "jsdom": "25.0.0",
     "mocha": "10.7.3",
+    "rustywind": "0.22.0",
     "sinon": "18.0.0",
     "sinon-chai": "4.0.0",
     "stylelint": "16.9.0",

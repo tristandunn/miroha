@@ -1944,6 +1944,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"agent-base@npm:5":
+  version: 5.1.1
+  resolution: "agent-base@npm:5.1.1"
+  checksum: 10c0/3baa3f01072c16e3955ce7802166e576cde9831af82b262aae1c780af49c0c84e82e64ba9ef9e7d1704fe29e9f0096a78a4f998ec137360fee3cb95186f97161
+  languageName: node
+  linkType: hard
+
 "agent-base@npm:^7.0.2, agent-base@npm:^7.1.0, agent-base@npm:^7.1.1":
   version: 7.1.1
   resolution: "agent-base@npm:7.1.1"
@@ -3538,6 +3545,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"https-proxy-agent@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "https-proxy-agent@npm:4.0.0"
+  dependencies:
+    agent-base: "npm:5"
+    debug: "npm:4"
+  checksum: 10c0/fbba3e037ec04e1850e867064a763b86dd884baae9c5f4ad380504e321068c9e9b5de79cf2f3a28ede7c36036dce905b58d9f51703c5b3884d887114f4887f77
+  languageName: node
+  linkType: hard
+
 "https-proxy-agent@npm:^7.0.1, https-proxy-agent@npm:^7.0.5":
   version: 7.0.5
   resolution: "https-proxy-agent@npm:7.0.5"
@@ -4330,6 +4347,7 @@ __metadata:
     eslint: "npm:9.9.1"
     jsdom: "npm:25.0.0"
     mocha: "npm:10.7.3"
+    rustywind: "npm:0.22.0"
     sinon: "npm:18.0.0"
     sinon-chai: "npm:4.0.0"
     stylelint: "npm:16.9.0"
@@ -4876,6 +4894,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: 10c0/fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
+  languageName: node
+  linkType: hard
+
 "psl@npm:^1.1.33":
   version: 1.9.0
   resolution: "psl@npm:1.9.0"
@@ -5083,6 +5108,18 @@ __metadata:
   dependencies:
     queue-microtask: "npm:^1.2.2"
   checksum: 10c0/200b5ab25b5b8b7113f9901bfe3afc347e19bb7475b267d55ad0eb86a62a46d77510cb0f232507c9e5d497ebda569a08a9867d0d14f57a82ad5564d991588b39
+  languageName: node
+  linkType: hard
+
+"rustywind@npm:0.22.0":
+  version: 0.22.0
+  resolution: "rustywind@npm:0.22.0"
+  dependencies:
+    https-proxy-agent: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  bin:
+    rustywind: bin/rustywind
+  checksum: 10c0/e58a0a52822c4ca3b274955b50887c2b8970f1b0579a338010c82e7d9b8ee1d245d0f628660a81f5f5f321ca2fd6d4aee16271c3905c5011b66ed77292877786
   languageName: node
   linkType: hard
 
