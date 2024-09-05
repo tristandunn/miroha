@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ruby   "3.3.4"
+ruby   "3.3.5"
 source "https://rubygems.org"
 
 gem "bcrypt",             "3.1.20"
@@ -16,7 +16,7 @@ gem "rack-timeout",       "0.7.0"
 gem "rails",              "7.2.1"
 gem "redis",              "5.3.0"
 gem "redis-objects",      "1.7.0"
-gem "rufus-scheduler",    "3.9.1"
+gem "rufus-scheduler",    "3.9.2"
 gem "strong_migrations",  "2.0.0"
 gem "turbo-rails",        "2.0.6"
 
@@ -33,7 +33,7 @@ group :development do
   gem "erb_lint",            "0.6.0", require: false
   gem "listen",              "3.9.0"
   gem "rack-mini-profiler",  "3.3.1"
-  gem "rubocop",             "1.66.0", require: false
+  gem "rubocop",             "1.66.1", require: false
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
   gem "rubocop-performance", "1.21.1", require: false
