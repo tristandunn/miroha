@@ -184,7 +184,7 @@ GEM
     minitest (5.25.1)
     mock_redis (0.44.0)
     msgpack (1.7.2)
-    net-imap (0.4.15)
+    net-imap (0.4.16)
       date
       net-protocol
     net-pop (0.1.2)
@@ -206,7 +206,7 @@ GEM
       ostruct (>= 0.2)
     ostruct (0.6.0)
     parallel (1.26.3)
-    parser (3.3.4.2)
+    parser (3.3.5.0)
       ast (~> 2.4.1)
       racc
     pg (1.5.7)
@@ -285,10 +285,9 @@ GEM
     redis-objects (1.7.0)
       redis
     regexp_parser (2.9.2)
-    reline (0.5.9)
+    reline (0.5.10)
       io-console (~> 0.5)
-    rexml (3.3.6)
-      strscan
+    rexml (3.3.7)
     rspec-core (3.13.1)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.2)
@@ -306,17 +305,17 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
-    rubocop (1.66.0)
+    rubocop (1.66.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.4, < 3.0)
-      rubocop-ast (>= 1.32.1, < 2.0)
+      rubocop-ast (>= 1.32.2, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.32.2)
+    rubocop-ast (1.32.3)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)
@@ -339,8 +338,8 @@ GEM
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
-    rufus-scheduler (3.9.1)
-      fugit (~> 1.1, >= 1.1.6)
+    rufus-scheduler (3.9.2)
+      fugit (~> 1.1, >= 1.11.1)
     securerandom (0.3.1)
     selenium-webdriver (4.24.0)
       base64 (~> 0.2)
@@ -366,7 +365,6 @@ GEM
     stringio (3.1.1)
     strong_migrations (2.0.0)
       activerecord (>= 6.1)
-    strscan (3.1.0)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     thor (1.3.2)
@@ -428,7 +426,7 @@ DEPENDENCIES
   redis (= 5.3.0)
   redis-objects (= 1.7.0)
   rspec-rails (= 7.0.1)
-  rubocop (= 1.66.0)
+  rubocop (= 1.66.1)
   rubocop-capybara (= 2.21.0)
   rubocop-factory_bot (= 2.26.1)
   rubocop-performance (= 1.21.1)
@@ -436,7 +434,7 @@ DEPENDENCIES
   rubocop-rake (= 0.6.0)
   rubocop-rspec (= 3.0.4)
   rubocop-rspec_rails (= 2.30.0)
-  rufus-scheduler (= 3.9.1)
+  rufus-scheduler (= 3.9.2)
   selenium-webdriver (= 4.24.0)
   shoulda-matchers (= 6.4.0)
   simplecov-console (= 0.9.1)
@@ -445,7 +443,7 @@ DEPENDENCIES
   web-console (= 4.2.1)
 
 RUBY VERSION
-   ruby 3.3.4p94
+   ruby 3.3.5p100
 
 BUNDLED WITH
    2.5.18
