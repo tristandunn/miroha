@@ -6,7 +6,6 @@ source "https://rubygems.org"
 gem "bcrypt",             "3.1.20"
 gem "bootsnap",           "1.18.4", require: false
 gem "hotwire-rails",      "0.1.3"
-gem "indefinite_article", "0.2.5"
 gem "oj",                 "3.16.5"
 gem "pg",                 "1.5.7"
 gem "propshaft",          "0.9.1"
