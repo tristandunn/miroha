@@ -47,11 +47,7 @@ describe Commands::Look::Success, type: :service do
       let(:room)   { build_stubbed(:room) }
 
       let(:description) do
-        I18n.t(
-          "commands.look.unknown",
-          article: object.indefinite_article,
-          target:  object
-        )
+        I18n.t("commands.look.unknown", target: object)
       end
 
       it { is_expected.to eq(description: description) }

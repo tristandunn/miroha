@@ -30,9 +30,7 @@ describe "Sending the look command", :js do
     it "displays the room description to the sender" do
       send_command(:look, :scissors)
 
-      expect(page).to have_look_message(
-        t("commands.look.unknown", article: "a", target: "scissors")
-      )
+      expect(page).to have_look_message(t("commands.look.unknown", target: "scissors"))
     end
   end
 

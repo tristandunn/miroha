@@ -19,20 +19,13 @@ module Commands
 
       attr_reader :character, :object
 
-      # Return the article for the object.
-      #
-      # @return [String]
-      def article
-        object.indefinite_article
-      end
-
       # Return the description for looking.
       #
       # @return [String]
       def description
         if object.present?
           object_description ||
-            I18n.t("commands.look.unknown", article: article, target: object)
+            I18n.t("commands.look.unknown", target: object)
         else
           room.description
         end
