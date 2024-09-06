@@ -5,6 +5,9 @@ class SessionsController < ApplicationController
                 except: :destroy,
                 if:     :signed_in?
 
+  rate_limit to: 1, within: 1.second, only: :create
+  rate_limit to: 5, within: 30.seconds, only: :create, by: -> { session_parameters[:email] }
+
   # Display the session form.
   def new
     @form = SessionForm.new
