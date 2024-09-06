@@ -3,6 +3,8 @@
 class AccountsController < ApplicationController
   before_action :redirect_authenticated_account, if: :signed_in?
 
+  rate_limit to: 5, within: 1.hour, only: :create
+
   # Render the new account form.
   def new
     @form = AccountForm.new
