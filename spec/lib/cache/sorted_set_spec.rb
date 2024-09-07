@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Cache::SortedSet do
+describe Cache::SortedSet, :cache do
   let(:expires_in) { 1.minute }
   let(:key)        { "test-key" }
   let(:instance)   { described_class.new(key, expires_in: expires_in) }

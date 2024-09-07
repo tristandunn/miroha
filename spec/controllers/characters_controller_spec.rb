@@ -214,7 +214,7 @@ describe CharactersController do
       it { is_expected.to redirect_to(new_sessions_url) }
     end
 
-    context "when recently selected" do
+    context "when recently selected", :cache do
       let(:account)   { character.account }
       let(:character) { create(:character, :inactive) }
 

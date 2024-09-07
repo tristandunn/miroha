@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Monsters attack", :clock, :js do
+describe "Monsters attack", :cache, :clock, :js do
   let(:character) { create(:character, room: room) }
   let(:damage)    { 1 }
   let(:monster)   { spawn.entity }

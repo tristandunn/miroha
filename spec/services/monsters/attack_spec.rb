@@ -12,7 +12,7 @@ describe Monsters::Attack, type: :service do
     allow(SecureRandom).to receive(:random_number).with(0..1).and_return(damage).once
   end
 
-  describe "#call" do
+  describe "#call", :cache do
     subject(:call) { instance.call }
 
     before do
