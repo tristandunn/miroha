@@ -2,7 +2,7 @@
 
 class HealthController < ActionController::Base
   CHECKS = {
-    cache:      -> { Redis::Objects.redis.info },
+    cache:      -> { Redis.new.info },
     database:   -> { ActiveRecord::Base.connection.execute("SELECT 1") },
     migrations: -> { ActiveRecord::Migration.check_all_pending! }
   }.freeze

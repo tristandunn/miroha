@@ -49,7 +49,7 @@ describe "characters/index.html.erb" do
     end
   end
 
-  context "with a recent character", :cache do
+  context "with a recent character" do
     let(:character) { create(:character) }
 
     before do

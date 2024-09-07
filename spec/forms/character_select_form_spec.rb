@@ -65,7 +65,7 @@ describe CharacterSelectForm, type: :form do
     end
   end
 
-  describe "#ensure_character_is_valid", :cache do
+  describe "#ensure_character_is_valid" do
     subject(:form) { described_class.new(account: account, id: id) }
 
     let(:account) { create(:account) }

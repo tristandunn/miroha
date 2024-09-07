@@ -125,7 +125,7 @@ describe Character do
     end
   end
 
-  describe "#recent?", :cache do
+  describe "#recent?" do
     subject(:recent?) { character.recent? }
 
     let(:character) { create(:character) }
