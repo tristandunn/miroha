@@ -22,7 +22,7 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.action_controller.perform_caching = false
-  config.cache_store                       = :null_store
+  config.cache_store                       = :memory_store
   config.consider_all_requests_local       = true
 
   # Render exception templates for rescuable exceptions and raise for

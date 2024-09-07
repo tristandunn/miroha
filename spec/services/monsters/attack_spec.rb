@@ -216,7 +216,7 @@ describe Monsters::Attack, type: :service do
 
     context "with no valid target" do
       before do
-        Redis::Objects.redis.flushdb
+        Rails.cache.clear
       end
 
       it "does not broadcast append" do

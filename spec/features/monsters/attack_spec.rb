@@ -12,8 +12,8 @@ describe "Monsters attack", :clock, :js do
   before do
     sign_in_as_character character
 
-    hates = Redis::SortedSet.new(EventHandlers::Monster::Hate::KEY % monster.id)
-    hates.incr(character.id, 2)
+    hates = Cache::SortedSet.new(EventHandlers::Monster::Hate::KEY % monster.id)
+    hates.increment(character.id, 2)
 
     allow(SecureRandom).to receive(:random_number).with(0..1).and_return(damage)
   end

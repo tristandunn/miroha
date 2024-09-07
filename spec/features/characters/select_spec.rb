@@ -93,7 +93,7 @@ describe "Selecting a character", :js do
     end
   end
 
-  it "does not allow quick repeated selection", :cache, js: false do
+  it "does not allow quick repeated selection", js: false do
     Rails.cache.write(Character::SELECTED_KEY % character.id, 1, expires_in: 5.minutes)
 
     click_on character.name

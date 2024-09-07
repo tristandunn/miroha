@@ -13,9 +13,8 @@ module EventHandlers
       # @param [Monster] monster The monster being attacked.
       # @return [void]
       def self.on_attacked(character:, damage:, monster:)
-        hates = Redis::SortedSet.new(KEY % monster.id)
-        hates.incr(character.id, damage)
-        hates.expire(TTL)
+        hates = Cache::SortedSet.new(KEY % monster.id, expires_in: TTL)
+        hates.increment(character.id, damage)
       end
     end
   end

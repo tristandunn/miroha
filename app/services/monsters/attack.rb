@@ -199,9 +199,7 @@ module Monsters
     #
     # @return [Array]
     def hates
-      @hates ||= Redis::SortedSet.new(EventHandlers::Monster::Hate::KEY % monster.id)
-                                 .revrange(0, 5)
-                                 .map(&:to_i)
+      @hates ||= Cache::SortedSet.new(EventHandlers::Monster::Hate::KEY % monster.id).top(5)
     end
 
     # Kill the target character by broadcasting a killed message, moving the
