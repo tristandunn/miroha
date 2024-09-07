@@ -26,3 +26,13 @@ services:
     depends_on:
       - database
       - redis
+
+  test:
+    build:
+      dockerfile: Dockerfile.test
+    depends_on:
+      - database
+    environment:
+      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: true
+      DATABASE_URL: postgres://miroha@database:5432/miroha_test
+    command: bin/rake db:prepare check

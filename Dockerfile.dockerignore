@@ -1,15 +1,13 @@
 .browserslistrc
-.dockerignore
 .erb-lint.yml
 .gitattributes
 .gitignore
 .rubocop.yml
-.ruby-version
 .stylelintignore
 .stylelintrc.js
 .tool-versions
 .yamllint.yml
-Dockerfile
+Dockerfile*
 LICENSE
 Procfile
 Procfile.dev
