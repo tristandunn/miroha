@@ -29,6 +29,9 @@ services:
 
   test:
     build:
+      args:
+        BUNDLE_WITHOUT: ""
+        ENVIRONMENT: development
       dockerfile: Dockerfile.test
     depends_on:
       - database
