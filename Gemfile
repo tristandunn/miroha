@@ -6,16 +6,16 @@ source "https://rubygems.org"
 gem "bcrypt",             "3.1.20"
 gem "bootsnap",           "1.18.4", require: false
 gem "hotwire-rails",      "0.1.3"
-gem "oj",                 "3.16.5"
-gem "pg",                 "1.5.7"
-gem "propshaft",          "0.9.1"
+gem "oj",                 "3.16.6"
+gem "pg",                 "1.5.8"
+gem "propshaft",          "1.0.0"
 gem "puma",               "6.4.2"
 gem "rack-timeout",       "0.7.0"
 gem "rails",              "7.2.1"
 gem "redis",              "5.3.0"
 gem "rufus-scheduler",    "3.9.2"
 gem "strong_migrations",  "2.0.0"
-gem "turbo-rails",        "2.0.6"
+gem "turbo-rails",        "2.0.7"
 
 group :development, :test do
   gem "cacheflow",   "0.3.3"
@@ -34,9 +34,9 @@ group :development do
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
   gem "rubocop-performance", "1.21.1", require: false
-  gem "rubocop-rails",       "2.26.0", require: false
+  gem "rubocop-rails",       "2.26.1", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
-  gem "rubocop-rspec",       "3.0.4",  require: false
+  gem "rubocop-rspec",       "3.0.5",  require: false
   gem "rubocop-rspec_rails", "2.30.0", require: false
   gem "web-console",         "4.2.1"
 end
