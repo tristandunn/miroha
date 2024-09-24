@@ -9,17 +9,17 @@ gem "hotwire-rails",      "0.1.3"
 gem "oj",                 "3.16.6"
 gem "pg",                 "1.5.8"
 gem "propshaft",          "1.0.0"
-gem "puma",               "6.4.2"
+gem "puma",               "6.4.3"
 gem "rack-timeout",       "0.7.0"
 gem "rails",              "7.2.1"
 gem "redis",              "5.3.0"
 gem "rufus-scheduler",    "3.9.2"
 gem "strong_migrations",  "2.0.0"
-gem "turbo-rails",        "2.0.7"
+gem "turbo-rails",        "2.0.10"
 
 group :development, :test do
   gem "cacheflow",   "0.3.3"
-  gem "dotenv",      "3.1.2"
+  gem "dotenv",      "3.1.4"
   gem "pg_query",    "5.1.0"
   gem "prosopite",   "1.4.2"
   gem "rspec-rails", "7.0.1"
@@ -33,8 +33,8 @@ group :development do
   gem "rubocop",             "1.66.1", require: false
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
-  gem "rubocop-performance", "1.21.1", require: false
-  gem "rubocop-rails",       "2.26.1", require: false
+  gem "rubocop-performance", "1.22.1", require: false
+  gem "rubocop-rails",       "2.26.2", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "3.0.5",  require: false
   gem "rubocop-rspec_rails", "2.30.0", require: false
@@ -48,7 +48,7 @@ group :test do
   gem "factory_bot_rails",        "6.4.3"
   gem "faker",                    "3.4.2"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.24.0"
+  gem "selenium-webdriver",       "4.25.0"
   gem "shoulda-matchers",         "6.4.0"
-  gem "simplecov-console",        "0.9.1", require: false
+  gem "simplecov-console",        "0.9.2", require: false
 end
