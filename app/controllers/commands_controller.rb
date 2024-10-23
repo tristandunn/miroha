@@ -56,17 +56,22 @@ class CommandsController < ApplicationController
       within: command.class.period,
       with:   -> { head :too_many_requests },
       store:  cache_store,
-      by:     -> { rate_limit_identifier }
+      by:     -> { rate_limit_scope },
+      name:   rate_limit_name
     )
   end
 
-  # Return the rate limit identifier for the command being created.
+  # Return the name of the rate limiter, based on account ID.
   #
   # @return [String]
-  def rate_limit_identifier
-    [
-      "account-#{current_character.account_id}",
-      "command-#{command.class.name.delete_prefix("Commands::").underscore}"
-    ].join(":")
+  def rate_limit_name
+    "account-#{current_character.account_id}"
+  end
+
+  # Return the scope for the rate limit based on the command class name.
+  #
+  # @return [String]
+  def rate_limit_scope
+    command.class.name.delete_prefix("Commands::").underscore
   end
 end

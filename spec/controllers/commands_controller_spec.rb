@@ -53,7 +53,7 @@ describe CommandsController do
 
         it "tracks rate limiting by account and command" do
           expect(controller.cache_store).to have_received(:increment).with(
-            "rate-limit:commands:account-#{character.account_id}:command-unknown",
+            "rate-limit:commands:account-#{character.account_id}:unknown",
             1,
             expires_in: command_class.period
           )
