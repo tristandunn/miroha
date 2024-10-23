@@ -12,7 +12,6 @@ module.exports = function babel (api) {
 
   return {
     "plugins": [
-      "@babel/plugin-syntax-dynamic-import",
       isTestEnv && "babel-plugin-dynamic-import-node",
       isTestEnv && "babel-plugin-istanbul",
       "@babel/plugin-transform-destructuring",
