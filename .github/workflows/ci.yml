@@ -28,23 +28,32 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Enable the Corepack tool
+        run: corepack enable
+
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           cache: "yarn"
+          node-version-file: ".tool-versions"
+
       - name: Install the Node dependencies
         run: yarn install
+
       - name: Run the Ruby tests
         env:
           COVERAGE: true
           DATABASE_POOL: 10
           POSTGRES_USER: miroha
           RAILS_ENV: test
-        run: bundle exec rails db:setup ruby:test
+          SE_AVOID_STATS: true
+        run: bin/rails db:setup ruby:test
 
   JavaScript:
     runs-on: ubuntu-latest
@@ -52,12 +61,19 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+
+      - name: Enable the Corepack tool
+        run: corepack enable
+
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           cache: "yarn"
+          node-version-file: ".tool-versions"
+
       - name: Install the Node dependencies
         run: yarn install
+
       - name: Run the JavaScript tests
         run: yarn test:coverage
 
@@ -67,22 +83,33 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Enable the Corepack tool
+        run: corepack enable
+
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           cache: "yarn"
+          node-version-file: ".tool-versions"
+
       - name: Install the Node dependencies
         run: yarn install
+
       - name: Lint the ERB
         run: bundle exec erblint .
+
       - name: Lint the Ruby
-        run: bundle exec rubocop --parallel
+        run: bin/rubocop --format github --parallel
+
       - name: Lint the JavaScript
         run: yarn lint
+
       - name: Lint the CSS
         run: yarn lint:css
 
@@ -92,8 +119,10 @@ jobs:
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3
+
       - name: Build the image
         uses: docker/build-push-action@v6
         with:
@@ -107,9 +136,11 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
       - name: Scan for vulnerabilities
-        run: bundle exec brakeman --format github --no-pager
+        run: bin/rubocop --format github --parallel

@@ -16,9 +16,9 @@ WORKDIR /build
 
 # Copy in files for Yarn.
 COPY .yarnrc.yml package.json yarn.lock .
-COPY .yarn .yarn
 
 # Install the Node.js dependencies.
+RUN corepack enable
 RUN yarn install --immutable
 
 # Copy in files for JS assets.
