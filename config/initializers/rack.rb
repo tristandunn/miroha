@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if Gem::Version.new(Rack.release) > Gem::Version.new("3.1.8") ||
-   ActionPack.version > Gem::Version.new("7.2.1.1")
+   ActionPack.version > Gem::Version.new("7.2.1.2")
   raise "Rack patch to silence a deprecation warning from Rails may no longer be needed."
 end
 
