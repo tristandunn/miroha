@@ -52,7 +52,8 @@ module Commands
       Turbo::StreamsChannel.broadcast_append_later_to(
         *streamables,
         target: target,
-        **render_options.merge(custom_render_options)
+        **render_options,
+        **custom_render_options
       )
     end
 
@@ -64,7 +65,8 @@ module Commands
     def broadcast_render_later_to(*streamables, **custom_render_options)
       Turbo::StreamsChannel.broadcast_render_later_to(
         *streamables,
-        **render_options.merge(custom_render_options)
+        **render_options,
+        **custom_render_options
       )
     end
 
@@ -78,7 +80,8 @@ module Commands
       Turbo::StreamsChannel.broadcast_replace_later_to(
         *streamables,
         target: target,
-        **render_options.merge(custom_render_options)
+        **render_options,
+        **custom_render_options
       )
     end
 

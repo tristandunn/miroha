@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-ruby   "3.3.5"
+ruby   "3.3.6"
 source "https://rubygems.org"
 
 gem "bcrypt",             "3.1.20"
 gem "bootsnap",           "1.18.4", require: false
 gem "hotwire-rails",      "0.1.3"
-gem "oj",                 "3.16.6"
+gem "oj",                 "3.16.7"
 gem "pg",                 "1.5.9"
 gem "propshaft",          "1.1.0"
 gem "puma",               "6.4.3"
 gem "rack-timeout",       "0.7.0"
-gem "rails",              "7.2.1.2"
+gem "rails",              "7.2.2"
 gem "redis",              "5.3.0"
 gem "rufus-scheduler",    "3.9.2"
-gem "strong_migrations",  "2.0.2"
+gem "strong_migrations",  "2.1.0"
 gem "turbo-rails",        "2.0.11"
 
 group :development, :test do
@@ -22,7 +22,7 @@ group :development, :test do
   gem "dotenv",      "3.1.4"
   gem "pg_query",    "5.1.0"
   gem "prosopite",   "1.4.2"
-  gem "rspec-rails", "7.0.1"
+  gem "rspec-rails", "7.1.0"
 end
 
 group :development do
@@ -30,10 +30,10 @@ group :development do
   gem "erb_lint",            "0.7.0", require: false
   gem "listen",              "3.9.0"
   gem "rack-mini-profiler",  "3.3.1"
-  gem "rubocop",             "1.67.0", require: false
+  gem "rubocop",             "1.68.0", require: false
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
-  gem "rubocop-performance", "1.22.1", require: false
+  gem "rubocop-performance", "1.23.0", require: false
   gem "rubocop-rails",       "2.27.0", require: false
   gem "rubocop-rake",        "0.6.0",  require: false
   gem "rubocop-rspec",       "3.2.0",  require: false

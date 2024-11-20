@@ -1,6 +1,6 @@
 # Accept optional arguments.
-ARG NODE_VERSION="20.17.0-alpine3.20"
-ARG RUBY_VERSION="3.3.5-alpine3.20"
+ARG NODE_VERSION="22.11.0-alpine3.20"
+ARG RUBY_VERSION="3.3.6-alpine3.20"
 
 # Create a builder image for Node.
 FROM node:$NODE_VERSION AS node-builder

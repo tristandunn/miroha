@@ -6,7 +6,6 @@ import { JSDOM } from "jsdom";
 chai.use(sinonChai);
 
 global.expect = chai.expect;
-global.navigator = { "userAgent": "node.js" };
 global.sinon = sinon.createSandbox();
 
 global.createDOM = () => {
