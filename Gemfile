@@ -7,20 +7,17 @@ gem "bcrypt",             "3.1.20"
 gem "bootsnap",           "1.18.4", require: false
 gem "hotwire-rails",      "0.1.3"
 gem "oj",                 "3.16.8"
-gem "pg",                 "1.5.9"
 gem "propshaft",          "1.1.0"
 gem "puma",               "6.5.0"
 gem "rack-timeout",       "0.7.0"
 gem "rails",              "8.0.1"
 gem "redis",              "5.3.0"
 gem "rufus-scheduler",    "3.9.2"
-gem "strong_migrations",  "2.1.0"
+gem "sqlite3",            "2.4.1"
 gem "turbo-rails",        "2.0.11"
 
 group :development, :test do
   gem "cacheflow",   "0.4.0"
-  gem "pg_query",    "6.0.0"
-  gem "prosopite",   "1.4.2"
   gem "rspec-rails", "7.1.0"
 end
 

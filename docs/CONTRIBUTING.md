@@ -14,7 +14,6 @@ You need the following software installed for local development:
 
 - [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
 - [Node.js](https://nodejs.dev/learn/how-to-install-nodejs)
-- [PostgreSQL](https://www.postgresql.org/download/)
 - [Redis](https://redis.io/download)
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/)
 

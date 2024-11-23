@@ -13,13 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgres:
-        image: postgres:16.4-alpine3.20
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_USER: miroha
       redis:
         image: redis:7.4.0-alpine3.20
         ports:
@@ -50,7 +43,6 @@ jobs:
         env:
           COVERAGE: true
           DATABASE_POOL: 10
-          POSTGRES_USER: miroha
           RAILS_ENV: test
           SE_AVOID_STATS: true
         run: bin/rails db:setup ruby:test
