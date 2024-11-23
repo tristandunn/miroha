@@ -30,7 +30,7 @@ describe "Health" do
     context "with no database connection" do
       before do
         # rubocop:disable RSpec/AnyInstance
-        allow_any_instance_of(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
+        allow_any_instance_of(ActiveRecord::ConnectionAdapters::SQLite3Adapter)
           .to receive(:execute).and_raise
         # rubocop:enable RSpec/AnyInstance
       end

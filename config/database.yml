@@ -1,22 +1,18 @@
 ---
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("DATABASE_POOL", ENV.fetch("RAILS_MAX_THREADS") { 5 } + 1) %>
-  variables:
-    statement_timeout: 5_000
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: miroha_development
+  database: storage/development.sqlite3
 
 test:
   <<: *default
-  database: miroha_test
-  host: localhost
-  username: <%= ENV["POSTGRES_USER"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  database: storage/test.sqlite3
 
 production:
-  <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  primary:
+    <<: *default
+    database: storage/production.sqlite3

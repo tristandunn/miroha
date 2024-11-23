@@ -6,7 +6,7 @@ class AddPlayingToCharacter < ActiveRecord::Migration[7.0]
   def change
     add_column :characters, :playing, :boolean, null: false, default: false
 
-    add_index :characters, %i(active_at playing), algorithm: :concurrently
+    add_index :characters, %i(active_at playing)
     remove_index :characters, :active_at
   end
 end

@@ -2,10 +2,8 @@
 
 class AddRoomToCharacters < ActiveRecord::Migration[6.1]
   def change
-    safety_assured do
-      change_table :characters do |t|
-        t.references :room, null: false, index: true # rubocop:disable Rails/NotNullColumn
-      end
+    change_table :characters do |t|
+      t.references :room, null: false, index: true # rubocop:disable Rails/NotNullColumn
     end
   end
 end

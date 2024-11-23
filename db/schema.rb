@@ -10,25 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_25_015139) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
+ActiveRecord::Schema[8.0].define(version: 2024_08_25_015139) do
   create_table "accounts", force: :cascade do |t|
     t.string "email", limit: 255, null: false
     t.string "password_digest", limit: 60, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "aliases", default: {}, null: false
+    t.json "aliases", default: {}, null: false
     t.index ["email"], name: "index_accounts_on_email", unique: true
   end
 
   create_table "characters", force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.string "name", limit: 12, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "room_id", null: false
+    t.integer "room_id", null: false
     t.integer "level", default: 1, null: false
     t.integer "experience", default: 0, null: false
     t.datetime "active_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
@@ -44,7 +41,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_25_015139) do
 
   create_table "items", force: :cascade do |t|
     t.string "owner_type", null: false
-    t.bigint "owner_id", null: false
+    t.integer "owner_id", null: false
     t.string "name", limit: 24, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -58,8 +55,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_25_015139) do
     t.integer "current_health", default: 5, null: false
     t.integer "maximum_health", default: 5, null: false
     t.integer "experience", default: 0, null: false
-    t.bigint "room_id"
-    t.string "event_handlers", default: [], null: false, array: true
+    t.integer "room_id"
+    t.json "event_handlers", default: [], null: false
     t.index ["event_handlers"], name: "index_monsters_on_event_handlers"
     t.index ["room_id"], name: "index_monsters_on_room_id"
     t.check_constraint "current_health <= maximum_health", name: "monsters_current_health_check"
@@ -72,26 +69,26 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_25_015139) do
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "objects", default: {}, null: false
+    t.json "objects", default: {}, null: false
     t.index ["x", "y", "z"], name: "index_rooms_on_x_and_y_and_z", unique: true
   end
 
   create_table "spawns", force: :cascade do |t|
     t.string "base_type", null: false
-    t.bigint "base_id", null: false
+    t.integer "base_id", null: false
     t.string "entity_type"
-    t.bigint "entity_id"
-    t.bigint "room_id", null: false
+    t.integer "entity_id"
+    t.integer "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "activates_at"
     t.datetime "expires_at"
     t.bigint "duration"
     t.bigint "frequency"
-    t.index ["activates_at"], name: "index_spawns_on_activates_at", where: "(entity_id IS NULL)"
+    t.index ["activates_at"], name: "index_spawns_on_activates_at", where: "entity_id IS NULL"
     t.index ["base_type", "base_id"], name: "index_spawns_on_base"
     t.index ["entity_type", "entity_id"], name: "index_spawns_on_entity"
-    t.index ["expires_at"], name: "index_spawns_on_expires_at", where: "(entity_id IS NOT NULL)"
+    t.index ["expires_at"], name: "index_spawns_on_expires_at", where: "entity_id IS NOT NULL"
     t.index ["room_id"], name: "index_spawns_on_room_id"
   end
 

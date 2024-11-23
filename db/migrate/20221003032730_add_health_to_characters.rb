@@ -2,11 +2,9 @@
 
 class AddHealthToCharacters < ActiveRecord::Migration[7.0]
   def change
-    safety_assured do
-      change_table :characters, bulk: true do |t|
-        t.integer :current_health, null: false, default: 10
-        t.integer :maximum_health, null: false, default: 10
-      end
+    change_table :characters, bulk: true do |t|
+      t.integer :current_health, null: false, default: 10
+      t.integer :maximum_health, null: false, default: 10
     end
   end
 end

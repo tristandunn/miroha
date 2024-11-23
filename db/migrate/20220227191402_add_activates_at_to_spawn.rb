@@ -5,6 +5,6 @@ class AddActivatesAtToSpawn < ActiveRecord::Migration[7.0]
 
   def change
     add_column :spawns, :activates_at, :datetime
-    add_index :spawns, :activates_at, where: "entity_id IS NULL", algorithm: :concurrently
+    add_index :spawns, :activates_at, where: "entity_id IS NULL"
   end
 end

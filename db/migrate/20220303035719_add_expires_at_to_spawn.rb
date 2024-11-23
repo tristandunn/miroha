@@ -5,6 +5,6 @@ class AddExpiresAtToSpawn < ActiveRecord::Migration[7.0]
 
   def change
     add_column :spawns, :expires_at, :datetime
-    add_index :spawns, :expires_at, where: "entity_id IS NOT NULL", algorithm: :concurrently
+    add_index :spawns, :expires_at, where: "entity_id IS NOT NULL"
   end
 end
