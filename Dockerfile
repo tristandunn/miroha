@@ -51,7 +51,7 @@ ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT} \
 
 # Install build dependency requirements.
 RUN apk -U upgrade \
-  && apk add --no-cache build-base libpq-dev libxml2-dev libxslt-dev
+  && apk add --no-cache build-base libxml2-dev libxslt-dev
 
 # Change to a build working directory.
 WORKDIR /build
@@ -83,7 +83,7 @@ ENV LD_PRELOAD="libjemalloc.so.2" \
 
 # Install dependency requirements.
 RUN apk -U upgrade \
-  && apk add --no-cache bash jemalloc libpq-dev libxml2-dev libxslt-dev tzdata
+  && apk add --no-cache bash jemalloc libxml2-dev libxslt-dev tzdata
 
 # Create the application directory and set it as the working directory.
 RUN mkdir -p /home/runner/application
@@ -103,7 +103,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 # Create an application-specific user.
 RUN addgroup --system runner \
   && adduser -G runner --system runner \
-  && chown -R runner:runner log tmp
+  && chown -R runner:runner db log storage tmp
 
 # Switch to the user.
 USER runner:runner

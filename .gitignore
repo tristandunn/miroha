@@ -24,3 +24,17 @@
 
 # Ignore any pre-compiled assets.
 /public/assets
+
+# Ignore any SQLite databases.
+/storage/*
+!/storage/.keep
+
+# Ignore PID files.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore storage for uploaded files in development.
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
