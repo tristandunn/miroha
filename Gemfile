@@ -9,7 +9,7 @@ gem "hotwire-rails",      "0.1.3"
 gem "oj",                 "3.16.7"
 gem "pg",                 "1.5.9"
 gem "propshaft",          "1.1.0"
-gem "puma",               "6.4.3"
+gem "puma",               "6.5.0"
 gem "rack-timeout",       "0.7.0"
 gem "rails",              "7.2.2"
 gem "redis",              "5.3.0"
@@ -20,7 +20,7 @@ gem "turbo-rails",        "2.0.11"
 group :development, :test do
   gem "cacheflow",   "0.4.0"
   gem "dotenv",      "3.1.4"
-  gem "pg_query",    "5.1.0"
+  gem "pg_query",    "6.0.0"
   gem "prosopite",   "1.4.2"
   gem "rspec-rails", "7.1.0"
 end
@@ -30,7 +30,7 @@ group :development do
   gem "erb_lint",            "0.7.0", require: false
   gem "listen",              "3.9.0"
   gem "rack-mini-profiler",  "3.3.1"
-  gem "rubocop",             "1.68.0", require: false
+  gem "rubocop",             "1.69.1", require: false
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
   gem "rubocop-performance", "1.23.0", require: false
@@ -48,7 +48,7 @@ group :test do
   gem "factory_bot_rails",        "6.4.4"
   gem "faker",                    "3.5.1"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.26.0"
+  gem "selenium-webdriver",       "4.27.0"
   gem "shoulda-matchers",         "6.4.0"
   gem "simplecov-console",        "0.9.2", require: false
 end
