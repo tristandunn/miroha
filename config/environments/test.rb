@@ -10,8 +10,8 @@ Rails.application.configure do
   # Eager loading loads your entire application. When running a single test
   # locally, this is usually not necessary, and can slow down your test suite.
   # However, it's recommended that you enable it in continuous integration
-  # systems to ensure eager loading is working properly before deploying your
-  # code.
+  # systems to ensure eager loading is working properly before deploying
+  # your code.
   config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with Cache-Control for performance.
@@ -21,9 +21,8 @@ Rails.application.configure do
   }
 
   # Show full error reports and disable caching.
-  config.action_controller.perform_caching = false
-  config.cache_store                       = :null_store
-  config.consider_all_requests_local       = true
+  config.cache_store                 = :null_store
+  config.consider_all_requests_local = true
 
   # Render exception templates for rescuable exceptions and raise for
   # other exceptions.
@@ -34,12 +33,6 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
-
-  # Raise exceptions for disallowed deprecations.
-  config.active_support.disallowed_deprecation = :raise
-
-  # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = []
 
   # Raises error for missing translations.
   config.i18n.raise_on_missing_translations = true

@@ -1,19 +1,11 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+import forms from "@tailwindcss/forms";
 
-module.exports = {
+export default {
   "content": [
     "./app/javascript/**/*.js",
     "./app/helpers/**/*.rb",
     "./app/views/**/*"
   ],
 
-  "plugins": [require("@tailwindcss/forms")],
-
-  "theme": {
-    "fontFamily": {
-      ...fontFamily,
-
-      "sans": ["Inter var", ...fontFamily.sans]
-    }
-  }
+  "plugins": [forms]
 };

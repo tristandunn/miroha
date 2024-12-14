@@ -12,37 +12,27 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
-  # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  # Full error reports are disabled.
+  config.consider_all_requests_local = false
+
+  # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
+
+  # Cache assets for far-future expiry since they are all digest stamped.
+  config.public_file_server.headers = {
+    "Cache-Control" => "public, max-age=#{1.year.to_i}"
+  }
 
   # Ensures that a master key has been made available in either
   # ENV["RAILS_MASTER_KEY"], config/master.key, or an environment key such as
   # config/credentials/production.key.
   config.require_master_key = ENV["SECRET_KEY_BASE_DUMMY"].blank?
 
-  # Enable or disable serving static files from the `/public` folder, since
-  # sometimes Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
-  # Specifies the header that your server uses for sending files.
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
-  # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
-
-  # Mount Action Cable outside main process or domain.
-  # config.action_cable.mount_path = nil
-  # config.action_cable.url = "wss://example.com/cable"
-  # config.action_cable.allowed_request_origins = [
-  #   "http://example.com",
-  #   /http:\/\/example.*/
-  # ]
-
-  # Assume all access to the app is happening through a SSL-terminating reverse
-  # proxy. Can be used together with config.force_ssl for
-  # Strict-Transport-Security and secure cookies.
+  # Assume all access to the app is happening through a SSL-terminating
+  # reverse proxy.
   config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and
@@ -50,16 +40,13 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Skip http-to-https redirect for the default health check endpoint.
-  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+  # config.ssl_options = {
+  #   redirect: { exclude: ->(request) { request.path == "/health" } }
+  # }
 
-  # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger
-                  .new($stdout)
-                  .tap  { |logger| logger.formatter = Logger::Formatter.new }
-                  .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
-
-  # Prepend all log lines with the following tags.
+  # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [:request_id]
+  config.logger   = ActiveSupport::TaggedLogging.logger($stdout)
 
   # Info includes generic and useful information about system operation, but
   # avoids logging too much information to avoid inadvertent exposure of
@@ -67,23 +54,29 @@ Rails.application.configure do
   # set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
-  # Use a different cache store in production.
+  # Prevent health checks from clogging up the logs.
+  config.silence_healthcheck_path = "/health"
+
+  # Don't log any deprecations.
+  config.active_support.report_deprecations = false
+
+  # Replace the default in-process memory cache store with a
+  # durable alternative.
   config.cache_store = :redis_cache_store
 
-  # Use a real queuing backend for Active Job and separate queues
-  # per environment.
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "miroha_production"
+  # Replace the default in-process and non-durable queuing backend for
+  # Acitve Job.
+  # config.active_job.queue_adapter = :resque
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
-  # Don't log any deprecations.
-  config.active_support.report_deprecations = false
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Only use :id for inspections in production.
+  config.active_record.attributes_for_inspect = [:id]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
