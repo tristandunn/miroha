@@ -49,7 +49,7 @@ describe Character do
 
     it "returns characters active within the last 15 minutes" do
       character_1 = create(:character, active_at: 1.minute.ago)
-      character_2 = create(:character, active_at: described_class::ACTIVE_DURATION.ago)
+      character_2 = create(:character, active_at: described_class::ACTIVE_DURATION.ago + 1.second)
       create(:character, active_at: described_class::ACTIVE_DURATION.ago - 1.second)
 
       expect(active).to contain_exactly(character_1, character_2)
@@ -61,7 +61,7 @@ describe Character do
 
     it "returns characters inactive outside the last 15 minutes" do
       create(:character, active_at: 1.minute.ago)
-      create(:character, active_at: described_class::ACTIVE_DURATION.ago)
+      create(:character, active_at: described_class::ACTIVE_DURATION.ago + 1.second)
       character = create(:character, active_at: described_class::ACTIVE_DURATION.ago - 1.second)
 
       expect(inactive).to contain_exactly(character)
