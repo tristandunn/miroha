@@ -11,7 +11,7 @@
     "lint:css": "stylelint app/assets/stylesheets/**/*.css",
     "outdated": "yarn upgrade-interactive",
     "test": "bin/mocha spec/javascripts",
-    "test:coverage": "c8 --100 --clean --reporter text-summary --skip-full bin/mocha spec/javascripts"
+    "test:coverage": "c8 --100 --clean --report-dir ./tmp --reporter text-summary --skip-full bin/mocha spec/javascripts"
   },
   "dependencies": {
     "@hotwired/stimulus": "3.2.2",
