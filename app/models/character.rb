@@ -24,14 +24,14 @@ class Character < ApplicationRecord
   #
   # @return [ActiveRecord::Relation]
   def self.active
-    where("active_at >= NOW() - INTERVAL '#{ACTIVE_DURATION}'")
+    where(active_at: ACTIVE_DURATION.ago..)
   end
 
   # Return a scope limiting to characters inactive outside +ACTIVE_DURATION+.
   #
   # @return [ActiveRecord::Relation]
   def self.inactive
-    where("active_at < NOW() - INTERVAL '#{ACTIVE_DURATION}'")
+    where(active_at: ..ACTIVE_DURATION.ago)
   end
 
   # Return a scope limiting to playing characters.
