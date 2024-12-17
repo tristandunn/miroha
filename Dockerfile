@@ -15,7 +15,7 @@ ENV NODE_ENV=${ENVIRONMENT}
 WORKDIR /build
 
 # Copy in files for Yarn.
-COPY .yarnrc.yml package.json yarn.lock .
+COPY package.json yarn.lock .
 
 # Install the Node.js dependencies.
 RUN corepack enable
