@@ -1,32 +1,85 @@
-.browserslistrc
-.dockerignore
-.erb-lint.yml
-.gitattributes
-.gitignore
-.rubocop.yml
-.ruby-version
+# Ignore bundler configuration.
+/.bundle/
+
+# Ignore Docker-related files.
+/.docker-compose.yml
+/.dockerignore
+/Dockerfile*
+
+# Ignore all environment files.
+/.env*
+
+# Ignore git directory and files.
+/.git/
+/.gitattributes
+/.gitignore
+
+# Ignore GitHub files.
+/.github/
+
+# Ignore Ruby-related files.
+/.rubocop.yml
+/.ruby-lsp/
+
+# Ignore any asset builds.
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+# Ignore binary files.
+bin/brakeman
+bin/dev
+bin/mocha
+bin/rspec
+bin/rubocop
+bin/setup
+
+# Ignore all default key files.
+/config/master.key
+/config/credentials/*.key
+
+# Ignore Kamal related files.
+/.kamal/
+
+# Ignore development Rake tasks.
+lib/tasks/check.rake
+lib/tasks/css.rake
+lib/tasks/javascript.rake
+lib/tasks/ruby.rake
+
+# Ignore all logs and temporary files.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore any development and test files.
+/node_modules/
+/spec/
+/.yarn/
+.erb_lint.yml
 .stylelintignore
-.stylelintrc.js
+.stylelintrc.json
 .tool-versions
-.yamllint.yml
-Dockerfile
-LICENSE
-Procfile
+.yarnrc.yml
 Procfile.dev
 README.md
-docker-compose.yml
-eslint.config.js
-.git/
-.github/
-.ruby-lsp/
-coverage/
-docs/
-log/
-node_modules/
-public/assets
-spec/
-tmp/
+eslint.config.cjs
+package.json
+yarn.lock
 
-!app/assets/builds/.keep
-!log/.keep
-!tmp/.keep
+# Ignore any pre-compiled assets.
+/public/assets/
+
+# Ignore any SQLite databases.
+/storage/*
+!/storage/.keep
+
+# Ignore PID files.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore storage for uploaded files in development.
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep

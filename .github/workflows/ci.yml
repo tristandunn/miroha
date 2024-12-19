@@ -12,12 +12,6 @@ jobs:
   Ruby:
     runs-on: ubuntu-latest
 
-    services:
-      redis:
-        image: redis:7.4.0-alpine3.20
-        ports:
-          - 6379:6379
-
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4

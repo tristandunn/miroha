@@ -2,7 +2,6 @@
 extends: default
 
 ignore: |
-  .yarnrc.yml
   node_modules/
 
 rules:
