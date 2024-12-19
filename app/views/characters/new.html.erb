@@ -5,7 +5,7 @@
       <h1 class="text-3xl font-bold text-gray-700"><%= t(".header") %></h1>
     </div>
 
-    <%= form_for @form, url: characters_path, html: { class: "highlight-errors" } do |form| %>
+    <%= form_for @form, url: characters_path, html: { class: "highlight-errors", data: { turbo: false } } do |form| %>
       <div>
         <%= form.label :name, class: "block mb-1 text-sm font-medium text-gray-800" %>
         <%= form.text_field :name, autocomplete: false, autofocus: true, class: "w-full text-gray-800 border-gray-400 rounded focus:ring-2 focus:ring-green-200 focus:border-green-300", minlength: Character::MINIMUM_NAME_LENGTH, maxlength: Character::MAXIMUM_NAME_LENGTH, placeholder: t(".placeholder"), required: true %>

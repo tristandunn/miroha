@@ -1,67 +1,31 @@
 # Accept optional arguments.
-ARG NODE_VERSION="22.11.0-alpine3.20"
 ARG RUBY_VERSION="3.3.6-alpine3.20"
 
-# Create a builder image for Node.
-FROM node:$NODE_VERSION AS node-builder
+# Create a base image.
+FROM ruby:$RUBY_VERSION AS base
 
-# Accept optional arguments.
-ARG ENVIRONMENT="production"
+# Set production environment variables.
+ENV BUNDLE_DEPLOYMENT="1" \
+  BUNDLE_PATH="/usr/local/bundle" \
+  BUNDLE_WITHOUT="development test" \
+  RAILS_ENV="production" \
+  RUBY_YJIT_ENABLE="true"
 
-# Set environment variables.
-ENV NODE_ENV=${ENVIRONMENT}
+# Change to an application working directory.
+WORKDIR /rails
 
-# Change to a build working directory.
-WORKDIR /build
-
-# Copy in files for Yarn.
-COPY .yarnrc.yml package.json yarn.lock .
-
-# Install the Node.js dependencies.
-RUN corepack enable
-RUN yarn install --immutable
-
-# Copy in files for JS assets.
-COPY app/assets app/assets
-COPY app/javascript app/javascript
-COPY config/esbuild.config.js config/esbuild.config.js
-COPY config/locales/en.yml config/locals/en.yml
-
-# Build the JS assets.
-RUN yarn build
-
-# Copy in files for CSS assets.
-COPY app/views app/views
-COPY bin/tailwindcss bin/tailwindcss
-COPY config/tailwind.config.js config/tailwind.config.js
-
-# Build the CSS assets.
-RUN yarn build:css
+# Install dependency requirements.
+RUN apk -U upgrade \
+  && apk add --no-cache bash gcompat jemalloc libxml2-dev libxslt-dev sqlite tzdata
 
 # Create a builder image for Ruby.
-FROM ruby:$RUBY_VERSION AS ruby-builder
-
-# Accept optional arguments.
-ARG BUNDLE_WITHOUT="development test"
-ARG ENVIRONMENT="production"
-
-# Set environment variables.
-ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT} \
-  RAILS_ENV=${ENVIRONMENT}
+FROM base AS build
 
 # Install build dependency requirements.
-RUN apk -U upgrade \
-  && apk add --no-cache build-base libxml2-dev libxslt-dev
-
-# Change to a build working directory.
-WORKDIR /build
-
-# Set Bundler configuration.
-RUN bundle config --local without "${BUNDLE_WITHOUT}" \
-  && bundle config --local frozen "true"
+RUN apk add --no-cache build-base
 
 # Copy in files for Bundler.
-COPY Gemfile Gemfile.lock .
+COPY Gemfile Gemfile.lock ./
 
 # Install the Bundler version specified.
 RUN gem install bundler -v $(tail -n1 Gemfile.lock)
@@ -69,50 +33,41 @@ RUN gem install bundler -v $(tail -n1 Gemfile.lock)
 # Install the Ruby dependencies.
 RUN bundle install
 
-# Create an image for the application.
-FROM ruby:$RUBY_VERSION AS application
+# Clean up dependnecy caches.
+RUN rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
-# Accept optional arguments.
-ARG ENVIRONMENT="production"
+# Precompile the Bootsnap cache for the dependencies.
+RUN bundle exec bootsnap precompile --gemfile
 
-# Set environment variables.
-ENV LD_PRELOAD="libjemalloc.so.2" \
-  NODE_ENV=${ENVIRONMENT} \
-  RAILS_ENV=${ENVIRONMENT} \
-  RUBY_YJIT_ENABLE="1"
-
-# Install dependency requirements.
-RUN apk -U upgrade \
-  && apk add --no-cache bash jemalloc libxml2-dev libxslt-dev tzdata
-
-# Create the application directory and set it as the working directory.
-RUN mkdir -p /home/runner/application
-WORKDIR /home/runner/application
-
-# Copy the assets, dependencies, and application into Docker.
-COPY --from=node-builder /build/app/assets/builds app/assets/builds
-COPY --from=ruby-builder /usr/local/bundle /usr/local/bundle
+# Copy the application into Docker.
 COPY . .
 
-# Precompile the Bootsnap cache.
-RUN bundle exec bootsnap precompile --gemfile app/ lib/
+# Precompile the Bootsnap cache for the application.
+RUN bundle exec bootsnap precompile app/ lib/
 
-# Compile the assets.
+# Compile the assets without requiring the secret RAILS_MASTER_KEY.
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
+# Create an image for the application.
+FROM base AS application
+
+# Copy the application and dependencies into Docker.
+COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
+COPY --from=build /rails /rails
+
 # Create an application-specific user.
-RUN addgroup --system runner \
-  && adduser -G runner --system runner \
-  && chown -R runner:runner db log storage tmp
+RUN addgroup --system rails \
+  && adduser -G rails --system rails \
+  && chown -R rails:rails db log storage tmp
 
 # Switch to the user.
-USER runner:runner
+USER rails:rails
 
 # Set a custom entrypoint.
 ENTRYPOINT ["bin/docker-entrypoint"]
 
 # Expose the server.
-EXPOSE 3000
+EXPOSE 80
 
-# Run the server.
-CMD ["bin/rails", "server"]
+# Run the server via Thruster.
+CMD ["bin/thrust", "bin/rails", "server"]
