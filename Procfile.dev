@@ -1,4 +1,3 @@
-web: bundle exec puma -C config/puma.rb
-clock: bundle exec rails runner ./clock.rb
-css: yarn build:css --watch
-js: yarn build --watch
+web: bin/rails server
+css: bin/rails tailwindcss:watch
+clock: bin/rails runner ./clock.rb

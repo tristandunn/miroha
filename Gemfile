@@ -3,18 +3,24 @@
 ruby   "3.3.6"
 source "https://rubygems.org"
 
-gem "bcrypt",             "3.1.20"
-gem "bootsnap",           "1.18.4", require: false
-gem "hotwire-rails",      "0.1.3"
-gem "oj",                 "3.16.8"
-gem "propshaft",          "1.1.0"
-gem "puma",               "6.5.0"
-gem "rack-timeout",       "0.7.0"
-gem "rails",              "8.0.1"
-gem "redis",              "5.3.0"
-gem "rufus-scheduler",    "3.9.2"
-gem "sqlite3",            "2.4.1"
-gem "turbo-rails",        "2.0.11"
+gem "bcrypt",            "3.1.20"
+gem "bootsnap",          "1.18.4", require: false
+gem "hotwire-rails",     "0.1.3"
+gem "importmap-rails",   "2.0.3"
+gem "oj",                "3.16.8"
+gem "propshaft",         "1.1.0"
+gem "puma",              "6.5.0"
+gem "rack-timeout",      "0.7.0"
+gem "rails",             "8.0.1"
+gem "rufus-scheduler",   "3.9.2"
+gem "solid_cable",       "3.0.5"
+gem "solid_cache",       "1.0.6"
+gem "solid_queue",       "1.1.0"
+gem "sqlite3",           "2.4.1"
+gem "stimulus-rails",    "1.3.4"
+gem "tailwindcss-rails", "3.0.0"
+gem "thruster",          "0.1.9", require: false
+gem "turbo-rails",       "2.0.11"
 
 group :development, :test do
   gem "cacheflow",   "0.4.0"

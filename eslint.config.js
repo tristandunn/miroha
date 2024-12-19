@@ -1,5 +1,4 @@
 import js from "@eslint/js";
-import parser from "@babel/eslint-parser";
 import stylistic from "@stylistic/eslint-plugin-js";
 
 export default [
@@ -18,7 +17,6 @@ export default [
         "require": "readonly",
         "window": "readonly"
       },
-      "parser": parser,
       "parserOptions": {
         "sourceType": "module"
       }

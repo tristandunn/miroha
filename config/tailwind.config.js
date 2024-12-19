@@ -4,7 +4,7 @@ export default {
   "content": [
     "./app/javascript/**/*.js",
     "./app/helpers/**/*.rb",
-    "./app/views/**/*"
+    "./app/views/**/*.{erb,html}"
   ],
 
   "plugins": [forms]
