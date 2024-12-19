@@ -19,7 +19,6 @@ gem "turbo-rails",        "2.0.11"
 
 group :development, :test do
   gem "cacheflow",   "0.4.0"
-  gem "dotenv",      "3.1.6"
   gem "pg_query",    "6.0.0"
   gem "prosopite",   "1.4.2"
   gem "rspec-rails", "7.1.0"
