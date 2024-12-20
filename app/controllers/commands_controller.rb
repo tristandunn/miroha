@@ -21,16 +21,23 @@ class CommandsController < ApplicationController
 
   # Return an instance of the command being created.
   #
-  # @return [Commands::Base] The command being created.
+  # @return [Commands::Base] Instance of the command being created.
   def command
-    @command ||= Command.call(input.squish, character: current_character)
+    @command ||= command_class.new(input, character: current_character).tap(&:call)
+  end
+
+  # Return the class of the command being created.
+  #
+  # @return [Class] Class of command being created.
+  def command_class
+    @command_class ||= Command::Parser.call(input)
   end
 
   # Return the command input.
   #
   # @return [String]
   def input
-    params.require(:input)
+    params.require(:input).squish
   end
 
   # Update the character as being active.
@@ -52,8 +59,8 @@ class CommandsController < ApplicationController
   # @return [void]
   def rate_limit_command
     rate_limiting(
-      to:     command.class.limit,
-      within: command.class.period,
+      to:     command_class.limit,
+      within: command_class.period,
       with:   -> { head :too_many_requests },
       store:  cache_store,
       by:     -> { rate_limit_scope },
@@ -72,6 +79,6 @@ class CommandsController < ApplicationController
   #
   # @return [String]
   def rate_limit_scope
-    command.class.name.delete_prefix("Commands::").underscore
+    command_class.name.delete_prefix("Commands::").underscore
   end
 end

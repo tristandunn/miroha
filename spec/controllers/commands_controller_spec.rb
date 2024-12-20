@@ -5,16 +5,15 @@ require "rails_helper"
 describe CommandsController do
   describe "#create" do
     context "when created successfully" do
-      let(:character)   { create(:character) }
-      let(:clean_input) { "Hello, world!" }
-      let(:limit)       { 1 }
-
-      let(:command) do
-        instance_double(Commands::Unknown, class: Commands::Unknown, rendered?: false)
-      end
+      let(:character)     { create(:character) }
+      let(:clean_input)   { "Hello, world!" }
+      let(:command)       { instance_double(command_class, call: true, rendered?: false) }
+      let(:command_class) { Commands::Unknown }
+      let(:limit)         { 1 }
 
       before do
-        allow(Command).to receive(:call).and_return(command)
+        allow(command_class).to receive(:new).with(clean_input, character: character).and_return(command)
+        allow(Command::Parser).to receive(:call).with(clean_input).and_return(command_class)
         allow(controller).to receive(:rate_limiting).and_call_original
         allow(controller.cache_store).to receive(:increment).and_return(limit)
 
@@ -26,23 +25,20 @@ describe CommandsController do
       context "with rendering" do
         let(:command) do
           instance_double(
-            Commands::Unknown,
-            class:          command_class,
+            command_class,
+            call:           true,
             rendered?:      true,
             render_options: {
               partial: "commands/unknown/success"
             }
           )
         end
-        let(:command_class) do
-          class_double(Commands::Unknown, name: "Commands::Unknown", limit: 13, period: 37.seconds)
-        end
 
         it { is_expected.to respond_with(200) }
         it { is_expected.to render_template("commands/unknown/_success") }
 
-        it "calls the command service with cleaned input" do
-          expect(Command).to have_received(:call)
+        it "creates a command class with cleaned input" do
+          expect(command_class).to have_received(:new)
             .with(clean_input, character: character)
         end
 
@@ -69,8 +65,8 @@ describe CommandsController do
       context "without rendering" do
         it { is_expected.to respond_with(204) }
 
-        it "calls the command service with cleaned input" do
-          expect(Command).to have_received(:call)
+        it "creates a command class with cleaned input" do
+          expect(command_class).to have_received(:new)
             .with(clean_input, character: character)
         end
       end
@@ -96,7 +92,7 @@ describe CommandsController do
       let(:character) { create(:character, :inactive) }
 
       before do
-        allow(Command).to receive(:call)
+        allow(Command::Parser).to receive(:call)
 
         sign_in_as character
 
@@ -105,14 +101,14 @@ describe CommandsController do
 
       it { is_expected.to redirect_to(characters_url) }
 
-      it "does not call the command service" do
-        expect(Command).not_to have_received(:call)
+      it "does not call the command parser service" do
+        expect(Command::Parser).not_to have_received(:call)
       end
     end
 
     context "with no character" do
       before do
-        allow(Command).to receive(:call)
+        allow(Command::Parser).to receive(:call)
 
         sign_in
 
@@ -121,14 +117,14 @@ describe CommandsController do
 
       it { is_expected.to redirect_to(new_character_url) }
 
-      it "does not call the command service" do
-        expect(Command).not_to have_received(:call)
+      it "does not call the command parser service" do
+        expect(Command::Parser).not_to have_received(:call)
       end
     end
 
     context "with no input" do
       before do
-        allow(Command).to receive(:call)
+        allow(Command::Parser).to receive(:call)
 
         sign_in_as create(:character)
 
@@ -140,15 +136,15 @@ describe CommandsController do
 
     context "when signed out" do
       before do
-        allow(Command).to receive(:call)
+        allow(Command::Parser).to receive(:call)
 
         post :create, params: { input: "Testing." }
       end
 
       it { is_expected.to redirect_to(new_sessions_url) }
 
-      it "does not call the command service" do
-        expect(Command).not_to have_received(:call)
+      it "does not call the command parser service" do
+        expect(Command::Parser).not_to have_received(:call)
       end
     end
   end
