@@ -8,6 +8,7 @@ FROM ruby:$RUBY_VERSION AS base
 ENV BUNDLE_DEPLOYMENT="1" \
   BUNDLE_PATH="/usr/local/bundle" \
   BUNDLE_WITHOUT="development test" \
+  LD_PRELOAD="/usr/lib/libjemalloc.so.2" \
   RAILS_ENV="production" \
   RUBY_YJIT_ENABLE="true"
 
@@ -54,14 +55,6 @@ FROM base AS application
 # Copy the application and dependencies into Docker.
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
-
-# Create an application-specific user.
-RUN addgroup --system rails \
-  && adduser -G rails --system rails \
-  && chown -R rails:rails db log storage tmp
-
-# Switch to the user.
-USER rails:rails
 
 # Set a custom entrypoint.
 ENTRYPOINT ["bin/docker-entrypoint"]

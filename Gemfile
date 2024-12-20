@@ -7,6 +7,7 @@ gem "bcrypt",            "3.1.20"
 gem "bootsnap",          "1.18.4", require: false
 gem "hotwire-rails",     "0.1.3"
 gem "importmap-rails",   "2.1.0"
+gem "kamal",             "2.5.2"
 gem "propshaft",         "1.1.0"
 gem "puma",              "6.6.0"
 gem "rack-timeout",      "0.7.0"

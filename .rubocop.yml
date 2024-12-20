@@ -12,6 +12,7 @@ AllCops:
   CacheRootDirectory: "tmp/rubocop_cache"
   Exclude:
     - "bin/bundle"
+    - "bin/kamal"
     - "db/*schema.rb"
     - "node_modules/**/*"
     - "vendor/**/*"
