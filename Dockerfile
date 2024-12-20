@@ -8,6 +8,7 @@ FROM ruby:$RUBY_VERSION AS base
 ENV BUNDLE_DEPLOYMENT="1" \
   BUNDLE_PATH="/usr/local/bundle" \
   BUNDLE_WITHOUT="development test" \
+  LD_PRELOAD="/usr/lib/libjemalloc.so.2" \
   RAILS_ENV="production" \
   RUBY_YJIT_ENABLE="true"
 
