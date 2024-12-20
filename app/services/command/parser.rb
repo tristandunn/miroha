@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Command
+module Command
   class Parser
     DEFAULT_NAME = "say"
     MATCHER      = %r{^/([\p{L}\p{M}]+)(?=\s|$)}i
