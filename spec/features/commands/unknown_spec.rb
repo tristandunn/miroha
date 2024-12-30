@@ -35,7 +35,7 @@ describe "Sending an unknown command", :js do
 
     send_text(command)
 
-    expect(page).to have_text(t("characters.index.header"))
+    expect(page).to have_css("h1", text: t("characters.index.header"))
   end
 
   protected
