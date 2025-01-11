@@ -81,11 +81,26 @@ describe BasicAuthentication do
       end
     end
 
-    context "with a username and password" do
+    context "with a username and password, in production" do
       let(:username) { SecureRandom.hex }
       let(:password) { SecureRandom.hex }
 
+      before do
+        allow(Rails.env).to receive(:production?).and_return(true)
+      end
+
       it { is_expected.to be(true) }
+    end
+
+    context "with a username and password, not in production" do
+      let(:username) { SecureRandom.hex }
+      let(:password) { SecureRandom.hex }
+
+      before do
+        allow(Rails.env).to receive(:production?).and_return(false)
+      end
+
+      it { is_expected.to be(false) }
     end
 
     context "with a username but no password" do

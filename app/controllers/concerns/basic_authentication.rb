@@ -21,7 +21,8 @@ module BasicAuthentication
   #
   # @return [Boolean]
   def basic_authentication?
-    ENV["BASIC_AUTHENTICATION_USERNAME"].present? &&
+    Rails.env.production? &&
+      ENV["BASIC_AUTHENTICATION_USERNAME"].present? &&
       ENV["BASIC_AUTHENTICATION_PASSWORD"].present?
   end
 end
