@@ -46,7 +46,7 @@ module Commands
       end
     end
 
-    # Attempt to find the target by name.
+    # Attempt to find the target by name, including partial matches.
     #
     # @return [Monster] If a monster is found.
     # @return [nil] If a monster is not found.
@@ -54,7 +54,7 @@ module Commands
       return @target if defined?(@target)
 
       @target = character.room.monsters
-                         .where("LOWER(NAME) = ?", parameters[:target].downcase)
+                         .where("LOWER(name) LIKE ?", "%#{parameters[:target].downcase}%")
                          .first
     end
 

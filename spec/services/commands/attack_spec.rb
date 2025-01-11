@@ -32,6 +32,29 @@ describe Commands::Attack, type: :service do
       end
     end
 
+    context "with a valid, hit target using a partial name" do
+      let(:instance) { described_class.new("/attack #{target.name.slice(1)}", character: character) }
+      let(:result)   { instance_double(described_class::Hit) }
+
+      before do
+        first_target = create(:monster, room: target.room, name: target.name)
+        create(:spawn, :monster, entity: first_target, room: target.room)
+
+        target.update(id: Monster.last.id + 1)
+
+        allow(result).to receive(:call)
+        allow(described_class::Hit).to receive(:new)
+          .with(character: character, damage: damage, target: first_target)
+          .and_return(result)
+      end
+
+      it "delegates to hit handler for the first matching target" do
+        call
+
+        expect(result).to have_received(:call).with(no_args)
+      end
+    end
+
     context "with a valid, missed target" do
       let(:damage) { 0 }
       let(:result) { instance_double(described_class::Missed) }
