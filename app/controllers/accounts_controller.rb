@@ -29,7 +29,7 @@ class AccountsController < ApplicationController
   #
   # @return [ActionController::Parameters]
   def account_parameters
-    params.require(:account_form).permit(:email, :password)
+    params.expect(account_form: %i(email password))
   end
 
   # Redirect to the character list.
