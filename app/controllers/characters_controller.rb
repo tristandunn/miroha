@@ -78,8 +78,7 @@ class CharactersController < ApplicationController
   # @return [ActionController::Parameters]
   def character_parameters
     params
-      .require(:character_form)
-      .permit(:name)
+      .expect(character_form: [:name])
       .merge(account: current_account)
   end
 

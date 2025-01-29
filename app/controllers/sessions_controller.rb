@@ -49,6 +49,6 @@ class SessionsController < ApplicationController
   #
   # @return [ActionController::Parameters]
   def session_parameters
-    params.require(:session_form).permit(:email, :password)
+    params.expect(session_form: %i(email password))
   end
 end
