@@ -44,12 +44,12 @@ Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
       event_handlers: ["Monster::Hate"]
     )
 
-    Spawn.find_or_create_by(base: rat, room: room).tap do |spawn|
-      spawn.update(
+    Spawn
+      .create_with(
         activates_at: Time.current,
         duration:     nil,
         frequency:    1.minute
       )
-    end
+      .find_or_create_by(base: rat, room: room)
   end
 end
