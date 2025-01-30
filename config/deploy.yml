@@ -8,10 +8,6 @@ image: tristandunn/miroha
 servers:
   web:
     - 138.197.91.38
-  clock:
-    hosts:
-      - 138.197.91.38
-    cmd: bin/rails runner ./clock.rb
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple
 # applications on one server.

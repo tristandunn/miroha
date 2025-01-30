@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
 module Clock
-  class ExpireSpawns < Base
-    INTERVAL = 1.minute
-    LIMIT    = 128
-    NAME     = "Expire spawns."
+  class ExpireSpawnsJob < ApplicationJob
+    LIMIT = 128
 
     # Expires spawns due to be expired.
     #
     # @return [void]
-    def call
+    def perform
       spawns_to_expire.each do |spawn|
         Spawns::Expire.call(spawn)
       end

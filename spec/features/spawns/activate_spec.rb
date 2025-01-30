@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Activate spawns", :clock, :js do
+describe "Activate spawns", :js do
   let(:character) { create(:character) }
   let(:room)      { character.room }
 
@@ -13,8 +13,14 @@ describe "Activate spawns", :clock, :js do
   it "broadcasts spawn to the room" do
     spawn = create(:spawn, :monster, room: room, entity: nil, activates_at: Time.current)
 
-    run("Activate spawns.")
+    run_job
 
     expect(page).to have_text(spawn.reload.entity.name)
+  end
+
+  protected
+
+  def run_job
+    Clock::ActivateSpawnsJob.new.perform
   end
 end

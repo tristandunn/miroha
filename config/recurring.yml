@@ -1,10 +1,23 @@
-# production:
-#   periodic_cleanup:
-#     class: CleanSoftDeletedRecordsJob
-#     queue: background
-#     args: [ 1000, { batch_size: 500 } ]
-#     schedule: every hour
-#   periodic_command:
-#     command: "SoftDeletedRecord.due.delete_all"
-#     priority: 2
-#     schedule: at 5am every day
+---
+default: &default
+  activate_spawns:
+    class: "Clock::ActivateSpawnsJob"
+    schedule: "every minute"
+  expire_spawns:
+    class: "Clock::ExpireSpawnsJob"
+    schedule: "every minute"
+  monsters_attack_characters:
+    class: "Clock::MonstersAttackCharactersJob"
+    schedule: "every 5 seconds"
+  regenerate_health:
+    class: "Clock::RegenerateHealthJob"
+    schedule: "every 30 seconds"
+  sign_out_inactive_characters:
+    class: "Clock::SignOutInactiveCharactersJob"
+    schedule: "every minute"
+
+development:
+  <<: *default
+
+production:
+  <<: *default
