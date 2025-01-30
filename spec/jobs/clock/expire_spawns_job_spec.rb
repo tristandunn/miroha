@@ -2,9 +2,15 @@
 
 require "rails_helper"
 
-describe Clock::ExpireSpawns, type: :service do
-  describe "#call", :freeze_time do
-    subject(:call) { described_class.new.call }
+describe Clock::ExpireSpawnsJob do
+  describe "constants" do
+    it "defines a limit" do
+      expect(described_class::LIMIT).to eq(128)
+    end
+  end
+
+  describe "#perform", :freeze_time do
+    subject(:perform) { described_class.new.perform }
 
     before do
       allow(Spawns::Expire).to receive(:call)
@@ -14,7 +20,7 @@ describe Clock::ExpireSpawns, type: :service do
       it "expires the spawn" do
         spawn = create(:spawn, :monster, expires_at: Time.current)
 
-        call
+        perform
 
         expect(Spawns::Expire).to have_received(:call).with(spawn).once
       end
@@ -24,7 +30,7 @@ describe Clock::ExpireSpawns, type: :service do
       it "does not expire the spawn" do
         create(:spawn, :monster, expires_at: 1.minute.from_now)
 
-        call
+        perform
 
         expect(Spawns::Expire).not_to have_received(:call)
       end
@@ -34,7 +40,7 @@ describe Clock::ExpireSpawns, type: :service do
       it "does not expire the spawn" do
         create(:spawn, :monster, expires_at: nil)
 
-        call
+        perform
 
         expect(Spawns::Expire).not_to have_received(:call)
       end

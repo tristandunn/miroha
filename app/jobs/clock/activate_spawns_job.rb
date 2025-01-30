@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
 module Clock
-  class ActivateSpawns < Base
-    INTERVAL = 1.minute
-    LIMIT    = 128
-    NAME     = "Activate spawns."
+  class ActivateSpawnsJob < ApplicationJob
+    LIMIT = 128
 
     # Activates spawns due to be activated.
     #
     # @return [void]
-    def call
+    def perform
       spawns_to_activate.each do |spawn|
         Spawns::Activate.call(spawn)
 

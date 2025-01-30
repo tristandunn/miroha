@@ -2,23 +2,15 @@
 
 require "rails_helper"
 
-describe Clock::MonstersAttackCharacters, type: :service do
+describe Clock::MonstersAttackCharactersJob do
   describe "constants" do
-    it "defines an interval" do
-      expect(described_class::INTERVAL).to eq(5.seconds)
-    end
-
     it "defines a limit" do
       expect(described_class::LIMIT).to eq(128)
     end
-
-    it "defines a name" do
-      expect(described_class::NAME).to eq("Monsters attack characters.")
-    end
   end
 
-  describe "#call", :freeze_time do
-    subject(:call) { described_class.new.call }
+  describe "#perform", :freeze_time do
+    subject(:perform) { described_class.new.perform }
 
     let(:monster) { create(:monster) }
 
@@ -31,7 +23,7 @@ describe Clock::MonstersAttackCharacters, type: :service do
         create(:monster)
         create(:character, room: monster.room)
 
-        call
+        perform
 
         expect(Monsters::Attack).to have_received(:call).with(monster).once
       end
@@ -41,7 +33,7 @@ describe Clock::MonstersAttackCharacters, type: :service do
         allow(Monster).to receive(:where).with({ room_id: [] }).and_return(relation)
         allow(relation).to receive(:limit).with(described_class::LIMIT).and_return([])
 
-        call
+        perform
 
         expect(relation).to have_received(:limit).with(described_class::LIMIT)
       end
@@ -51,7 +43,7 @@ describe Clock::MonstersAttackCharacters, type: :service do
       it "does not attack" do
         create(:character, :inactive, room: monster.room)
 
-        call
+        perform
 
         expect(Monsters::Attack).not_to have_received(:call)
       end
@@ -61,7 +53,7 @@ describe Clock::MonstersAttackCharacters, type: :service do
       it "does not attack" do
         create(:character, room: monster.room, playing: false)
 
-        call
+        perform
 
         expect(Monsters::Attack).not_to have_received(:call)
       end

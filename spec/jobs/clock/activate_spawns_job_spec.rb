@@ -2,9 +2,15 @@
 
 require "rails_helper"
 
-describe Clock::ActivateSpawns, type: :service do
-  describe "#call", :freeze_time do
-    subject(:call) { described_class.new.call }
+describe Clock::ActivateSpawnsJob do
+  describe "constants" do
+    it "defines a limit" do
+      expect(described_class::LIMIT).to eq(128)
+    end
+  end
+
+  describe "#perform", :freeze_time do
+    subject(:perform) { described_class.new.perform }
 
     before do
       allow(Spawns::Activate).to receive(:call)
@@ -15,7 +21,7 @@ describe Clock::ActivateSpawns, type: :service do
       it "activates the spawn" do
         spawn = create(:spawn, :monster, entity: nil, activates_at: Time.current)
 
-        call
+        perform
 
         expect(Spawns::Activate).to have_received(:call).with(spawn).once
       end
@@ -23,7 +29,7 @@ describe Clock::ActivateSpawns, type: :service do
       it "broadcasts the spawn to the room" do
         spawn = create(:spawn, :monster, activates_at: Time.current)
 
-        call
+        perform
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to).with(
           spawn.room,
@@ -38,13 +44,13 @@ describe Clock::ActivateSpawns, type: :service do
       it "does not activate the spawn" do
         create(:spawn, :monster, entity: nil, activates_at: 1.minute.from_now)
 
-        call
+        perform
 
         expect(Spawns::Activate).not_to have_received(:call)
       end
 
       it "does not broadcast" do
-        call
+        perform
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
@@ -54,13 +60,13 @@ describe Clock::ActivateSpawns, type: :service do
       it "does not activate the spawn" do
         create(:spawn, :monster, activates_at: nil)
 
-        call
+        perform
 
         expect(Spawns::Activate).not_to have_received(:call)
       end
 
       it "does not broadcast" do
-        call
+        perform
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
