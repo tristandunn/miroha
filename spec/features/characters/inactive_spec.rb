@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Inactive characters", :clock, :js do
+describe "Inactive characters", :js do
   let(:character) { create(:character) }
 
   before do
@@ -12,7 +12,7 @@ describe "Inactive characters", :clock, :js do
   end
 
   it "signs out inactive character" do
-    run("Sign out inactive characters.")
+    run_job
 
     expect(page).to have_css("h1", text: t("characters.index.header"))
   end
@@ -22,7 +22,7 @@ describe "Inactive characters", :clock, :js do
       sign_in_as_character create(:character, room: character.room)
     end
 
-    run("Sign out inactive characters.")
+    run_job
 
     using_session(:nearby_character) do
       expect(page).to have_css(
@@ -37,7 +37,7 @@ describe "Inactive characters", :clock, :js do
       sign_in_as_character create(:character, room: character.room)
     end
 
-    run("Sign out inactive characters.")
+    run_job
 
     using_session(:nearby_character) do
       expect(page).not_to have_surrounding_character(character)
@@ -49,10 +49,16 @@ describe "Inactive characters", :clock, :js do
       sign_in_as_character
     end
 
-    run("Sign out inactive characters.")
+    run_job
 
     using_session(:distant_character) do
       expect(page).to have_no_css("#messages .message-exit-game")
     end
+  end
+
+  protected
+
+  def run_job
+    Clock::SignOutInactiveCharactersJob.new.perform
   end
 end

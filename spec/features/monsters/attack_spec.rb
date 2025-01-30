@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Monsters attack", :cache, :clock, :js do
+describe "Monsters attack", :cache, :js do
   let(:character) { create(:character, room: room) }
   let(:damage)    { 1 }
   let(:monster)   { spawn.entity }
@@ -19,7 +19,7 @@ describe "Monsters attack", :cache, :clock, :js do
   end
 
   it "displays the monster target hit message to the character" do
-    run("Monsters attack characters.")
+    run_job
 
     expect(page).to have_monster_hit_target_message
   end
@@ -28,7 +28,7 @@ describe "Monsters attack", :cache, :clock, :js do
     maximum_health  = character.health.maximum
     expected_health = maximum_health - damage
 
-    run("Monsters attack characters.")
+    run_job
 
     expect(page).to have_css(%(#character div[title="#{expected_health} / #{maximum_health}"]))
   end
@@ -38,7 +38,7 @@ describe "Monsters attack", :cache, :clock, :js do
       sign_in_as_character create(:character, room: room)
     end
 
-    run("Monsters attack characters.")
+    run_job
 
     using_session(:nearby_character) do
       expect(page).to have_monster_hit_message
@@ -50,7 +50,7 @@ describe "Monsters attack", :cache, :clock, :js do
       sign_in_as_character create(:character, room: room)
     end
 
-    run("Monsters attack characters.")
+    run_job
 
     using_session(:nearby_character) do
       expect(page).not_to have_monster_hit_target_message
@@ -62,7 +62,7 @@ describe "Monsters attack", :cache, :clock, :js do
       sign_in_as_character create(:character)
     end
 
-    run("Monsters attack characters.")
+    run_job
 
     wait_for(have_monster_hit_target_message) do
       using_session(:distant_character) do
@@ -75,7 +75,7 @@ describe "Monsters attack", :cache, :clock, :js do
     let(:damage) { 0 }
 
     it "displays the monster missed message to the sender" do
-      run("Monsters attack characters.")
+      run_job
 
       expect(page).to have_monster_target_missed_message
     end
@@ -85,7 +85,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character, room: room)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       using_session(:nearby_character) do
         expect(page).to have_monster_missed_message
@@ -97,7 +97,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character, room: room)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       using_session(:nearby_character) do
         expect(page).not_to have_monster_target_missed_message
@@ -109,7 +109,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       wait_for(have_monster_target_missed_message) do
         using_session(:distant_character) do
@@ -127,7 +127,7 @@ describe "Monsters attack", :cache, :clock, :js do
     end
 
     it "displays the monster target killed message to the sender" do
-      run("Monsters attack characters.")
+      run_job
 
       expect(page).to have_monster_target_killed_message
     end
@@ -137,7 +137,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character, room: room)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       using_session(:nearby_character) do
         expect(page).to have_monster_killed_target_message
@@ -149,7 +149,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character, room: character.room)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       using_session(:nearby_character) do
         expect(page).not_to have_surrounding_character(character)
@@ -161,7 +161,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character, room: Room.default)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       wait_for(have_monster_target_killed_message) do
         using_session(:character_in_spawn_room) do
@@ -175,7 +175,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character, room: Room.default)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       using_session(:distant_character) do
         expect(page).to have_surrounding_character(character)
@@ -187,7 +187,7 @@ describe "Monsters attack", :cache, :clock, :js do
         sign_in_as_character create(:character)
       end
 
-      run("Monsters attack characters.")
+      run_job
 
       wait_for(have_monster_target_killed_message) do
         using_session(:distant_character) do
@@ -252,5 +252,9 @@ describe "Monsters attack", :cache, :clock, :js do
       "#messages .message-monsters-attack-target-missed",
       text: t("monsters.attack.target.missed.message", attacker_name: monster.name)
     )
+  end
+
+  def run_job
+    Clock::MonstersAttackCharactersJob.new.perform
   end
 end
