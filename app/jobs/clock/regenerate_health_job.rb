@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 module Clock
-  class RegenerateHealth < Base
-    INTERVAL = 30.seconds
-    NAME     = "Regenerate health of injured characters and monsters."
-
+  class RegenerateHealthJob < ApplicationJob
     # Regenerate the health of injured characters and monsters.
     #
     # @return [void]
-    def call
+    def perform
       regenerate_injured_characters_health
       regenerate_injured_monsters_health
     end
