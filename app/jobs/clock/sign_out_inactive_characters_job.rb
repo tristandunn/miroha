@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 module Clock
-  class SignOutInactiveCharacters < Base
-    INTERVAL = 1.minute
-    NAME     = "Sign out inactive characters."
-
+  class SignOutInactiveCharactersJob < ApplicationJob
     # Sign out inactive characters that are playing.
     #
     # @return [void]
-    def call
+    def perform
       Character.inactive.playing.find_each do |character|
         mark_as_not_playing(character)
         sign_out(character)

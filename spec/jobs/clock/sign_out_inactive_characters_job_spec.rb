@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe Clock::SignOutInactiveCharacters, type: :service do
-  describe "#call" do
-    subject(:call) { described_class.new.call }
+describe Clock::SignOutInactiveCharactersJob do
+  describe "#perform" do
+    subject(:perform) { described_class.new.perform }
 
     before do
       allow(Turbo::StreamsChannel).to receive(:broadcast_action_to)
@@ -14,7 +14,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "marks the character as not playing" do
         character = create(:character, :inactive)
 
-        call
+        perform
 
         expect(character.reload).not_to be_playing
       end
@@ -22,7 +22,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "broadcasts exit game action to the character" do
         character = create(:character, :inactive)
 
-        call
+        perform
 
         expect(Turbo::StreamsChannel).to have_received(:broadcast_action_to).with(
           character,
@@ -35,7 +35,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "does not mark the character as not playing" do
         character = create(:character)
 
-        call
+        perform
 
         expect(character.reload).to be_playing
       end
@@ -43,7 +43,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "does not broadcast exit game action to the character" do
         create(:character)
 
-        call
+        perform
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_action_to)
       end
@@ -53,7 +53,7 @@ describe Clock::SignOutInactiveCharacters, type: :service do
       it "does not broadcast exit game action to the character" do
         create(:character, :inactive, playing: false)
 
-        call
+        perform
 
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_action_to)
       end

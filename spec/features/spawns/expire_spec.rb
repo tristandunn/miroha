@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Expire spawns", :clock, :js do
+describe "Expire spawns", :js do
   let(:character) { create(:character) }
   let(:room)      { character.room }
 
@@ -14,9 +14,15 @@ describe "Expire spawns", :clock, :js do
     spawn        = create(:spawn, :monster, room: room, expires_at: Time.current)
     monster_name = spawn.entity.name
 
-    run("Expire spawns.")
+    run_job
     visit current_path
 
     expect(page).to have_no_text(monster_name)
+  end
+
+  protected
+
+  def run_job
+    Clock::ExpireSpawnsJob.new.perform
   end
 end
