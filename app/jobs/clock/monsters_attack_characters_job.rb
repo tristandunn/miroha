@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 module Clock
-  class MonstersAttackCharacters < Base
-    INTERVAL = 5.seconds
-    LIMIT    = 128
-    NAME     = "Monsters attack characters."
+  class MonstersAttackCharactersJob < ApplicationJob
+    LIMIT = 128
 
     # Triggers monster attacks for monsters in rooms with active,
     # playing characters.
     #
     # @return [void]
-    def call
+    def perform
       monsters_to_attack.each do |monster|
         Monsters::Attack.call(monster)
       end
