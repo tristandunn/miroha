@@ -13,17 +13,17 @@ gem "rack-timeout",      "0.7.0"
 gem "rails",             "8.0.1"
 gem "rufus-scheduler",   "3.9.2"
 gem "solid_cable",       "3.0.7"
-gem "solid_cache",       "1.0.6"
+gem "solid_cache",       "1.0.7"
 gem "solid_queue",       "1.1.3"
 gem "sqlite3",           "2.5.0"
 gem "stimulus-rails",    "1.3.4"
 gem "tailwindcss-rails", "3.3.1"
-gem "thruster",          "0.1.10", require: false
+gem "thruster",          "0.1.11", require: false
 gem "turbo-rails",       "2.0.11"
 
 group :development, :test do
   gem "cacheflow",   "0.4.0"
-  gem "rspec-rails", "7.1.0"
+  gem "rspec-rails", "7.1.1"
 end
 
 group :development do
@@ -31,7 +31,7 @@ group :development do
   gem "erb_lint",            "0.9.0", require: false
   gem "listen",              "3.9.0"
   gem "rack-mini-profiler",  "3.3.1"
-  gem "rubocop",             "1.71.0", require: false
+  gem "rubocop",             "1.71.2", require: false
   gem "rubocop-capybara",    "2.21.0", require: false
   gem "rubocop-factory_bot", "2.26.1", require: false
   gem "rubocop-performance", "1.23.1", require: false
