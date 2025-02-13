@@ -2,16 +2,11 @@ export default {
   "extends": ["stylelint-config-standard"],
 
   "rules": {
-    "at-rule-no-deprecated": [
-      true,
-      {
-        "ignoreAtRules": ["apply"]
-      }
-    ],
+    "at-rule-no-deprecated": null,
     "at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": ["tailwind"]
+        "ignoreAtRules": ["apply", "plugin"]
       }
     ],
     "import-notation": "string"
