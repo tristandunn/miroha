@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
 
 #container {
   grid-template-columns: 20rem minmax(28rem, auto) minmax(20rem, 16vw);
