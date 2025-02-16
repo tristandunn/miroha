@@ -2,11 +2,13 @@
 require:
   - rubocop-capybara
   - rubocop-factory_bot
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
+plugins:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rake
-  - rubocop-rspec
-  - rubocop-rspec_rails
 
 AllCops:
   CacheRootDirectory: "tmp/rubocop_cache"
