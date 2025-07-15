@@ -38,6 +38,21 @@ Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
     DESCRIPTION
   )
 
+  Monster.find_or_create_by(name: "Bee").tap do |bee|
+    bee.update(
+      experience:     5,
+      event_handlers: ["Monster::Aggression"]
+    )
+
+    Spawn.find_or_create_by(base: bee, room: room).tap do |spawn|
+      spawn.update(
+        activates_at: Time.current,
+        duration:     nil,
+        frequency:    1.minute
+      )
+    end
+  end
+
   Monster.find_or_create_by(name: "Rat").tap do |rat|
     rat.update(
       experience:     25,
