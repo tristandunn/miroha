@@ -1,6 +1,7 @@
 ---
 glob: "**/*.erb"
 exclude:
+  - "claude-swarm.yml.erb"
   - "**/node_modules/**/*"
   - "**/vendor/**/*"
 linters:

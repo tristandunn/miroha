@@ -1,0 +1,166 @@
+---
+version: 1
+swarm:
+  name: "Miroha Development Swarm"
+  main: architect
+  instances:
+    architect:
+      description: "Architect coordinator that manages other agents and ensures code quality"
+      connections: [controllers, models, services, views, javascript, forms, jobs]
+      directory: .
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("architect") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write
+
+    controllers:
+      description: "Rails controllers and authentication specialist"
+      directory: app/controllers
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("controllers") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write
+
+    models:
+      description: "ActiveRecord models and database specialist"
+      directory: app/models
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("models") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write
+
+    services:
+      description: "Services, commands, and business logic specialist"
+      directory: app/services
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("services") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write
+
+    views:
+      description: "ERB templates and Turbo streams specialist"
+      directory: app/views
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("views") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write
+
+    javascript:
+      description: "Stimulus controllers and JavaScript specialist"
+      directory: app/javascript
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("javascript") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write
+
+    forms:
+      description: "Form objects and validation specialist"
+      directory: app/forms
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("forms") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write
+
+    jobs:
+      description: "Background jobs and solid_queue specialist"
+      directory: app/jobs
+      model: sonnet
+      prompt: |
+        <%= insert_prompt("jobs") %>
+      allowed_tools:
+        - Bash
+        - Edit
+        - Glob
+        - Grep
+        - LS
+        - MultiEdit
+        - Read
+        - TodoRead
+        - TodoWrite
+        - WebFetch
+        - WebSearch
+        - Write

@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require "erb"
+
+# Read and insert a formatted prompt.
+#
+# @param [String] name The name of the prompt file.
+# @return [String] The prompt formatted for YAML.
+def insert_prompt(name)
+  File.read(".claude/prompts/#{name}.md").gsub(/^/, "        ").strip
+end
+
+content = File.read(File.expand_path("../claude-swarm.yml.erb", __dir__))
+erb     = ERB.new(content)
+result  = erb.result(binding)
+
+File.write(File.expand_path("../claude-swarm.yml", __dir__), result)
+
+exec "claude-swarm", *ARGV

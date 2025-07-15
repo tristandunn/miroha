@@ -5,6 +5,9 @@
 # Ignore Yarn files.
 /.yarn
 
+# Ignore the generated swarm configuration.
+claude-swarm.yml
+
 # Ignore any asset builds.
 /app/assets/builds/*
 !/app/assets/builds/.keep
