@@ -19,14 +19,13 @@ module Commands
         @room_target = room_target
       end
 
-      # Move the character, broadcast the exit to the source room, and
-      # broadcast the entrance to the target room.
+      # Move the character and perform the exiting and entering.
       #
       # @return [void]
       def call
         move_character
-        broadcast_exit
-        broadcast_enter
+        perform_exit
+        perform_enter
       end
 
       private
@@ -60,6 +59,38 @@ module Commands
       # @return [void]
       def move_character
         character.update(room: room_target)
+      end
+
+      # Broadcast and trigger the enter event.
+      #
+      # @return [void]
+      def perform_enter
+        broadcast_enter
+        trigger_enter
+      end
+
+      # Broadcast the exit event.
+      #
+      # @return [void]
+      def perform_exit
+        broadcast_exit
+      end
+
+      # Trigger events for the entering the target room.
+      #
+      # @return [void]
+      def trigger_enter
+        trigger_enter_monsters
+      end
+
+      # Trigger event events on monsters in the target room that have enter
+      # event handlers.
+      #
+      # @return [void]
+      def trigger_enter_monsters
+        room_target.monsters.with_event_handlers(:enter).find_each do |monster|
+          monster.trigger(:enter, character: character)
+        end
       end
     end
   end

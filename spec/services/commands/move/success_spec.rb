@@ -63,6 +63,19 @@ describe Commands::Move::Success, type: :service do
           }
         )
     end
+
+    it "notifies monsters in the target room of the character entering" do
+      spawn   = create(:spawn, :monster, room: room_target)
+      monster = spawn.entity
+      monster.update(event_handlers: ["Monster::Aggression"])
+
+      allow(EventHandlers::Monster::Aggression).to receive(:on_enter)
+
+      call
+
+      expect(EventHandlers::Monster::Aggression).to have_received(:on_enter)
+        .with(character: character, monster: monster)
+    end
   end
 
   describe "#locals" do
