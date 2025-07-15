@@ -12,21 +12,11 @@ describe Dispatchable do
   end
 
   describe ".with_event_handlers" do
-    let(:handlers)      { ["EventHandlers::One::Example", :"EventHandlers::Two::Example"] }
-    let(:handler_names) { ["One::Example", "Two::Example"] }
-
-    before do
-      class_stub.singleton_class.define_method(:where, ->(*) {})
-      allow(EventHandlers).to receive(:for).and_return(handlers)
-    end
-
     it "finds records with the handlers in the database" do
-      allow(class_stub).to receive(:where)
+      create_list(:monster, 2)
+      aggressive_monster = create(:monster, event_handlers: ["Monster::Hate"])
 
-      class_stub.with_event_handlers(:one, :two)
-
-      expect(class_stub).to have_received(:where)
-        .with("event_handlers @> ARRAY[?]::varchar[]", handler_names)
+      expect(Monster.with_event_handlers(:attacked)).to eq([aggressive_monster])
     end
   end
 

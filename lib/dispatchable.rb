@@ -8,11 +8,12 @@ module Dispatchable
     #
     # @return [ActiveRecord::Relation]
     def with_event_handlers(*events)
-      handlers = EventHandlers.for(*events).map do |handler|
-        handler.to_s.delete_prefix("EventHandlers::")
-      end
+      handlers = EventHandlers.for(*events).map { |klass| klass.to_s.delete_prefix("EventHandlers::") }
 
-      where("event_handlers @> ARRAY[?]::varchar[]", handlers)
+      where(
+        "EXISTS (SELECT 1 FROM JSON_EACH(event_handlers) WHERE value IN (?))",
+        handlers
+      )
     end
   end
 
