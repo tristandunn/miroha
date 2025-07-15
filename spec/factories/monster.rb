@@ -6,5 +6,9 @@ FactoryBot.define do
 
     name
     experience { 5 }
+
+    trait :aggressive do
+      event_handlers { ["Monster::Aggression"] }
+    end
   end
 end
