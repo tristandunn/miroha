@@ -10,6 +10,8 @@ describe EventHandlers, type: :service do
 
     before do
       stub_const("EventHandlers::TestHandler::TestClass", class_stub)
+
+      described_class.instance_variable_set(:@all, nil)
     end
 
     after do
