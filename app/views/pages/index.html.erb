@@ -1,14 +1,22 @@
 <%# locals: () %>
-<main class="container my-16 mx-auto w-3/4 text-center">
-  <header>
-    <h1 class="text-4xl font-bold tracking-tight"><%= t("title") %></h1>
-  </header>
+<main class="flex justify-center min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50">
+  <div class="px-8 pt-24 pb-16 mx-auto max-w-2xl text-center">
+    <header class="mb-12">
+      <h1 class="mb-4 text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-900">
+        <%= t("title") %>
+      </h1>
+      <div class="mx-auto w-24 h-1 bg-gradient-to-r rounded-full from-slate-700 to-slate-900"></div>
+    </header>
 
-  <% if signed_out? %>
-    <section>
-      <%= link_to t(".new_account"), new_account_path, class: "block w-fit px-6 py-4 mx-auto mt-6 text-sm font-semibold text-white bg-green-600 rounded-lg hover:bg-green-500 md:mt-12 md:text-xl" %>
+    <% if signed_out? %>
+      <section class="space-y-4">
+        <%= link_to t(".new_account"), new_account_path, class: "inline-block w-full px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-slate-700 to-slate-800 rounded-lg shadow-lg hover:from-slate-600 hover:to-slate-700 cursor-pointer" %>
 
-      <p class="mt-4 text-sm text-gray-600"><%= t(".existing_account") %> <%= link_to t(".sign_in"), new_sessions_path, class: "underline" %>.</p>
-    </section>
-  <% end %>
+        <p class="text-base text-slate-600">
+          <%= t(".existing_account") %>
+          <%= link_to t(".sign_in"), new_sessions_path, class: "text-slate-700 hover:text-slate-800 underline underline-offset-4 decoration-2 cursor-pointer" %>.
+        </p>
+      </section>
+    <% end %>
+  </div>
 </main>

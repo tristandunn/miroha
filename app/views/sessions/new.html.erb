@@ -1,30 +1,33 @@
 <%# locals: () %>
-<main class="py-12 w-screen lg:flex lg:p-12 lg:min-h-screen">
-  <div class="self-center py-12 px-8 mx-auto w-full max-w-lg">
-    <div class="mb-12 text-center">
-      <h1 class="text-3xl font-bold text-gray-700"><%= t(".header") %></h1>
+<main class="flex justify-center px-4 min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50">
+  <div class="pt-24 w-full max-w-md">
+    <div class="p-8 rounded-2xl border border-gray-200 shadow-2xl bg-white/90 backdrop-blur-sm">
+      <div class="mb-8 text-center">
+        <h1 class="mb-2 text-3xl font-bold text-slate-800"><%= t(".header") %></h1>
+        <div class="mx-auto w-16 h-1 bg-gradient-to-r rounded-full from-slate-700 to-slate-900"></div>
+      </div>
+
+      <%= form_for @form, url: sessions_path, html: { class: "highlight-errors space-y-6", data: { turbo: false } } do |form| %>
+        <div class="space-y-2">
+          <%= form.label :email, class: "block text-sm font-medium text-slate-700" %>
+          <%= form.email_field :email, autocomplete: "email", autofocus: true, class: "w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-slate-900 placeholder-gray-500 focus:ring-2 focus:ring-slate-500 focus:border-slate-500", maxlength: Account::MAXIMUM_EMAIL_LENGTH, placeholder: t(".placeholder"), required: true %>
+          <% if @form.errors[:email].present? %>
+            <p class="text-sm text-red-600"><%= SessionForm.human_attribute_name(:email).humanize %> <%= @form.errors[:email].first %>.</p>
+          <% end %>
+        </div>
+
+        <div class="space-y-2">
+          <%= form.label :password, class: "block text-sm font-medium text-slate-700" %>
+          <%= form.password_field :password, autocomplete: "current-password", class: "w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-slate-900 placeholder-gray-500 focus:ring-2 focus:ring-slate-500 focus:border-slate-500", minlength: Account::MINIMUM_PASSWORD_LENGTH, required: true %>
+          <% if @form.errors[:password].present? %>
+            <p class="text-sm text-red-600"><%= SessionForm.human_attribute_name(:password).humanize %> <%= @form.errors[:password].first %>.</p>
+          <% end %>
+        </div>
+
+        <button class="py-3 w-full text-lg font-semibold text-white bg-gradient-to-r rounded-lg shadow-lg cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:outline-none from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 focus:ring-slate-500" type="submit">
+          <%= t(".submit") %>
+        </button>
+      <% end %>
     </div>
-
-    <%= form_for @form, url: sessions_path, html: { class: "highlight-errors", data: { turbo: false } } do |form| %>
-      <div>
-        <%= form.label :email, class: "block mb-1 text-sm font-medium text-gray-800" %>
-        <%= form.email_field :email, autocomplete: "email", autofocus: true, class: "w-full text-gray-800 border-gray-400 rounded focus:ring-2 focus:ring-green-200 focus:border-green-300", maxlength: Account::MAXIMUM_EMAIL_LENGTH, placeholder: t(".placeholder"), required: true %>
-        <% if @form.errors[:email].present? %>
-          <p class="mt-2 text-xs text-red-700"><%= SessionForm.human_attribute_name(:email).humanize %> <%= @form.errors[:email].first %>.</p>
-        <% end %>
-      </div>
-
-      <div class="mt-6">
-        <%= form.label :password, class: "block mb-1 text-sm font-medium text-gray-800" %>
-        <%= form.password_field :password, autocomplete: "current-password", class: "w-full text-gray-800 border-gray-400 rounded focus:ring-2 focus:ring-green-200 focus:border-green-300", minlength: Account::MINIMUM_PASSWORD_LENGTH, required: true %>
-        <% if @form.errors[:password].present? %>
-          <p class="mt-2 text-xs text-red-700"><%= SessionForm.human_attribute_name(:password).humanize %> <%= @form.errors[:password].first %>.</p>
-        <% end %>
-      </div>
-
-      <button class="block p-4 mx-auto mt-6 w-4/5 text-lg font-semibold text-center text-white bg-green-600 rounded-lg hover:bg-green-500 focus:outline-none focus:shadow-green-200" type="submit">
-        <%= t(".submit") %>
-      </button>
-    <% end %>
   </div>
 </main>
