@@ -19,9 +19,9 @@ describe "game/_surroundings.html.erb" do
   end
 
   context "with characters" do
-    let(:character_first)  { create(:character, name: "Alex") }
+    let(:character_first)  { create(:character, name: "Rory") }
     let(:character_second) { create(:character, :inactive, name: "Jody") }
-    let(:character_third)  { create(:character, name: "Rory") }
+    let(:character_third)  { create(:character, name: "Alex") }
 
     let(:room) do
       create(:room, characters: [character_first, character_second, character_third])
@@ -37,8 +37,8 @@ describe "game/_surroundings.html.erb" do
       ).and(
         have_css(
           "#surrounding-characters " \
-          "#surrounding_character_#{character_first.id} + " \
-          "#surrounding_character_#{character_third.id}"
+          "#surrounding_character_#{character_third.id} + " \
+          "#surrounding_character_#{character_first.id}"
         )
       )
     end
@@ -52,8 +52,8 @@ describe "game/_surroundings.html.erb" do
     let(:room) { create(:room) }
 
     it "renders the surrounding items ordered by name" do
-      item_first  = create(:item, owner: room, name: "Dagger")
       item_second = create(:item, owner: room, name: "Knife")
+      item_first  = create(:item, owner: room, name: "Dagger")
 
       expect(html).to have_css(
         "#surrounding-items #surrounding_item_#{item_first.id}"
@@ -77,8 +77,8 @@ describe "game/_surroundings.html.erb" do
     let(:room)           { create(:room) }
 
     before do
-      create(:spawn, :monster, entity: monster_first, room: room)
       create(:spawn, :monster, entity: monster_second, room: room)
+      create(:spawn, :monster, entity: monster_first, room: room)
     end
 
     it "renders the surrounding monsters ordered by name" do
