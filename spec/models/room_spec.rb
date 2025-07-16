@@ -6,18 +6,12 @@ describe Room do
   describe "associations" do
     subject(:room) { build(:room) }
 
+    it { is_expected.to have_many(:items).dependent(:destroy) }
     it { is_expected.to have_many(:monsters).dependent(:destroy) }
     it { is_expected.to have_many(:spawns).dependent(:destroy) }
 
     it "has many :characters dependent: :restrict_with_exception" do
       expect(room).to have_many(:characters).dependent(:restrict_with_exception)
-    end
-
-    it "has many :items inverse_of: owner, dependent: destroy" do
-      expect(room).to have_many(:items)
-        .with_foreign_key(:owner_id)
-        .inverse_of(:owner)
-        .dependent(:destroy)
     end
   end
 

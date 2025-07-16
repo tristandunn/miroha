@@ -4,7 +4,7 @@ class Room < ApplicationRecord
   DEFAULT_COORDINATES = { x: 0, y: 0, z: 0 }.freeze
 
   has_many :characters, dependent: :restrict_with_exception
-  has_many :items, foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
+  has_many :items, as: :owner, dependent: :destroy
   has_many :monsters, dependent: :destroy
   has_many :spawns, dependent: :destroy
 
