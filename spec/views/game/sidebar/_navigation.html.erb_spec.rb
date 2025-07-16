@@ -4,10 +4,13 @@ require "rails_helper"
 
 describe "game/sidebar/_navigation.html.erb" do
   subject(:html) do
-    render partial: "game/sidebar/navigation"
+    render partial: "game/sidebar/navigation",
+           locals:  { character: character }
 
     rendered
   end
+
+  let(:character) { build_stubbed(:character) }
 
   before do
     stub_template(

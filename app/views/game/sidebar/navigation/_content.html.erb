@@ -1,2 +1,15 @@
-<%# locals: () %>
-<div class="bg-gray-700 rounded-tl"></div>
+<%# locals: (character:) %>
+<div class="bg-gray-800 rounded-tl">
+  <div id="character-inventory">
+    <% if character.items.any? %>
+      <ol>
+        <% character.items.sort_by(&:name).each do |item| %>
+          <li id="inventory_item_<%= item.id %>" class="first:rounded-tl">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=">
+            <%= item.name %>
+          </li>
+        <% end %>
+      </ol>
+    <% end %>
+  </div>
+</div>

@@ -9,6 +9,8 @@ class Character < ApplicationRecord
   belongs_to :account
   belongs_to :room
 
+  has_many :items, as: :owner, dependent: :destroy
+
   validates :current_health, numericality: {
     less_than_or_equal_to: :maximum_health, greater_than: 0, only_integer: true
   }

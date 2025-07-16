@@ -22,7 +22,7 @@ class GameController < ApplicationController
   def character_from_session
     if session[:character_id].present?
       Character
-        .includes(:account, room: %i(items monsters))
+        .includes(:account, :items, room: %i(items monsters))
         .find(session[:character_id])
     end
   end

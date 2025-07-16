@@ -1,5 +1,5 @@
-<%# locals: () %>
+<%# locals: (character:) %>
 <div id="navigation" class="grid">
   <%= render "game/sidebar/navigation/menu" %>
-  <%= render "game/sidebar/navigation/content" %>
+  <%= render "game/sidebar/navigation/content", character: character %>
 </div>

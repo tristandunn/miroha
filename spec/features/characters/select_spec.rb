@@ -22,6 +22,14 @@ describe "Selecting a character", :js do
     expect(page).to have_look_message(character.room.description)
   end
 
+  it "displays character inventory" do
+    item = create(:item, owner: character)
+
+    click_on character.name
+
+    expect(page).to have_inventory_item(item)
+  end
+
   it "displays active characters in surroundings", js: false do
     nearby_character = create(:character, room: character.room)
 
