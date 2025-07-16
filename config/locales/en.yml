@@ -16,9 +16,9 @@ en:
 
   accounts:
     new:
-      header: "Create an Account"
+      header: "Welcome!"
       placeholder: "you@example.com"
-      submit: "Create Your Account"
+      submit: "Create Account"
 
   activemodel:
     attributes:
@@ -294,7 +294,7 @@ en:
     index:
       existing_account: "Already have an account?"
       new_account: "Create an Account"
-      sign_in: "Sign In"
+      sign_in: "Sign in"
 
   sessions:
     new:
