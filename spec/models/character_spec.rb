@@ -5,6 +5,7 @@ require "rails_helper"
 describe Character do
   describe "associations" do
     it { is_expected.to belong_to(:account) }
+    it { is_expected.to have_many(:items).dependent(:destroy) }
     it { is_expected.to belong_to(:room) }
   end
 

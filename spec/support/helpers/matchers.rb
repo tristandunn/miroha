@@ -4,6 +4,10 @@ module RSpec
   module Helpers
     module Matchers
       module Feature
+        def have_inventory_item(item)
+          have_css("#character-inventory li", text: item.name)
+        end
+
         def have_look_message(description, count: 1)
           have_css("#messages .message-look", text: description, count: count)
         end

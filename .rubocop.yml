@@ -31,6 +31,7 @@ Metrics/BlockLength:
   Exclude:
     - config/environments/*.rb
     - config/routes.rb
+    - db/seeds.rb
     - spec/**/*.rb
 
 Metrics/ClassLength:
