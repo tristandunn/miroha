@@ -6,6 +6,24 @@ Room.find_or_initialize_by(x: 0, y: 0, z: 0).tap do |room|
       The street is dusty and unkept. There is a small tavern to the west.
     DESCRIPTION
   )
+
+  Account.find_or_initialize_by(email: "bob@example.com").tap do |account|
+    account.update(
+      aliases:  I18n.t("account_form.default_aliases"),
+      password: "password"
+    )
+
+    Character.find_or_initialize_by(
+      account: account,
+      name:    "Yinohoo"
+    ).tap do |character|
+      character.update(room: room)
+
+      Item.find_or_create_by(owner: character).tap do |item|
+        item.update(name: "Shield")
+      end
+    end
+  end
 end
 
 Room.find_or_initialize_by(x: -1, y: 0, z: 0).tap do |room|
@@ -51,22 +69,5 @@ Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
         frequency:    1.minute
       )
       .find_or_create_by(base: rat, room: room)
-  end
-
-  Account.find_or_initialize_by(email: "bob@example.com").tap do |account|
-    account.update(
-      aliases:  I18n.t("account_form.default_aliases"),
-      password: "password"
-    )
-
-    Character.find_or_create_by!(
-      account: account,
-      room:    room,
-      name:    "Yinohoo"
-    ).tap do |character|
-      Item.find_or_create_by(owner: character).tap do |item|
-        item.update(name: "Shield")
-      end
-    end
   end
 end
