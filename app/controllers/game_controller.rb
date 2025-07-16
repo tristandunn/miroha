@@ -11,16 +11,19 @@ class GameController < ApplicationController
 
   # Render the game.
   def index
-    @account   = current_account
     @character = current_character
   end
 
   protected
 
-  # Override the current character helper to include other records.
+  # Override the character from session helper to include other records.
   #
   # @return [Character]
-  def current_character
-    @current_character ||= Character.includes(:room).find(session[:character_id])
+  def character_from_session
+    if session[:character_id].present?
+      Character
+        .includes(:account, room: %i(items monsters))
+        .find(session[:character_id])
+    end
   end
 end
