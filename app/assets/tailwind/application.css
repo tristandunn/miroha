@@ -185,10 +185,10 @@
 
 /* stylelint-disable selector-class-pattern */
 .highlight-errors .field_with_errors input {
-  @apply border-red-400;
+  @apply border-red-500;
 }
 
 .highlight-errors .field_with_errors input:focus {
-  @apply ring-red-200;
+  @apply border-red-500 ring-red-500;
 }
 /* stylelint-enable selector-class-pattern */
