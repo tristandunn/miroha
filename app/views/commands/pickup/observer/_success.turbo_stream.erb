@@ -1,0 +1,3 @@
+<%# locals: (character:, item:) %>
+<%= turbo_stream.append("messages", partial: "commands/pickup/observer/success", locals: { character: character, name: item.name }) %>
+<%= turbo_stream.remove("surrounding_item_#{item.id}") %>

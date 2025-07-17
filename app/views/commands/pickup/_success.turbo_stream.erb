@@ -1,0 +1,4 @@
+<%# locals: (character:, item:) %>
+<%= turbo_stream.append("messages", partial: "commands/pickup/success", locals: { name: item.name }) %>
+<%= turbo_stream.remove("surrounding_item_#{item.id}") %>
+<%= turbo_stream.replace("character-inventory", partial: "game/sidebar/navigation/content", locals: { character: character }) %>
