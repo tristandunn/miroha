@@ -1,0 +1,3 @@
+<%# locals: (character:, item:) %>
+<%= turbo_stream.append("messages", partial: "commands/drop/observer/success", locals: { character: character, name: item.name }) %>
+<%= turbo_stream.replace("surroundings", partial: "game/surroundings", locals: { room: character.room }) %>
