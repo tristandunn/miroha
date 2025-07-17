@@ -51,6 +51,10 @@
 #messages td.message-emote,
 #messages td.message-enter-game,
 #messages td.message-exit-game,
+#messages td.message-pickup-invalid,
+#messages td.message-pickup-missing,
+#messages td.message-pickup-observer,
+#messages td.message-pickup-success,
 #messages td.message-unknown {
   @apply font-normal text-left;
 }
@@ -78,6 +82,8 @@
   @apply max-w-2xl;
 }
 
+#messages td.message-pickup-invalid,
+#messages td.message-pickup-missing,
 #messages tr.message-monsters-attack-hit td,
 #messages tr.message-monsters-attack-kill td,
 #messages tr.message-monsters-attack-missed td {
