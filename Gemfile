@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ruby   "3.4.4"
+ruby   "3.4.5"
 source "https://rubygems.org"
 
 gem "bcrypt",            "3.1.20"
@@ -8,7 +8,7 @@ gem "bootsnap",          "1.18.6", require: false
 gem "hotwire-rails",     "0.1.3"
 gem "importmap-rails",   "2.1.0"
 gem "kamal",             "2.7.0"
-gem "propshaft",         "1.1.0"
+gem "propshaft",         "1.2.0"
 gem "puma",              "6.6.0"
 gem "rack-timeout",      "0.7.0"
 gem "rails",             "8.0.2"
