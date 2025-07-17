@@ -1,0 +1,4 @@
+<%# locals: (character:, item:) %>
+<%= turbo_stream.append("messages", partial: "commands/drop/success", locals: { name: item.name }) %>
+<%= turbo_stream.remove("inventory_item_#{item.id}") %>
+<%= turbo_stream.replace("surroundings", partial: "game/surroundings", locals: { room: character.room }) %>

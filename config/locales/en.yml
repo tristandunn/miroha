@@ -120,6 +120,16 @@ en:
         message: "You are talking to yourself."
       missing_target:
         message: "You don't see anyone named \"%{target_name}\"."
+    drop:
+      invalid_item:
+        message: "You don't have anything named \"%{name}\"."
+      missing_item:
+        message: "You must specify an item to drop."
+      success:
+        message: "You dropped the %{name}."
+      observer:
+        success:
+          message: "%{character_name} dropped the %{name}."
     help:
       commands:
         alias:
@@ -143,6 +153,9 @@ en:
         direct:
           arguments: "[name] [message]"
           description: "Send a message to a specific character."
+        drop:
+          arguments: "[name]"
+          description: "Drop an item by name."
         emote:
           arguments: "[message]"
           description: "Emote a message to the room."
@@ -182,6 +195,8 @@ en:
         name: "attack"
       direct:
         name: "direct"
+      drop:
+        name: "drop"
       emote:
         name: "emote"
       help:
