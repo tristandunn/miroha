@@ -154,6 +154,9 @@ en:
         move:
           arguments: "[direction]"
           description: "Move to a room in the direction specified."
+        pickup:
+          arguments: "[name]"
+          description: "Pick up an item by name."
         say:
           arguments: "[message]"
           description: "Send a message to the room."
@@ -187,6 +190,8 @@ en:
         name: "look"
       move:
         name: "move"
+      pickup:
+        name: "pickup"
       say:
         name: "say"
       whisper:
@@ -210,6 +215,16 @@ en:
         west: "%{name} went west."
       invalid_direction:
         message: "Unknown direction."
+    pickup:
+      invalid_item:
+        message: "There is no \"%{name}\" here."
+      missing_item:
+        message: "You must specify an item to pick up."
+      success:
+        message: "You picked up the %{name}."
+      observer:
+        success:
+          message: "%{character_name} picked up the %{name}."
     unknown:
       success:
         message: "Unknown command: %{command}"
