@@ -19,7 +19,8 @@ module Commands
         @room_target = room_target
       end
 
-      # Broadcast the move to the target and the source and target rooms.
+      # Move the character, broadcast the exit to the source room, and
+      # broadcast the entrance to the target room.
       #
       # @return [void]
       def call
