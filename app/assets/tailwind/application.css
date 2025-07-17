@@ -48,6 +48,10 @@
 #messages td.message-attacker-hit,
 #messages td.message-attacker-killed,
 #messages td.message-attacker-unknown,
+#messages td.message-drop-invalid,
+#messages td.message-drop-missing,
+#messages td.message-drop-observer,
+#messages td.message-drop-success,
 #messages td.message-emote,
 #messages td.message-enter-game,
 #messages td.message-exit-game,
@@ -118,6 +122,8 @@
 }
 
 #messages td.message-attacker-unknown,
+#messages td.message-drop-invalid,
+#messages td.message-drop-missing,
 #messages td.message-unknown {
   @apply bg-red-100 border-red-200;
 }
