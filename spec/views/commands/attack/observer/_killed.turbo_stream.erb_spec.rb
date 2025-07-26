@@ -9,7 +9,7 @@ describe "commands/attack/observer/_killed.turbo_stream.erb" do
       formats: :turbo_stream,
       locals:  {
         character:   character,
-        target_id:   target.id,
+        room:        character.room,
         target_name: target.name
       }
     )
@@ -22,13 +22,7 @@ describe "commands/attack/observer/_killed.turbo_stream.erb" do
 
   before do
     stub_template("commands/attack/observer/_killed.html.erb" => "KILLED_TEMPLATE")
-  end
-
-  it "removes the target from the surrounding monsters element" do
-    expect(html).to have_turbo_stream_element(
-      action: "remove",
-      target: "surrounding_monster_#{target.id}"
-    )
+    stub_template("game/_surroundings.html.erb" => "SURROUNDINGS_TEMPLATE")
   end
 
   it "appends to the messages element" do
@@ -38,7 +32,18 @@ describe "commands/attack/observer/_killed.turbo_stream.erb" do
     )
   end
 
+  it "replaces to the surroundings element" do
+    expect(html).to have_turbo_stream_element(
+      action: "replace",
+      target: "surroundings"
+    )
+  end
+
   it "renders the HTML template" do
     expect(html).to include("KILLED_TEMPLATE")
+  end
+
+  it "renders the surroundings HTML template" do
+    expect(html).to include("SURROUNDINGS_TEMPLATE")
   end
 end
