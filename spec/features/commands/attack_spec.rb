@@ -121,6 +121,28 @@ describe "Sending the attack command", :js do
       )
     end
 
+    it "adds monster's items to the surroundings for the sender" do
+      item = create(:item, owner: monster)
+
+      send_command(:attack, monster.name)
+
+      expect(page).to have_surrounding_item(item)
+    end
+
+    it "adds monster's items to the surroundings for the room" do
+      item = create(:item, owner: monster)
+
+      using_session(:nearby_character) do
+        sign_in_as_character create(:character, room: room)
+      end
+
+      send_command(:attack, monster.name)
+
+      using_session(:nearby_character) do
+        expect(page).to have_surrounding_item(item)
+      end
+    end
+
     it "broadcasts the attack killed message to the room" do
       using_session(:nearby_character) do
         sign_in_as_character create(:character, room: room)
@@ -189,6 +211,22 @@ describe "Sending the attack command", :js do
       wait_for(have_attacker_killed_message(monster, damage: damage)) do
         using_session(:distant_character) do
           expect(page).not_to have_attack_killed_message(monster)
+        end
+      end
+    end
+
+    it "does not add monster's items to the surroundings for other rooms" do
+      item = create(:item, owner: monster)
+
+      using_session(:nearby_character) do
+        sign_in_as_character create(:character)
+      end
+
+      send_command(:attack, monster.name)
+
+      wait_for(have_attacker_killed_message(monster, damage: damage)) do
+        using_session(:nearby_character) do
+          expect(page).not_to have_surrounding_item(item)
         end
       end
     end
