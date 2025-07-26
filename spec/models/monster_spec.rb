@@ -12,6 +12,8 @@ describe Monster do
   describe "associations" do
     it { is_expected.to belong_to(:room).optional }
 
+    it { is_expected.to have_many(:items).dependent(:destroy) }
+
     it "has one :spawn foreign_key: :entity_id, dependent: :nullify" do
       expect(build(:monster)).to have_one(:spawn)
         .with_foreign_key(:entity_id)

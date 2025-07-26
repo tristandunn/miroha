@@ -121,6 +121,28 @@ describe "Sending the attack command", :js do
       )
     end
 
+    it "adds monster's items to the surroundings for the sender" do
+      item = create(:item, owner: monster)
+
+      send_command(:attack, monster.name)
+
+      expect(page).to have_surrounding_item(item)
+    end
+
+    it "adds monster's items to the surroundings for the room" do
+      item = create(:item, owner: monster)
+
+      using_session(:nearby_character) do
+        sign_in_as_character create(:character, room: room)
+      end
+
+      send_command(:attack, monster.name)
+
+      using_session(:nearby_character) do
+        expect(page).to have_surrounding_item(item)
+      end
+    end
+
     it "broadcasts the attack killed message to the room" do
       using_session(:nearby_character) do
         sign_in_as_character create(:character, room: room)

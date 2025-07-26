@@ -49,5 +49,23 @@ describe Spawns::Activate, type: :service do
         expect(spawn.reload.expires_at).to be_nil
       end
     end
+
+    context "with items on the base" do
+      let(:base)  { create(:monster, room: nil, items: items) }
+      let(:items) { build_list(:item, 2) }
+      let(:spawn) { create(:spawn, base: base) }
+
+      it "duplicates base items to the spawn entity" do
+        described_class.call(spawn)
+
+        expect(spawn.entity.items.pluck(:name)).to eq(items.map(&:name))
+      end
+
+      it "does not modify the base items" do
+        described_class.call(spawn)
+
+        expect(base.items.reload).to eq(items)
+      end
+    end
   end
 end

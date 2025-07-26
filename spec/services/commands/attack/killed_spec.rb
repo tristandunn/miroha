@@ -11,6 +11,7 @@ describe Commands::Attack::Killed, type: :service do
 
     it { expect(instance).to delegate_method(:id).to(:target).with_prefix }
     it { expect(instance).to delegate_method(:name).to(:target).with_prefix }
+    it { expect(instance).to delegate_method(:room).to(:character) }
 
     it "inherits from command result" do
       expect(described_class.superclass).to eq(Commands::Result)
@@ -39,7 +40,7 @@ describe Commands::Attack::Killed, type: :service do
         .with(
           character.room_gid,
           partial: "commands/attack/observer/killed",
-          locals:  { character: character, target_id: target.id, target_name: target.name }
+          locals:  { character: character, room: character.room, target_name: target.name }
         )
     end
 
@@ -65,6 +66,12 @@ describe Commands::Attack::Killed, type: :service do
           partial: "game/sidebar/character",
           locals:  { character: character }
         )
+    end
+
+    it "transfers target's items to the room" do
+      item = create(:item, owner: target)
+
+      expect { call }.to change { item.reload.owner }.from(target).to(character.room)
     end
 
     context "when current experience meets the needed experience" do
@@ -107,15 +114,16 @@ describe Commands::Attack::Killed, type: :service do
   describe "#locals" do
     subject(:locals) { instance.locals }
 
-    let(:character) { instance_double(Character) }
+    let(:character) { instance_double(Character, room: room) }
     let(:damage)    { rand(1..10) }
     let(:instance)  { described_class.new(character: character, damage: damage, target: target) }
-    let(:target)    { instance_double(Monster, id: 1, name: "Target") }
+    let(:room)      { instance_double(Room) }
+    let(:target)    { instance_double(Monster, name: "Target") }
 
     it do
       expect(locals).to eq(
         damage:      damage,
-        target_id:   target.id,
+        room:        room,
         target_name: target.name
       )
     end

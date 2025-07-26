@@ -3,8 +3,9 @@
 module Commands
   class Attack < Base
     class Killed < Result
-      locals :damage, :target_id, :target_name
+      locals :damage, :room, :target_name
 
+      delegate :room, to: :character
       delegate :id, :name, to: :target, prefix: true
 
       # Initialize an attack killed result.
@@ -24,6 +25,7 @@ module Commands
       #
       # @return [void]
       def call
+        transfer_items_to_room
         broadcast_killed
         expire_spawn
         reward_experience_and_level
@@ -53,7 +55,7 @@ module Commands
         broadcast_render_later_to(
           character.room_gid,
           partial: "commands/attack/observer/killed",
-          locals:  { character: character, target_id: target_id, target_name: target_name }
+          locals:  { character: character, room: room, target_name: target_name }
         )
       end
 
@@ -76,6 +78,14 @@ module Commands
         end
 
         character.save!
+      end
+
+      # Transfer the target's items to the room.
+      #
+      # @return [void]
+      def transfer_items_to_room
+        target.items.update!(owner: character.room)
+        target.items.reset
       end
     end
   end

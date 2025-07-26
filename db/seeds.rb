@@ -62,6 +62,10 @@ Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
       event_handlers: ["Monster::Hate"]
     )
 
+    Item.find_or_create_by(owner: rat).tap do |item|
+      item.update(name: "Rat Tail")
+    end
+
     Spawn
       .create_with(
         activates_at: Time.current,

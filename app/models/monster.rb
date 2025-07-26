@@ -7,6 +7,7 @@ class Monster < ApplicationRecord
   MAXIMUM_NAME_LENGTH = 24
 
   has_one :spawn, foreign_key: :entity_id, inverse_of: :entity, dependent: :nullify
+  has_many :items, as: :owner, dependent: :destroy
 
   belongs_to :room, optional: true
 
