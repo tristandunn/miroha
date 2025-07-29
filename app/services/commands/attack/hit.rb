@@ -56,7 +56,7 @@ module Commands
       #
       # @return [void]
       def trigger_target_attacked
-        target.trigger(:attacked, character: character, damage: damage)
+        target.trigger(:character_attacked, character: character, damage: damage)
       end
     end
   end

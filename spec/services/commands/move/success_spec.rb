@@ -67,11 +67,11 @@ describe Commands::Move::Success, type: :service do
     it "notifies monsters in the target room of the character entering" do
       monster = create(:monster, :aggressive, room: room_target)
 
-      allow(EventHandlers::Monster::Aggression).to receive(:on_enter)
+      allow(EventHandlers::Monster::Aggression).to receive(:on_character_entered)
 
       call
 
-      expect(EventHandlers::Monster::Aggression).to have_received(:on_enter)
+      expect(EventHandlers::Monster::Aggression).to have_received(:on_character_entered)
         .with(character: character, monster: monster)
     end
   end

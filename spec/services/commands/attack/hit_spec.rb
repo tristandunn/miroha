@@ -38,7 +38,7 @@ describe Commands::Attack::Hit, type: :service do
       call
 
       expect(target).to have_received(:trigger)
-        .with(:attacked, character: character, damage: damage)
+        .with(:character_attacked, character: character, damage: damage)
     end
 
     it "broadcasts attack hit partial to the room" do

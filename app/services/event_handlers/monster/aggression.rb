@@ -3,14 +3,13 @@
 module EventHandlers
   module Monster
     class Aggression
-      # Add hate of the character for the monster when they enter the room, if
-      # there's no existing hate.
+      # Add hate of the character for the monster when they've entered the room.
       #
       # @param [Character] character The character entering the room.
-      # @param [Monster] monster The monster being attacked.
+      # @param [Monster] monster The monster being aggressive.
       # @return [void]
-      def self.on_enter(character:, monster:)
-        EventHandlers::Monster::Hate.on_attacked(character: character, monster: monster, damage: 1)
+      def self.on_character_entered(character:, monster:)
+        EventHandlers::Monster::Hate.on_character_attacked(character: character, monster: monster, damage: 1)
       end
     end
   end
