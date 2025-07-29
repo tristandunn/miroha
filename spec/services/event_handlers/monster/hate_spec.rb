@@ -3,9 +3,9 @@
 require "rails_helper"
 
 describe EventHandlers::Monster::Hate, type: :service do
-  describe ".on_attacked" do
-    subject(:on_attacked) do
-      described_class.on_attacked(character: character, damage: damage, monster: monster)
+  describe ".on_character_attacked" do
+    subject(:on_character_attacked) do
+      described_class.on_character_attacked(character: character, damage: damage, monster: monster)
     end
 
     let(:character)  { build_stubbed(:character) }
@@ -18,7 +18,7 @@ describe EventHandlers::Monster::Hate, type: :service do
     end
 
     it "creates a sorted set cache" do
-      on_attacked
+      on_character_attacked
 
       expect(Cache::SortedSet).to have_received(:new)
         .with(described_class::KEY % monster.id, expires_in: described_class::TTL)
@@ -27,7 +27,7 @@ describe EventHandlers::Monster::Hate, type: :service do
     it "increments the hate for the character" do
       allow(sorted_set).to receive(:increment)
 
-      on_attacked
+      on_character_attacked
 
       expect(sorted_set).to have_received(:increment).with(character.id, damage)
     end

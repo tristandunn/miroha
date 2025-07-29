@@ -16,7 +16,7 @@ describe Dispatchable do
       create_list(:monster, 2)
       aggressive_monster = create(:monster, event_handlers: ["Monster::Hate"])
 
-      expect(Monster.with_event_handlers(:attacked)).to eq([aggressive_monster])
+      expect(Monster.with_event_handlers(:character_attacked)).to eq([aggressive_monster])
     end
   end
 

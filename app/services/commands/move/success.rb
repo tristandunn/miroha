@@ -83,13 +83,13 @@ module Commands
         trigger_enter_monsters
       end
 
-      # Trigger event events on monsters in the target room that have enter
-      # event handlers.
+      # Trigger character entered events on monsters in the target room that
+      # have the event handler.
       #
       # @return [void]
       def trigger_enter_monsters
-        room_target.monsters.with_event_handlers(:enter).find_each do |monster|
-          monster.trigger(:enter, character: character)
+        room_target.monsters.with_event_handlers(:character_entered).find_each do |monster|
+          monster.trigger(:character_entered, character: character)
         end
       end
     end

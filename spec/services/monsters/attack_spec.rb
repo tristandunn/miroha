@@ -20,7 +20,7 @@ describe Monsters::Attack, type: :service do
       allow(Turbo::StreamsChannel).to receive(:broadcast_render_later_to)
       allow(Turbo::StreamsChannel).to receive(:broadcast_replace_later_to)
 
-      EventHandlers::Monster::Hate.on_attacked(character: target, damage: 1, monster: monster)
+      EventHandlers::Monster::Hate.on_character_attacked(character: target, damage: 1, monster: monster)
     end
 
     context "with a valid target" do
@@ -177,7 +177,7 @@ describe Monsters::Attack, type: :service do
       let(:other_target) { create(:character, room: monster.room) }
 
       before do
-        EventHandlers::Monster::Hate.on_attacked(
+        EventHandlers::Monster::Hate.on_character_attacked(
           character: other_target,
           damage:    20,
           monster:   monster
