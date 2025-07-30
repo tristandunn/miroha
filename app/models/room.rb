@@ -6,6 +6,7 @@ class Room < ApplicationRecord
   has_many :characters, dependent: :restrict_with_exception
   has_many :items, as: :owner, dependent: :destroy
   has_many :monsters, dependent: :destroy
+  has_many :npcs, dependent: :destroy
   has_many :spawns, dependent: :destroy
 
   validates :description, presence: true

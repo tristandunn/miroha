@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_25_015139) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_29_234433) do
   create_table "accounts", force: :cascade do |t|
     t.string "email", limit: 255, null: false
     t.string "password_digest", limit: 60, null: false
@@ -62,6 +62,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_25_015139) do
     t.check_constraint "current_health <= maximum_health", name: "monsters_current_health_check"
   end
 
+  create_table "npcs", force: :cascade do |t|
+    t.integer "room_id"
+    t.string "name", limit: 24, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_npcs_on_room_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.bigint "x", null: false
     t.bigint "y", null: false
@@ -94,4 +102,5 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_25_015139) do
 
   add_foreign_key "characters", "accounts"
   add_foreign_key "monsters", "rooms"
+  add_foreign_key "npcs", "rooms"
 end

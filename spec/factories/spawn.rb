@@ -8,5 +8,10 @@ FactoryBot.define do
       base   { association(:monster, room: nil) }
       entity { association(:monster, room: room) }
     end
+
+    trait :npc do
+      base   { association(:npc, room: nil) }
+      entity { association(:npc, room: room) }
+    end
   end
 end

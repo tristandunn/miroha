@@ -46,6 +46,20 @@ Room.find_or_initialize_by(x: -1, y: 0, z: 0).tap do |room|
   Item.find_or_create_by(owner: room).tap do |item|
     item.update(name: "Empty Jug")
   end
+
+  Npc.find_or_create_by(room: room).tap do |npc|
+    npc.update(name: "Bartender")
+  end
+
+  Npc.find_or_create_by(name: "Regular").tap do |npc|
+    Spawn
+      .create_with(
+        activates_at: Time.current,
+        duration:     1.minute,
+        frequency:    1.minute
+      )
+      .find_or_create_by(base: npc, room: room)
+  end
 end
 
 Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
