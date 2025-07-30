@@ -16,14 +16,14 @@ module Spawns
     end
 
     # Duplicate the spawn base entity, assign the spawn room to the entity,
-    # duplicate and assign any items, and return the new entity.
+    # duplicate and assign any items when needed, and return the new entity.
     #
     # @param [Spawn] spawn The spawn to build an entity for.
-    # @return [Monster] The entity created.
+    # @return [Monster|NPC] The entity created.
     def self.build_entity(spawn)
       entity = spawn.base.dup
       entity.room_id = spawn.room_id
-      entity.items   = spawn.base.items.map(&:dup)
+      entity.items   = spawn.base.items.map(&:dup) if entity.respond_to?(:items)
       entity
     end
     private_class_method :build_entity

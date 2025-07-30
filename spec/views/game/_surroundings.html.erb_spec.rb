@@ -97,4 +97,31 @@ describe "game/_surroundings.html.erb" do
       )
     end
   end
+
+  context "with npcs" do
+    let(:npc_first)  { create(:npc, room: room, name: "Bartender") }
+    let(:npc_second) { create(:npc, room: room, name: "Shopkeeper") }
+    let(:room)       { create(:room) }
+
+    before do
+      create(:spawn, :npc, entity: npc_second, room: room)
+      create(:spawn, :npc, entity: npc_first, room: room)
+    end
+
+    it "renders the surrounding npcs ordered by name" do
+      expect(html).to have_css(
+        "#surrounding-npcs #surrounding_npc_#{npc_first.id}"
+      ).and(
+        have_css(
+          "#surrounding-npcs #surrounding_npc_#{npc_second.id}"
+        )
+      ).and(
+        have_css(
+          "#surrounding-npcs " \
+          "#surrounding_npc_#{npc_first.id} + " \
+          "#surrounding_npc_#{npc_second.id}"
+        )
+      )
+    end
+  end
 end

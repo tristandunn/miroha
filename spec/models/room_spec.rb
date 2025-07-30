@@ -8,6 +8,7 @@ describe Room do
 
     it { is_expected.to have_many(:items).dependent(:destroy) }
     it { is_expected.to have_many(:monsters).dependent(:destroy) }
+    it { is_expected.to have_many(:npcs).dependent(:destroy) }
     it { is_expected.to have_many(:spawns).dependent(:destroy) }
 
     it "has many :characters dependent: :restrict_with_exception" do

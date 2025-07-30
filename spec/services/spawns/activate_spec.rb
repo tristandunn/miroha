@@ -67,5 +67,18 @@ describe Spawns::Activate, type: :service do
         expect(base.items.reload).to eq(items)
       end
     end
+
+    context "with entity that does not contain items" do
+      let(:base)  { create(:npc, room: nil) }
+      let(:spawn) { create(:spawn, base: base) }
+
+      it "does not attempt to assign items" do
+        described_class.call(spawn)
+
+        expect(spawn.reload.entity.attributes).to include(
+          spawn.base.attributes.except("id", "room_id", "created_at", "updated_at")
+        )
+      end
+    end
   end
 end
