@@ -42,6 +42,37 @@
   @apply w-1/12 font-bold text-right;
 }
 
+#messages td.message-alias-add-success,
+#messages td.message-alias-add-invalid-command,
+#messages td.message-alias-remove-success,
+#messages td.message-alias-remove-unknown-alias,
+#messages td.message-alias-show-unknown-alias {
+  @apply bg-yellow-50 border-yellow-100;
+}
+
+#messages td.message-help-list,
+#messages td.message-help-invalid-command {
+  @apply bg-cyan-50 border-cyan-100;
+}
+
+#messages td.message-move-enter,
+#messages td.message-move-exit,
+#messages td.message-move-invalid-direction,
+#messages td.message-move-empty-direction {
+  @apply bg-indigo-50 border-indigo-100;
+}
+
+#messages td.message-pickup-observer,
+#messages td.message-drop-observer {
+  @apply bg-green-100 border-green-200;
+}
+
+#messages td.message-attack-observer-hit,
+#messages td.message-attack-observer-killed,
+#messages td.message-attack-observer-missed {
+  @apply bg-red-100 border-red-200;
+}
+
 #messages td.message-alias-remove,
 #messages td.message-attack-hit,
 #messages td.message-attack-killed,
@@ -51,20 +82,23 @@
 #messages td.message-drop-invalid,
 #messages td.message-drop-missing,
 #messages td.message-drop-observer,
-#messages td.message-drop-success,
 #messages td.message-emote,
 #messages td.message-enter-game,
 #messages td.message-exit-game,
 #messages td.message-pickup-invalid,
 #messages td.message-pickup-missing,
 #messages td.message-pickup-observer,
-#messages td.message-pickup-success,
 #messages td.message-unknown {
   @apply font-normal text-left;
 }
 
+#messages td.message-pickup-success,
+#messages td.message-drop-success {
+  @apply font-normal text-left bg-green-50 border-green-100;
+}
+
 #messages td.message-emote {
-  @apply italic leading-5;
+  @apply italic leading-5 bg-purple-50 border-purple-100;
 }
 
 #messages td.message-enter-game,
@@ -88,6 +122,17 @@
 
 #messages td.message-pickup-invalid,
 #messages td.message-pickup-missing,
+#messages td.message-drop-invalid,
+#messages td.message-drop-missing,
+#messages td.message-attack-invalid-target,
+#messages td.message-attack-missing-target,
+#messages td.message-direct-invalid-target,
+#messages td.message-direct-missing-target,
+#messages td.message-whisper-invalid-target,
+#messages td.message-whisper-missing-target {
+  @apply bg-orange-50 border-orange-100;
+}
+
 #messages tr.message-monsters-attack-hit td,
 #messages tr.message-monsters-attack-kill td,
 #messages tr.message-monsters-attack-missed td {
@@ -104,9 +149,12 @@
   @apply font-semibold;
 }
 
-#messages td.message-direct,
 #messages td.message-say {
-  @apply py-3 leading-5;
+  @apply py-3 leading-5 bg-blue-50 border-blue-100;
+}
+
+#messages td.message-direct {
+  @apply py-3 leading-5 bg-blue-100 border-blue-200;
 }
 
 #messages td.message-whisper {
