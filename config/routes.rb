@@ -22,5 +22,9 @@ Rails.application.routes.draw do
 
   get "/health", to: "health#index"
 
+  if Rails.env.development?
+    get "/messages", to: "messages#index"
+  end
+
   root to: "pages#index"
 end
