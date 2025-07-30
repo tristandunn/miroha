@@ -1,0 +1,51 @@
+<%# locals: () %>
+<main class="h-screen" data-controller="game" data-character-id="<%= @character&.id %>">
+  <div id="container" class="grid h-full">
+    <%= render "game/sidebar", character: @character %>
+
+    <%# Custom chat section with message previews %>
+    <div id="chat" class="grid bg-gray-100" data-controller="chat">
+      <div class="relative">
+        <div class="overflow-y-auto absolute inset-0" data-chat-target="messages">
+          <table>
+            <tbody id="messages">
+              <%# Header message %>
+              <tr data-chat-target="message">
+                <td colspan="2" class="px-4 py-2 !text-center text-gray-600 bg-blue-50">
+                  <strong>Messages Preview (Development Only)</strong><br>
+                  <span class="text-sm">Showing <%= @partial_data.length %> message types, in random order.</span>
+                </td>
+              </tr>
+
+              <% @partial_data.each do |partial_info| %>
+                <% begin %>
+                  <%= render partial: partial_info[:name], locals: partial_info[:locals] %>
+                <% rescue ActionView::MissingTemplate => e %>
+                  <tr data-chat-target="message">
+                    <td colspan="2" class="px-4 py-2 text-yellow-600 bg-yellow-50">
+                      <strong>Missing Template:</strong> <%= partial_info[:name] %>
+                    </td>
+                  </tr>
+                <% rescue I18n::MissingTranslationData => e %>
+                  <tr data-chat-target="message">
+                    <td colspan="2" class="px-4 py-2 text-orange-600 bg-orange-50">
+                      <strong>Missing Translation:</strong> <%= partial_info[:name] %> - <%= e.key %>
+                    </td>
+                  </tr>
+                <% rescue => e %>
+                  <tr data-chat-target="message">
+                    <td colspan="2" class="px-4 py-2 text-red-600 bg-red-50">
+                      <strong>Error:</strong> <%= partial_info[:name] %> - <%= e.message.truncate(100) %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <%= render "game/surroundings", room: @character&.room %>
+  </div>
+</main>
