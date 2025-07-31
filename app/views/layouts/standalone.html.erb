@@ -1,0 +1,30 @@
+<%# locals: () %>
+<!DOCTYPE html>
+<html lang="en-US" class="antialiased text-gray-900">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <title><%= t("title") %></title>
+
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+
+  <%= javascript_importmap_tags %>
+</head>
+<body>
+
+<main class="flex justify-center px-4 min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50">
+  <% if controller_name == "pages" && action_name == "index" %>
+    <%= yield %>
+  <% else %>
+    <div class="pt-24 w-full max-w-md">
+      <div class="p-8 rounded-2xl border border-gray-200 shadow-2xl bg-white/90 backdrop-blur-sm">
+        <%= yield %>
+      </div>
+    </div>
+  <% end %>
+</main>
+
+</body>
+</html>

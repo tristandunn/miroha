@@ -12,7 +12,7 @@ describe SessionsController do
       end
 
       it { is_expected.to respond_with(200) }
-      it { is_expected.to render_template(:new) }
+      it { is_expected.to render_template(:new, layout: "standalone") }
 
       it "assigns a session form" do
         expect(assigns(:form)).to be_a(SessionForm)
@@ -58,7 +58,7 @@ describe SessionsController do
       end
 
       it { is_expected.to respond_with(200) }
-      it { is_expected.to render_template(:new) }
+      it { is_expected.to render_template(:new, layout: "standalone") }
       it { is_expected.not_to set_session[:account_id] }
       it { is_expected.not_to set_session[:character_id] }
 

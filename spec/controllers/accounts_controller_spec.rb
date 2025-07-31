@@ -12,7 +12,7 @@ describe AccountsController do
       end
 
       it { is_expected.to respond_with(200) }
-      it { is_expected.to render_template(:new) }
+      it { is_expected.to render_template(:new, layout: "standalone") }
 
       it "assigns a form" do
         expect(assigns(:form)).to be_a(AccountForm)
@@ -63,7 +63,7 @@ describe AccountsController do
       end
 
       it { is_expected.to respond_with(200) }
-      it { is_expected.to render_template(:new) }
+      it { is_expected.to render_template(:new, layout: "standalone") }
       it { is_expected.not_to set_session[:account_id] }
 
       it "assigns the account" do

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  layout "standalone"
+
   before_action :redirect_authenticated_account, if: :signed_in?
 
   rate_limit to: 5, within: 1.hour, only: :create
