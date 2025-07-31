@@ -1,0 +1,8 @@
+<%# locals: (form:, field:, type: :text_field, label: nil, **options) %>
+<div class="space-y-2">
+  <%= form.label field, label || form.object.class.human_attribute_name(field), class: "block text-sm font-medium text-slate-700" %>
+  <%= form.public_send(type, field, { class: "w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-slate-900 placeholder-gray-500 focus:ring-2 focus:ring-slate-500 focus:border-slate-500" }.merge(options)) %>
+  <% if form.object.errors[field].present? %>
+    <p class="text-sm text-red-600"><%= form.object.class.human_attribute_name(field).humanize %> <%= form.object.errors[field].first %>.</p>
+  <% end %>
+</div>

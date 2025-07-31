@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  layout "standalone"
+
   before_action :redirect_authenticated_account,
                 except: :destroy,
                 if:     :signed_in?

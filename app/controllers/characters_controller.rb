@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CharactersController < ApplicationController
+  layout "standalone", only: %i(index new)
+
   before_action :authenticate
   before_action :ensure_account_can_create_character, only: %i(new create)
 
