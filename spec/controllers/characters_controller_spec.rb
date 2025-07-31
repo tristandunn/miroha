@@ -19,7 +19,7 @@ describe CharactersController do
       end
 
       it { is_expected.to respond_with(200) }
-      it { is_expected.to render_template(:index) }
+      it { is_expected.to render_template(:index, layout: "standalone") }
 
       it "assigns the characters from the current account" do
         expect(assigns(:characters)).to eq([character])
@@ -46,7 +46,7 @@ describe CharactersController do
       end
 
       it { is_expected.to respond_with(200) }
-      it { is_expected.to render_template(:new) }
+      it { is_expected.to render_template(:new, layout: "standalone") }
 
       it "assigns a form" do
         expect(assigns(:form)).to be_a(CharacterForm)
@@ -114,7 +114,7 @@ describe CharactersController do
       end
 
       it { is_expected.to respond_with(200) }
-      it { is_expected.to render_template(:new) }
+      it { is_expected.to render_template(:new, layout: "standalone") }
       it { is_expected.not_to set_session[:character_id] }
 
       it "assigns the character" do

@@ -1,0 +1,4 @@
+<%# locals: (text:, **options) %>
+<button class="py-3 w-full text-lg font-semibold text-white bg-gradient-to-r rounded-lg shadow-lg cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:outline-none from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 focus:ring-slate-500" <%= options.map { |k, v| "#{k}=\"#{v}\"" }.join(" ").html_safe %>>
+  <%= text %>
+</button>
