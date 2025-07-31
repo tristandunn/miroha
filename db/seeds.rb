@@ -20,7 +20,7 @@ Room.find_or_initialize_by(x: 0, y: 0, z: 0).tap do |room|
       character.update(room: room)
 
       Item.find_or_create_by(owner: character).tap do |item|
-        item.update(name: "Shield")
+        item.update(name: "Iron Shield")
       end
     end
   end
@@ -44,14 +44,14 @@ Room.find_or_initialize_by(x: -1, y: 0, z: 0).tap do |room|
   )
 
   Item.find_or_create_by(owner: room).tap do |item|
-    item.update(name: "Empty Jug")
+    item.update(name: "Cracked Mug")
   end
 
   Npc.find_or_create_by(room: room).tap do |npc|
-    npc.update(name: "Bartender")
+    npc.update(name: "Kellus")
   end
 
-  Npc.find_or_create_by(name: "Regular").tap do |npc|
+  Npc.find_or_create_by(name: "Morven").tap do |npc|
     Spawn
       .create_with(
         activates_at: Time.current,
@@ -70,8 +70,8 @@ Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
     DESCRIPTION
   )
 
-  Monster.find_or_create_by(name: "Bee").tap do |bee|
-    bee.update(
+  Monster.find_or_create_by(name: "Giant Wasp").tap do |wasp|
+    wasp.update(
       experience:     5,
       event_handlers: ["Monster::Aggression"]
     )
@@ -82,17 +82,17 @@ Room.find_or_initialize_by(x: -1, y: 0, z: -1).tap do |room|
         duration:     nil,
         frequency:    1.minute
       )
-      .find_or_create_by(base: bee, room: room)
+      .find_or_create_by(base: wasp, room: room)
   end
 
-  Monster.find_or_create_by(name: "Rat").tap do |rat|
+  Monster.find_or_create_by(name: "Sewer Rat").tap do |rat|
     rat.update(
       experience:     25,
       event_handlers: ["Monster::Hate"]
     )
 
     Item.find_or_create_by(owner: rat).tap do |item|
-      item.update(name: "Rat Tail")
+      item.update(name: "Tattered Fur")
     end
 
     Spawn
