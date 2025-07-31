@@ -245,7 +245,7 @@ en:
         message: "Unknown command: %{command}"
     whisper:
       invalid_target:
-        message: "You are talking to yourself."
+        message: "You are whispering to yourself."
       missing_target:
         message: "You don't see anyone named \"%{target_name}\"."
       success:
