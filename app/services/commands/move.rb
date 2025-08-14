@@ -44,7 +44,9 @@ module Commands
     # @return [Room] If the room is found.
     # @return [nil] If the room is not found.
     def room_target
-      @room_target ||= Room.find_by(target_coordinates)
+      return @room_target if defined?(@room_target)
+
+      @room_target = Room.find_by(target_coordinates)
     end
 
     # Return the handler for a successful command execution.
