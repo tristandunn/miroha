@@ -5,7 +5,7 @@
       <ol>
         <% character.items.sort_by(&:name).each do |item| %>
           <li id="inventory_item_<%= item.id %>" class="first:rounded-tl">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="">
             <%= item.name %>
           </li>
         <% end %>
