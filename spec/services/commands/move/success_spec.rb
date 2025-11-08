@@ -74,6 +74,17 @@ describe Commands::Move::Success, type: :service do
       expect(EventHandlers::Monster::Aggression).to have_received(:on_character_entered)
         .with(character: character, monster: monster)
     end
+
+    it "notifies monsters in the source room of the character exiting" do
+      monster = create(:monster, :follower, room: room_source)
+
+      allow(EventHandlers::Monster::Follow).to receive(:on_character_exited)
+
+      call
+
+      expect(EventHandlers::Monster::Follow).to have_received(:on_character_exited)
+        .with(character: character, direction: direction, monster: monster)
+    end
   end
 
   describe "#locals" do

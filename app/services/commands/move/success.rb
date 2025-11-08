@@ -69,11 +69,12 @@ module Commands
         trigger_enter
       end
 
-      # Broadcast the exit event.
+      # Broadcast and trigger the exit event.
       #
       # @return [void]
       def perform_exit
         broadcast_exit
+        trigger_exit
       end
 
       # Trigger events for the entering the target room.
@@ -90,6 +91,23 @@ module Commands
       def trigger_enter_monsters
         room_target.monsters.with_event_handlers(:character_entered).find_each do |monster|
           monster.trigger(:character_entered, character: character)
+        end
+      end
+
+      # Trigger events for the exiting the source room.
+      #
+      # @return [void]
+      def trigger_exit
+        trigger_exit_monsters
+      end
+
+      # Trigger character exited events on monsters in the source room that
+      # have the event handler.
+      #
+      # @return [void]
+      def trigger_exit_monsters
+        room_source.monsters.with_event_handlers(:character_exited).find_each do |monster|
+          monster.trigger(:character_exited, character: character, direction: direction)
         end
       end
     end
