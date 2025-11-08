@@ -13,9 +13,7 @@ module EventHandlers
       # @param [Monster] monster The monster being attacked.
       # @return [void]
       def self.on_character_attacked(character:, damage:, monster:)
-        # Use the monster's configured hate duration, falling back to TTL constant
-        duration = monster.hate_duration.seconds
-        hates = Cache::SortedSet.new(KEY % monster.id, expires_in: duration)
+        hates = Cache::SortedSet.new(KEY % monster.id, expires_in: monster.hate_duration.seconds)
         hates.increment(character.id, damage)
       end
     end
