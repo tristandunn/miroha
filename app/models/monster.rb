@@ -25,6 +25,6 @@ class Monster < ApplicationRecord
   #
   # @return [ActiveSupport::Duration, Integer] The hate duration.
   def hate_duration
-    metadata.dig("hate_duration") || DEFAULT_HATE_DURATION
+    metadata.dig("hate_duration").presence || DEFAULT_HATE_DURATION
   end
 end

@@ -4,7 +4,6 @@ module EventHandlers
   module Monster
     class Hate
       KEY = "monster:%s:hate"
-      TTL = 5.minutes
 
       # Increase the hate of the character for the monster when it's attacked.
       #
