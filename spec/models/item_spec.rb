@@ -72,29 +72,4 @@ describe Item do
     end
   end
 
-  describe "#can_stack_more?" do
-    context "when quantity is less than max_stack" do
-      subject(:item) { create(:item, :room, :stackable, quantity: 3) }
-
-      it "returns true" do
-        expect(item.can_stack_more?).to be(true)
-      end
-    end
-
-    context "when quantity equals max_stack" do
-      subject(:item) { create(:item, :room, :stackable, quantity: 5) }
-
-      it "returns false" do
-        expect(item.can_stack_more?).to be(false)
-      end
-    end
-  end
-
-  describe "#available_stack_space" do
-    subject(:item) { create(:item, :room, :stackable, quantity: 3) }
-
-    it "returns the remaining space in the stack" do
-      expect(item.available_stack_space).to eq(2)
-    end
-  end
 end

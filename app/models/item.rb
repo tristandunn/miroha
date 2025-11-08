@@ -26,20 +26,6 @@ class Item < ApplicationRecord
     max_stack > 1
   end
 
-  # Return if the stack can accept more items.
-  #
-  # @return [Boolean]
-  def can_stack_more?
-    quantity < max_stack
-  end
-
-  # Return how many more items can be added to this stack.
-  #
-  # @return [Integer]
-  def available_stack_space
-    max_stack - quantity
-  end
-
   private
 
   # Validate that quantity does not exceed max_stack.

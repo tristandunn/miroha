@@ -2,12 +2,11 @@
 
 require "rails_helper"
 
-describe ItemStacker, type: :service do
-  describe "#call" do
-    subject(:call) { instance.call }
+describe Items::Stack, type: :service do
+  describe ".call" do
+    subject(:call) { described_class.call(character: character, item: item) }
 
     let(:character) { create(:character, room: room) }
-    let(:instance)  { described_class.new(character: character, item: item) }
     let(:item)      { create(:item, :stackable, owner: room, quantity: 2) }
     let(:room)      { create(:room) }
 

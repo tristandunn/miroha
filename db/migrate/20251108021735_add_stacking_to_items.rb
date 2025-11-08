@@ -2,7 +2,9 @@
 
 class AddStackingToItems < ActiveRecord::Migration[8.0]
   def change
-    add_column :items, :quantity, :integer, default: 1, null: false
-    add_column :items, :metadata, :json, default: {}, null: false
+    change_table :items do |t|
+      t.integer :quantity, default: 1, null: false
+      t.json :metadata, default: {}, null: false
+    end
   end
 end
