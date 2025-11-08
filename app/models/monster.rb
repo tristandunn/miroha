@@ -4,9 +4,8 @@ class Monster < ApplicationRecord
   include Dispatchable
 
   DEFAULT_HATE_DURATION = 5.minutes
-
-  MINIMUM_NAME_LENGTH = 3
-  MAXIMUM_NAME_LENGTH = 24
+  MAXIMUM_NAME_LENGTH   = 24
+  MINIMUM_NAME_LENGTH   = 3
 
   has_one :spawn, foreign_key: :entity_id, inverse_of: :entity, dependent: :nullify
   has_many :items, as: :owner, dependent: :destroy
