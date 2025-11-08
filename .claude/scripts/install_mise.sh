@@ -31,10 +31,8 @@ mise install
 # Persist mise environment for the entire session
 if [ -n "$CLAUDE_ENV_FILE" ]; then
   echo "Setting up mise environment for session..."
-  # Add mise to PATH
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$CLAUDE_ENV_FILE"
-  # Export mise-managed tool paths and environment
-  mise hook-env >> "$CLAUDE_ENV_FILE"
+  # Export mise-managed tool paths using mise env
+  mise env -s bash >> "$CLAUDE_ENV_FILE"
 fi
 
 echo "mise setup complete!"
