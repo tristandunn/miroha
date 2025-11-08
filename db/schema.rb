@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_29_234433) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_08_021735) do
   create_table "accounts", force: :cascade do |t|
     t.string "email", limit: 255, null: false
     t.string "password_digest", limit: 60, null: false
@@ -45,6 +45,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_29_234433) do
     t.string "name", limit: 24, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity", default: 1, null: false
+    t.json "metadata", default: {}, null: false
     t.index ["owner_type", "owner_id"], name: "index_items_on_owner"
   end
 

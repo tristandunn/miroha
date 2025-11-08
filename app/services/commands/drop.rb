@@ -7,6 +7,7 @@ module Commands
     private
 
     # Attempt to find the item by name, including partial matches.
+    # Prioritizes items with the lowest quantity (for stacks).
     #
     # @return [Item] If an item is found.
     # @return [nil] If an item is not found.
@@ -15,6 +16,7 @@ module Commands
 
       @item = character.items
                        .where("LOWER(name) LIKE ?", "%#{parameters[:name].downcase}%")
+                       .order(:quantity)
                        .first
     end
 

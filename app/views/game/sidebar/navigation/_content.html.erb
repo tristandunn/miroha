@@ -4,8 +4,13 @@
     <% if character.items.any? %>
       <ol>
         <% character.items.sort_by(&:name).each do |item| %>
-          <li id="inventory_item_<%= item.id %>" class="first:rounded-tl">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="">
+          <li id="inventory_item_<%= item.id %>" class="first:rounded-tl relative">
+            <div class="relative inline-block">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="">
+              <% if item.quantity > 1 %>
+                <span class="absolute bottom-0 right-0 bg-gray-900 text-white text-xs px-1 rounded"><%= item.quantity %></span>
+              <% end %>
+            </div>
             <%= item.name %>
           </li>
         <% end %>
