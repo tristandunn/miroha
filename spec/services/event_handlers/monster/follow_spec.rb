@@ -15,7 +15,7 @@ describe EventHandlers::Monster::Follow, type: :service do
     let(:character)   { build_stubbed(:character) }
     let(:direction)   { "north" }
     let(:room_source) { create(:room, x: 0, y: 0, z: 0) }
-    let(:room_target) { create(:room, x: 0, y: 1, z: 0) }
+    let!(:room_target) { create(:room, x: 0, y: 1, z: 0) }
     let(:monster)     { create(:monster, room: room_source) }
 
     it "moves the monster to the target room" do
@@ -65,7 +65,7 @@ describe EventHandlers::Monster::Follow, type: :service do
       }.each do |dir, coords|
         context "when moving #{dir}" do
           let(:direction)   { dir }
-          let(:room_target) { create(:room, **coords) }
+          let!(:room_target) { create(:room, **coords) }
 
           it "moves the monster #{dir}" do
             on_character_exited
