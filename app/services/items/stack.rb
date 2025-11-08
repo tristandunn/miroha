@@ -2,27 +2,46 @@
 
 module Items
   class Stack
-    # Merge the item into the character's inventory, filling existing stacks
-    # and creating new ones as needed. Destroys the original item.
+    # Initialize an instance.
+    #
+    # @param [Character] character The character receiving the item.
+    # @param [Item] item The item to be stacked into the character's inventory.
+    # @return [void]
+    def initialize(character:, item:)
+      @character = character
+      @item = item
+    end
+
+    # Create and call an instance.
     #
     # @param [Character] character The character receiving the item.
     # @param [Item] item The item to be stacked into the character's inventory.
     # @return [void]
     def self.call(character:, item:)
-      remaining_quantity = fill_existing_stacks(character: character, item: item)
-      create_new_stacks(character: character, item: item, quantity: remaining_quantity)
+      new(character: character, item: item).call
+    end
+
+    # Merge the item into the character's inventory, filling existing stacks
+    # and creating new ones as needed. Destroys the original item.
+    #
+    # @return [void]
+    def call
+      remaining_quantity = fill_existing_stacks
+      create_new_stacks(remaining_quantity)
       item.destroy!
     end
 
+    private
+
+    attr_reader :character, :item
+
     # Fill existing partial stacks with the picked-up item quantity.
     #
-    # @param [Character] character The character receiving the item.
-    # @param [Item] item The item to be stacked.
     # @return [Integer] The remaining quantity after filling existing stacks.
-    def self.fill_existing_stacks(character:, item:)
+    def fill_existing_stacks
       remaining_quantity = item.quantity
 
-      available_stacks(character: character, item: item).each do |stack|
+      available_stacks.each do |stack|
         break if remaining_quantity.zero?
 
         available_space = stack.stack_limit - stack.quantity
@@ -34,34 +53,27 @@ module Items
 
       remaining_quantity
     end
-    private_class_method :fill_existing_stacks
 
     # Find existing stacks with the same name and metadata that have space.
     #
-    # @param [Character] character The character whose inventory to search.
-    # @param [Item] item The item to find matching stacks for.
     # @return [ActiveRecord::Relation]
-    def self.available_stacks(character:, item:)
+    def available_stacks
       character.items
                .where(name: item.name, metadata: item.metadata)
                .where(quantity: ...item.stack_limit)
                .order(:quantity)
     end
-    private_class_method :available_stacks
 
     # Create new stacks for any remaining quantity.
     #
-    # @param [Character] character The character receiving the item.
-    # @param [Item] item The item template for new stacks.
     # @param [Integer] quantity The quantity to create new stacks for.
     # @return [void]
-    def self.create_new_stacks(character:, item:, quantity:)
+    def create_new_stacks(quantity)
       while quantity.positive?
         amount = [quantity, item.stack_limit].min
         character.items.create!(name: item.name, metadata: item.metadata, quantity: amount)
         quantity -= amount
       end
     end
-    private_class_method :create_new_stacks
   end
 end
