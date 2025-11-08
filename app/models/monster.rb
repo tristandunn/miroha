@@ -22,8 +22,9 @@ class Monster < ApplicationRecord
   validates :name, presence: true,
                    length:   { in: MINIMUM_NAME_LENGTH..MAXIMUM_NAME_LENGTH }
 
-  # Returns the hate duration for this monster in seconds.
-  # Defaults to DEFAULT_HATE_DURATION if not set in metadata.
+  # Returns the hate duration for this monster.
+  #
+  # @return [ActiveSupport::Duration, Integer] The hate duration.
   def hate_duration
     metadata.dig("hate_duration") || DEFAULT_HATE_DURATION
   end
