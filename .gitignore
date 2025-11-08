@@ -37,3 +37,6 @@
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
+
+# Ignore local version files (project uses .tool-versions).
+.ruby-version
