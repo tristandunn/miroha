@@ -15,10 +15,11 @@ describe EventHandlers::Monster::Follow, type: :service do
     let(:character)   { build_stubbed(:character) }
     let(:direction)   { "north" }
     let(:room_source) { create(:room, x: 0, y: 0, z: 0) }
-    let!(:room_target) { create(:room, x: 0, y: 1, z: 0) }
     let(:monster)     { create(:monster, room: room_source) }
 
     it "moves the monster to the target room" do
+      room_target = create(:room, x: 0, y: 1, z: 0)
+
       on_character_exited
 
       expect(monster.reload.room).to eq(room_target)
@@ -64,10 +65,11 @@ describe EventHandlers::Monster::Follow, type: :service do
         "down"  => { x: 0, y: 0, z: -1 }
       }.each do |dir, coords|
         context "when moving #{dir}" do
-          let(:direction)   { dir }
-          let!(:room_target) { create(:room, **coords) }
+          let(:direction) { dir }
 
           it "moves the monster #{dir}" do
+            room_target = create(:room, **coords)
+
             on_character_exited
 
             expect(monster.reload.room).to eq(room_target)
