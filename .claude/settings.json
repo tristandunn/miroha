@@ -1,0 +1,13 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "mise-install",
+        "hook": {
+          "type": "command",
+          "command": ".claude/scripts/install_mise.sh"
+        }
+      }
+    ]
+  }
+}
