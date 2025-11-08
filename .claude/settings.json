@@ -5,7 +5,7 @@
         "matcher": "mise-install",
         "hook": {
           "type": "command",
-          "command": ".claude/scripts/install_mise.sh",
+          "command": ".claude/scripts/install.sh",
           "timeout": 600
         }
       }
