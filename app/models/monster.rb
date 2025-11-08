@@ -3,6 +3,8 @@
 class Monster < ApplicationRecord
   include Dispatchable
 
+  DEFAULT_HATE_DURATION = 5.minutes
+
   MINIMUM_NAME_LENGTH = 3
   MAXIMUM_NAME_LENGTH = 24
 
@@ -21,12 +23,8 @@ class Monster < ApplicationRecord
                    length:   { in: MINIMUM_NAME_LENGTH..MAXIMUM_NAME_LENGTH }
 
   # Returns the hate duration for this monster in seconds.
-  # Defaults to 5 minutes if not set in metadata.
-  # Limits are applied to ensure reasonable values (30 seconds to 1 hour).
+  # Defaults to DEFAULT_HATE_DURATION if not set in metadata.
   def hate_duration
-    duration = metadata.dig("hate_duration") || 300 # 5 minutes default
-
-    # Apply limits without validation - clamp to reasonable bounds
-    [[duration.to_i, 30].max, 3600].min
+    metadata.dig("hate_duration") || DEFAULT_HATE_DURATION
   end
 end

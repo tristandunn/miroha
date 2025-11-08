@@ -51,40 +51,16 @@ describe Monster do
     context "when metadata does not contain hate_duration" do
       let(:metadata) { {} }
 
-      it "returns the default duration of 300 seconds (5 minutes)" do
-        expect(monster.hate_duration).to eq(300)
+      it "returns the default duration" do
+        expect(monster.hate_duration).to eq(described_class::DEFAULT_HATE_DURATION)
       end
     end
 
-    context "when metadata contains a valid hate_duration" do
+    context "when metadata contains a custom hate_duration" do
       let(:metadata) { { "hate_duration" => 600 } }
 
       it "returns the configured duration" do
         expect(monster.hate_duration).to eq(600)
-      end
-    end
-
-    context "when hate_duration is below the minimum (30 seconds)" do
-      let(:metadata) { { "hate_duration" => 10 } }
-
-      it "returns the minimum duration of 30 seconds" do
-        expect(monster.hate_duration).to eq(30)
-      end
-    end
-
-    context "when hate_duration is above the maximum (3600 seconds / 1 hour)" do
-      let(:metadata) { { "hate_duration" => 7200 } }
-
-      it "returns the maximum duration of 3600 seconds" do
-        expect(monster.hate_duration).to eq(3600)
-      end
-    end
-
-    context "when hate_duration is a string" do
-      let(:metadata) { { "hate_duration" => "120" } }
-
-      it "converts to integer and returns the duration" do
-        expect(monster.hate_duration).to eq(120)
       end
     end
   end

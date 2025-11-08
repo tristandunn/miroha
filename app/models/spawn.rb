@@ -10,16 +10,6 @@ class Spawn < ApplicationRecord
   validates :duration, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
   validates :frequency, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
 
-  # Returns the hate duration for this spawn in seconds.
-  # Defaults to 5 minutes if not set in metadata.
-  # Limits are applied to ensure reasonable values (30 seconds to 1 hour).
-  def hate_duration
-    duration = metadata.dig("hate_duration") || 300 # 5 minutes default
-
-    # Apply limits without validation - clamp to reasonable bounds
-    [[duration.to_i, 30].max, 3600].min
-  end
-
   private
 
   # Ensure the base does not belong to a room.
