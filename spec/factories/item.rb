@@ -13,9 +13,5 @@ FactoryBot.define do
     trait :stackable do
       metadata { { "max_stack" => 5 } }
     end
-
-    trait :consumable do
-      metadata { { "max_stack" => 10, "consumable" => true } }
-    end
   end
 end

@@ -97,22 +97,4 @@ describe Item do
       expect(item.available_stack_space).to eq(2)
     end
   end
-
-  describe "#consumable?" do
-    context "when metadata has consumable set to true" do
-      subject(:item) { create(:item, :room, :consumable) }
-
-      it "returns true" do
-        expect(item.consumable?).to be(true)
-      end
-    end
-
-    context "when metadata does not have consumable" do
-      subject(:item) { create(:item, :room) }
-
-      it "returns false" do
-        expect(item.consumable?).to be(false)
-      end
-    end
-  end
 end

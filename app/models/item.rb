@@ -40,13 +40,6 @@ class Item < ApplicationRecord
     max_stack - quantity
   end
 
-  # Return if the item is consumable.
-  #
-  # @return [Boolean]
-  def consumable?
-    metadata["consumable"] == true
-  end
-
   private
 
   # Validate that quantity does not exceed max_stack.
