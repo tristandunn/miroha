@@ -12,69 +12,74 @@ describe EventHandlers::Monster::Follow, type: :service do
       )
     end
 
-    let(:character)   { build_stubbed(:character) }
     let(:direction)   { "north" }
     let(:room_source) { create(:room, x: 0, y: 0, z: 0) }
+    let(:room_target) { create(:room, x: 0, y: 1, z: 0) }
+    let(:character)   { create(:character, room: room_target) }
     let(:monster)     { create(:monster, room: room_source) }
 
-    it "moves the monster to the target room" do
-      room_target = create(:room, x: 0, y: 1, z: 0)
+    before do
+      allow(Turbo::StreamsChannel).to receive(:broadcast_remove_to)
+      allow(Turbo::StreamsChannel).to receive(:broadcast_append_later_to)
+    end
 
+    it "moves the monster to the character's room" do
       on_character_exited
 
       expect(monster.reload.room).to eq(room_target)
     end
 
+    it "broadcasts the monster removal from the source room" do
+      on_character_exited
+
+      expect(Turbo::StreamsChannel).to have_received(:broadcast_remove_to)
+        .with(
+          room_source,
+          target: "surrounding_monster_#{monster.id}"
+        )
+    end
+
+    it "broadcasts the monster appearing in the target room" do
+      on_character_exited
+
+      expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
+        .with(
+          room_target,
+          target:  "surrounding-monsters",
+          partial: "game/surroundings/monster",
+          locals:  { monster: monster }
+        )
+    end
+
     context "when the monster has no room" do
       let(:monster) { create(:monster, room: nil) }
 
-      it "does not move the monster" do
+      it "does not broadcast removal" do
         on_character_exited
 
-        expect(monster.reload.room).to be_nil
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_remove_to)
+      end
+
+      it "broadcasts the monster appearing in the target room" do
+        on_character_exited
+
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
       end
     end
 
-    context "when the direction is invalid" do
-      let(:direction) { "invalid" }
+    context "when the character has no room" do
+      let(:character) { build_stubbed(:character, room: nil) }
 
-      it "does not move the monster" do
+      it "broadcasts removal from the source room" do
         on_character_exited
 
-        expect(monster.reload.room).to eq(room_source)
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_remove_to)
       end
-    end
 
-    context "when there is no room in that direction" do
-      let(:direction) { "south" }
-
-      it "does not move the monster" do
+      it "does not broadcast appearing" do
         on_character_exited
 
-        expect(monster.reload.room).to eq(room_source)
-      end
-    end
-
-    context "with different directions" do
-      {
-        "north" => { x: 0, y: 1, z: 0 },
-        "south" => { x: 0, y: -1, z: 0 },
-        "east"  => { x: 1, y: 0, z: 0 },
-        "west"  => { x: -1, y: 0, z: 0 },
-        "up"    => { x: 0, y: 0, z: 1 },
-        "down"  => { x: 0, y: 0, z: -1 }
-      }.each do |dir, coords|
-        context "when moving #{dir}" do
-          let(:direction) { dir }
-
-          it "moves the monster #{dir}" do
-            room_target = create(:room, **coords)
-
-            on_character_exited
-
-            expect(monster.reload.room).to eq(room_target)
-          end
-        end
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
       end
     end
   end
