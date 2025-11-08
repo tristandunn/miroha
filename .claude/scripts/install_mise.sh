@@ -2,7 +2,6 @@
 
 # Only run in Claude Code remote sessions
 if [ "$CLAUDE_CODE_REMOTE" != "true" ]; then
-  echo "Skipping mise installation (not in remote session)"
   exit 0
 fi
 
