@@ -10,12 +10,9 @@ module EventHandlers
       # @param [Monster] monster The monster following the character.
       # @return [void]
       def self.on_character_exited(character:, direction:, monster:)
-        old_room = monster.room
-
+        broadcast_exit(monster, monster.room)
         monster.update(room: character.room)
-
-        broadcast_exit(monster, old_room) if old_room.present?
-        broadcast_enter(monster, character.room) if character.room.present?
+        broadcast_enter(monster, character.room)
       end
 
       # Broadcast the monster exiting from the old room.

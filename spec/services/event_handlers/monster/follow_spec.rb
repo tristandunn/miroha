@@ -50,37 +50,5 @@ describe EventHandlers::Monster::Follow, type: :service do
           locals:  { monster: monster }
         )
     end
-
-    context "when the monster has no room" do
-      let(:monster) { create(:monster, room: nil) }
-
-      it "does not broadcast removal" do
-        on_character_exited
-
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_remove_to)
-      end
-
-      it "broadcasts the monster appearing in the target room" do
-        on_character_exited
-
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_append_later_to)
-      end
-    end
-
-    context "when the character has no room" do
-      let(:character) { build_stubbed(:character, room: nil) }
-
-      it "broadcasts removal from the source room" do
-        on_character_exited
-
-        expect(Turbo::StreamsChannel).to have_received(:broadcast_remove_to)
-      end
-
-      it "does not broadcast appearing" do
-        on_character_exited
-
-        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_append_later_to)
-      end
-    end
   end
 end
