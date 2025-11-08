@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_29_234433) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_08_015532) do
   create_table "accounts", force: :cascade do |t|
     t.string "email", limit: 255, null: false
     t.string "password_digest", limit: 60, null: false
@@ -57,7 +57,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_29_234433) do
     t.integer "experience", default: 0, null: false
     t.integer "room_id"
     t.json "event_handlers", default: [], null: false
+    t.json "metadata", default: {}, null: false
     t.index ["event_handlers"], name: "index_monsters_on_event_handlers"
+    t.index ["metadata"], name: "index_monsters_on_metadata"
     t.index ["room_id"], name: "index_monsters_on_room_id"
     t.check_constraint "current_health <= maximum_health", name: "monsters_current_health_check"
   end
@@ -93,10 +95,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_29_234433) do
     t.datetime "expires_at"
     t.bigint "duration"
     t.bigint "frequency"
+    t.json "metadata", default: {}, null: false
     t.index ["activates_at"], name: "index_spawns_on_activates_at", where: "entity_id IS NULL"
     t.index ["base_type", "base_id"], name: "index_spawns_on_base"
     t.index ["entity_type", "entity_id"], name: "index_spawns_on_entity"
     t.index ["expires_at"], name: "index_spawns_on_expires_at", where: "entity_id IS NOT NULL"
+    t.index ["metadata"], name: "index_spawns_on_metadata"
     t.index ["room_id"], name: "index_spawns_on_room_id"
   end
 

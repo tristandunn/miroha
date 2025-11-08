@@ -17,11 +17,11 @@ describe EventHandlers::Monster::Hate, type: :service do
       allow(Cache::SortedSet).to receive(:new).and_return(sorted_set)
     end
 
-    it "creates a sorted set cache" do
+    it "creates a sorted set cache with the monster's hate duration" do
       on_character_attacked
 
       expect(Cache::SortedSet).to have_received(:new)
-        .with(described_class::KEY % monster.id, expires_in: described_class::TTL)
+        .with(described_class::KEY % monster.id, expires_in: monster.hate_duration.seconds)
     end
 
     it "increments the hate for the character" do
@@ -30,6 +30,17 @@ describe EventHandlers::Monster::Hate, type: :service do
       on_character_attacked
 
       expect(sorted_set).to have_received(:increment).with(character.id, damage)
+    end
+
+    context "when monster has a custom hate duration" do
+      let(:monster) { build_stubbed(:monster, metadata: { "hate_duration" => 120 }) }
+
+      it "creates a sorted set cache with the custom duration" do
+        on_character_attacked
+
+        expect(Cache::SortedSet).to have_received(:new)
+          .with(described_class::KEY % monster.id, expires_in: 120.seconds)
+      end
     end
   end
 end
