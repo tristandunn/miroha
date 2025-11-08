@@ -24,15 +24,17 @@ if ! command -v mise &> /dev/null; then
   exit 1
 fi
 
-# Persist mise PATH and activation for the entire session
-if [ -n "$CLAUDE_ENV_FILE" ]; then
-  echo "Activating mise for session..."
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$CLAUDE_ENV_FILE"
-  echo 'eval "$(mise activate bash)"' >> "$CLAUDE_ENV_FILE"
-fi
-
 # Install tools defined in .tool-versions
 echo "Installing tools from .tool-versions..."
 mise install
+
+# Persist mise environment for the entire session
+if [ -n "$CLAUDE_ENV_FILE" ]; then
+  echo "Setting up mise environment for session..."
+  # Add mise to PATH
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$CLAUDE_ENV_FILE"
+  # Export mise-managed tool paths and environment
+  mise hook-env >> "$CLAUDE_ENV_FILE"
+fi
 
 echo "mise setup complete!"
