@@ -22,7 +22,7 @@ describe Item do
 
     it { is_expected.to validate_numericality_of(:quantity).only_integer.is_greater_than(0) }
 
-    context "when quantity exceeds max_stack" do
+    context "when quantity exceeds stack_limit" do
       subject(:item) { build(:item, :room, :stackable, quantity: 10) }
 
       it "is invalid" do
@@ -31,31 +31,31 @@ describe Item do
 
       it "has an error on quantity" do
         item.valid?
-        expect(item.errors[:quantity]).to include("cannot exceed maximum stack size of 5")
+        expect(item.errors[:quantity]).to include("must be less than or equal to 5")
       end
     end
   end
 
-  describe "#max_stack" do
-    context "when metadata has max_stack" do
+  describe "#stack_limit" do
+    context "when metadata has stack_limit" do
       subject(:item) { create(:item, :room, :stackable) }
 
-      it "returns the metadata max_stack value" do
-        expect(item.max_stack).to eq(5)
+      it "returns the metadata stack_limit value" do
+        expect(item.stack_limit).to eq(5)
       end
     end
 
-    context "when metadata does not have max_stack" do
+    context "when metadata does not have stack_limit" do
       subject(:item) { create(:item, :room) }
 
-      it "returns the default max_stack" do
-        expect(item.max_stack).to eq(described_class::DEFAULT_MAX_STACK)
+      it "returns the default stack_limit" do
+        expect(item.stack_limit).to eq(described_class::DEFAULT_STACK_LIMIT)
       end
     end
   end
 
   describe "#stackable?" do
-    context "when max_stack is greater than 1" do
+    context "when stack_limit is greater than 1" do
       subject(:item) { create(:item, :room, :stackable) }
 
       it "returns true" do
@@ -63,7 +63,7 @@ describe Item do
       end
     end
 
-    context "when max_stack is 1" do
+    context "when stack_limit is 1" do
       subject(:item) { create(:item, :room) }
 
       it "returns false" do

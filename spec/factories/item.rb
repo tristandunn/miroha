@@ -11,7 +11,7 @@ FactoryBot.define do
     end
 
     trait :stackable do
-      metadata { { "max_stack" => 5 } }
+      metadata { { "stack_limit" => 5 } }
     end
   end
 end

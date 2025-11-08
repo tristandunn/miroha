@@ -42,7 +42,7 @@ module Commands
       # @return [void]
       def transfer_item_to_character
         if item.stackable?
-          ItemStacker.new(character: character, item: item).call
+          Items::Stack.call(character: character, item: item)
         else
           item.update!(owner: character)
         end

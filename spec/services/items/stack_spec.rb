@@ -104,7 +104,7 @@ describe Items::Stack, type: :service do
     end
 
     context "when items have different metadata" do
-      let(:item) { create(:item, :stackable, owner: room, quantity: 2, metadata: { "max_stack" => 10 }) }
+      let(:item) { create(:item, :stackable, owner: room, quantity: 2, metadata: { "stack_limit" => 10 }) }
       let!(:existing_stack) { create(:item, :stackable, owner: character, name: item.name, quantity: 2) }
 
       it "creates a new stack instead of merging" do

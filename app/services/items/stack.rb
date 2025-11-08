@@ -25,7 +25,7 @@ module Items
       available_stacks(character: character, item: item).each do |stack|
         break if remaining_quantity.zero?
 
-        available_space = stack.max_stack - stack.quantity
+        available_space = stack.stack_limit - stack.quantity
         amount_to_add   = [remaining_quantity, available_space].min
 
         stack.update!(quantity: stack.quantity + amount_to_add)
@@ -44,7 +44,7 @@ module Items
     def self.available_stacks(character:, item:)
       character.items
                .where(name: item.name, metadata: item.metadata)
-               .where(quantity: ...item.max_stack)
+               .where(quantity: ...item.stack_limit)
                .order(:quantity)
     end
     private_class_method :available_stacks
@@ -57,7 +57,7 @@ module Items
     # @return [void]
     def self.create_new_stacks(character:, item:, quantity:)
       while quantity.positive?
-        amount = [quantity, item.max_stack].min
+        amount = [quantity, item.stack_limit].min
         character.items.create!(name: item.name, metadata: item.metadata, quantity: amount)
         quantity -= amount
       end
