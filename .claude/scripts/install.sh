@@ -10,7 +10,7 @@ if ! command -v mise &> /dev/null; then
   echo "Installing mise..."
   curl -sSf https://mise.run | sh
 
-  export PATH="$HOME/.local/bin:$PATH"
+  eval "$("$HOME/.local/bin/mise" env -s bash)"
 else
   echo "mise already installed"
 fi
