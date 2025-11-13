@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_08_021735) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_08_021735) do
   create_table "accounts", force: :cascade do |t|
     t.string "email", limit: 255, null: false
     t.string "password_digest", limit: 60, null: false
@@ -40,19 +40,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_08_021735) do
   end
 
   create_table "items", force: :cascade do |t|
-<<<<<<< HEAD
-    t.string "owner_type", null: false
-    t.integer "owner_id", null: false
-    t.string "name", limit: 24, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-=======
     t.datetime "created_at", null: false
     t.json "metadata", default: {}, null: false
     t.string "name", limit: 24, null: false
     t.integer "owner_id", null: false
     t.string "owner_type", null: false
->>>>>>> ac22c8e (Add item usage functionality with /use command)
     t.integer "quantity", default: 1, null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_items_on_owner"
