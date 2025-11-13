@@ -3,8 +3,9 @@
 require "rails_helper"
 
 describe "Sending the use command", :js do
-  let(:character) { create(:character, current_health: 5, maximum_health: 10) }
-  let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "heal_amount" => 3 }) }
+  let(:character)      { create(:character, current_health: 5, maximum_health: 10) }
+  let(:adjusted_health) { 3 }
+  let(:item)           { create(:item, owner: character, metadata: { "consumable" => true, "health" => adjusted_health }) }
 
   before do
     item # Force creation before signing in
@@ -20,13 +21,13 @@ describe "Sending the use command", :js do
   it "displays the use success message to the character" do
     send_command(:use, item.name)
 
-    expect(page).to have_use_success_message(item.name, 3)
+    expect(page).to have_use_success_message(name: item.name, adjusted_health: adjusted_health)
   end
 
   it "restores character's health" do
     send_command(:use, item.name)
 
-    expect(page).to have_use_success_message(item.name, 3)
+    expect(page).to have_use_success_message(name: item.name, adjusted_health: adjusted_health)
     expect(character.reload.current_health).to eq(8)
   end
 
@@ -37,7 +38,7 @@ describe "Sending the use command", :js do
 
     send_command(:use, item.name)
 
-    wait_for(have_use_success_message(item.name, 3)) do
+    wait_for(have_use_success_message(name: item.name, adjusted_health: adjusted_health)) do
       using_session(:nearby_character) do
         expect(page).to have_use_observer_message(character.name, item.name)
       end
@@ -51,7 +52,7 @@ describe "Sending the use command", :js do
 
     send_command(:use, item.name)
 
-    wait_for(have_use_success_message(item.name, 3)) do
+    wait_for(have_use_success_message(name: item.name, adjusted_health: adjusted_health)) do
       using_session(:distant_character) do
         expect(page).not_to have_use_observer_message(character.name, item.name)
       end
@@ -62,17 +63,18 @@ describe "Sending the use command", :js do
     it "uses the item using partial name" do
       send_command(:use, item.name.slice(0, 2))
 
-      expect(page).to have_use_success_message(item.name, 3)
+      expect(page).to have_use_success_message(name: item.name, adjusted_health: adjusted_health)
     end
   end
 
   context "with stackable item" do
-    let(:item) { create(:item, :stackable, owner: character, quantity: 3, metadata: { "consumable" => true, "heal_amount" => 2, "stack_limit" => 5 }) }
+    let(:adjusted_health) { 2 }
+    let(:item)            { create(:item, :stackable, owner: character, quantity: 3, metadata: { "consumable" => true, "health" => adjusted_health, "stack_limit" => 5 }) }
 
     it "decrements the item quantity" do
       send_command(:use, item.name)
 
-      expect(page).to have_use_success_message(item.name, 2)
+      expect(page).to have_use_success_message(name: item.name, adjusted_health: adjusted_health)
       expect(item.reload.quantity).to eq(2)
     end
 
@@ -83,7 +85,7 @@ describe "Sending the use command", :js do
     end
 
     context "with quantity of 1" do
-      let(:item) { create(:item, :stackable, owner: character, quantity: 1, metadata: { "consumable" => true, "heal_amount" => 2, "stack_limit" => 5 }) }
+      let(:item) { create(:item, :stackable, owner: character, quantity: 1, metadata: { "consumable" => true, "health" => 2, "stack_limit" => 5 }) }
 
       it "removes the item from inventory" do
         send_command(:use, item.name)
@@ -94,12 +96,13 @@ describe "Sending the use command", :js do
   end
 
   context "with health at maximum" do
-    let(:character) { create(:character, current_health: 10, maximum_health: 10) }
+    let(:adjusted_health) { 0 }
+    let(:character)       { create(:character, current_health: 10, maximum_health: 10) }
 
     it "displays zero hit points restored" do
       send_command(:use, item.name)
 
-      expect(page).to have_use_success_message(item.name, 0)
+      expect(page).to have_use_success_message(name: item.name, adjusted_health: adjusted_health)
     end
 
     it "still removes the item" do
@@ -110,19 +113,20 @@ describe "Sending the use command", :js do
   end
 
   context "with heal amount exceeding maximum health" do
-    let(:character) { create(:character, current_health: 8, maximum_health: 10) }
-    let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "heal_amount" => 5 }) }
+    let(:adjusted_health) { 2 }
+    let(:character)       { create(:character, current_health: 8, maximum_health: 10) }
+    let(:item)            { create(:item, owner: character, metadata: { "consumable" => true, "health" => 5 }) }
 
     it "displays only the actual hit points restored" do
       send_command(:use, item.name)
 
-      expect(page).to have_use_success_message(item.name, 2)
+      expect(page).to have_use_success_message(name: item.name, adjusted_health: adjusted_health)
     end
 
     it "restores health up to maximum only" do
       send_command(:use, item.name)
 
-      expect(page).to have_use_success_message(item.name, 2)
+      expect(page).to have_use_success_message(name: item.name, adjusted_health: adjusted_health)
       expect(character.reload.current_health).to eq(10)
     end
   end
@@ -238,10 +242,10 @@ describe "Sending the use command", :js do
     )
   end
 
-  def have_use_success_message(item_name, health_restored)
+  def have_use_success_message(name:, adjusted_health:)
     have_css(
       "#messages .message-use-success",
-      text: I18n.t("commands.use.success.message", name: item_name, count: health_restored)
+      text: I18n.t("commands.use.success.message", name: name, count: adjusted_health)
     )
   end
 end

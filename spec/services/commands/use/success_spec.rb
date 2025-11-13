@@ -13,8 +13,9 @@ describe Commands::Use::Success, type: :service do
     subject(:call) { instance.call }
 
     let(:character) { create(:character, room: room, current_health: 5, maximum_health: 10) }
+    let(:health)    { 3 }
     let(:instance)  { described_class.new(character: character, item: item) }
-    let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "heal_amount" => 3 }) }
+    let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "health" => health }) }
     let(:room)      { create(:room) }
 
     before do
@@ -41,7 +42,8 @@ describe Commands::Use::Success, type: :service do
     end
 
     context "with stackable item" do
-      let(:item) { create(:item, :stackable, owner: character, quantity: 3, metadata: { "consumable" => true, "heal_amount" => 2, "stack_limit" => 5 }) }
+      let(:health) { 2 }
+      let(:item)   { create(:item, :stackable, owner: character, quantity: 3, metadata: { "consumable" => true, "health" => health, "stack_limit" => 5 }) }
 
       it "restores character health" do
         expect { call }.to change { character.reload.current_health }.from(5).to(7)
@@ -67,7 +69,7 @@ describe Commands::Use::Success, type: :service do
       end
 
       context "with quantity of 1" do
-        let(:item) { create(:item, :stackable, owner: character, quantity: 1, metadata: { "consumable" => true, "heal_amount" => 2, "stack_limit" => 5 }) }
+        let(:item) { create(:item, :stackable, owner: character, quantity: 1, metadata: { "consumable" => true, "health" => 2, "stack_limit" => 5 }) }
 
         it "destroys the item" do
           expect { call }.to change(Item, :count).by(-1)
@@ -77,7 +79,8 @@ describe Commands::Use::Success, type: :service do
 
     context "when health restoration would exceed maximum" do
       let(:character) { create(:character, room: room, current_health: 8, maximum_health: 10) }
-      let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "heal_amount" => 5 }) }
+      let(:health)    { 5 }
+      let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "health" => health }) }
 
       it "restores health up to maximum only" do
         expect { call }.to change { character.reload.current_health }.from(8).to(10)
@@ -97,7 +100,8 @@ describe Commands::Use::Success, type: :service do
 
     context "when character is at full health" do
       let(:character) { create(:character, room: room, current_health: 10, maximum_health: 10) }
-      let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "heal_amount" => 5 }) }
+      let(:health)    { 5 }
+      let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "health" => health }) }
 
       it "does not restore any health" do
         expect { call }.not_to change { character.reload.current_health }
@@ -119,7 +123,7 @@ describe Commands::Use::Success, type: :service do
       end
     end
 
-    context "when item has no heal_amount" do
+    context "when item has no health property" do
       let(:item) { create(:item, owner: character, metadata: { "consumable" => true }) }
 
       it "does not restore any health" do
@@ -135,16 +139,16 @@ describe Commands::Use::Success, type: :service do
   describe "#locals" do
     subject { instance.locals }
 
-    let(:character)       { create(:character, room: create(:room), current_health: 5, maximum_health: 10) }
-    let(:health_restored) { 3 }
-    let(:instance)        { described_class.new(character: character, item: item) }
-    let(:item)            { create(:item, owner: character, metadata: { "consumable" => true, "heal_amount" => health_restored }) }
+    let(:character) { create(:character, room: create(:room), current_health: 5, maximum_health: 10) }
+    let(:health)    { 3 }
+    let(:instance)  { described_class.new(character: character, item: item) }
+    let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "health" => health }) }
 
     before do
       allow(instance).to receive(:broadcast_render_later_to)
       instance.call
     end
 
-    it { is_expected.to eq(character: character, item: item, health_restored: health_restored) }
+    it { is_expected.to eq(character: character, item: item, adjusted_health: health) }
   end
 end

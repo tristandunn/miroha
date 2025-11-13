@@ -10,7 +10,7 @@ describe "commands/use/_success.turbo_stream.erb" do
       locals:  {
         character:       build_stubbed(:character),
         item:            item,
-        health_restored: 5
+        adjusted_health: 5
       }
     )
 

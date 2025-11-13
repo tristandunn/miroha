@@ -5,7 +5,7 @@ require "rails_helper"
 describe Commands::Use, type: :service do
   let(:character) { create(:character) }
   let(:instance)  { described_class.new("/use #{item.name}", character: character) }
-  let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "heal_amount" => 5 }) }
+  let(:item)      { create(:item, owner: character, metadata: { "consumable" => true, "health" => 5 }) }
 
   describe "#call" do
     subject(:call) { instance.call }
@@ -67,7 +67,7 @@ describe Commands::Use, type: :service do
       let(:result) { instance_double(described_class::Success) }
 
       before do
-        create(:item, owner: character, name: item.name, quantity: 2, metadata: { "consumable" => true, "heal_amount" => 5, "stack_limit" => 5 })
+        create(:item, owner: character, name: item.name, quantity: 2, metadata: { "consumable" => true, "health" => 5, "stack_limit" => 5 })
 
         allow(result).to receive(:call)
         allow(described_class::Success).to receive(:new)
@@ -83,7 +83,7 @@ describe Commands::Use, type: :service do
     end
 
     context "with item not in character's inventory" do
-      let(:item)   { create(:item, :room, metadata: { "consumable" => true, "heal_amount" => 5 }) }
+      let(:item)   { create(:item, :room, metadata: { "consumable" => true, "health" => 5 }) }
       let(:result) { instance_double(described_class::InvalidItem) }
 
       before do

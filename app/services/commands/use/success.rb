@@ -3,7 +3,7 @@
 module Commands
   class Use < Base
     class Success < Result
-      locals :character, :item, :health_restored
+      locals :character, :item, :adjusted_health
 
       # Initialize a successful use result.
       #
@@ -15,16 +15,46 @@ module Commands
         @item      = item
       end
 
-      # Consume the item and restore health, then broadcast updates.
+      # Apply item properties and consume item, then broadcast updates.
       #
       # @return [void]
       def call
-        restore_health
+        apply_properties
         broadcast_use
         consume_item
       end
 
       private
+
+      # The amount of health adjusted (positive for healing, could be negative for harm).
+      # Calculated as the minimum of the item's health value and available health to restore.
+      #
+      # @return [Integer]
+      def adjusted_health
+        @adjusted_health
+      end
+
+      # Adjust the character's current health based on the item's health property.
+      # Calculates and caches the adjusted_health value before updating.
+      #
+      # @return [void]
+      def adjust_current_health
+        health_value = item.metadata["health"] || 0
+        new_health = [
+          character.current_health + health_value,
+          character.maximum_health
+        ].min
+
+        @adjusted_health = new_health - character.current_health
+        character.update!(current_health: new_health)
+      end
+
+      # Apply item properties to the character.
+      #
+      # @return [void]
+      def apply_properties
+        adjust_current_health
+      end
 
       # Broadcast the use action to the room.
       #
@@ -47,27 +77,6 @@ module Commands
         else
           item.destroy!
         end
-      end
-
-      # The amount of health restored from the item.
-      #
-      # @return [Integer]
-      def health_restored
-        @health_restored
-      end
-
-      # Restore the character's health by the item's heal amount.
-      #
-      # @return [void]
-      def restore_health
-        heal_amount = item.metadata["heal_amount"] || 0
-        new_health = [
-          character.current_health + heal_amount,
-          character.maximum_health
-        ].min
-
-        @health_restored = new_health - character.current_health
-        character.update!(current_health: new_health)
       end
     end
   end

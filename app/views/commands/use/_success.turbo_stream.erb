@@ -1,4 +1,4 @@
-<%# locals: (character:, item:, health_restored:) %>
-<%= turbo_stream.append("messages", partial: "commands/use/success", locals: { name: item.name, health_restored: health_restored }) %>
+<%# locals: (character:, item:, adjusted_health:) %>
+<%= turbo_stream.append("messages", partial: "commands/use/success", locals: { name: item.name, adjusted_health: adjusted_health }) %>
 <%= turbo_stream.replace("sidebar", partial: "game/sidebar", locals: { character: character }) %>
 <%= turbo_stream.replace("navigation", partial: "game/sidebar/navigation", locals: { character: character }) %>
