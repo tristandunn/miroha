@@ -64,7 +64,8 @@ class CommandsController < ApplicationController
       with:   -> { head :too_many_requests },
       store:  cache_store,
       by:     -> { rate_limit_scope },
-      name:   rate_limit_name
+      name:   rate_limit_name,
+      scope:  controller_path
     )
   end
 
