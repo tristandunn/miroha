@@ -27,25 +27,17 @@ module Commands
       private
 
       # The amount of health adjusted (positive for healing, could be negative for harm).
-      # Calculated as the minimum of the item's health value and available health to restore.
       #
       # @return [Integer]
       def adjusted_health
-        @adjusted_health
+        @adjusted_health ||= calculate_adjusted_health
       end
 
-      # Adjust the character's current health based on the item's health property.
-      # Calculates and caches the adjusted_health value before updating.
+      # Adjust the character's current health based on the adjusted_health value.
       #
       # @return [void]
       def adjust_current_health
-        health_value = item.metadata["health"] || 0
-        new_health = [
-          character.current_health + health_value,
-          character.maximum_health
-        ].min
-
-        @adjusted_health = new_health - character.current_health
+        new_health = character.current_health + adjusted_health
         character.update!(current_health: new_health)
       end
 
@@ -65,6 +57,16 @@ module Commands
           partial: "commands/use/observer/success",
           locals:  { character: character, name: item.name }
         )
+      end
+
+      # Calculate the amount of health that will be adjusted.
+      # Takes into account the item's health value and character's available health.
+      #
+      # @return [Integer]
+      def calculate_adjusted_health
+        health_value = item.metadata["health"] || 0
+        available_health = character.maximum_health - character.current_health
+        [health_value, available_health].min
       end
 
       # Consume the item by decrementing quantity or destroying it.
