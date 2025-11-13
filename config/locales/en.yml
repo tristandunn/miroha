@@ -173,6 +173,9 @@ en:
         say:
           arguments: "[message]"
           description: "Send a message to the room."
+        use:
+          arguments: "[name]"
+          description: "Use a consumable item by name."
         whisper:
           arguments: "[name] [message]"
           description: "Whisper a message to a character in the room."
@@ -209,6 +212,8 @@ en:
         name: "pickup"
       say:
         name: "say"
+      use:
+        name: "use"
       whisper:
         name: "whisper"
     move:
@@ -243,6 +248,20 @@ en:
     unknown:
       success:
         message: "Unknown command: %{command}"
+    use:
+      invalid_item:
+        message: "You don't have anything named \"%{name}\"."
+      missing_item:
+        message: "You must specify an item to use."
+      not_consumable:
+        message: "You can't use the %{name}."
+      success:
+        message:
+          one: "You used the %{name} and restored %{count} hit point."
+          other: "You used the %{name} and restored %{count} hit points."
+      observer:
+        success:
+          message: "%{character_name} used the %{name}."
     whisper:
       invalid_target:
         message: "You are whispering to yourself."

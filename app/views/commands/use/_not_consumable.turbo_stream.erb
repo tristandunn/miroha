@@ -1,0 +1,2 @@
+<%# locals: (item:) %>
+<%= turbo_stream.append("messages", partial: "commands/use/not_consumable", locals: { item: item }) %>

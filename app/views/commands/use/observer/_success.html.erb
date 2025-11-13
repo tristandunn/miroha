@@ -1,0 +1,6 @@
+<%# locals: (character:, name:) %>
+<tr data-chat-target="message" data-character-id="<%= character.id %>">
+  <td colspan="2" class="message-use-observer">
+    <%= t(".message", character_name: character.name, name: name) %>
+  </td>
+</tr>

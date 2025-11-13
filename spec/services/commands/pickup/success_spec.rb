@@ -40,23 +40,15 @@ describe Commands::Pickup::Success, type: :service do
 
     context "with a stackable item" do
       let(:item) { create(:item, :stackable, owner: room, quantity: 2) }
-      let(:stacker) { instance_double(ItemStacker) }
 
       before do
-        allow(ItemStacker).to receive(:new).with(character: character, item: item).and_return(stacker)
-        allow(stacker).to receive(:call)
+        allow(Items::Stack).to receive(:call)
       end
 
-      it "creates an ItemStacker with the character and item" do
+      it "calls Items::Stack with the character and item" do
         call
 
-        expect(ItemStacker).to have_received(:new).with(character: character, item: item)
-      end
-
-      it "calls the ItemStacker" do
-        call
-
-        expect(stacker).to have_received(:call)
+        expect(Items::Stack).to have_received(:call).with(character: character, item: item)
       end
 
       it "broadcasts pickup observer message to the room" do

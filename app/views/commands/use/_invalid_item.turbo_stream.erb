@@ -1,0 +1,2 @@
+<%# locals: (name:) %>
+<%= turbo_stream.append("messages", partial: "commands/use/invalid_item", locals: { name: name }) %>
