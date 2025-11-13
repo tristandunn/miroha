@@ -20,8 +20,8 @@ module Commands
       # @return [void]
       def call
         restore_health
-        consume_item
         broadcast_use
+        consume_item
       end
 
       private
