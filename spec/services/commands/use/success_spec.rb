@@ -36,7 +36,7 @@ describe Commands::Use::Success, type: :service do
         .with(
           character.room_gid,
           partial: "commands/use/observer/success",
-          locals:  { character: character, item: item, health_restored: 3 }
+          locals:  { character: character, name: item.name }
         )
     end
 
@@ -62,7 +62,7 @@ describe Commands::Use::Success, type: :service do
           .with(
             character.room_gid,
             partial: "commands/use/observer/success",
-            locals:  { character: character, item: item, health_restored: 2 }
+            locals:  { character: character, name: item.name }
           )
       end
 
@@ -83,14 +83,14 @@ describe Commands::Use::Success, type: :service do
         expect { call }.to change { character.reload.current_health }.from(8).to(10)
       end
 
-      it "broadcasts correct health restored amount" do
+      it "broadcasts observer message to the room" do
         call
 
         expect(instance).to have_received(:broadcast_render_later_to)
           .with(
             character.room_gid,
             partial: "commands/use/observer/success",
-            locals:  { character: character, item: item, health_restored: 2 }
+            locals:  { character: character, name: item.name }
           )
       end
     end
@@ -107,14 +107,14 @@ describe Commands::Use::Success, type: :service do
         expect { call }.to change(Item, :count).by(-1)
       end
 
-      it "broadcasts zero health restored" do
+      it "broadcasts observer message to the room" do
         call
 
         expect(instance).to have_received(:broadcast_render_later_to)
           .with(
             character.room_gid,
             partial: "commands/use/observer/success",
-            locals:  { character: character, item: item, health_restored: 0 }
+            locals:  { character: character, name: item.name }
           )
       end
     end

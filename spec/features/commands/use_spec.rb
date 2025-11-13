@@ -30,18 +30,17 @@ describe "Sending the use command", :js do
     expect(character.reload.current_health).to eq(8)
   end
 
-  # TODO: This test is flaky due to broadcast timing. The observer broadcast
-  # functionality is implemented and works in practice, but has timing issues
-  # in the test environment that need further investigation.
-  xit "broadcasts the use action to other characters in the same room" do
+  it "broadcasts the use action to other characters in the same room" do
     using_session(:nearby_character) do
       sign_in_as_character create(:character, room: character.room)
     end
 
     send_command(:use, item.name)
 
-    using_session(:nearby_character) do
-      expect(page).to have_use_observer_message(character.name, item.name)
+    wait_for(have_use_success_message(item.name, 3)) do
+      using_session(:nearby_character) do
+        expect(page).to have_use_observer_message(character.name, item.name)
+      end
     end
   end
 

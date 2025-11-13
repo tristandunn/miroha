@@ -1,2 +1,2 @@
-<%# locals: (character:, item:, health_restored:) %>
-<%= turbo_stream.append("messages", partial: "commands/use/observer/success", locals: { character: character, name: item.name }) %>
+<%# locals: (character:, name:) %>
+<%= turbo_stream.append("messages", partial: "commands/use/observer/success", locals: { character: character, name: name }) %>

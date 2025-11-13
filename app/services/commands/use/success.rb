@@ -33,7 +33,7 @@ module Commands
         broadcast_render_later_to(
           character.room_gid,
           partial: "commands/use/observer/success",
-          locals:  { character: character, item: item, health_restored: health_restored }
+          locals:  { character: character, name: item.name }
         )
       end
 

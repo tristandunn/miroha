@@ -8,9 +8,8 @@ describe "commands/use/observer/_success.turbo_stream.erb" do
       partial: "commands/use/observer/success",
       formats: :turbo_stream,
       locals:  {
-        character:       build_stubbed(:character),
-        item:            build_stubbed(:item),
-        health_restored: 5
+        character: build_stubbed(:character),
+        name:      generate(:name)
       }
     )
 
