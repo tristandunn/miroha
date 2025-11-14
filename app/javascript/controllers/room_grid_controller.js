@@ -218,7 +218,7 @@ export default class extends Controller {
   handleRoomClick(coords, exists) {
     if (exists) {
       // Navigate to existing room
-      window.location.href = `/world_editor?x=${coords.x}&y=${coords.y}&z=${coords.z}`;
+      window.location.href = `/world?x=${coords.x}&y=${coords.y}&z=${coords.z}`;
     } else {
       // Create new room
       if (confirm(`Create room at (${coords.x}, ${coords.y}, ${coords.z})?`)) {
@@ -247,7 +247,7 @@ export default class extends Controller {
 
       if (response.ok) {
         // Navigate to the new room
-        window.location.href = `/world_editor?x=${coords.x}&y=${coords.y}&z=${coords.z}`;
+        window.location.href = `/world?x=${coords.x}&y=${coords.y}&z=${coords.z}`;
       } else {
         const data = await response.json();
         alert(`Error creating room: ${data.errors.join(", ")}`);

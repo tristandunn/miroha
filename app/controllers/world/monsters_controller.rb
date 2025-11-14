@@ -32,7 +32,11 @@ module World
     #
     # @return [void]
     def destroy
-      @monster.destroy
+      if @monster.spawn
+        Spawns::Expire.call(@monster.spawn)
+      else
+        @monster.destroy
+      end
       head :no_content
     end
 
