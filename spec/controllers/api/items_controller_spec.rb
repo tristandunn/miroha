@@ -5,13 +5,12 @@ require "rails_helper"
 describe Api::ItemsController do
   let!(:room) { create(:room) }
 
-
   describe "#create" do
     context "with valid attributes" do
       let(:item_params) do
         {
-          name: "Magic Sword",
-          owner_id: room.id,
+          name:       "Magic Sword",
+          owner_id:   room.id,
           owner_type: "Room"
         }
       end
@@ -26,7 +25,7 @@ describe Api::ItemsController do
         post :create, params: { item: item_params }, format: :json
 
         expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
+        json = response.parsed_body
         expect(json["name"]).to eq("Magic Sword")
         expect(json["owner_id"]).to eq(room.id)
         expect(json["owner_type"]).to eq("Room")
@@ -45,7 +44,7 @@ describe Api::ItemsController do
       it "returns errors" do
         post :create, params: { item: invalid_params }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

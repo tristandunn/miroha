@@ -16,7 +16,7 @@ describe Api::RoomsController do
     it { is_expected.to respond_with(200) }
 
     it "returns room data with associations" do
-      json = JSON.parse(response.body)
+      json = response.parsed_body
       expect(json["id"]).to eq(room.id)
       expect(json["x"]).to eq(0)
       expect(json["y"]).to eq(0)
@@ -35,11 +35,11 @@ describe Api::RoomsController do
     context "with valid attributes" do
       let(:room_params) do
         {
-          x: 5,
-          y: 10,
-          z: -3,
+          x:           5,
+          y:           10,
+          z:           -3,
           description: "A new room",
-          objects: { "table" => "A wooden table" }
+          objects:     { "table" => "A wooden table" }
         }
       end
 
@@ -53,7 +53,7 @@ describe Api::RoomsController do
         post :create, params: { room: room_params }, format: :json
 
         expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
+        json = response.parsed_body
         expect(json["x"]).to eq(5)
         expect(json["y"]).to eq(10)
         expect(json["z"]).to eq(-3)
@@ -76,8 +76,8 @@ describe Api::RoomsController do
       it "returns errors" do
         post :create, params: { room: invalid_params }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_entity)
-        json = JSON.parse(response.body)
+        expect(response).to have_http_status(:unprocessable_content)
+        json = response.parsed_body
         expect(json["errors"]).to be_present
       end
     end
@@ -90,7 +90,7 @@ describe Api::RoomsController do
       let(:update_params) do
         {
           description: "Updated description",
-          objects: { "painting" => "A beautiful painting" }
+          objects:     { "painting" => "A beautiful painting" }
         }
       end
 
@@ -106,7 +106,7 @@ describe Api::RoomsController do
         patch :update, params: { id: room.id, room: update_params }, format: :json
 
         expect(response).to have_http_status(:ok)
-        json = JSON.parse(response.body)
+        json = response.parsed_body
         expect(json["description"]).to eq("Updated description")
       end
     end
@@ -124,8 +124,8 @@ describe Api::RoomsController do
       it "returns errors" do
         patch :update, params: { id: room.id, room: invalid_params }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_entity)
-        json = JSON.parse(response.body)
+        expect(response).to have_http_status(:unprocessable_content)
+        json = response.parsed_body
         expect(json["errors"]).to be_present
       end
     end

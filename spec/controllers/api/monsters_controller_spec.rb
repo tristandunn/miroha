@@ -5,16 +5,15 @@ require "rails_helper"
 describe Api::MonstersController do
   let!(:room) { create(:room) }
 
-
   describe "#create" do
     context "with valid attributes" do
       let(:monster_params) do
         {
-          name: "Goblin",
+          name:           "Goblin",
           current_health: 50,
           maximum_health: 50,
-          experience: 100,
-          room_id: room.id
+          experience:     100,
+          room_id:        room.id
         }
       end
 
@@ -28,7 +27,7 @@ describe Api::MonstersController do
         post :create, params: { monster: monster_params }, format: :json
 
         expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
+        json = response.parsed_body
         expect(json["name"]).to eq("Goblin")
         expect(json["current_health"]).to eq(50)
         expect(json["maximum_health"]).to eq(50)
@@ -49,7 +48,7 @@ describe Api::MonstersController do
       it "returns errors" do
         post :create, params: { monster: invalid_params }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
@@ -59,7 +58,7 @@ describe Api::MonstersController do
 
     it "updates the monster" do
       patch :update, params: {
-        id: monster.id,
+        id:      monster.id,
         monster: { name: "Updated Monster", experience: 200 }
       }, format: :json
 

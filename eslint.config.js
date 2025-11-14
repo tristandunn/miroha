@@ -12,9 +12,13 @@ export default [
     ],
     "languageOptions": {
       "globals": {
+        "alert": "readonly",
+        "confirm": "readonly",
         "document": "readonly",
+        "fetch": "readonly",
         "module": "readonly",
         "require": "readonly",
+        "setTimeout": "readonly",
         "window": "readonly"
       },
       "parserOptions": {

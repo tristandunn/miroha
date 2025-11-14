@@ -5,7 +5,6 @@ require "rails_helper"
 describe Api::NpcsController do
   let!(:room) { create(:room) }
 
-
   describe "#create" do
     context "with valid attributes" do
       let(:npc_params) { { name: "Friendly Merchant", room_id: room.id } }
@@ -20,7 +19,7 @@ describe Api::NpcsController do
         post :create, params: { npc: npc_params }, format: :json
 
         expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
+        json = response.parsed_body
         expect(json["name"]).to eq("Friendly Merchant")
         expect(json["room_id"]).to eq(room.id)
       end
@@ -38,7 +37,7 @@ describe Api::NpcsController do
       it "returns errors" do
         post :create, params: { npc: invalid_params }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

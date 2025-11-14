@@ -6,16 +6,15 @@ describe Api::SpawnsController do
   let!(:room) { create(:room) }
   let!(:base_monster) { create(:monster, name: "Base Goblin", room: nil) }
 
-
   describe "#create" do
     context "with valid attributes" do
       let(:spawn_params) do
         {
-          base_id: base_monster.id,
+          base_id:   base_monster.id,
           base_type: "Monster",
-          room_id: room.id,
+          room_id:   room.id,
           frequency: 300,
-          duration: 600
+          duration:  600
         }
       end
 
@@ -29,7 +28,7 @@ describe Api::SpawnsController do
         post :create, params: { spawn: spawn_params }, format: :json
 
         expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
+        json = response.parsed_body
         expect(json["base_id"]).to eq(base_monster.id)
         expect(json["base_type"]).to eq("Monster")
         expect(json["base_name"]).to eq("Base Goblin")
@@ -51,7 +50,7 @@ describe Api::SpawnsController do
       it "returns errors" do
         post :create, params: { spawn: invalid_params }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
@@ -61,7 +60,7 @@ describe Api::SpawnsController do
 
     it "updates the spawn" do
       patch :update, params: {
-        id: spawn.id,
+        id:    spawn.id,
         spawn: { frequency: 600, duration: 900 }
       }, format: :json
 
