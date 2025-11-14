@@ -2,7 +2,7 @@
 
 module Api
   class SpawnsController < ApplicationController
-    before_action :require_authentication
+    before_action :authenticate
     before_action :set_spawn, only: %i(update destroy)
 
     # POST /api/spawns
