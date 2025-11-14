@@ -1,98 +1,83 @@
 <%# locals: (current_room:) %>
-<div class="group">
-  <div class="flex justify-between items-center mb-3">
-    <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2">
-      <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      </svg>
+<div>
+  <div class="flex items-center justify-between mb-1.5">
+    <label class="text-xs font-medium text-slate-400 uppercase tracking-wide">
       Spawns
-    </h3>
+      <% if current_room.persisted? && current_room.spawns.any? %>
+        <span class="ml-1 text-slate-500">(<%= current_room.spawns.count %>)</span>
+      <% end %>
+    </label>
     <button
       data-action="click->world-editor#toggleSpawnForm"
-      class="px-3 py-1.5 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-lg text-xs font-medium text-white shadow-lg shadow-violet-500/20 transition-all duration-200 hover:shadow-violet-500/30">
-      + Add Spawn
+      class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded text-xs text-slate-300 transition-colors">
+      + Add
     </button>
   </div>
 
-  <!-- Spawn Form (hidden by default) -->
-  <div class="hidden mb-4 p-4 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50" data-world-editor-target="spawnForm">
+  <!-- Spawn Form -->
+  <div class="hidden mb-2 p-2 bg-slate-800 border border-slate-700 rounded" data-world-editor-target="spawnForm">
     <select
       data-world-editor-target="spawnType"
-      class="w-full px-3 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg mb-3 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all">
-      <option value="">Select Type...</option>
+      class="w-full px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 focus:outline-none focus:border-slate-600 mb-2">
+      <option value="">Type...</option>
       <option value="Npc">NPC</option>
       <option value="Monster">Monster</option>
     </select>
     <input
       type="number"
       data-world-editor-target="spawnBaseId"
-      placeholder="Base Template ID"
+      placeholder="Base ID"
       autocomplete="off"
-      class="w-full px-3 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg mb-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all">
-    <div class="grid grid-cols-2 gap-3 mb-3">
+      class="w-full px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-slate-600 mb-2">
+    <div class="grid grid-cols-2 gap-2 mb-2">
       <input
         type="number"
         data-world-editor-target="spawnFrequency"
-        placeholder="Frequency (s)"
+        placeholder="Freq (s)"
         autocomplete="off"
-        class="w-full px-3 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all">
+        class="w-full px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-slate-600">
       <input
         type="number"
         data-world-editor-target="spawnDuration"
-        placeholder="Duration (s)"
+        placeholder="Dur (s)"
         autocomplete="off"
-        class="w-full px-3 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all">
+        class="w-full px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-slate-600">
     </div>
-    <div class="flex gap-2">
+    <div class="flex gap-1.5">
       <button
         data-action="click->world-editor#createSpawn"
-        class="flex-1 px-4 py-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 rounded-lg text-sm font-medium text-white transition-all">
+        class="flex-1 px-2 py-1.5 bg-slate-700 hover:bg-slate-600 rounded text-xs text-slate-100 transition-colors">
         Create
       </button>
       <button
         data-action="click->world-editor#toggleSpawnForm"
-        class="px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-lg text-sm font-medium text-slate-300 transition-all">
+        class="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded text-xs text-slate-400 transition-colors">
         Cancel
       </button>
     </div>
   </div>
 
   <!-- Spawn List -->
-  <div data-world-editor-target="spawnList" class="space-y-2">
-    <% if current_room.persisted? %>
+  <div data-world-editor-target="spawnList" class="space-y-1">
+    <% if current_room.persisted? && current_room.spawns.any? %>
       <% current_room.spawns.includes(:base).find_each do |spawn| %>
-        <div class="flex justify-between items-start p-3 bg-slate-800/50 backdrop-blur-sm rounded-lg border border-slate-700/50 text-sm text-slate-100 hover:bg-slate-800/70 transition-all group/item">
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-              <%= spawn.base.name[0].upcase %>
-            </div>
-            <div>
-              <div class="font-medium mb-1">
-                <%= spawn.base.name %>
-                <span class="ml-2 px-2 py-0.5 bg-slate-700/50 text-slate-300 text-xs rounded-full border border-slate-600/50"><%= spawn.base_type %></span>
-              </div>
-              <div class="flex items-center gap-3 text-xs text-slate-400">
-                <span class="flex items-center gap-1">
-                  <svg class="w-3 h-3 text-violet-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                  </svg>
-                  Freq: <%= spawn.frequency %>s
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg class="w-3 h-3 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                  </svg>
-                  Dur: <%= spawn.duration %>s
-                </span>
-              </div>
-            </div>
+        <div class="px-2 py-1.5 bg-slate-800 border border-slate-700 rounded text-sm hover:bg-slate-750 transition-colors group">
+          <div class="flex items-start justify-between mb-1">
+            <span class="text-slate-200">
+              <%= spawn.base.name %>
+              <span class="ml-1.5 text-xs text-slate-500">(<%= spawn.base_type %>)</span>
+            </span>
+            <button
+              data-action="click->world-editor#deleteSpawn"
+              data-id="<%= spawn.id %>"
+              class="opacity-0 group-hover:opacity-100 text-xs text-slate-500 hover:text-red-400 transition-all">
+              ×
+            </button>
           </div>
-          <button
-            data-action="click->world-editor#deleteSpawn"
-            data-id="<%= spawn.id %>"
-            class="opacity-0 group-hover/item:opacity-100 px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg text-xs font-medium transition-all border border-red-500/30">
-            Delete
-          </button>
+          <div class="text-xs text-slate-500 space-x-3">
+            <span>Freq <%= spawn.frequency %>s</span>
+            <span>Dur <%= spawn.duration %>s</span>
+          </div>
         </div>
       <% end %>
     <% end %>

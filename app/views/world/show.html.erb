@@ -1,31 +1,34 @@
 <%# locals: () %>
-<div class="h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 flex" data-controller="world-editor">
+<div class="h-screen bg-slate-950 text-slate-100 flex" data-controller="world-editor">
   <!-- Main Grid Area -->
   <%= render "grid", current_room: @current_room, surrounding_rooms: @surrounding_rooms %>
 
-  <!-- Enhanced Sidebar -->
-  <div class="w-[420px] bg-slate-900/95 backdrop-blur-sm h-screen overflow-y-auto flex-shrink-0 border-l border-slate-800/50 shadow-2xl">
-    <!-- Header with Status -->
-    <div class="sticky top-0 z-20 backdrop-blur-md bg-slate-900/80 border-b border-slate-800/50">
-      <div class="px-6 py-4">
-        <h1 class="text-2xl font-bold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">World Editor</h1>
-        <p class="text-sm text-slate-400 mt-1">Coordinate: (<%= @current_room.x %>, <%= @current_room.y %>, <%= @current_room.z %>)</p>
-      </div>
-
-      <!-- Status Bar -->
-      <div class="hidden" data-world-editor-target="saveStatusBar">
-        <div class="px-6 py-3 text-sm border-t border-slate-800/50 bg-slate-800/50" data-world-editor-target="saveStatus"></div>
-      </div>
+  <!-- Compact Sidebar -->
+  <div class="w-80 bg-slate-900 h-screen overflow-y-auto flex-shrink-0 border-l border-slate-800 flex flex-col">
+    <!-- Status Bar (appears when saving) -->
+    <div class="hidden border-b border-slate-800" data-world-editor-target="saveStatusBar">
+      <div class="px-4 py-2 text-xs bg-slate-800/50" data-world-editor-target="saveStatus"></div>
     </div>
 
     <!-- Content Sections -->
-    <div class="p-6 space-y-6">
-      <%= render "description", current_room: @current_room %>
-      <%= render "npcs", current_room: @current_room %>
-      <%= render "monsters", current_room: @current_room %>
-      <%= render "items", current_room: @current_room %>
-      <%= render "spawns", current_room: @current_room %>
-      <%= render "objects", current_room: @current_room %>
+    <div class="flex-1 overflow-y-auto">
+      <div class="p-4 space-y-4">
+        <%= render "description", current_room: @current_room %>
+        <%= render "npcs", current_room: @current_room %>
+        <%= render "monsters", current_room: @current_room %>
+        <%= render "items", current_room: @current_room %>
+        <%= render "spawns", current_room: @current_room %>
+        <%= render "objects", current_room: @current_room %>
+      </div>
+    </div>
+
+    <!-- Bottom Info Bar -->
+    <div class="border-t border-slate-800 px-4 py-2 bg-slate-900/50 text-xs text-slate-500">
+      <span>(<%= @current_room.x %>, <%= @current_room.y %>, <%= @current_room.z %>)</span>
+      <% if @current_room.persisted? %>
+        <span class="mx-2">•</span>
+        <span>#<%= @current_room.id %></span>
+      <% end %>
     </div>
   </div>
 
