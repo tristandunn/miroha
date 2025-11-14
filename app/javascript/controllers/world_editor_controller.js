@@ -13,12 +13,19 @@ export default class extends Controller {
 
   connect() {
     console.log("World Editor connected")
+    this.originalDescription = this.hasDescriptionTarget ? this.descriptionTarget.value : ""
+    this.originalObjects = this.hasObjectsTarget ? this.objectsTarget.value : ""
   }
 
   // Room Description Management
   async saveDescription(event) {
     const roomId = this.currentRoomIdTarget.textContent.trim()
     const description = this.descriptionTarget.value
+
+    // Don't save if nothing changed
+    if (description === this.originalDescription) {
+      return
+    }
 
     if (!roomId) {
       this.showSaveStatus("Please create the room first", "error")
@@ -29,6 +36,7 @@ export default class extends Controller {
       const response = await this.updateRoom(roomId, { description })
 
       if (response.ok) {
+        this.originalDescription = description
         this.showSaveStatus("Saved", "success")
       } else {
         const data = await response.json()
@@ -43,6 +51,11 @@ export default class extends Controller {
     const roomId = this.currentRoomIdTarget.textContent.trim()
     const objectsText = this.objectsTarget.value
 
+    // Don't save if nothing changed
+    if (objectsText === this.originalObjects) {
+      return
+    }
+
     if (!roomId) {
       this.showSaveStatus("Please create the room first", "error")
       return
@@ -53,6 +66,7 @@ export default class extends Controller {
       const response = await this.updateRoom(roomId, { objects })
 
       if (response.ok) {
+        this.originalObjects = objectsText
         this.showSaveStatus("Objects saved", "success")
       } else {
         const data = await response.json()
