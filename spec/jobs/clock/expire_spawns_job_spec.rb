@@ -73,5 +73,15 @@ describe Clock::ExpireSpawnsJob do
         expect(Turbo::StreamsChannel).not_to have_received(:broadcast_remove_to)
       end
     end
+
+    context "with a spawn without an entity" do
+      it "does not broadcast" do
+        create(:spawn, :monster, entity: nil, expires_at: Time.current)
+
+        perform
+
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_remove_to)
+      end
+    end
   end
 end
