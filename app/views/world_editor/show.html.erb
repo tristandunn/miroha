@@ -1,0 +1,316 @@
+<%# locals: () %>
+<div class="min-h-screen bg-gray-900 text-gray-100" data-controller="world-editor">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">World Editor</h1>
+
+    <div class="grid grid-cols-12 gap-6">
+      <!-- Room Grid Visualization -->
+      <div class="col-span-8">
+        <div class="bg-gray-800 rounded-lg p-6">
+          <div class="mb-4 flex justify-between items-center">
+            <h2 class="text-xl font-semibold">Room Grid</h2>
+            <div class="text-sm text-gray-400">
+              Current: (<span data-world-editor-target="currentX"><%= @current_room.x %></span>,
+                        <span data-world-editor-target="currentY"><%= @current_room.y %></span>,
+                        <span data-world-editor-target="currentZ"><%= @current_room.z %></span>)
+            </div>
+          </div>
+
+          <!-- SVG Room Grid -->
+          <div
+            data-controller="room-grid"
+            data-room-grid-current-x-value="<%= @current_room.x %>"
+            data-room-grid-current-y-value="<%= @current_room.y %>"
+            data-room-grid-current-z-value="<%= @current_room.z %>"
+            data-room-grid-current-exists-value="<%= @current_room.persisted? %>"
+            data-room-grid-north-exists-value="<%= @surrounding_rooms[:north].present? %>"
+            data-room-grid-south-exists-value="<%= @surrounding_rooms[:south].present? %>"
+            data-room-grid-east-exists-value="<%= @surrounding_rooms[:east].present? %>"
+            data-room-grid-west-exists-value="<%= @surrounding_rooms[:west].present? %>"
+            data-room-grid-up-exists-value="<%= @surrounding_rooms[:up].present? %>"
+            data-room-grid-down-exists-value="<%= @surrounding_rooms[:down].present? %>"
+            data-world-editor-target="grid"
+          >
+            <svg
+              viewBox="0 0 800 600"
+              class="w-full h-auto bg-gray-900 rounded border border-gray-700"
+              data-room-grid-target="svg"
+            >
+              <!-- SVG will be populated by Stimulus controller -->
+            </svg>
+          </div>
+
+          <div class="mt-4 text-sm text-gray-400">
+            <p>Click existing rooms to navigate. Click dashed rooms to create new rooms.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar: Room & Entity Editor -->
+      <div class="col-span-4">
+        <div class="bg-gray-800 rounded-lg p-6 sticky top-4">
+          <h2 class="text-xl font-semibold mb-4">Room Editor</h2>
+
+          <!-- Room Description -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium mb-2">Description</label>
+            <textarea
+              data-world-editor-target="description"
+              data-action="blur->world-editor#saveDescription"
+              class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500 min-h-24"
+              placeholder="Enter room description..."
+            ><%= @current_room.description if @current_room.persisted? %></textarea>
+            <div class="mt-1 text-xs text-gray-400" data-world-editor-target="saveStatus"></div>
+          </div>
+
+          <!-- Room Objects (JSON) -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium mb-2">
+              Objects (JSON)
+              <span class="text-xs text-gray-400 font-normal">- inspectable objects in room</span>
+            </label>
+            <textarea
+              data-world-editor-target="objects"
+              data-action="blur->world-editor#saveObjects"
+              class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500 font-mono text-sm min-h-20"
+              placeholder='{"painting": "A beautiful painting", "desk": "An old wooden desk"}'
+            ><%= JSON.pretty_generate(@current_room.objects) if @current_room.persisted? && @current_room.objects.present? %></textarea>
+          </div>
+
+          <!-- NPCs Section -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-lg font-medium">NPCs</h3>
+              <button
+                data-action="click->world-editor#toggleNpcForm"
+                class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm"
+              >+ Add</button>
+            </div>
+
+            <!-- NPC Form (hidden by default) -->
+            <div class="hidden mb-3 p-3 bg-gray-700 rounded" data-world-editor-target="npcForm">
+              <input
+                type="text"
+                data-world-editor-target="npcName"
+                placeholder="NPC Name"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <div class="flex gap-2">
+                <button
+                  data-action="click->world-editor#createNpc"
+                  class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm"
+                >Create</button>
+                <button
+                  data-action="click->world-editor#toggleNpcForm"
+                  class="px-3 py-1 bg-gray-600 hover:bg-gray-700 rounded text-sm"
+                >Cancel</button>
+              </div>
+            </div>
+
+            <!-- NPC List -->
+            <div data-world-editor-target="npcList" class="space-y-2">
+              <% if @current_room.persisted? %>
+                <% @current_room.npcs.each do |npc| %>
+                  <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm">
+                    <span><%= npc.name %></span>
+                    <button
+                      data-action="click->world-editor#deleteNpc"
+                      data-id="<%= npc.id %>"
+                      class="text-red-400 hover:text-red-300"
+                    >Delete</button>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Monsters Section -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-lg font-medium">Monsters</h3>
+              <button
+                data-action="click->world-editor#toggleMonsterForm"
+                class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm"
+              >+ Add</button>
+            </div>
+
+            <!-- Monster Form (hidden by default) -->
+            <div class="hidden mb-3 p-3 bg-gray-700 rounded" data-world-editor-target="monsterForm">
+              <input
+                type="text"
+                data-world-editor-target="monsterName"
+                placeholder="Monster Name"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <input
+                type="number"
+                data-world-editor-target="monsterHealth"
+                placeholder="Health"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <input
+                type="number"
+                data-world-editor-target="monsterExperience"
+                placeholder="Experience"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <div class="flex gap-2">
+                <button
+                  data-action="click->world-editor#createMonster"
+                  class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm"
+                >Create</button>
+                <button
+                  data-action="click->world-editor#toggleMonsterForm"
+                  class="px-3 py-1 bg-gray-600 hover:bg-gray-700 rounded text-sm"
+                >Cancel</button>
+              </div>
+            </div>
+
+            <!-- Monster List -->
+            <div data-world-editor-target="monsterList" class="space-y-2">
+              <% if @current_room.persisted? %>
+                <% @current_room.monsters.each do |monster| %>
+                  <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm">
+                    <div>
+                      <div><%= monster.name %></div>
+                      <div class="text-xs text-gray-400">HP: <%= monster.current_health %>/<%= monster.maximum_health %>, XP: <%= monster.experience %></div>
+                    </div>
+                    <button
+                      data-action="click->world-editor#deleteMonster"
+                      data-id="<%= monster.id %>"
+                      class="text-red-400 hover:text-red-300"
+                    >Delete</button>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Items Section -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-lg font-medium">Items</h3>
+              <button
+                data-action="click->world-editor#toggleItemForm"
+                class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm"
+              >+ Add</button>
+            </div>
+
+            <!-- Item Form (hidden by default) -->
+            <div class="hidden mb-3 p-3 bg-gray-700 rounded" data-world-editor-target="itemForm">
+              <input
+                type="text"
+                data-world-editor-target="itemName"
+                placeholder="Item Name"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <div class="flex gap-2">
+                <button
+                  data-action="click->world-editor#createItem"
+                  class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm"
+                >Create</button>
+                <button
+                  data-action="click->world-editor#toggleItemForm"
+                  class="px-3 py-1 bg-gray-600 hover:bg-gray-700 rounded text-sm"
+                >Cancel</button>
+              </div>
+            </div>
+
+            <!-- Item List -->
+            <div data-world-editor-target="itemList" class="space-y-2">
+              <% if @current_room.persisted? %>
+                <% @current_room.items.each do |item| %>
+                  <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm">
+                    <span><%= item.name %></span>
+                    <button
+                      data-action="click->world-editor#deleteItem"
+                      data-id="<%= item.id %>"
+                      class="text-red-400 hover:text-red-300"
+                    >Delete</button>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Spawns Section -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="text-lg font-medium">Spawns</h3>
+              <button
+                data-action="click->world-editor#toggleSpawnForm"
+                class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm"
+              >+ Add</button>
+            </div>
+
+            <!-- Spawn Form (hidden by default) -->
+            <div class="hidden mb-3 p-3 bg-gray-700 rounded" data-world-editor-target="spawnForm">
+              <select
+                data-world-editor-target="spawnType"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              >
+                <option value="">Select Type...</option>
+                <option value="Npc">NPC</option>
+                <option value="Monster">Monster</option>
+              </select>
+              <input
+                type="number"
+                data-world-editor-target="spawnBaseId"
+                placeholder="Base Template ID"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <input
+                type="number"
+                data-world-editor-target="spawnFrequency"
+                placeholder="Frequency (seconds)"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <input
+                type="number"
+                data-world-editor-target="spawnDuration"
+                placeholder="Duration (seconds)"
+                class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm"
+              />
+              <div class="flex gap-2">
+                <button
+                  data-action="click->world-editor#createSpawn"
+                  class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm"
+                >Create</button>
+                <button
+                  data-action="click->world-editor#toggleSpawnForm"
+                  class="px-3 py-1 bg-gray-600 hover:bg-gray-700 rounded text-sm"
+                >Cancel</button>
+              </div>
+            </div>
+
+            <!-- Spawn List -->
+            <div data-world-editor-target="spawnList" class="space-y-2">
+              <% if @current_room.persisted? %>
+                <% @current_room.spawns.includes(:base).each do |spawn| %>
+                  <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm">
+                    <div>
+                      <div><%= spawn.base.name %> (<%= spawn.base_type %>)</div>
+                      <div class="text-xs text-gray-400">
+                        Freq: <%= spawn.frequency %>s, Dur: <%= spawn.duration %>s
+                      </div>
+                    </div>
+                    <button
+                      data-action="click->world-editor#deleteSpawn"
+                      data-id="<%= spawn.id %>"
+                      class="text-red-400 hover:text-red-300"
+                    >Delete</button>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden data for Stimulus -->
+  <div class="hidden">
+    <div data-world-editor-target="currentRoomId"><%= @current_room.id if @current_room.persisted? %></div>
+  </div>
+</div>

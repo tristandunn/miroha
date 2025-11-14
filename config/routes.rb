@@ -16,6 +16,16 @@ Rails.application.routes.draw do
   resources :commands, only: %i(create)
   resource  :sessions, only: %i(new create destroy)
 
+  resource :world_editor, only: %i(show)
+
+  namespace :api do
+    resources :rooms, only: %i(show create update)
+    resources :npcs, only: %i(create update destroy)
+    resources :monsters, only: %i(create update destroy)
+    resources :items, only: %i(create update destroy)
+    resources :spawns, only: %i(create update destroy)
+  end
+
   constraints(->(request) { Constraints::Game.matches?(request) }) do
     root to: "game#index", as: :game_root
   end
