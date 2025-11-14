@@ -82,18 +82,37 @@ describe World::MonstersController do
   end
 
   describe "#destroy" do
-    let!(:monster) { create(:monster, room: room) }
+    context "when monster has no spawn" do
+      let!(:monster) { create(:monster, room: room) }
 
-    it "destroys the monster" do
-      expect do
+      it "destroys the monster" do
+        expect do
+          delete :destroy, params: { id: monster.id }, format: :json
+        end.to change(Monster, :count).by(-1)
+      end
+
+      it "returns no content" do
         delete :destroy, params: { id: monster.id }, format: :json
-      end.to change(Monster, :count).by(-1)
+
+        expect(response).to have_http_status(:no_content)
+      end
     end
 
-    it "returns no content" do
-      delete :destroy, params: { id: monster.id }, format: :json
+    context "when monster has a spawn" do
+      let!(:spawn) { create(:spawn, :monster, room: room, frequency: 300) }
+      let!(:monster) { spawn.entity }
 
-      expect(response).to have_http_status(:no_content)
+      it "expires the spawn instead of destroying" do
+        expect(Spawns::Expire).to receive(:call).with(spawn)
+
+        delete :destroy, params: { id: monster.id }, format: :json
+      end
+
+      it "returns no content" do
+        delete :destroy, params: { id: monster.id }, format: :json
+
+        expect(response).to have_http_status(:no_content)
+      end
     end
   end
 end
