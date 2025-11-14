@@ -33,10 +33,16 @@
     <% if current_room.persisted? %>
       <% current_room.npcs.each do |npc| %>
         <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm text-white">
-          <span><%= npc.name %></span>
+          <div>
+            <span><%= npc.name %></span>
+            <% if npc.spawn.present? %>
+              <span class="text-xs text-gray-400 ml-2">(spawned)</span>
+            <% end %>
+          </div>
           <button
             data-action="click->world-editor#deleteNpc"
             data-id="<%= npc.id %>"
+            data-spawned="<%= npc.spawn.present? %>"
             class="text-red-400 hover:text-red-300"
           >Delete</button>
         </div>

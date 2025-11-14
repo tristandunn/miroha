@@ -13,10 +13,6 @@ export default class extends Controller {
     "npcForm",
     "npcName",
     "npcList",
-    "monsterForm",
-    "monsterName",
-    "monsterHealth",
-    "monsterExperience",
     "monsterList",
     "itemForm",
     "itemName",
@@ -182,8 +178,12 @@ export default class extends Controller {
 
   async deleteNpc(event) {
     const id = event.target.dataset.id;
+    const isSpawned = event.target.dataset.spawned === "true";
+    const message = isSpawned
+      ? "Delete this spawned NPC? (It may respawn)"
+      : "Delete this NPC?";
 
-    if (!confirm("Delete this NPC?")) return;
+    if (!confirm(message)) return;
 
     try {
       const response = await fetch(`/api/npcs/${id}`, {
@@ -205,11 +205,14 @@ export default class extends Controller {
 
   addNpcToList(npc) {
     const html = `
-      <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm">
-        <span>${npc.name}</span>
+      <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm text-white">
+        <div>
+          <span>${npc.name}</span>
+        </div>
         <button
           data-action="click->world-editor#deleteNpc"
           data-id="${npc.id}"
+          data-spawned="false"
           class="text-red-400 hover:text-red-300"
         >Delete</button>
       </div>
@@ -218,68 +221,14 @@ export default class extends Controller {
   }
 
   // Monster Management
-  toggleMonsterForm() {
-    this.monsterFormTarget.classList.toggle("hidden");
-    if (!this.monsterFormTarget.classList.contains("hidden")) {
-      this.monsterNameTarget.value = "";
-      this.monsterHealthTarget.value = "";
-      this.monsterExperienceTarget.value = "";
-      this.monsterNameTarget.focus();
-    }
-  }
-
-  async createMonster() {
-    const defaultHealth = 100;
-    const roomId = this.currentRoomIdTarget.textContent.trim();
-    const name = this.monsterNameTarget.value.trim();
-    const health = parseInt(this.monsterHealthTarget.value) || defaultHealth;
-    const experience = parseInt(this.monsterExperienceTarget.value) || 0;
-
-    if (!roomId) {
-      alert("Please create the room first");
-      return;
-    }
-
-    if (!name) {
-      alert("Please enter a monster name");
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/monsters", {
-        "method": "POST",
-        "headers": {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": this.csrfToken()
-        },
-        "body": JSON.stringify({
-          "monster": {
-            name,
-            "current_health": health,
-            "maximum_health": health,
-            experience,
-            "room_id": roomId
-          }
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        this.addMonsterToList(data);
-        this.toggleMonsterForm();
-      } else {
-        const data = await response.json();
-        alert(`Error: ${data.errors.join(", ")}`);
-      }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    }
-  }
-
   async deleteMonster(event) {
     const id = event.target.dataset.id;
+    const isSpawned = event.target.dataset.spawned === "true";
+    const message = isSpawned
+      ? "Delete this spawned monster? (It may respawn)"
+      : "Delete this monster?";
 
-    if (!confirm("Delete this monster?")) return;
+    if (!confirm(message)) return;
 
     try {
       const response = await fetch(`/api/monsters/${id}`, {
@@ -297,23 +246,6 @@ export default class extends Controller {
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
-  }
-
-  addMonsterToList(monster) {
-    const html = `
-      <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm">
-        <div>
-          <div>${monster.name}</div>
-          <div class="text-xs text-gray-400">HP: ${monster.current_health}/${monster.maximum_health}, XP: ${monster.experience}</div>
-        </div>
-        <button
-          data-action="click->world-editor#deleteMonster"
-          data-id="${monster.id}"
-          class="text-red-400 hover:text-red-300"
-        >Delete</button>
-      </div>
-    `;
-    this.monsterListTarget.insertAdjacentHTML("beforeend", html);
   }
 
   // Item Management
