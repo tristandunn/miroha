@@ -129,23 +129,25 @@ export default class extends Controller {
     text.setAttribute("x", position.x)
     text.setAttribute("y", position.y - 10)
     text.setAttribute("text-anchor", "middle")
-    text.setAttribute("fill", "#9CA3AF")
-    text.setAttribute("font-size", "12")
+    text.setAttribute("fill", "#D1D5DB")
+    text.setAttribute("font-size", "14")
     text.setAttribute("pointer-events", "none")
     text.textContent = `${coords.x}, ${coords.y}, ${coords.z}`
     group.appendChild(text)
 
-    // Direction label
-    const dirLabel = document.createElementNS("http://www.w3.org/2000/svg", "text")
-    dirLabel.setAttribute("x", position.x)
-    dirLabel.setAttribute("y", position.y + 10)
-    dirLabel.setAttribute("text-anchor", "middle")
-    dirLabel.setAttribute("fill", "#6B7280")
-    dirLabel.setAttribute("font-size", "14")
-    dirLabel.setAttribute("font-weight", "bold")
-    dirLabel.setAttribute("pointer-events", "none")
-    dirLabel.textContent = direction.toUpperCase()
-    group.appendChild(dirLabel)
+    // Direction label (skip for center room)
+    if (!isCurrent) {
+      const dirLabel = document.createElementNS("http://www.w3.org/2000/svg", "text")
+      dirLabel.setAttribute("x", position.x)
+      dirLabel.setAttribute("y", position.y + 10)
+      dirLabel.setAttribute("text-anchor", "middle")
+      dirLabel.setAttribute("fill", "#9CA3AF")
+      dirLabel.setAttribute("font-size", "14")
+      dirLabel.setAttribute("font-weight", "bold")
+      dirLabel.setAttribute("pointer-events", "none")
+      dirLabel.textContent = direction.toUpperCase()
+      group.appendChild(dirLabel)
+    }
 
     // Click handler
     group.addEventListener("click", () => this.handleRoomClick(coords, exists))
