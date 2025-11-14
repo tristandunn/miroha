@@ -2,7 +2,6 @@
 
 module Api
   class RoomsController < ApplicationController
-    before_action :authenticate
     before_action :set_room, only: %i(show update)
 
     # GET /api/rooms/:id

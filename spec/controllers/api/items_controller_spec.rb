@@ -5,9 +5,6 @@ require "rails_helper"
 describe Api::ItemsController do
   let!(:room) { create(:room) }
 
-  before do
-    sign_in
-  end
 
   describe "#create" do
     context "with valid attributes" do

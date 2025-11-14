@@ -3,10 +3,6 @@
 require "rails_helper"
 
 describe Api::RoomsController do
-  before do
-    sign_in
-  end
-
   describe "#show" do
     let!(:room) { create(:room, x: 0, y: 0, z: 0, description: "Test room") }
     let!(:npc) { create(:npc, name: "Test NPC", room: room) }

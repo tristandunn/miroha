@@ -6,9 +6,6 @@ describe Api::SpawnsController do
   let!(:room) { create(:room) }
   let!(:base_monster) { create(:monster, name: "Base Goblin", room: nil) }
 
-  before do
-    sign_in
-  end
 
   describe "#create" do
     context "with valid attributes" do

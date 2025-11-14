@@ -2,7 +2,6 @@
 
 module Api
   class MonstersController < ApplicationController
-    before_action :authenticate
     before_action :set_monster, only: %i(update destroy)
 
     # POST /api/monsters

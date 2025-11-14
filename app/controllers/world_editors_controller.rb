@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class WorldEditorsController < ApplicationController
-  before_action :authenticate
-
   # Render the world editor interface.
   def show
     x = params[:x]&.to_i || Room::DEFAULT_COORDINATES[:x]

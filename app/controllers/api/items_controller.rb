@@ -2,7 +2,6 @@
 
 module Api
   class ItemsController < ApplicationController
-    before_action :authenticate
     before_action :set_item, only: %i(update destroy)
 
     # POST /api/items

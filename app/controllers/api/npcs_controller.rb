@@ -2,7 +2,6 @@
 
 module Api
   class NpcsController < ApplicationController
-    before_action :authenticate
     before_action :set_npc, only: %i(update destroy)
 
     # POST /api/npcs
