@@ -229,7 +229,7 @@ export default class extends Controller {
 
   async createRoom(coords) {
     try {
-      const response = await fetch("/api/rooms", {
+      const response = await fetch("/world/rooms", {
         "method": "POST",
         "headers": {
           "Content-Type": "application/json",

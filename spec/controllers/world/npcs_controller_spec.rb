@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Api::NpcsController do
+describe World::NpcsController do
   let!(:room) { create(:room) }
 
   describe "#create" do
@@ -45,12 +45,24 @@ describe Api::NpcsController do
   describe "#update" do
     let!(:npc) { create(:npc, name: "Old Name", room: room) }
 
-    it "updates the NPC" do
-      patch :update, params: { id: npc.id, npc: { name: "New Name" } }, format: :json
+    context "with valid attributes" do
+      it "updates the NPC" do
+        patch :update, params: { id: npc.id, npc: { name: "New Name" } }, format: :json
 
-      npc.reload
-      expect(npc.name).to eq("New Name")
-      expect(response).to have_http_status(:ok)
+        npc.reload
+        expect(npc.name).to eq("New Name")
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "with invalid attributes" do
+      it "returns errors" do
+        patch :update, params: { id: npc.id, npc: { name: "" } }, format: :json
+
+        expect(response).to have_http_status(:unprocessable_content)
+        json = response.parsed_body
+        expect(json["errors"]).to be_present
+      end
     end
   end
 

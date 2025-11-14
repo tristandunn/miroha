@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Api::SpawnsController do
+describe World::SpawnsController do
   let!(:room) { create(:room) }
   let!(:base_monster) { create(:monster, name: "Base Goblin", room: nil) }
 
@@ -58,16 +58,28 @@ describe Api::SpawnsController do
   describe "#update" do
     let!(:spawn) { create(:spawn, base: base_monster, room: room, frequency: 300) }
 
-    it "updates the spawn" do
-      patch :update, params: {
-        id:    spawn.id,
-        spawn: { frequency: 600, duration: 900 }
-      }, format: :json
+    context "with valid attributes" do
+      it "updates the spawn" do
+        patch :update, params: {
+          id:    spawn.id,
+          spawn: { frequency: 600, duration: 900 }
+        }, format: :json
 
-      spawn.reload
-      expect(spawn.frequency).to eq(600)
-      expect(spawn.duration).to eq(900)
-      expect(response).to have_http_status(:ok)
+        spawn.reload
+        expect(spawn.frequency).to eq(600)
+        expect(spawn.duration).to eq(900)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "with invalid attributes" do
+      it "returns errors" do
+        patch :update, params: { id: spawn.id, spawn: { frequency: -1 } }, format: :json
+
+        expect(response).to have_http_status(:unprocessable_content)
+        json = response.parsed_body
+        expect(json["errors"]).to be_present
+      end
     end
   end
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe WorldEditorsController do
+RSpec.describe WorldController do
   render_views
 
   describe "GET #show" do

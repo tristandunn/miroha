@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Api::ItemsController do
+describe World::ItemsController do
   let!(:room) { create(:room) }
 
   describe "#create" do
@@ -52,12 +52,24 @@ describe Api::ItemsController do
   describe "#update" do
     let!(:item) { create(:item, name: "Old Item", owner: room) }
 
-    it "updates the item" do
-      patch :update, params: { id: item.id, item: { name: "Updated Item" } }, format: :json
+    context "with valid attributes" do
+      it "updates the item" do
+        patch :update, params: { id: item.id, item: { name: "Updated Item" } }, format: :json
 
-      item.reload
-      expect(item.name).to eq("Updated Item")
-      expect(response).to have_http_status(:ok)
+        item.reload
+        expect(item.name).to eq("Updated Item")
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "with invalid attributes" do
+      it "returns errors" do
+        patch :update, params: { id: item.id, item: { name: "" } }, format: :json
+
+        expect(response).to have_http_status(:unprocessable_content)
+        json = response.parsed_body
+        expect(json["errors"]).to be_present
+      end
     end
   end
 

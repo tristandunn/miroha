@@ -117,7 +117,7 @@ export default class extends Controller {
   }
 
   async updateRoom(roomId, updates) {
-    return fetch(`/api/rooms/${roomId}`, {
+    return fetch(`/world/rooms/${roomId}`, {
       "method": "PATCH",
       "headers": {
         "Content-Type": "application/json",
@@ -151,7 +151,7 @@ export default class extends Controller {
     }
 
     try {
-      const response = await fetch("/api/npcs", {
+      const response = await fetch("/world/npcs", {
         "method": "POST",
         "headers": {
           "Content-Type": "application/json",
@@ -186,7 +186,7 @@ export default class extends Controller {
     if (!confirm(message)) return;
 
     try {
-      const response = await fetch(`/api/npcs/${id}`, {
+      const response = await fetch(`/world/npcs/${id}`, {
         "method": "DELETE",
         "headers": {
           "X-CSRF-Token": this.csrfToken()
@@ -231,7 +231,7 @@ export default class extends Controller {
     if (!confirm(message)) return;
 
     try {
-      const response = await fetch(`/api/monsters/${id}`, {
+      const response = await fetch(`/world/monsters/${id}`, {
         "method": "DELETE",
         "headers": {
           "X-CSRF-Token": this.csrfToken()
@@ -272,7 +272,7 @@ export default class extends Controller {
     }
 
     try {
-      const response = await fetch("/api/items", {
+      const response = await fetch("/world/items", {
         "method": "POST",
         "headers": {
           "Content-Type": "application/json",
@@ -306,7 +306,7 @@ export default class extends Controller {
     if (!confirm("Delete this item?")) return;
 
     try {
-      const response = await fetch(`/api/items/${id}`, {
+      const response = await fetch(`/world/items/${id}`, {
         "method": "DELETE",
         "headers": {
           "X-CSRF-Token": this.csrfToken()
@@ -367,7 +367,7 @@ export default class extends Controller {
     }
 
     try {
-      const response = await fetch("/api/spawns", {
+      const response = await fetch("/world/spawns", {
         "method": "POST",
         "headers": {
           "Content-Type": "application/json",
@@ -403,7 +403,7 @@ export default class extends Controller {
     if (!confirm("Delete this spawn?")) return;
 
     try {
-      const response = await fetch(`/api/spawns/${id}`, {
+      const response = await fetch(`/world/spawns/${id}`, {
         "method": "DELETE",
         "headers": {
           "X-CSRF-Token": this.csrfToken()

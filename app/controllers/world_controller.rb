@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WorldEditorsController < ApplicationController
+class WorldController < ApplicationController
   OFFSETS = {
     "north" => { y: 1 },
     "south" => { y: -1 },

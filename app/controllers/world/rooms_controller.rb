@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module World
   class RoomsController < ApplicationController
     before_action :set_room, only: %i(show update)
 
@@ -116,9 +116,15 @@ module Api
     # @return [Hash]
     def spawn_hash(spawn)
       {
-        id: spawn.id, base_type: spawn.base_type, base_id: spawn.base_id,
-        base_name: spawn.base.name, entity_id: spawn.entity_id, frequency: spawn.frequency,
-        duration: spawn.duration, activates_at: spawn.activates_at, expires_at: spawn.expires_at
+        id:           spawn.id,
+        base_type:    spawn.base_type,
+        base_id:      spawn.base_id,
+        base_name:    spawn.base.name,
+        entity_id:    spawn.entity_id,
+        frequency:    spawn.frequency,
+        duration:     spawn.duration,
+        activates_at: spawn.activates_at,
+        expires_at:   spawn.expires_at
       }
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module World
   class MonstersController < ApplicationController
     before_action :set_monster, only: %i(update destroy)
 

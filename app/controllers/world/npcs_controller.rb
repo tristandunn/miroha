@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module World
   class NpcsController < ApplicationController
     before_action :set_npc, only: %i(update destroy)
 

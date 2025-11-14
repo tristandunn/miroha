@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module World
   class ItemsController < ApplicationController
     before_action :set_item, only: %i(update destroy)
 

@@ -2,12 +2,14 @@
 
 require "rails_helper"
 
-describe Api::RoomsController do
+describe World::RoomsController do
   describe "#show" do
     let!(:room) { create(:room, x: 0, y: 0, z: 0, description: "Test room") }
     let!(:npc) { create(:npc, name: "Test NPC", room: room) }
     let!(:monster) { create(:monster, name: "Test Monster", room: room) }
     let!(:item) { create(:item, name: "Test Item", owner: room) }
+    let!(:base_monster) { create(:monster, name: "Base Goblin", room: nil) }
+    let!(:spawn) { create(:spawn, base: base_monster, room: room, frequency: 300, duration: 600) }
 
     before do
       get :show, params: { id: room.id }, format: :json
@@ -28,6 +30,10 @@ describe Api::RoomsController do
       expect(json["monsters"].first["name"]).to eq("Test Monster")
       expect(json["items"]).to be_an(Array)
       expect(json["items"].first["name"]).to eq("Test Item")
+      expect(json["spawns"]).to be_an(Array)
+      expect(json["spawns"].first["base_name"]).to eq("Base Goblin")
+      expect(json["spawns"].first["frequency"]).to eq(300)
+      expect(json["spawns"].first["duration"]).to eq(600)
     end
   end
 
