@@ -1,29 +1,29 @@
 <%# locals: () %>
-<div class="min-h-screen bg-gray-900 text-gray-100" data-controller="world-editor">
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">World Editor</h1>
+<div class="h-screen bg-gray-900 text-gray-100 flex" data-controller="world-editor">
+  <%= render "grid", current_room: @current_room, surrounding_rooms: @surrounding_rooms %>
 
-    <div class="grid grid-cols-12 gap-6">
-      <%= render "grid", current_room: @current_room, surrounding_rooms: @surrounding_rooms %>
+  <!-- Sidebar -->
+  <div class="w-96 bg-gray-800 h-screen overflow-y-auto flex-shrink-0">
+    <!-- Flash Message Bar -->
+    <div class="sticky top-0 z-10 bg-gray-700 border-b border-gray-600">
+      <div class="px-6 py-2 text-sm text-gray-300 min-h-[2.5rem] flex items-center" data-world-editor-target="saveStatus"></div>
+    </div>
 
-      <!-- Sidebar: Room & Entity Editor -->
-      <div class="col-span-4">
-        <div class="bg-gray-800 rounded-lg p-6 sticky top-4">
-          <h2 class="text-xl font-semibold mb-4">Room Editor</h2>
-
-          <%= render "description", current_room: @current_room %>
-          <%= render "objects", current_room: @current_room %>
-          <%= render "npcs", current_room: @current_room %>
-          <%= render "monsters", current_room: @current_room %>
-          <%= render "items", current_room: @current_room %>
-          <%= render "spawns", current_room: @current_room %>
-        </div>
-      </div>
+    <div class="p-6">
+      <%= render "description", current_room: @current_room %>
+      <%= render "objects", current_room: @current_room %>
+      <%= render "npcs", current_room: @current_room %>
+      <%= render "monsters", current_room: @current_room %>
+      <%= render "items", current_room: @current_room %>
+      <%= render "spawns", current_room: @current_room %>
     </div>
   </div>
 
   <!-- Hidden data for Stimulus -->
   <div class="hidden">
     <div data-world-editor-target="currentRoomId"><%= @current_room.id if @current_room.persisted? %></div>
+    <span data-world-editor-target="currentX"><%= @current_room.x %></span>
+    <span data-world-editor-target="currentY"><%= @current_room.y %></span>
+    <span data-world-editor-target="currentZ"><%= @current_room.z %></span>
   </div>
 </div>
