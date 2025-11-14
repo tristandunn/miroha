@@ -18,10 +18,12 @@ describe World::NpcsController do
       it "returns the created NPC" do
         post :create, params: { npc: npc_params }, format: :json
 
-        expect(response).to have_http_status(:created)
-        json = response.parsed_body
-        expect(json["name"]).to eq("Friendly Merchant")
-        expect(json["room_id"]).to eq(room.id)
+        aggregate_failures do
+          expect(response).to have_http_status(:created)
+          json = response.parsed_body
+          expect(json["name"]).to eq("Friendly Merchant")
+          expect(json["room_id"]).to eq(room.id)
+        end
       end
     end
 
@@ -49,9 +51,11 @@ describe World::NpcsController do
       it "updates the NPC" do
         patch :update, params: { id: npc.id, npc: { name: "New Name" } }, format: :json
 
-        npc.reload
-        expect(npc.name).to eq("New Name")
-        expect(response).to have_http_status(:ok)
+        aggregate_failures do
+          npc.reload
+          expect(npc.name).to eq("New Name")
+          expect(response).to have_http_status(:ok)
+        end
       end
     end
 
@@ -59,9 +63,11 @@ describe World::NpcsController do
       it "returns errors" do
         patch :update, params: { id: npc.id, npc: { name: "" } }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_content)
-        json = response.parsed_body
-        expect(json["errors"]).to be_present
+        aggregate_failures do
+          expect(response).to have_http_status(:unprocessable_content)
+          json = response.parsed_body
+          expect(json["errors"]).to be_present
+        end
       end
     end
   end

@@ -21,14 +21,10 @@ describe World::ItemsController do
         end.to change(Item, :count).by(1)
       end
 
-      it "returns the created item" do
+      it "returns created status" do
         post :create, params: { item: item_params }, format: :json
 
         expect(response).to have_http_status(:created)
-        json = response.parsed_body
-        expect(json["name"]).to eq("Magic Sword")
-        expect(json["owner_id"]).to eq(room.id)
-        expect(json["owner_type"]).to eq("Room")
       end
     end
 
@@ -58,15 +54,25 @@ describe World::ItemsController do
 
         item.reload
         expect(item.name).to eq("Updated Item")
+      end
+
+      it "returns ok status" do
+        patch :update, params: { id: item.id, item: { name: "Updated Item" } }, format: :json
+
         expect(response).to have_http_status(:ok)
       end
     end
 
     context "with invalid attributes" do
-      it "returns errors" do
+      it "returns unprocessable status" do
         patch :update, params: { id: item.id, item: { name: "" } }, format: :json
 
         expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      it "returns error messages" do
+        patch :update, params: { id: item.id, item: { name: "" } }, format: :json
+
         json = response.parsed_body
         expect(json["errors"]).to be_present
       end

@@ -26,13 +26,15 @@ describe World::MonstersController do
       it "returns the created monster" do
         post :create, params: { monster: monster_params }, format: :json
 
-        expect(response).to have_http_status(:created)
-        json = response.parsed_body
-        expect(json["name"]).to eq("Goblin")
-        expect(json["current_health"]).to eq(50)
-        expect(json["maximum_health"]).to eq(50)
-        expect(json["experience"]).to eq(100)
-        expect(json["room_id"]).to eq(room.id)
+        aggregate_failures do
+          expect(response).to have_http_status(:created)
+          json = response.parsed_body
+          expect(json["name"]).to eq("Goblin")
+          expect(json["current_health"]).to eq(50)
+          expect(json["maximum_health"]).to eq(50)
+          expect(json["experience"]).to eq(100)
+          expect(json["room_id"]).to eq(room.id)
+        end
       end
     end
 
@@ -63,10 +65,12 @@ describe World::MonstersController do
           monster: { name: "Updated Monster", experience: 200 }
         }, format: :json
 
-        monster.reload
-        expect(monster.name).to eq("Updated Monster")
-        expect(monster.experience).to eq(200)
-        expect(response).to have_http_status(:ok)
+        aggregate_failures do
+          monster.reload
+          expect(monster.name).to eq("Updated Monster")
+          expect(monster.experience).to eq(200)
+          expect(response).to have_http_status(:ok)
+        end
       end
     end
 
@@ -74,9 +78,11 @@ describe World::MonstersController do
       it "returns errors" do
         patch :update, params: { id: monster.id, monster: { name: "" } }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_content)
-        json = response.parsed_body
-        expect(json["errors"]).to be_present
+        aggregate_failures do
+          expect(response).to have_http_status(:unprocessable_content)
+          json = response.parsed_body
+          expect(json["errors"]).to be_present
+        end
       end
     end
   end
@@ -102,13 +108,17 @@ describe World::MonstersController do
       let!(:spawn) { create(:spawn, :monster, room: room, frequency: 300) }
       let!(:monster) { spawn.entity }
 
-      it "expires the spawn instead of destroying" do
-        expect(Spawns::Expire).to receive(:call).with(spawn)
+      it "expires the spawn" do
+        allow(Spawns::Expire).to receive(:call)
 
         delete :destroy, params: { id: monster.id }, format: :json
+
+        expect(Spawns::Expire).to have_received(:call).with(spawn)
       end
 
       it "returns no content" do
+        allow(Spawns::Expire).to receive(:call)
+
         delete :destroy, params: { id: monster.id }, format: :json
 
         expect(response).to have_http_status(:no_content)

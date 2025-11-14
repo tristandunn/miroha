@@ -27,14 +27,16 @@ describe World::SpawnsController do
       it "returns the created spawn" do
         post :create, params: { spawn: spawn_params }, format: :json
 
-        expect(response).to have_http_status(:created)
-        json = response.parsed_body
-        expect(json["base_id"]).to eq(base_monster.id)
-        expect(json["base_type"]).to eq("Monster")
-        expect(json["base_name"]).to eq("Base Goblin")
-        expect(json["room_id"]).to eq(room.id)
-        expect(json["frequency"]).to eq(300)
-        expect(json["duration"]).to eq(600)
+        aggregate_failures do
+          expect(response).to have_http_status(:created)
+          json = response.parsed_body
+          expect(json["base_id"]).to eq(base_monster.id)
+          expect(json["base_type"]).to eq("Monster")
+          expect(json["base_name"]).to eq("Base Goblin")
+          expect(json["room_id"]).to eq(room.id)
+          expect(json["frequency"]).to eq(300)
+          expect(json["duration"]).to eq(600)
+        end
       end
     end
 
@@ -65,10 +67,12 @@ describe World::SpawnsController do
           spawn: { frequency: 600, duration: 900 }
         }, format: :json
 
-        spawn.reload
-        expect(spawn.frequency).to eq(600)
-        expect(spawn.duration).to eq(900)
-        expect(response).to have_http_status(:ok)
+        aggregate_failures do
+          spawn.reload
+          expect(spawn.frequency).to eq(600)
+          expect(spawn.duration).to eq(900)
+          expect(response).to have_http_status(:ok)
+        end
       end
     end
 
@@ -76,9 +80,11 @@ describe World::SpawnsController do
       it "returns errors" do
         patch :update, params: { id: spawn.id, spawn: { frequency: -1 } }, format: :json
 
-        expect(response).to have_http_status(:unprocessable_content)
-        json = response.parsed_body
-        expect(json["errors"]).to be_present
+        aggregate_failures do
+          expect(response).to have_http_status(:unprocessable_content)
+          json = response.parsed_body
+          expect(json["errors"]).to be_present
+        end
       end
     end
   end

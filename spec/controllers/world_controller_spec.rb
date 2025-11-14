@@ -12,18 +12,22 @@ RSpec.describe WorldController do
       it "loads the default room coordinates" do
         get :show
 
-        expect(response).to have_http_status(:success)
-        expect(assigns(:current_room)).to be_present
-        expect(assigns(:current_room).x).to eq(Room::DEFAULT_COORDINATES[:x])
-        expect(assigns(:current_room).y).to eq(Room::DEFAULT_COORDINATES[:y])
-        expect(assigns(:current_room).z).to eq(Room::DEFAULT_COORDINATES[:z])
+        aggregate_failures do
+          expect(response).to have_http_status(:success)
+          expect(assigns(:current_room)).to be_present
+          expect(assigns(:current_room).x).to eq(Room::DEFAULT_COORDINATES[:x])
+          expect(assigns(:current_room).y).to eq(Room::DEFAULT_COORDINATES[:y])
+          expect(assigns(:current_room).z).to eq(Room::DEFAULT_COORDINATES[:z])
+        end
       end
 
       it "loads surrounding rooms" do
         get :show
 
-        expect(assigns(:surrounding_rooms)).to be_a(Hash)
-        expect(assigns(:surrounding_rooms).keys).to contain_exactly(:north, :south, :east, :west, :up, :down)
+        aggregate_failures do
+          expect(assigns(:surrounding_rooms)).to be_a(Hash)
+          expect(assigns(:surrounding_rooms).keys).to contain_exactly(:north, :south, :east, :west, :up, :down)
+        end
       end
     end
 
@@ -31,18 +35,22 @@ RSpec.describe WorldController do
       it "loads the room at the specified coordinates" do
         get :show, params: { x: room.x, y: room.y, z: room.z }
 
-        expect(response).to have_http_status(:success)
-        expect(assigns(:current_room)).to eq(room)
+        aggregate_failures do
+          expect(response).to have_http_status(:success)
+          expect(assigns(:current_room)).to eq(room)
+        end
       end
 
       it "initializes a new room if not found" do
         get :show, params: { x: 5, y: 10, z: 15 }
 
-        expect(response).to have_http_status(:success)
-        expect(assigns(:current_room)).to be_new_record
-        expect(assigns(:current_room).x).to eq(5)
-        expect(assigns(:current_room).y).to eq(10)
-        expect(assigns(:current_room).z).to eq(15)
+        aggregate_failures do
+          expect(response).to have_http_status(:success)
+          expect(assigns(:current_room)).to be_new_record
+          expect(assigns(:current_room).x).to eq(5)
+          expect(assigns(:current_room).y).to eq(10)
+          expect(assigns(:current_room).z).to eq(15)
+        end
       end
     end
 
@@ -53,13 +61,15 @@ RSpec.describe WorldController do
 
       get :show, params: { x: room.x, y: room.y, z: room.z }
 
-      surrounding = assigns(:surrounding_rooms)
-      expect(surrounding[:north]).to eq(north_room)
-      expect(surrounding[:south]).to eq(south_room)
-      expect(surrounding[:east]).to eq(east_room)
-      expect(surrounding[:west]).to be_nil
-      expect(surrounding[:up]).to be_nil
-      expect(surrounding[:down]).to be_nil
+      aggregate_failures do
+        surrounding = assigns(:surrounding_rooms)
+        expect(surrounding[:north]).to eq(north_room)
+        expect(surrounding[:south]).to eq(south_room)
+        expect(surrounding[:east]).to eq(east_room)
+        expect(surrounding[:west]).to be_nil
+        expect(surrounding[:up]).to be_nil
+        expect(surrounding[:down]).to be_nil
+      end
     end
   end
 end
