@@ -4,16 +4,14 @@
     <h3 class="text-lg font-medium text-gray-100">Spawns</h3>
     <button
       data-action="click->world-editor#toggleSpawnForm"
-      class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm text-white"
-    >+ Add</button>
+      class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm text-white">+ Add</button>
   </div>
 
   <!-- Spawn Form (hidden by default) -->
   <div class="hidden mb-3 p-3 bg-gray-700 rounded" data-world-editor-target="spawnForm">
     <select
       data-world-editor-target="spawnType"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
-    >
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white">
       <option value="">Select Type...</option>
       <option value="Npc">NPC</option>
       <option value="Monster">Monster</option>
@@ -22,36 +20,34 @@
       type="number"
       data-world-editor-target="spawnBaseId"
       placeholder="Base Template ID"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
-    />
+      autocomplete="off"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white">
     <input
       type="number"
       data-world-editor-target="spawnFrequency"
       placeholder="Frequency (seconds)"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
-    />
+      autocomplete="off"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white">
     <input
       type="number"
       data-world-editor-target="spawnDuration"
       placeholder="Duration (seconds)"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
-    />
+      autocomplete="off"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white">
     <div class="flex gap-2">
       <button
         data-action="click->world-editor#createSpawn"
-        class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm text-white"
-      >Create</button>
+        class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm text-white">Create</button>
       <button
         data-action="click->world-editor#toggleSpawnForm"
-        class="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm text-white"
-      >Cancel</button>
+        class="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm text-white">Cancel</button>
     </div>
   </div>
 
   <!-- Spawn List -->
   <div data-world-editor-target="spawnList" class="space-y-2">
     <% if current_room.persisted? %>
-      <% current_room.spawns.includes(:base).each do |spawn| %>
+      <% current_room.spawns.includes(:base).find_each do |spawn| %>
         <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm text-white">
           <div>
             <div><%= spawn.base.name %> (<%= spawn.base_type %>)</div>
@@ -62,8 +58,7 @@
           <button
             data-action="click->world-editor#deleteSpawn"
             data-id="<%= spawn.id %>"
-            class="text-red-400 hover:text-red-300"
-          >Delete</button>
+            class="text-red-400 hover:text-red-300">Delete</button>
         </div>
       <% end %>
     <% end %>
