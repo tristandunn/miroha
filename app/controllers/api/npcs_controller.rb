@@ -4,7 +4,9 @@ module Api
   class NpcsController < ApplicationController
     before_action :set_npc, only: %i(update destroy)
 
-    # POST /api/npcs
+    # Create a new NPC.
+    #
+    # @return [void]
     def create
       @npc = Npc.new(npc_params)
 
@@ -15,7 +17,9 @@ module Api
       end
     end
 
-    # PATCH/PUT /api/npcs/:id
+    # Update an existing NPC.
+    #
+    # @return [void]
     def update
       if @npc.update(npc_params)
         render json: npc_json(@npc)
@@ -24,7 +28,9 @@ module Api
       end
     end
 
-    # DELETE /api/npcs/:id
+    # Destroy an NPC.
+    #
+    # @return [void]
     def destroy
       @npc.destroy
       head :no_content
@@ -32,18 +38,28 @@ module Api
 
     private
 
+    # Set the NPC from the ID parameter.
+    #
+    # @return [void]
     def set_npc
       @npc = Npc.find(params[:id])
     end
 
+    # Return permitted parameters for NPC.
+    #
+    # @return [ActionController::Parameters]
     def npc_params
-      params.require(:npc).permit(:name, :room_id)
+      params.expect(npc: %i(name room_id))
     end
 
+    # Return NPC as JSON hash.
+    #
+    # @param npc [Npc]
+    # @return [Hash]
     def npc_json(npc)
       {
-        id: npc.id,
-        name: npc.name,
+        id:      npc.id,
+        name:    npc.name,
         room_id: npc.room_id
       }
     end

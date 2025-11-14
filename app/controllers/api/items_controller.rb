@@ -4,7 +4,9 @@ module Api
   class ItemsController < ApplicationController
     before_action :set_item, only: %i(update destroy)
 
-    # POST /api/items
+    # Create a new item.
+    #
+    # @return [void]
     def create
       @item = Item.new(item_params)
 
@@ -15,7 +17,9 @@ module Api
       end
     end
 
-    # PATCH/PUT /api/items/:id
+    # Update an existing item.
+    #
+    # @return [void]
     def update
       if @item.update(item_params)
         render json: item_json(@item)
@@ -24,7 +28,9 @@ module Api
       end
     end
 
-    # DELETE /api/items/:id
+    # Destroy an item.
+    #
+    # @return [void]
     def destroy
       @item.destroy
       head :no_content
@@ -32,19 +38,29 @@ module Api
 
     private
 
+    # Set the item from the ID parameter.
+    #
+    # @return [void]
     def set_item
       @item = Item.find(params[:id])
     end
 
+    # Return permitted parameters for item.
+    #
+    # @return [ActionController::Parameters]
     def item_params
-      params.require(:item).permit(:name, :owner_id, :owner_type)
+      params.expect(item: %i(name owner_id owner_type))
     end
 
+    # Return item as JSON hash.
+    #
+    # @param item [Item]
+    # @return [Hash]
     def item_json(item)
       {
-        id: item.id,
-        name: item.name,
-        owner_id: item.owner_id,
+        id:         item.id,
+        name:       item.name,
+        owner_id:   item.owner_id,
         owner_type: item.owner_type
       }
     end

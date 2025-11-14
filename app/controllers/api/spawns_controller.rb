@@ -4,7 +4,9 @@ module Api
   class SpawnsController < ApplicationController
     before_action :set_spawn, only: %i(update destroy)
 
-    # POST /api/spawns
+    # Create a new spawn.
+    #
+    # @return [void]
     def create
       @spawn = Spawn.new(spawn_params)
 
@@ -15,7 +17,9 @@ module Api
       end
     end
 
-    # PATCH/PUT /api/spawns/:id
+    # Update an existing spawn.
+    #
+    # @return [void]
     def update
       if @spawn.update(spawn_params)
         render json: spawn_json(@spawn)
@@ -24,7 +28,9 @@ module Api
       end
     end
 
-    # DELETE /api/spawns/:id
+    # Destroy a spawn.
+    #
+    # @return [void]
     def destroy
       @spawn.destroy
       head :no_content
@@ -32,26 +38,53 @@ module Api
 
     private
 
+    # Set the spawn from the ID parameter.
+    #
+    # @return [void]
     def set_spawn
       @spawn = Spawn.find(params[:id])
     end
 
+    # Return permitted parameters for spawn.
+    #
+    # @return [ActionController::Parameters]
     def spawn_params
-      params.require(:spawn).permit(:base_id, :base_type, :room_id, :frequency, :duration)
+      params.expect(spawn: %i(base_id base_type room_id frequency duration))
     end
 
+    # Return spawn as JSON hash.
+    #
+    # @param spawn [Spawn]
+    # @return [Hash]
     def spawn_json(spawn)
+      spawn_base_json(spawn).merge(spawn_timing_json(spawn))
+    end
+
+    # Return spawn base information as JSON hash.
+    #
+    # @param spawn [Spawn]
+    # @return [Hash]
+    def spawn_base_json(spawn)
       {
-        id: spawn.id,
-        base_id: spawn.base_id,
+        id:        spawn.id,
+        base_id:   spawn.base_id,
         base_type: spawn.base_type,
         base_name: spawn.base.name,
         entity_id: spawn.entity_id,
-        room_id: spawn.room_id,
-        frequency: spawn.frequency,
-        duration: spawn.duration,
+        room_id:   spawn.room_id
+      }
+    end
+
+    # Return spawn timing information as JSON hash.
+    #
+    # @param spawn [Spawn]
+    # @return [Hash]
+    def spawn_timing_json(spawn)
+      {
+        frequency:    spawn.frequency,
+        duration:     spawn.duration,
         activates_at: spawn.activates_at,
-        expires_at: spawn.expires_at
+        expires_at:   spawn.expires_at
       }
     end
   end
