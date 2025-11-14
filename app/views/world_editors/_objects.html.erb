@@ -1,10 +1,12 @@
 <%# locals: (current_room:) %>
 <div class="mb-6">
-  <label class="block text-sm font-medium mb-2 text-gray-200">Objects (JSON)</label>
+  <div class="mb-2">
+    <h3 class="text-lg font-medium text-gray-100">Objects (JSON)</h3>
+  </div>
   <textarea
     data-world-editor-target="objects"
     data-action="blur->world-editor#saveObjects"
-    class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500 font-mono text-sm min-h-20 text-gray-100"
+    class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500 font-mono text-sm min-h-20 text-white"
     placeholder='{"painting": "A beautiful painting", "desk": "An old wooden desk"}'
   ><%= JSON.pretty_generate(current_room.objects) if current_room.persisted? && current_room.objects.present? %></textarea>
 </div>

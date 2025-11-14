@@ -1,7 +1,7 @@
 <%# locals: (current_room:) %>
-<div>
+<div class="mb-6">
   <div class="flex justify-between items-center mb-2">
-    <h3 class="text-lg font-medium text-gray-200">Spawns</h3>
+    <h3 class="text-lg font-medium text-gray-100">Spawns</h3>
     <button
       data-action="click->world-editor#toggleSpawnForm"
       class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm text-white"
@@ -12,7 +12,7 @@
   <div class="hidden mb-3 p-3 bg-gray-700 rounded" data-world-editor-target="spawnForm">
     <select
       data-world-editor-target="spawnType"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-gray-100"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
     >
       <option value="">Select Type...</option>
       <option value="Npc">NPC</option>
@@ -22,19 +22,19 @@
       type="number"
       data-world-editor-target="spawnBaseId"
       placeholder="Base Template ID"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-gray-100"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
     />
     <input
       type="number"
       data-world-editor-target="spawnFrequency"
       placeholder="Frequency (seconds)"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-gray-100"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
     />
     <input
       type="number"
       data-world-editor-target="spawnDuration"
       placeholder="Duration (seconds)"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-gray-100"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
     />
     <div class="flex gap-2">
       <button
@@ -52,10 +52,10 @@
   <div data-world-editor-target="spawnList" class="space-y-2">
     <% if current_room.persisted? %>
       <% current_room.spawns.includes(:base).each do |spawn| %>
-        <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm text-gray-100">
+        <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm text-white">
           <div>
             <div><%= spawn.base.name %> (<%= spawn.base_type %>)</div>
-            <div class="text-xs text-gray-300">
+            <div class="text-xs text-gray-200">
               Freq: <%= spawn.frequency %>s, Dur: <%= spawn.duration %>s
             </div>
           </div>

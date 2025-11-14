@@ -1,7 +1,7 @@
 <%# locals: (current_room:) %>
 <div class="mb-6">
   <div class="flex justify-between items-center mb-2">
-    <h3 class="text-lg font-medium text-gray-200">NPCs</h3>
+    <h3 class="text-lg font-medium text-gray-100">NPCs</h3>
     <button
       data-action="click->world-editor#toggleNpcForm"
       class="px-2 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm text-white"
@@ -14,7 +14,7 @@
       type="text"
       data-world-editor-target="npcName"
       placeholder="NPC Name"
-      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-gray-100"
+      class="w-full px-2 py-1 bg-gray-800 border border-gray-600 rounded mb-2 text-sm text-white"
     />
     <div class="flex gap-2">
       <button
@@ -32,7 +32,7 @@
   <div data-world-editor-target="npcList" class="space-y-2">
     <% if current_room.persisted? %>
       <% current_room.npcs.each do |npc| %>
-        <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm text-gray-100">
+        <div class="flex justify-between items-center p-2 bg-gray-700 rounded text-sm text-white">
           <span><%= npc.name %></span>
           <button
             data-action="click->world-editor#deleteNpc"

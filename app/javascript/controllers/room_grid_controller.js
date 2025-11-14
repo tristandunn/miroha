@@ -129,7 +129,7 @@ export default class extends Controller {
     text.setAttribute("x", position.x)
     text.setAttribute("y", position.y - 10)
     text.setAttribute("text-anchor", "middle")
-    text.setAttribute("fill", "#D1D5DB")
+    text.setAttribute("fill", "#F3F4F6")
     text.setAttribute("font-size", "14")
     text.setAttribute("pointer-events", "none")
     text.textContent = `${coords.x}, ${coords.y}, ${coords.z}`
@@ -141,11 +141,11 @@ export default class extends Controller {
       dirLabel.setAttribute("x", position.x)
       dirLabel.setAttribute("y", position.y + 10)
       dirLabel.setAttribute("text-anchor", "middle")
-      dirLabel.setAttribute("fill", "#9CA3AF")
+      dirLabel.setAttribute("fill", "#D1D5DB")
       dirLabel.setAttribute("font-size", "14")
       dirLabel.setAttribute("font-weight", "bold")
       dirLabel.setAttribute("pointer-events", "none")
-      dirLabel.textContent = direction.toUpperCase()
+      dirLabel.textContent = direction.charAt(0).toUpperCase() + direction.slice(1)
       group.appendChild(dirLabel)
     }
 

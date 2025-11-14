@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [
     "currentRoomId", "currentX", "currentY", "currentZ",
-    "description", "objects", "saveStatus",
+    "description", "objects", "saveStatus", "saveStatusBar",
     "npcForm", "npcName", "npcList",
     "monsterForm", "monsterName", "monsterHealth", "monsterExperience", "monsterList",
     "itemForm", "itemName", "itemList",
@@ -12,7 +12,6 @@ export default class extends Controller {
   ]
 
   connect() {
-    console.log("World Editor connected")
     this.originalDescription = this.hasDescriptionTarget ? this.descriptionTarget.value : ""
     this.originalObjects = this.hasObjectsTarget ? this.objectsTarget.value : ""
   }
@@ -78,13 +77,17 @@ export default class extends Controller {
   }
 
   showSaveStatus(message, type) {
-    if (!this.hasSaveStatusTarget) return
+    if (!this.hasSaveStatusTarget || !this.hasSaveStatusBarTarget) return
 
+    // Show the bar and set message
+    this.saveStatusBarTarget.classList.remove("hidden")
     this.saveStatusTarget.textContent = message
-    this.saveStatusTarget.className = `mt-1 text-xs ${type === "success" ? "text-green-400" : "text-red-400"}`
+    this.saveStatusTarget.className = `px-6 py-2 text-sm min-h-[2.5rem] flex items-center bg-gray-700 border-b border-gray-600 ${type === "success" ? "text-green-400" : "text-red-400"}`
 
     setTimeout(() => {
       this.saveStatusTarget.textContent = ""
+      this.saveStatusTarget.className = "px-6 py-2 text-sm min-h-[2.5rem] flex items-center bg-gray-700 border-b border-gray-600"
+      this.saveStatusBarTarget.classList.add("hidden")
     }, 3000)
   }
 
