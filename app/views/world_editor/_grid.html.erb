@@ -1,0 +1,41 @@
+<%# locals: (current_room:, surrounding_rooms:) %>
+<div class="col-span-8">
+  <div class="bg-gray-800 rounded-lg p-6">
+    <div class="mb-4 flex justify-between items-center">
+      <h2 class="text-xl font-semibold">Room Grid</h2>
+      <div class="text-sm text-gray-400">
+        Current: (<span data-world-editor-target="currentX"><%= current_room.x %></span>,
+                  <span data-world-editor-target="currentY"><%= current_room.y %></span>,
+                  <span data-world-editor-target="currentZ"><%= current_room.z %></span>)
+      </div>
+    </div>
+
+    <!-- SVG Room Grid -->
+    <div
+      data-controller="room-grid"
+      data-room-grid-current-x-value="<%= current_room.x %>"
+      data-room-grid-current-y-value="<%= current_room.y %>"
+      data-room-grid-current-z-value="<%= current_room.z %>"
+      data-room-grid-current-exists-value="<%= current_room.persisted? %>"
+      data-room-grid-north-exists-value="<%= surrounding_rooms[:north].present? %>"
+      data-room-grid-south-exists-value="<%= surrounding_rooms[:south].present? %>"
+      data-room-grid-east-exists-value="<%= surrounding_rooms[:east].present? %>"
+      data-room-grid-west-exists-value="<%= surrounding_rooms[:west].present? %>"
+      data-room-grid-up-exists-value="<%= surrounding_rooms[:up].present? %>"
+      data-room-grid-down-exists-value="<%= surrounding_rooms[:down].present? %>"
+      data-world-editor-target="grid"
+    >
+      <svg
+        viewBox="0 0 800 600"
+        class="w-full h-auto bg-gray-900 rounded border border-gray-700"
+        data-room-grid-target="svg"
+      >
+        <!-- SVG will be populated by Stimulus controller -->
+      </svg>
+    </div>
+
+    <div class="mt-4 text-sm text-gray-400">
+      <p>Click existing rooms to navigate. Click dashed rooms to create new rooms.</p>
+    </div>
+  </div>
+</div>

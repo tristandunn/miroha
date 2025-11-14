@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class WorldEditorsController < ApplicationController
-  ROOM_OFFSETS = {
-    north: [0, 1, 0],
-    south: [0, -1, 0],
-    east:  [1, 0, 0],
-    west:  [-1, 0, 0],
-    up:    [0, 0, 1],
-    down:  [0, 0, -1]
+  OFFSETS = {
+    "north" => { y: 1 },
+    "south" => { y: -1 },
+    "east"  => { x: 1 },
+    "west"  => { x: -1 },
+    "up"    => { z: 1 },
+    "down"  => { z: -1 }
   }.freeze
 
   # Render the world editor interface.
@@ -29,18 +29,21 @@ class WorldEditorsController < ApplicationController
   # @param room [Room] The current room
   # @return [Hash] Hash of direction => room (or nil if room doesn't exist)
   def load_surrounding_rooms(room)
-    ROOM_OFFSETS.transform_values do |(x_offset, y_offset, z_offset)|
-      find_room_at(room.x + x_offset, room.y + y_offset, room.z + z_offset)
+    OFFSETS.transform_keys(&:to_sym).transform_values do |offsets|
+      Room.find_by(target_coordinates(room, offsets))
     end
   end
 
-  # Find a room at specific coordinates.
+  # Return target coordinates for a room with offsets applied.
   #
-  # @param x_coord [Integer]
-  # @param y_coord [Integer]
-  # @param z_coord [Integer]
-  # @return [Room, nil]
-  def find_room_at(x_coord, y_coord, z_coord)
-    Room.find_by(x: x_coord, y: y_coord, z: z_coord)
+  # @param room [Room]
+  # @param offsets [Hash]
+  # @return [Hash]
+  def target_coordinates(room, offsets)
+    {
+      x: room.x + offsets.fetch(:x, 0),
+      y: room.y + offsets.fetch(:y, 0),
+      z: room.z + offsets.fetch(:z, 0)
+    }
   end
 end
