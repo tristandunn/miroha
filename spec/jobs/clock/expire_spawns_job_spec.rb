@@ -14,6 +14,7 @@ describe Clock::ExpireSpawnsJob do
 
     before do
       allow(Spawns::Expire).to receive(:call)
+      allow(Turbo::StreamsChannel).to receive(:broadcast_remove_to)
     end
 
     context "with a spawn due to be expired" do
@@ -23,6 +24,17 @@ describe Clock::ExpireSpawnsJob do
         perform
 
         expect(Spawns::Expire).to have_received(:call).with(spawn).once
+      end
+
+      it "broadcasts the despawn to the room" do
+        spawn = create(:spawn, :monster, expires_at: Time.current)
+
+        perform
+
+        expect(Turbo::StreamsChannel).to have_received(:broadcast_remove_to).with(
+          spawn.room,
+          target: "surrounding_monster_#{spawn.entity.id}"
+        )
       end
     end
 
@@ -34,6 +46,14 @@ describe Clock::ExpireSpawnsJob do
 
         expect(Spawns::Expire).not_to have_received(:call)
       end
+
+      it "does not broadcast" do
+        create(:spawn, :monster, expires_at: 1.minute.from_now)
+
+        perform
+
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_remove_to)
+      end
     end
 
     context "with an expired spawn" do
@@ -43,6 +63,14 @@ describe Clock::ExpireSpawnsJob do
         perform
 
         expect(Spawns::Expire).not_to have_received(:call)
+      end
+
+      it "does not broadcast" do
+        create(:spawn, :monster, expires_at: nil)
+
+        perform
+
+        expect(Turbo::StreamsChannel).not_to have_received(:broadcast_remove_to)
       end
     end
   end
