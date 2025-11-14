@@ -1,9 +1,9 @@
 <%# locals: (current_room:) %>
-<div>
-  <label class="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide">Objects (JSON)</label>
+<div class="w-80 flex-shrink-0 p-3 h-full overflow-y-auto">
+  <label class="block text-[10px] font-medium text-slate-500 mb-2 uppercase tracking-wider">Objects (JSON)</label>
   <textarea
     data-world-editor-target="objects"
     data-action="blur->world-editor#saveObjects"
-    class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-slate-600 focus:ring-1 focus:ring-slate-600 font-mono min-h-16 resize-none"
-    placeholder='{"key": "value"}'><%= JSON.pretty_generate(current_room.objects) if current_room.persisted? && current_room.objects.present? %></textarea>
+    class="w-full h-32 px-2 py-1.5 bg-slate-950 border border-slate-800 rounded text-[10px] text-slate-100 placeholder-slate-600 focus:outline-none focus:border-slate-700 font-mono resize-none leading-tight"
+    placeholder='{"key": "val"}'><%= JSON.pretty_generate(current_room.objects) if current_room.persisted? && current_room.objects.present? %></textarea>
 </div>

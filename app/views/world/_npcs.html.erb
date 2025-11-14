@@ -1,57 +1,57 @@
 <%# locals: (current_room:) %>
-<div>
-  <div class="flex items-center justify-between mb-1.5">
-    <label class="text-xs font-medium text-slate-400 uppercase tracking-wide">
+<div class="w-64 flex-shrink-0 border-r border-slate-800 p-3 h-full overflow-y-auto flex flex-col">
+  <div class="flex items-center justify-between mb-2">
+    <label class="text-[10px] font-medium text-slate-500 uppercase tracking-wider">
       NPCs
       <% if current_room.persisted? && current_room.npcs.any? %>
-        <span class="ml-1 text-slate-500">(<%= current_room.npcs.count %>)</span>
+        <span class="text-slate-600">(<%= current_room.npcs.count %>)</span>
       <% end %>
     </label>
     <button
       data-action="click->world-editor#toggleNpcForm"
-      class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded text-xs text-slate-300 transition-colors">
-      + Add
+      class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded text-[10px] text-slate-400 transition-colors">
+      +
     </button>
   </div>
 
-  <!-- NPC Form -->
-  <div class="hidden mb-2 p-2 bg-slate-800 border border-slate-700 rounded" data-world-editor-target="npcForm">
+  <!-- Form -->
+  <div class="hidden mb-2 p-2 bg-slate-950 border border-slate-800 rounded" data-world-editor-target="npcForm">
     <input
       type="text"
       data-world-editor-target="npcName"
-      placeholder="NPC Name"
+      placeholder="Name"
       autocomplete="off"
-      class="w-full px-2 py-1.5 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-slate-600 mb-2">
-    <div class="flex gap-1.5">
+      class="w-full px-2 py-1 bg-slate-900 border border-slate-800 rounded text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-slate-700 mb-1.5">
+    <div class="flex gap-1">
       <button
         data-action="click->world-editor#createNpc"
-        class="flex-1 px-2 py-1.5 bg-slate-700 hover:bg-slate-600 rounded text-xs text-slate-100 transition-colors">
+        class="flex-1 px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-[10px] text-slate-200 transition-colors">
         Create
       </button>
       <button
         data-action="click->world-editor#toggleNpcForm"
-        class="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded text-xs text-slate-400 transition-colors">
+        class="px-2 py-1 text-[10px] text-slate-500 hover:text-slate-400 transition-colors">
         Cancel
       </button>
     </div>
   </div>
 
-  <!-- NPC List -->
-  <div data-world-editor-target="npcList" class="space-y-1">
+  <!-- List -->
+  <div data-world-editor-target="npcList" class="space-y-1 flex-1 overflow-y-auto">
     <% if current_room.persisted? && current_room.npcs.any? %>
       <% current_room.npcs.each do |npc| %>
-        <div class="flex items-center justify-between px-2 py-1.5 bg-slate-800 border border-slate-700 rounded text-sm hover:bg-slate-750 transition-colors group">
-          <span class="text-slate-200">
+        <div class="flex items-center justify-between px-2 py-1 bg-slate-950 border border-slate-800 rounded text-xs hover:bg-slate-900 transition-colors group">
+          <span class="text-slate-300 truncate">
             <%= npc.name %>
             <% if npc.spawn.present? %>
-              <span class="ml-1.5 text-xs text-slate-500">(spawned)</span>
+              <span class="text-[10px] text-slate-600">(S)</span>
             <% end %>
           </span>
           <button
             data-action="click->world-editor#deleteNpc"
             data-id="<%= npc.id %>"
             data-spawned="<%= npc.spawn.present? %>"
-            class="opacity-0 group-hover:opacity-100 text-xs text-slate-500 hover:text-red-400 transition-all">
+            class="opacity-0 group-hover:opacity-100 text-xs text-slate-600 hover:text-red-500 transition-all ml-2">
             ×
           </button>
         </div>

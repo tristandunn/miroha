@@ -1,30 +1,31 @@
 <%# locals: (current_room:) %>
 <% if current_room.persisted? && current_room.monsters.any? %>
-  <div>
-    <label class="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide">
+  <div class="w-64 flex-shrink-0 border-r border-slate-800 p-3 h-full overflow-y-auto flex flex-col">
+    <label class="block text-[10px] font-medium text-slate-500 mb-2 uppercase tracking-wider">
       Monsters (<%= current_room.monsters.count %>)
     </label>
 
-    <div data-world-editor-target="monsterList" class="space-y-1">
+    <div data-world-editor-target="monsterList" class="space-y-1 flex-1 overflow-y-auto">
       <% current_room.monsters.each do |monster| %>
-        <div class="px-2 py-1.5 bg-slate-800 border border-slate-700 rounded text-sm hover:bg-slate-750 transition-colors group">
-          <div class="flex items-start justify-between mb-1">
-            <span class="text-slate-200">
+        <div class="px-2 py-1 bg-slate-950 border border-slate-800 rounded text-xs hover:bg-slate-900 transition-colors group">
+          <div class="flex items-center justify-between mb-0.5">
+            <span class="text-slate-300 truncate">
               <%= monster.name %>
               <% if monster.spawn.present? %>
-                <span class="ml-1.5 text-xs text-slate-500">(spawned)</span>
+                <span class="text-[10px] text-slate-600">(S)</span>
               <% end %>
             </span>
             <button
               data-action="click->world-editor#deleteMonster"
               data-id="<%= monster.id %>"
               data-spawned="<%= monster.spawn.present? %>"
-              class="opacity-0 group-hover:opacity-100 text-xs text-slate-500 hover:text-red-400 transition-all">
+              class="opacity-0 group-hover:opacity-100 text-xs text-slate-600 hover:text-red-500 transition-all ml-2">
               ×
             </button>
           </div>
-          <div class="text-xs text-slate-500 space-x-3">
+          <div class="text-[10px] text-slate-600">
             <span>HP <%= monster.current_health %>/<%= monster.maximum_health %></span>
+            <span class="mx-1">•</span>
             <span>XP <%= monster.experience %></span>
           </div>
         </div>

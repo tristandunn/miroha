@@ -1,25 +1,23 @@
 <%# locals: (current_room:, surrounding_rooms:) %>
-<div class="flex-1 h-screen flex items-center justify-center bg-slate-950">
-  <div
-    data-controller="room-grid"
-    data-room-grid-current-x-value="<%= current_room.x %>"
-    data-room-grid-current-y-value="<%= current_room.y %>"
-    data-room-grid-current-z-value="<%= current_room.z %>"
-    data-room-grid-current-exists-value="<%= current_room.persisted? %>"
-    data-room-grid-north-exists-value="<%= surrounding_rooms[:north].present? %>"
-    data-room-grid-south-exists-value="<%= surrounding_rooms[:south].present? %>"
-    data-room-grid-east-exists-value="<%= surrounding_rooms[:east].present? %>"
-    data-room-grid-west-exists-value="<%= surrounding_rooms[:west].present? %>"
-    data-room-grid-up-exists-value="<%= surrounding_rooms[:up].present? %>"
-    data-room-grid-down-exists-value="<%= surrounding_rooms[:down].present? %>"
-    data-world-editor-target="grid"
-    class="w-full h-full max-w-full max-h-full p-8">
-    <svg
-      viewBox="0 0 800 600"
-      class="w-full h-full"
-      preserveAspectRatio="xMidYMid meet"
-      data-room-grid-target="svg">
-      <!-- SVG will be populated by Stimulus controller -->
-    </svg>
-  </div>
+<div
+  data-controller="room-grid"
+  data-room-grid-current-x-value="<%= current_room.x %>"
+  data-room-grid-current-y-value="<%= current_room.y %>"
+  data-room-grid-current-z-value="<%= current_room.z %>"
+  data-room-grid-current-exists-value="<%= current_room.persisted? %>"
+  data-room-grid-north-exists-value="<%= surrounding_rooms[:north].present? %>"
+  data-room-grid-south-exists-value="<%= surrounding_rooms[:south].present? %>"
+  data-room-grid-east-exists-value="<%= surrounding_rooms[:east].present? %>"
+  data-room-grid-west-exists-value="<%= surrounding_rooms[:west].present? %>"
+  data-room-grid-up-exists-value="<%= surrounding_rooms[:up].present? %>"
+  data-room-grid-down-exists-value="<%= surrounding_rooms[:down].present? %>"
+  data-world-editor-target="grid"
+  class="w-full h-full flex items-center justify-center p-8">
+  <svg
+    viewBox="0 0 800 600"
+    class="w-full h-full max-w-5xl max-h-[800px]"
+    preserveAspectRatio="xMidYMid meet"
+    data-room-grid-target="svg">
+    <!-- SVG will be populated by Stimulus controller -->
+  </svg>
 </div>
