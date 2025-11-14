@@ -1,7 +1,7 @@
 <%# locals: () %>
 <div class="h-screen bg-gray-900 text-gray-100 flex" data-controller="world-editor">
   <!-- Grid and Description Area -->
-  <div class="flex-1 h-screen flex flex-col">
+  <div class="flex-1 flex flex-col">
     <%= render "grid", current_room: @current_room, surrounding_rooms: @surrounding_rooms %>
     <%= render "description", current_room: @current_room %>
   </div>
