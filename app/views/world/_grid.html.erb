@@ -1,5 +1,11 @@
 <%# locals: (current_room:, surrounding_rooms:) %>
-<div class="flex-1 h-screen flex items-center justify-center p-8">
+<div class="flex-1 h-screen flex items-center justify-center p-8 relative">
+  <!-- Decorative Background Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl"></div>
+  </div>
+
   <div
     data-controller="room-grid"
     data-room-grid-current-x-value="<%= current_room.x %>"
@@ -13,10 +19,10 @@
     data-room-grid-up-exists-value="<%= surrounding_rooms[:up].present? %>"
     data-room-grid-down-exists-value="<%= surrounding_rooms[:down].present? %>"
     data-world-editor-target="grid"
-    class="w-full h-full max-w-full max-h-full">
+    class="w-full h-full max-w-full max-h-full relative z-10 bg-slate-950/30 backdrop-blur-sm rounded-2xl border border-slate-800/50 shadow-2xl p-8">
     <svg
       viewBox="0 0 800 600"
-      class="w-full h-full"
+      class="w-full h-full drop-shadow-2xl"
       preserveAspectRatio="xMidYMid meet"
       data-room-grid-target="svg">
       <!-- SVG will be populated by Stimulus controller -->
