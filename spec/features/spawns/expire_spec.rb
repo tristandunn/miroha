@@ -21,6 +21,19 @@ describe "Expire spawns", :js do
     )
   end
 
+  it "broadcasts despawn to the room without reloading" do # rubocop:disable RSpec/MultipleExpectations
+    spawn = create(:spawn, :monster, room: room, expires_at: 1.hour.from_now)
+    entity_name = spawn.entity.name
+
+    visit current_path
+    expect(page).to have_text(entity_name)
+
+    spawn.update!(expires_at: Time.current)
+    run_job
+
+    expect(page).to have_no_text(entity_name)
+  end
+
   protected
 
   def run_job
