@@ -1,10 +1,6 @@
 <%# locals: () %>
 <div class="h-screen bg-gray-900 text-gray-100 flex" data-controller="world-editor">
-  <!-- Grid and Description Area -->
-  <div class="flex-1 flex flex-col overflow-hidden">
-    <%= render "grid", current_room: @current_room, surrounding_rooms: @surrounding_rooms %>
-    <%= render "description", current_room: @current_room %>
-  </div>
+  <%= render "grid", current_room: @current_room, surrounding_rooms: @surrounding_rooms %>
 
   <!-- Sidebar -->
   <div class="w-96 bg-gray-800 h-screen overflow-y-auto flex-shrink-0">
@@ -14,6 +10,7 @@
     </div>
 
     <div class="p-6">
+      <%= render "description", current_room: @current_room %>
       <%= render "npcs", current_room: @current_room %>
       <%= render "monsters", current_room: @current_room %>
       <%= render "items", current_room: @current_room %>
