@@ -126,4 +126,6 @@ jobs:
           bundler-cache: true
 
       - name: Scan for vulnerabilities
-        run: bin/rubocop --format github --parallel
+        run: |
+          bin/bundler-audit check --update
+          bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error
