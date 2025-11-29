@@ -66,7 +66,7 @@ export default class ChatController extends Controller {
     const { offsetHeight, scrollHeight, scrollTop } = this.messagesTarget,
       difference = scrollHeight - offsetHeight - element.offsetHeight;
 
-    if (difference < 0 || difference === scrollTop) {
+    if (difference < 0 || Math.abs(difference - scrollTop) <= 1) {
       this.scrollToBottom();
       this.pruneMessages();
     } else {
