@@ -195,6 +195,34 @@ describe("ChatController", () => {
       });
     });
 
+    context("with sub-pixel scroll difference within tolerance", () => {
+      beforeEach(() => {
+        instance.messagesTarget = {
+          "offsetHeight": 0,
+          "scrollHeight": 103.5,
+          "scrollTop": 100
+        };
+      });
+
+      it("scrolls to the bottom", () => {
+        instance.messageTargetConnected(messageElement);
+
+        expect(scrollToBottom).to.have.been.calledWith();
+      });
+
+      it("prunes the messages", () => {
+        instance.messageTargetConnected(messageElement);
+
+        expect(pruneMessages).to.have.been.calledWith();
+      });
+
+      it("does not remove the messages target hidden class", () => {
+        instance.messageTargetConnected(messageElement);
+
+        expect(newMessagesTarget.classList).to.contain(["hidden"]);
+      });
+    });
+
     context("with positive scroll difference not matching scroll top", () => {
       beforeEach(() => {
         instance.messagesTarget = {
