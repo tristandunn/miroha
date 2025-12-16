@@ -20,12 +20,7 @@ proxy:
 
 # Credentials for your image host.
 registry:
-  server: ghcr.io
-  username: tristandunn
-
-  # Always use an access token rather than real password when possible.
-  password:
-    - KAMAL_REGISTRY_PASSWORD
+  server: localhost:5555
 
 # Inject ENV variables into containers. The secrets come from the
 # .kamal/secrets file.
