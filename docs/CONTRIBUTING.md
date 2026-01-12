@@ -4,7 +4,7 @@ When contributing to Miroha, please first discuss the change you wish to make
 via GitHub Issues before making the change.
 
 Please note we have a [code of conduct](CODE_OF_CONDUCT.md), which you should
-follow it in all your interactions with the project.
+follow in all your interactions with the project.
 
 ## Development Environment
 
@@ -24,13 +24,13 @@ To get started, clone the repository.
 git clone https://github.com/tristandunn/miroha
 ```
 
-Install the dependencies and setup the database.
+Install the dependencies and set up the database.
 
 ```sh
 bin/setup
 ```
 
-You can verify everything is installed and setup correctly by running the
+You can verify everything is installed and set up correctly by running the
 `check` Rake task to run the tests and lint the code.
 
 ```sh
@@ -66,7 +66,7 @@ Please try to create bug reports that are:
 ## Pull Requests
 
 1. Search our repository for open or closed [pull
-   requests](https://github.com/tristandunn/miroha/pulls) that relates to your
+   requests](https://github.com/tristandunn/miroha/pulls) that relate to your
    submission. You don't want to duplicate effort.
 1. Fork the project.
 1. Create your feature branch. (`git switch -c add-new-feature`)
@@ -75,5 +75,5 @@ Please try to create bug reports that are:
 1. Open a pull request, providing details to the template where relevant.
 
 When you're writing a commit message, try to summarize the changes into one
-sentence on the first line. If a more details are helpful, provide them in
+sentence on the first line. If more details are helpful, provide them in
 paragraphs below the first line.
