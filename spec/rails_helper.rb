@@ -21,8 +21,7 @@ end
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => error
-  puts error.to_s.strip
-  exit 1
+  raise error.to_s.strip
 end
 
 RSpec.configure do |config|
