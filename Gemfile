@@ -32,7 +32,7 @@ group :development do
   gem "erb_lint",            "0.9.0", require: false
   gem "listen",              "3.10.0"
   gem "rack-mini-profiler",  "4.0.1"
-  gem "rubocop",             "1.82.1", require: false
+  gem "rubocop",             "1.84.0", require: false
   gem "rubocop-capybara",    "2.22.1", require: false
   gem "rubocop-factory_bot", "2.28.0", require: false
   gem "rubocop-performance", "1.26.1", require: false
@@ -48,7 +48,7 @@ group :test do
   gem "climate_control",          "1.2.0"
   gem "database_cleaner",         "2.1.0"
   gem "factory_bot_rails",        "6.5.1"
-  gem "faker",                    "3.5.3"
+  gem "faker",                    "3.6.0"
   gem "rails-controller-testing", "1.0.5"
   gem "selenium-webdriver",       "4.40.0"
   gem "shoulda-matchers",         "7.0.1"
