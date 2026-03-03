@@ -7,11 +7,11 @@ module EventHandlers
   def self.all
     @all ||= constants
              .map { |name| const_get(name) }
-             .select { |constant| constant.is_a?(Module) }
+             .grep(Module)
              .flat_map do |group|
                group.constants
                     .map { |name| group.const_get(name) }
-                    .select { |constant| constant.is_a?(Class) }
+                    .grep(Class)
              end
   end
 
