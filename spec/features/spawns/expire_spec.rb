@@ -21,6 +21,18 @@ describe "Expire spawns", :js do
     )
   end
 
+  it "broadcasts despawn to the room" do
+    spawn = create(:spawn, :monster, room: room, expires_at: Time.current)
+
+    visit current_path
+
+    wait_for(have_css("#surrounding_monster_#{spawn.entity_id}")) do
+      run_job
+    end
+
+    expect(page).to have_no_css("#surrounding_monster_#{spawn.entity_id}")
+  end
+
   protected
 
   def run_job
