@@ -9,18 +9,34 @@ module Clock
     # @return [void]
     def perform
       spawns_to_expire.each do |spawn|
+        broadcast_despawn(spawn)
+
         Spawns::Expire.call(spawn)
       end
     end
 
     private
 
+    # Broadcast the entity despawn to the room.
+    #
+    # @param [Spawn] spawn The spawn to broadcast.
+    def broadcast_despawn(spawn)
+      entity = spawn.entity
+
+      if entity
+        Turbo::StreamsChannel.broadcast_remove_to(
+          spawn.room,
+          target: "surrounding_#{entity.class.to_s.downcase}_#{entity.id}"
+        )
+      end
+    end
+
     # Find spawns due to be expired.
     #
     # @return [ActiveRecord::Relation]
     def spawns_to_expire
       Spawn
-        .includes(:entity)
+        .includes(:entity, :room)
         .where(expires_at: ..Time.current)
         .order(expires_at: :asc)
         .limit(LIMIT)
