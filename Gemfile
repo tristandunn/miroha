@@ -23,7 +23,7 @@ gem "thruster",          "0.1.20", require: false
 gem "turbo-rails",       "2.0.23"
 
 group :development, :test do
-  gem "cacheflow",   "0.5.0"
+  gem "cacheflow",   "0.6.0"
   gem "rspec-rails", "8.0.4"
 end
 
