@@ -25,7 +25,7 @@ describe "game/sidebar/_character.html.erb" do
   end
 
   it "renders the experience template" do
-    expect(html).to have_content("EXPERIENCE_TEMPLATE")
+    expect(html).to have_text("EXPERIENCE_TEMPLATE")
   end
 
   it "renders the level" do
