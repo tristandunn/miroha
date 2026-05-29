@@ -18,6 +18,7 @@ AllCops:
     - "tmp/**/*"
     - "vendor/**/*"
   NewCops: enable
+  StringLiteralsFrozenByDefault: true
 
 Layout/HashAlignment:
   EnforcedColonStyle: table
