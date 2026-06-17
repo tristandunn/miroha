@@ -7,7 +7,7 @@ image: tristandunn/miroha
 # Deploy to these servers.
 servers:
   web:
-    - 138.197.91.38
+    - 0.0.0.0
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple
 # applications on one server.

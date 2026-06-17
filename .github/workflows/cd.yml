@@ -2,10 +2,7 @@
 name: CD
 
 on: # yamllint disable-line rule:truthy
-  push:
-    branches:
-      - main
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   Build:
