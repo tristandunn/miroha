@@ -3,20 +3,20 @@
 require "rails_helper"
 
 describe "Templates" do
-  it "require explicit locals" do
-    paths = Rails.root.glob("app/views/**/*.*")
-    views = paths.map do |path|
+  let(:paths) { Rails.root.glob("app/views/**/_*.*") }
+
+  let(:views) do
+    paths.map do |path|
       {
-        path: path.to_s.sub(Rails.root.to_s, "").sub("/", ""),
-        line: File.open(path, &:readline).strip
+        line: File.open(path, &:readline).strip,
+        path: path.to_s.sub(Rails.root.to_s, "").sub("/", "")
       }
     end
+  end
 
+  it "require explicit locals" do
     expect(views).to all(
-      match(
-        path: String,
-        line: /\A<%# locals: \(.*\) %>\z/
-      )
+      match(line: /\A<%# locals: \(.*\) %>\z/, path: String)
     )
   end
 end

@@ -26,7 +26,7 @@ describe "commands/alias/add/success.html.erb" do
 
   it "overwrites the local alias cache" do
     expect(html).to include(
-      "<script>window.Miroha.Settings.aliases = #{account.aliases.to_json};</script>"
+      %(<script nonce="">window.Miroha.Settings.aliases = #{account.aliases.to_json};</script>)
     )
   end
 end

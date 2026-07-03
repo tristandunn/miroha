@@ -20,7 +20,7 @@ describe "commands/alias/remove/success.html.erb" do
 
   it "overwrites the local alias cache" do
     expect(html).to include(
-      "<script>delete window.Miroha.Settings.aliases[#{name.to_json}];</script>"
+      %(<script nonce="">delete window.Miroha.Settings.aliases[#{name.to_json}];</script>)
     )
   end
 end

@@ -3,13 +3,15 @@ import stylistic from "@stylistic/eslint-plugin";
 
 export default [
   {
-    "files": ["**/*.js"],
     "ignores": [
       "app/assets/builds/**",
       "app/assets/config/manifest.js",
       "node_modules/**",
       "vendor/**"
-    ],
+    ]
+  },
+  {
+    "files": ["**/*.js"],
     "languageOptions": {
       "globals": {
         "document": "readonly",

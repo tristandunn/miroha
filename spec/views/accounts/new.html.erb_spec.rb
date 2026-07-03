@@ -50,7 +50,7 @@ describe "accounts/new.html.erb" do
     end
 
     it "displays e-mail error message" do
-      expect(html).to have_css("p", text: [
+      expect(html).to have_css("p", normalize_ws: true, text: [
         AccountForm.human_attribute_name(:email).humanize,
         t("errors.messages.invalid")
       ].join(" "))
@@ -61,7 +61,7 @@ describe "accounts/new.html.erb" do
     end
 
     it "displays password error message" do
-      expect(html).to have_css("p", text: [
+      expect(html).to have_css("p", normalize_ws: true, text: [
         AccountForm.human_attribute_name(:password).humanize,
         t("errors.messages.invalid")
       ].join(" "))

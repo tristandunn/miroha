@@ -31,7 +31,7 @@
 }
 
 #messages td {
-  @apply py-2 px-4 leading-none bg-white border-b border-gray-300;
+  @apply border-b border-gray-300 bg-white px-4 py-2 leading-none;
 }
 
 #messages td + td {
@@ -39,7 +39,7 @@
 }
 
 #messages td:first-child {
-  @apply w-1/12 font-bold text-right;
+  @apply w-1/12 text-right font-bold;
 }
 
 #messages td.message-alias-remove,
@@ -60,11 +60,11 @@
 #messages td.message-pickup-observer,
 #messages td.message-pickup-success,
 #messages td.message-unknown {
-  @apply font-normal text-left;
+  @apply text-left font-normal;
 }
 
 #messages td.message-emote {
-  @apply italic leading-5;
+  @apply leading-5 italic;
 }
 
 #messages td.message-enter-game,
@@ -75,11 +75,11 @@
 #messages .message-alias td,
 #messages .message-help td,
 #messages .message-help th {
-  @apply py-2 px-4 font-normal text-left border-0 bg-inherit;
+  @apply border-0 bg-inherit px-4 py-2 text-left font-normal;
 }
 
 #messages td.message-look {
-  @apply font-normal leading-5 text-left bg-gray-200;
+  @apply bg-gray-200 text-left leading-5 font-normal;
 }
 
 #messages td.message-look p {
@@ -97,7 +97,7 @@
 #messages tr.message-monsters-attack-target-hit td,
 #messages tr.message-monsters-attack-target-killed td,
 #messages tr.message-monsters-attack-target-missed td {
-  @apply bg-red-200 border-red-300;
+  @apply border-red-300 bg-red-200;
 }
 
 #messages tr.message-monsters-attack-target-hit td {
@@ -110,7 +110,7 @@
 }
 
 #messages td.message-whisper {
-  @apply font-normal text-left bg-slate-100;
+  @apply bg-slate-100 text-left font-normal;
 }
 
 #messages td.message-whisper span {
@@ -125,7 +125,7 @@
 #messages td.message-drop-invalid,
 #messages td.message-drop-missing,
 #messages td.message-unknown {
-  @apply bg-red-100 border-red-200;
+  @apply border-red-200 bg-red-100;
 }
 
 #messages .message-alias,
@@ -165,7 +165,7 @@
 
 #messages .message-alias td[colspan="2"],
 #messages .message-help th {
-  @apply font-sans font-bold text-center bg-slate-200;
+  @apply bg-slate-200 text-center font-sans font-bold;
 }
 
 #navigation ol,
@@ -175,12 +175,12 @@
 
 #character-inventory li,
 #surroundings li {
-  @apply overflow-hidden py-2 px-4 font-semibold leading-8 text-gray-200 bg-gray-700 border-b border-gray-900;
+  @apply overflow-hidden border-b border-gray-900 bg-gray-700 px-4 py-2 leading-8 font-semibold text-gray-200;
 }
 
 #character-inventory img,
 #surroundings img {
-  @apply float-left mr-2 w-8 h-8 bg-white rounded opacity-25;
+  @apply float-left mr-2 h-8 w-8 rounded bg-white opacity-25;
 }
 
 /* stylelint-disable selector-class-pattern */

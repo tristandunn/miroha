@@ -1,9 +1,10 @@
 <%# locals: (name:) %>
 <tr data-chat-target="message">
   <td class="message-alias-remove"></td>
+
   <td class="message-alias-remove">
     <%= t(".message", name: name) %>
   </td>
 </tr>
 
-<script>delete window.Miroha.Settings.aliases[<%== name.to_json %>];</script>
+<script nonce="<%= request.content_security_policy_nonce %>">delete window.Miroha.Settings.aliases[<%== name.to_json %>];</script>
