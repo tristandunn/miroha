@@ -11,7 +11,7 @@ describe "game/sidebar/navigation/_menu.html.erb" do
 
   it "renders the equipment button" do
     expect(html).to have_css(
-      %(a[title="#{t("game.sidebar.navigation.menu.equipment")}"])
+      %(button[title="#{t("game.sidebar.navigation.menu.equipment")}"])
     )
   end
 

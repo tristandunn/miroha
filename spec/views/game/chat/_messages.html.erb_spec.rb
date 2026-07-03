@@ -29,7 +29,7 @@ describe "game/chat/_messages.html.erb" do
   it "renders the unread messages indicator" do
     expect(html).to have_css(
       '[data-chat-target="newMessages"] ' \
-      'a[data-action="click->chat#scrollToBottom"]',
+      'button[data-action="click->chat#scrollToBottom"]',
       text: t("game.chat.messages.unread")
     )
   end

@@ -50,7 +50,7 @@ describe "sessions/new.html.erb" do
     end
 
     it "displays an e-mail error message" do
-      expect(html).to have_css("p", text: [
+      expect(html).to have_css("p", normalize_ws: true, text: [
         SessionForm.human_attribute_name(:email).humanize,
         t("activemodel.errors.models.session_form.attributes.email.unknown")
       ].join(" "))
@@ -61,7 +61,7 @@ describe "sessions/new.html.erb" do
     end
 
     it "displays a password error message" do
-      expect(html).to have_css("p", text: [
+      expect(html).to have_css("p", normalize_ws: true, text: [
         SessionForm.human_attribute_name(:password).humanize,
         t("activemodel.errors.models.session_form.attributes.password.incorrect")
       ].join(" "))

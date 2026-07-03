@@ -1,6 +1,11 @@
 <%# locals: (attacker_name:, character:, target_name:) %>
-<tr data-chat-target="message" data-character-id="<%= character.id %>" class="message-monsters-attack-hit">
+<tr
+  data-chat-target="message"
+  data-character-id="<%= character.id %>"
+  class="message-monsters-attack-hit"
+>
   <td></td>
+
   <td>
     <%= t(".message", attacker_name: attacker_name, target_name: target_name) %>
   </td>

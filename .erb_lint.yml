@@ -17,9 +17,7 @@ linters:
         Enabled: false
       Layout/TrailingEmptyLines:
         Enabled: false
-      Layout/TrailingWhitespace:
-        Enabled: false
-      Rails/OutputSafety:
-        Enabled: false
       Style/FrozenStringLiteralComment:
         Enabled: false
+  SpaceInHtmlTag:
+    enabled: false
