@@ -26,7 +26,7 @@ describe "Expire spawns", :js do
 
     visit current_path
 
-    wait_for(have_css("#surrounding_monster_#{spawn.entity_id}")) do
+    wait_for(have_css("#surrounding_monster_#{spawn.entity_id}").and(have_connected_streams)) do
       run_job
     end
 

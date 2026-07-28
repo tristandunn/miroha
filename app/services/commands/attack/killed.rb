@@ -20,15 +20,18 @@ module Commands
         @target    = target
       end
 
-      # Broadcast a kill message, expire the spawn, reward experience, and
+      # Expire the spawn, reward experience, broadcast a kill message, and
       # update the character's sidebar.
+      #
+      # The spawn is expired before broadcasting so the surroundings are
+      # rendered without the target.
       #
       # @return [void]
       def call
         transfer_items_to_room
-        broadcast_killed
         expire_spawn
         reward_experience_and_level
+        broadcast_killed
         broadcast_sidebar_character
       end
 

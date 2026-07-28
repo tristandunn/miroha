@@ -4,6 +4,14 @@ module RSpec
   module Helpers
     module Matchers
       module Feature
+        def have_connected_streams
+          have_css(
+            "#streams turbo-cable-stream-source[connected]",
+            count:   2,
+            visible: :all
+          )
+        end
+
         def have_inventory_item(item)
           have_css("#character-inventory li", text: item.name)
         end

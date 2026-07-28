@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ruby   "4.0.5"
+ruby   "4.0.6"
 source "https://rubygems.org"
 
 gem "bcrypt",            "3.1.22"
@@ -13,13 +13,13 @@ gem "propshaft",         "1.3.2"
 gem "puma",              "8.0.2"
 gem "rack-timeout",      "0.7.0"
 gem "rails",             "8.1.3"
-gem "solid_cable",       "4.0.0"
+gem "solid_cable",       "4.0.2"
 gem "solid_cache",       "1.0.10"
-gem "solid_queue",       "1.4.0"
+gem "solid_queue",       "1.5.0"
 gem "sqlite3",           "2.9.5"
 gem "stimulus-rails",    "1.3.4"
 gem "tailwindcss-rails", "4.6.0"
-gem "thruster",          "0.1.22", require: false
+gem "thruster",          "0.1.23", require: false
 gem "turbo-rails",       "2.0.23"
 
 group :development, :test do
@@ -32,11 +32,11 @@ group :development do
   gem "erb_lint",            "0.9.0", require: false
   gem "listen",              "3.10.0"
   gem "rack-mini-profiler",  "4.0.1"
-  gem "rubocop",             "1.88.1", require: false
+  gem "rubocop",             "1.88.2", require: false
   gem "rubocop-capybara",    "3.0.0", require: false
   gem "rubocop-factory_bot", "2.28.0", require: false
   gem "rubocop-performance", "1.26.1", require: false
-  gem "rubocop-rails",       "2.35.5", require: false
+  gem "rubocop-rails",       "2.36.0", require: false
   gem "rubocop-rake",        "0.7.1",  require: false
   gem "rubocop-rspec",       "3.10.2", require: false
   gem "rubocop-rspec_rails", "2.32.0", require: false
@@ -50,7 +50,7 @@ group :test do
   gem "factory_bot_rails",        "6.5.1"
   gem "faker",                    "3.8.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.45.0"
+  gem "selenium-webdriver",       "4.46.0"
   gem "shoulda-matchers",         "8.0.1"
   gem "simplecov-console",        "0.9.5", require: false
 end
