@@ -44,8 +44,11 @@ Rails.application.configure do
   # missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
-  # Run jobs asynchronously so Turbo jobs are executed.
-  config.active_job.queue_adapter = :async
+  # Run jobs inline so Turbo jobs are executed on the request thread. The
+  # asynchronous adapter performs jobs on a background thread, which competes
+  # with the example for the connection holding the open test transaction and
+  # causes intermittent failures.
+  config.active_job.queue_adapter = :inline
 
   # Add the authentication backdoor middleware.
   config.middleware.use(Middleware::Backdoor)

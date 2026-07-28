@@ -30,13 +30,7 @@ module RSpec
         def sign_in_as_character(character = create(:character))
           visit root_path(account: character.account_id, character: character.id)
 
-          expect(page).to have_css("#sidebar h1", text: character.name).and(
-            have_css(
-              "#streams turbo-cable-stream-source[connected]",
-              count:   2,
-              visible: :all
-            )
-          )
+          expect(page).to have_css("#sidebar h1", text: character.name).and(have_connected_streams)
         end
 
         def sign_out
