@@ -12,10 +12,10 @@ gem "kamal",             "2.12.0"
 gem "propshaft",         "1.3.2"
 gem "puma",              "8.0.2"
 gem "rack-timeout",      "0.7.0"
-gem "rails",             "8.1.3"
+gem "rails",             "8.1.3.1"
 gem "solid_cable",       "4.0.2"
 gem "solid_cache",       "1.0.10"
-gem "solid_queue",       "1.5.0"
+gem "solid_queue",       "1.6.0"
 gem "sqlite3",           "2.9.5"
 gem "stimulus-rails",    "1.3.4"
 gem "tailwindcss-rails", "4.6.0"
@@ -32,7 +32,7 @@ group :development do
   gem "erb_lint",            "0.9.0", require: false
   gem "listen",              "3.10.0"
   gem "rack-mini-profiler",  "4.0.1"
-  gem "rubocop",             "1.88.2", require: false
+  gem "rubocop",             "1.89.0", require: false
   gem "rubocop-capybara",    "3.0.0", require: false
   gem "rubocop-factory_bot", "2.28.0", require: false
   gem "rubocop-performance", "1.26.1", require: false
