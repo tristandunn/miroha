@@ -28,6 +28,11 @@ Lint/MissingSuper:
   AllowedParentClasses:
     - Result
 
+Metrics/AbcSize:
+  Enabled: true
+  Exclude:
+    - "db/**/*"
+
 Metrics/BlockLength:
   Exclude:
     - config/environments/*.rb
@@ -38,6 +43,11 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - app/services/**/*.rb
+
+Metrics/MethodLength:
+  Enabled: true
+  Exclude:
+    - "db/**/*"
 
 Naming/RescuedExceptionsVariableName:
   Enabled: true

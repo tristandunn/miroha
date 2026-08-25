@@ -889,9 +889,9 @@ __metadata:
   linkType: hard
 
 "colord@npm:^2.9.3":
-  version: 2.9.3
-  resolution: "colord@npm:2.9.3"
-  checksum: 10c0/9699e956894d8996b28c686afe8988720785f476f59335c80ce852ded76ab3ebe252703aec53d9bef54f6219aea6b960fb3d9a8300058a1d0c0d4026460cd110
+  version: 2.10.0
+  resolution: "colord@npm:2.10.0"
+  checksum: 10c0/2f5d1d1759124f593deca17bbbab8a88bdc3ab68bbcc88db76c1192d9a5d575db202badde044bf61789561fa0ed7a9eb895382becad1af27ec65934c216e9e04
   languageName: node
   linkType: hard
 
@@ -1118,9 +1118,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:10.8.1":
-  version: 10.8.1
-  resolution: "eslint@npm:10.8.1"
+"eslint@npm:10.9.0":
+  version: 10.9.0
+  resolution: "eslint@npm:10.9.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.2"
@@ -1159,7 +1159,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10c0/0c4720a43ef2052829db18e37aa79adb5f0a62137bdf4a4f8e9507bbbbf888ba0669fc03e4b7139d8f27b59b051bbbcd0a3988b068c30fa934a766d60a81f599
+  checksum: 10c0/bc6c9f4a5c0b97e37ab1aa1753ae30ad5b0cf43a25ca3dcfff937f2b47243654c3ca34e37f71006474a3c1b95d6d4e046149facc6d66af4af6e993a619c23509
   languageName: node
   linkType: hard
 
@@ -1252,9 +1252,9 @@ __metadata:
   linkType: hard
 
 "fast-uri@npm:^3.0.1":
-  version: 3.1.5
-  resolution: "fast-uri@npm:3.1.5"
-  checksum: 10c0/2bf60eb800dd610c65e17be436425dcb21c92aff3a87d442a8bccab0b7b071e88cf1a5d7d1ea946370b937e6fc0375c405c0296c10587e57de4f78be4646d1d0
+  version: 3.1.6
+  resolution: "fast-uri@npm:3.1.6"
+  checksum: 10c0/77fa4f966f7d2cf83c34af2d3eb88882872fe90634f27a6bd309551db65377d3ca55616467c7cb4dcc57e33523d149e2fec1952d51cc2f00bfce68a66c3711ea
   languageName: node
   linkType: hard
 
@@ -1457,16 +1457,17 @@ __metadata:
   linkType: hard
 
 "globby@npm:^16.2.1":
-  version: 16.2.3
-  resolution: "globby@npm:16.2.3"
+  version: 16.2.4
+  resolution: "globby@npm:16.2.4"
   dependencies:
     "@sindresorhus/merge-streams": "npm:^4.0.0"
     fast-glob: "npm:^3.3.3"
     ignore: "npm:^7.0.5"
     is-path-inside: "npm:^4.0.0"
+    micromatch: "npm:^4.0.8"
     slash: "npm:^5.1.0"
     unicorn-magic: "npm:^0.4.0"
-  checksum: 10c0/2f9999965dbad75425761a4fdd4fd505c7a8ac6e803cd956a3d1888116a9adbb67fce873f8c5dc419f5ae4b7013dd168beb5bb664f30aa19ebe044bc1b35e1e1
+  checksum: 10c0/ef4a56b656260138b47706bd9532aad86d2820f028c58d51af41f458cf7f1177ce71cf104697cd6068c18eb1e0f3272bf446bc7c6265a357c6a159a1a1e31cec
   languageName: node
   linkType: hard
 
@@ -1990,7 +1991,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:5.10.0"
     c8: "npm:12.0.0"
     chai: "npm:6.2.2"
-    eslint: "npm:10.8.1"
+    eslint: "npm:10.9.0"
     jsdom: "npm:30.0.1"
     mocha: "npm:11.8.0"
     prettier: "npm:3.9.6"
@@ -2204,13 +2205,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pify@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "pify@npm:2.3.0"
-  checksum: 10c0/551ff8ab830b1052633f59cb8adc9ae8407a436e06b4a9718bcb27dc5844b83d535c3a8512b388b6062af65a98c49bdc0dd523d8b2617b188f7c8fee457158dc
-  languageName: node
-  linkType: hard
-
 "postcss-import@npm:^16.1.1":
   version: 16.2.0
   resolution: "postcss-import@npm:16.2.0"
@@ -2368,11 +2362,9 @@ __metadata:
   linkType: hard
 
 "read-cache@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "read-cache@npm:1.0.0"
-  dependencies:
-    pify: "npm:^2.3.0"
-  checksum: 10c0/90cb2750213c7dd7c80cb420654344a311fdec12944e81eb912cd82f1bc92aea21885fa6ce442e3336d9fccd663b8a7a19c46d9698e6ca55620848ab932da814
+  version: 1.0.2
+  resolution: "read-cache@npm:1.0.2"
+  checksum: 10c0/c1b3c8d2a492630ebb78c9fe9bb5c3af7444e374f9771895b7fd4de89a685f22228cea7aa1d6096ec61f7dd00b8910ab311f4b35fdd45b2163cb3aec69b23b45
   languageName: node
   linkType: hard
 
