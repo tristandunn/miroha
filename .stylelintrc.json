@@ -13,6 +13,15 @@
         ]
       }
     ],
+    "at-rule-prelude-no-invalid": [
+      true,
+      {
+        "ignoreAtRules": [
+          "apply",
+          "media"
+        ]
+      }
+    ],
     "import-notation": "string"
   }
 }
