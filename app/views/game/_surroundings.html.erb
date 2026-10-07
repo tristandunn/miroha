@@ -1,26 +1,19 @@
 <%# locals: (room:) %>
 <div id="surroundings" class="bg-gray-800">
   <ol id="surrounding-npcs">
-    <% room.npcs.sort_by(&:name).each do |npc| %>
-      <%= render "game/surroundings/npc", npc: npc %>
-    <% end %>
+    <%= render partial: "game/surroundings/npc", collection: room.npcs.sort_by(&:name) %>
   </ol>
 
   <ol id="surrounding-monsters">
-    <% room.monsters.sort_by(&:name).each do |monster| %>
-      <%= render "game/surroundings/monster", monster: monster %>
-    <% end %>
+    <%= render partial: "game/surroundings/monster", collection: room.monsters.sort_by(&:name) %>
   </ol>
 
   <ol id="surrounding-items">
-    <% room.items.sort_by(&:name).each do |item| %>
-      <%= render "game/surroundings/item", item: item %>
-    <% end %>
+    <%= render partial: "game/surroundings/item", collection: room.items.sort_by(&:name) %>
   </ol>
 
   <ol id="surrounding-characters">
-    <% room.characters.active.sort_by(&:name).each do |character| %>
-      <%= render "game/surroundings/character", character: character %>
-    <% end %>
+    <%= render partial:    "game/surroundings/character",
+               collection: room.characters.active.sort_by(&:name) %>
   </ol>
 </div>
