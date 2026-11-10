@@ -13,10 +13,10 @@ gem "kamal",             "2.12.0"
 gem "propshaft",         "1.3.2"
 gem "puma",              "8.0.2"
 gem "rack-timeout",      "0.7.0"
-gem "rails",             "8.1.4"
+gem "rails",             "8.1.4.1"
 gem "solid_cable",       "4.1.0"
 gem "solid_cache",       "1.0.10"
-gem "solid_queue",       "1.7.0"
+gem "solid_queue",       "1.7.2"
 gem "sqlite3",           "2.10.2"
 gem "stimulus-rails",    "1.3.4"
 gem "tailwindcss-rails", "4.7.0"
@@ -25,7 +25,7 @@ gem "turbo-rails",       "2.0.23"
 
 group :development, :test do
   gem "cacheflow",   "0.6.0"
-  gem "rspec-rails", "8.0.4"
+  gem "rspec-rails", "8.1.0"
 end
 
 group :development do

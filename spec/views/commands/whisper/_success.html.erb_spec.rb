@@ -18,9 +18,9 @@ describe "commands/whisper/_success.html.erb" do
   it "renders the message to the target" do
     expect(html).to have_message_row(
       "td",
-      text: strip_tags(
+      text: Capybara.string(
         t("commands.whisper.success.message_html", message: message, name: character.name)
-      )
+      ).text
     )
   end
 end
