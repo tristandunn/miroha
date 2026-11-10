@@ -66,19 +66,19 @@ describe "Sending the whisper command", :js do
   def have_source_whisper(message, from:, to: nil)
     have_css(
       "#messages .message-whisper",
-      text: strip_tags(
+      text: Capybara.string(
         t("commands.whisper.source.message_html",
           message: message, name: from.name, target_name: to.name)
-      )
+      ).text
     )
   end
 
   def have_target_whisper(message, from:)
     have_css(
       "#messages .message-whisper",
-      text: strip_tags(
+      text: Capybara.string(
         t("commands.whisper.success.message_html", message: message, name: from.name)
-      )
+      ).text
     )
   end
 end

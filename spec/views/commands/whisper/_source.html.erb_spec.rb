@@ -20,10 +20,10 @@ describe "commands/whisper/_source.html.erb" do
   it "renders the message to the character" do
     expect(html).to have_message_row(
       "td",
-      text: strip_tags(
+      text: Capybara.string(
         t("commands.whisper.source.message_html",
           message: message, name: character.name, target_name: target.name)
-      )
+      ).text
     )
   end
 end
