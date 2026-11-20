@@ -20,9 +20,9 @@ describe("StreamsController", () => {
     });
 
     it("creates a MutationObserver", () => {
-      sinon.stub(instance.onElementChange, "bind").
-        withArgs(instance).
-        returns(instance.onElementChange);
+      sinon.stub(instance.onElementChange, "bind")
+        .withArgs(instance)
+        .returns(instance.onElementChange);
 
       instance.connect();
 
@@ -65,9 +65,9 @@ describe("StreamsController", () => {
       noticeTarget = document.createElement("div");
       streamTarget = document.createElement("div");
 
-      sinon.stub(document, "querySelector").
-        withArgs("#input").
-        returns(input);
+      sinon.stub(document, "querySelector")
+        .withArgs("#input")
+        .returns(input);
 
       instance.noticeTarget = noticeTarget;
       instance.streamTarget = streamTarget;

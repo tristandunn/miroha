@@ -18,7 +18,8 @@ describe("GameController", () => {
       instance.connect();
 
       expect(addEventListener).to.have.been.calledWith(
-        "turbo:before-stream-render", instance.onBeforeStreamRender
+        "turbo:before-stream-render",
+        instance.onBeforeStreamRender
       );
     });
   });
@@ -34,7 +35,8 @@ describe("GameController", () => {
       instance.disconnect();
 
       expect(removeEventListener).to.have.been.calledWith(
-        "turbo:before-stream-render", instance.onBeforeStreamRender
+        "turbo:before-stream-render",
+        instance.onBeforeStreamRender
       );
     });
   });

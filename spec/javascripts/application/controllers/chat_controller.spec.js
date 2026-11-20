@@ -47,9 +47,9 @@ describe("ChatController", () => {
     });
 
     it("expands aliases in the input on the element", () => {
-      Object.
-        entries(window.Miroha.Settings.aliases).
-        forEach(([alias, command]) => {
+      Object
+        .entries(window.Miroha.Settings.aliases)
+        .forEach(([alias, command]) => {
           input.value = `${alias} example`;
 
           instance.aliasCommand();
@@ -258,9 +258,9 @@ describe("ChatController", () => {
     beforeEach(() => {
       const row = document.createElement("tr");
 
-      sinon.stub(element, "querySelector").
-        withArgs("table tr:first-child").
-        returns(row);
+      sinon.stub(element, "querySelector")
+        .withArgs("table tr:first-child")
+        .returns(row);
 
       remove = sinon.stub(row, "remove");
     });
