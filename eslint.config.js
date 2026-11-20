@@ -33,12 +33,8 @@ export default [
       "arrow-body-style": ["error", "always"],
       "no-magic-numbers": ["error", { "ignore": [0, 1] }],
 
-      "@stylistic/array-element-newline": ["error", "consistent"],
-      "@stylistic/function-call-argument-newline": ["error", "consistent"],
-      "@stylistic/function-paren-newline": ["error", "consistent"],
       "@stylistic/indent": ["error", 2], /* eslint-disable-line no-magic-numbers */
       "@stylistic/lines-around-comment": ["error", { "allowClassStart": true }],
-      "@stylistic/object-curly-spacing": ["error", "always"],
       "@stylistic/padded-blocks": "off",
       "@stylistic/space-before-function-paren": "off"
     }
