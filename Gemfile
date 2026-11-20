@@ -45,13 +45,15 @@ group :development do
 end
 
 group :test do
-  gem "capybara",                 "3.40.0"
-  gem "climate_control",          "1.2.0"
-  gem "database_cleaner",         "2.1.0"
-  gem "factory_bot_rails",        "6.5.1"
-  gem "faker",                    "3.8.0"
-  gem "rails-controller-testing", "1.0.5"
-  gem "selenium-webdriver",       "4.53.0"
-  gem "shoulda-matchers",         "8.0.1"
-  gem "simplecov-console",        "0.9.5", require: false
+  gem "capybara",                  "3.40.0"
+  gem "climate_control",           "1.2.0"
+  gem "database_cleaner",          "2.1.0"
+  gem "factory_bot_rails",         "6.5.1"
+  gem "faker",                     "3.8.0"
+  gem "parallel_matrix_formatter", "0.2.0"
+  gem "parallel_tests",            "5.9.0"
+  gem "rails-controller-testing",  "1.0.5"
+  gem "selenium-webdriver",        "4.53.0"
+  gem "shoulda-matchers",          "8.0.1"
+  gem "simplecov-console",         "0.9.5", require: false
 end

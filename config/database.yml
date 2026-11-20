@@ -23,7 +23,7 @@ development:
 
 test:
   <<: *default
-  database: storage/test.sqlite3
+  database: storage/test<%= ENV["TEST_ENV_NUMBER"] %>.sqlite3
 
 production:
   primary:

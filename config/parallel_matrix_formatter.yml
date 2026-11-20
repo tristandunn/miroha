@@ -1,0 +1,18 @@
+progress_update:
+  always: false
+  interval_seconds: 0
+  percent_threshold: 0
+
+progress_line:
+  format: ""
+
+example_status:
+  format: "{symbol}"
+  symbols:
+    passed: "."
+    failed: "F"
+    pending: "*"
+  colors:
+    passed: green
+    failed: red
+    pending: yellow
