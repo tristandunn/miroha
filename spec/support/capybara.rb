@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "capybara"
+require "selenium-webdriver"
 
 Capybara.register_driver :selenium_chrome_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new.tap do |arguments|
@@ -33,3 +34,5 @@ module Selenium
     end
   end
 end
+
+Selenium::WebDriver.logger.level = :error

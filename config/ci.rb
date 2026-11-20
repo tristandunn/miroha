@@ -18,7 +18,7 @@ CI.run do
        "bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error"
 
   step "Tests: JavaScript", "yarn test:coverage"
-  step "Tests: Rails", "env CI=1 bin/rails spec"
+  step "Tests: Rails", "env CI=1 bin/rails ruby:test"
 
   # Optional: Set a green GitHub commit status to unblock PR merge. Requires
   # the `gh` CLI and `gh extension install basecamp/gh-signoff`.
